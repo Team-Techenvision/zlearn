@@ -20,7 +20,7 @@
 
                             </span>
 
-                            <span>Zlearn</span>
+                            <span>ZLearn</span>
                         </a>
 
                         <div class="sidebar-heading">Student</div>
@@ -28,22 +28,26 @@
 
                             <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button"
-                                   href="#">
+                                   href="index.html">
                                     <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
                                     <span class="sidebar-menu-text">Home</span>
                                 </a>
                             </li>
-
                             <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button"
                                    href="{{url('resume-page-one')}}">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
+                                   <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">school</span>
                                     <span class="sidebar-menu-text">Resume</span>
                                 </a>
                             </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button"
+                                   href="{{url('Start-Test')}}">
+                                   <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">message</span>
+                                    <span class="sidebar-menu-text">Start Test</span>
+                                </a>
+                            </li>
                         </ul>
-
-                        
                     
                         <!-- // END Sidebar Content -->
 

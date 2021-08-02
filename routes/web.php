@@ -29,13 +29,17 @@ Route::get('/Student-register', 'Student\StudentController@register');
 
 Route::middleware(['auth','User'])->group(function() {
     Route::get('/', 'Student\StudentController@index');
-
     Route::get('resume-page-one', 'Student\StudentController@resume_page_one');
     Route::get('resume-page-two', 'Student\StudentController@resume_page_two');
     Route::get('resume-training-Info', 'Student\StudentController@resume_trainingInfo');
-    
+
+    Route::get('Start-Test', 'Student\StudentController@Start_Test');
+
     Route::post('Basic-Info', 'Student\StudentController@submit_BasicInfo');
     Route::post('Academics-Info', 'Student\StudentController@submit_AcademicsInfo');
+    Route::post('Training-Info', 'Student\StudentController@submit_TrainingInfo');
+    Route::post('submit-test', 'Student\StudentController@Submit_test');
+    
 
 });
 

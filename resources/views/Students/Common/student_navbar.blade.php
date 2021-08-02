@@ -24,7 +24,7 @@
                                      class="img-fluid" /></span>
                         </span>
         
-                        <span class="d-none d-lg-block">Luma</span>
+                        <span class="d-none d-lg-block">Zlearn</span>
                     </a>
         
                     <!-- // END Navbar Brand -->

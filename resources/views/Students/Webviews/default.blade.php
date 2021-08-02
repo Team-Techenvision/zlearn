@@ -1730,6 +1730,13 @@
                                     <span class="sidebar-menu-text">Home</span>
                                 </a>
                             </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button"
+                                   href="index.html">
+                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">resume</span>
+                                    <span class="sidebar-menu-text">resume</span>
+                                </a>
+                            </li>
                         </ul>
                     
                         <!-- // END Sidebar Content -->

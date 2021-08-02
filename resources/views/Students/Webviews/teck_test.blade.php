@@ -49,8 +49,9 @@
                                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
 
                                     <li class="breadcrumb-item active">
-
-                                        Dashboard
+                                        {{$page_title}}
+                                        <!-- Dashboard{{$page_title}}  -->
+                                       <!--  {{$Question->question_title}} -->
 
                                     </li>
 
@@ -59,13 +60,13 @@
                             </div>
                         </div>
 
-                        <div class="row"
+                        <!-- <div class="row"
                              role="tablist">
                             <div class="col-auto">
                                 <a href="student-my-courses.html"
                                    class="btn btn-outline-secondary">My Courses</a>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
@@ -78,7 +79,34 @@
 
     <div class="container page__container">
         <div class="page-section">
+            <div class="row bg-white p-3">
+                <form class="form-group row col-12" action="{{url('submit-test')}}" method="POST">
+                    @csrf
+                    <div class="col-12 m-auto pb-5">
+                        @if($Question->question)
+                        <label class="h4"><span class="h3 mr-2">Q.</span> {{$Question->question}}</label>
+                        @else
+                            <img src="{{url('question_image')}}" class="img-thumbnail">
+                        @endif
+                    </div>
+                    <input type="hidden" name="question_id" value="{{$Question->id}}">
+            <?php  $Q_option = DB::table('answers')->where('status',1 && 'question_id',$Question->id)->get(); 
 
+                foreach ($Q_option as  $value) 
+                { ?>
+                   <div class="col-md-6 h5">
+                      <input type="radio"  name="option" value="{{$value->id}}">
+                        <label>{{$value->answer}}</label><br>
+                   </div>
+
+               <?php }
+
+            ?>
+                <div class="col-md-10 text-center m-auto pt-3">
+                    <button class="btn btn-info h3">Next</button>
+                </div>
+                </form>
+            </div>
 
         </div>
     </div>

@@ -42,7 +42,8 @@
                                 <ol class="breadcrumb p-0 m-0">
                                     <li class="breadcrumb-item"><a href="index.html">Student</a></li>
                                     <li class="breadcrumb-item active">
-                                        Basic Information
+                                        <!-- Basic Information -->
+                                        {{$page_title}}
                                     </li>
                                 </ol>
                             </div>
@@ -60,8 +61,41 @@
                 <!-- // END BEFORE Page Content -->
                 <!-- Page Content -->
                 <div class="container page__container">
-                    <div class="page-section row">                                        
-                        <form class="form-group col-md-10 m-auto" action="{{url('Basic-Info')}}" method="POST">
+                    <div class="page-section row">
+                    <!-- =================================-->
+                      <div class="any_message row col-12">  
+                          @if ($errors->any())
+                          <div class="alert alert-danger col-12">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                      @endif
+                      @if(session()->has('alert-danger'))
+                        <div class="alert alert-danger col-12">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            {{ session()->get('alert-danger') }}
+                        </div>
+                      @endif
+
+                      @if(session('success'))
+                        <div class="alert alert-success col-12">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          {{ session('success') }}
+                        </div> 
+                        @endif
+                      </div>  
+                    <!-- =================================== -->
+                         <form class="form-group col-md-10 m-auto" action="{{url('Basic-Info')}}" method="POST" enctype="multipart/form-data">
                         @csrf 
                             <!-- <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">NAME:</label>
@@ -93,11 +127,11 @@
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">DATE OF BIRTH:</label>
-                                <input id="" type="date" class="form-control col-md-9" name="bod_date" required="">
+                                <input id="bod_date" type="text" class="form-control col-md-9" name="bod_date" value="@if($UserDetails){{$UserDetails->dob}}@endif" required="">
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">YOUR EMAIL:</label>
-                              <input type="email" class="form-control col-md-9" id="" value="{{$user->email}}" placeholder="Enter Your Email Address .." required="">
+                              <input type="email" class="form-control col-md-9" id="" name="email" value="{{$user->email}}" placeholder="Enter Your Email Address .." required="">
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">CONTACT DETAILS:</label>
@@ -105,7 +139,7 @@
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">CAMPUS:</label>
-                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter Campus Name" name="campus" required="">
+                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter Campus Name" name="campus" value="@if($Education){{$Education->compus}}@endif" required="">
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 col-4 p-2">EDUCATION:</label>
@@ -147,7 +181,7 @@
                             </div>
                             <div class="form-group row">
                                 <label class="form-label col-md-3 p-2">USN/ROLL NUMBER:</label>
-                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter USN / Roll Number" name="roll_no" required="">
+                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter USN / Roll Number" name="roll_no" value="@if($Education){{$Education->roll_no}}@endif" required="">
                             </div>
                             <!-- <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
@@ -161,27 +195,27 @@
                             </div> -->
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">MOTHER’S NAME:</label>
-                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter MOTHER’S NAME" name="mother_name" required="">
+                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter MOTHER’S NAME" value="@if($UserDetails){{$UserDetails->mother_name}}@endif" name="mother_name" required="">
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">FATHER’S NAME:</label>
-                                <input id="" type="text" class="form-control col-md-9" name="father_name" placeholder="Enter FATHER’S NAME" required="">
+                                <input id="" type="text" class="form-control col-md-9" name="father_name" placeholder="Enter FATHER’S NAME" value="@if($UserDetails){{$UserDetails->father_name}}@endif" required="">
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">OCCUPATION:</label>
-                                <input id="" type="text" class="form-control col-md-9" name="occupation" placeholder="Enter Occupation" required="">
+                                <input id="" type="text" class="form-control col-md-9" name="occupation" placeholder="Enter Occupation" value="@if($UserDetails){{$UserDetails->occupation}}@endif" required="">
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">PERMANENT ADDRESS:</label>
-                                <textarea class="form-control col-md-9" name="permanent_address" placeholder="Enter Permanent Address" required=""></textarea>
+                                <textarea class="form-control col-md-9" name="permanent_address" placeholder="Enter Permanent Address" required="">@if($UserDetails){{$UserDetails->address}}@endif</textarea>
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">CURRENT ADDRESS:</label>
-                                <textarea class="form-control col-md-9" name="current_address" placeholder="Enter Current Address" required=""></textarea>
+                                <textarea class="form-control col-md-9" name="current_address" placeholder="Enter Current Address" required="">@if($Education){{$Education->current_address}}@endif</textarea>
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">KYC-AADHAR AND PAN:</label>
-                                 <input id="" type="text" class="form-control col-md-9"  placeholder="Enter AADHAR / PAN" name="kyc_doc" required="">
+                                 <input id="" type="text" class="form-control col-md-9"  placeholder="Enter AADHAR / PAN" name="kyc_doc" value="@if($UserDetails){{$UserDetails->kyc_name}}@endif" required="">
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">UPLOAD KYC:</label>
@@ -192,7 +226,7 @@
                             </div>
                             <div class="form-group row">
                                 <label class="form-label col-md-3 p-2">BLOOD GROUP:</label>
-                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter Blood Group" name="blood_group" required="">
+                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter Blood Group" name="blood_group" value="@if($UserDetails){{$UserDetails->blood_group}}@endif" required="">
                             </div>
                             <div class="form-group row">
                                 <div class="col-10 m-auto text-right pt-3">
@@ -205,7 +239,7 @@
                 </div>
                 <!-- // END Page Content -->
                 <!-- Footer -->
-                @include('Students.Common.student_footertext')
+               <!--  @include('Students.Common.student_footertext') -->
                 <!-- // END Footer -->
             </div>
             <!-- // END drawer-layout__content -->
@@ -215,6 +249,22 @@
         </div>
         <!-- // END Drawer Layout -->
         @include('Students.Common.student_footer')
+        <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+        <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+        <script>
+            $(document).ready(function()
+            {
+                $('#bod_date').datepicker({
+                    maxDate: 0,
+                    changeMonth: true,
+                    changeYear: true,
+                    dateFormat: 'yy-mm-dd'
+                });
+            });
+        </script>
         
     </body>
 </html>
