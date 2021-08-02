@@ -604,6 +604,7 @@ class ComposerStaticInitbbb5667809ecb66d700075dc49ee6412
 
     public static $classMap = array (
         'App\\Academics_detail' => __DIR__ . '/../..' . '/app/Academics_detail.php',
+        'App\\Answer' => __DIR__ . '/../..' . '/app/Answer.php',
         'App\\Categories' => __DIR__ . '/../..' . '/app/Categories.php',
         'App\\College' => __DIR__ . '/../..' . '/app/College.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
@@ -618,6 +619,7 @@ class ComposerStaticInitbbb5667809ecb66d700075dc49ee6412
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\QovexController' => __DIR__ . '/../..' . '/app/Http/Controllers/QovexController.php',
+        'App\\Http\\Controllers\\QuestionController' => __DIR__ . '/../..' . '/app/Http/Controllers/QuestionController.php',
         'App\\Http\\Controllers\\Student\\StudentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Student/StudentController.php',
         'App\\Http\\Controllers\\Website\\MainController' => __DIR__ . '/../..' . '/app/Http/Controllers/Website/MainController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -635,9 +637,11 @@ class ComposerStaticInitbbb5667809ecb66d700075dc49ee6412
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Question' => __DIR__ . '/../..' . '/app/Question.php',
         'App\\Semister' => __DIR__ . '/../..' . '/app/Semister.php',
         'App\\Standerd' => __DIR__ . '/../..' . '/app/Standerd.php',
         'App\\Subject' => __DIR__ . '/../..' . '/app/Subject.php',
+        'App\\Test' => __DIR__ . '/../..' . '/app/Test.php',
         'App\\Test_Type' => __DIR__ . '/../..' . '/app/Test_Type.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\UserDetails' => __DIR__ . '/../..' . '/app/UserDetails.php',

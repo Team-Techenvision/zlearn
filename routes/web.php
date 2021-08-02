@@ -116,6 +116,24 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('edit-test-type/{id}', 'AdminController@edit_test_type');
     Route::get('delete-test-type/{id}', 'AdminController@delete_test_type');
 
+
+    // Question pages  Start
+
+    Route::get('view-question', 'QuestionController@question_list');
+    Route::get('add-question', 'QuestionController@add_question');
+    Route::post('submit-question', 'QuestionController@submit_question');
+    Route::get('edit-question/{id}', 'QuestionController@edit_question');
+    Route::get('delete-question/{id}', 'QuestionController@delete_question');
+
+    Route::get('add-answer/{id}', 'QuestionController@add_answer');
+    Route::post('submit-answer', 'QuestionController@submit_answer');
+
+    Route::get('view-test', 'QuestionController@test_list');
+    Route::get('add-test', 'QuestionController@add_test');
+    Route::post('submit-test', 'QuestionController@submit_test');
+    Route::get('edit-test/{id}', 'QuestionController@edit_test');
+    Route::get('delete-test/{id}', 'QuestionController@delete_test');
+
     Route::get('{any}', 'QovexController@index');
  
 });

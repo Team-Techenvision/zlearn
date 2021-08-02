@@ -272,8 +272,8 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">File browser</h4>
-                <p class="card-title-desc">The file input is the most gnarly of the bunch and requires additional JavaScript if you’d like to hook them up with functional <em>Choose file…</em> and selected file name text.</p>
+                <h4 class="card-title">File upload</h4>
+                <p class="card-title-desc"></p>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="customFile">
                     <label class="custom-file-label" for="customFile">Choose file</label>
