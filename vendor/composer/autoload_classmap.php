@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Academics_detail' => $baseDir . '/app/Academics_detail.php',
+    'App\\Answer' => $baseDir . '/app/Answer.php',
     'App\\Categories' => $baseDir . '/app/Categories.php',
     'App\\College' => $baseDir . '/app/College.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
@@ -21,6 +22,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\QovexController' => $baseDir . '/app/Http/Controllers/QovexController.php',
+    'App\\Http\\Controllers\\QuestionController' => $baseDir . '/app/Http/Controllers/QuestionController.php',
     'App\\Http\\Controllers\\Student\\StudentController' => $baseDir . '/app/Http/Controllers/Student/StudentController.php',
     'App\\Http\\Controllers\\Website\\MainController' => $baseDir . '/app/Http/Controllers/Website/MainController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
@@ -38,9 +40,11 @@ return array(
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
+    'App\\Question' => $baseDir . '/app/Question.php',
     'App\\Semister' => $baseDir . '/app/Semister.php',
     'App\\Standerd' => $baseDir . '/app/Standerd.php',
     'App\\Subject' => $baseDir . '/app/Subject.php',
+    'App\\Test' => $baseDir . '/app/Test.php',
     'App\\Test_Type' => $baseDir . '/app/Test_Type.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\UserDetails' => $baseDir . '/app/UserDetails.php',

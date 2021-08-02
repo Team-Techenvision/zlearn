@@ -48,6 +48,26 @@
                         <li><a href="{{url('view-test-type')}}">View Test Type</a></li>
                     </ul>
                 </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-map-marker-outline"></i>
+                        <span>Manage Questions</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">                        
+                        <li><a href="{{url('view-question')}}"> View Question</a></li>                        
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-map-marker-outline"></i>
+                        <span>Manage Test</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">                        
+                        <li><a href="{{url('view-test')}}"> View Test</a></li>                        
+                    </ul>
+                </li>
                 
 
             </ul>
