@@ -42,8 +42,8 @@
                                 <ol class="breadcrumb p-0 m-0">
                                     <li class="breadcrumb-item"><a href="index.html">Student</a></li>
                                     <li class="breadcrumb-item active">
-                                        <!-- Basic Information -->
-                                        {{$page_title}}
+                                        Basic Information
+                                        <!-- {{$page_title}} -->
                                     </li>
                                 </ol>
                             </div>
