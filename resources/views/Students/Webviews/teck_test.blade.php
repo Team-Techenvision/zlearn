@@ -43,7 +43,7 @@
                         <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
 
                             <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                                <h2 class="mb-0">Dashboard</h2>
+                                <!--<h2 class="mb-0">Dashboard</h2>-->
 
                                 <ol class="breadcrumb p-0 m-0">
                                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -77,9 +77,9 @@
 
                 <!-- Page Content -->
 
-    <div class="container page__container">
+    <div class="container page__container ml-0 pl-0">
         <div class="page-section">
-            <div class="row bg-white p-3">
+            <div class="row bg-white p-3 shadow m-2">
                 <form class="form-group row col-12" action="{{url('submit-test')}}" method="POST">
                     @csrf
                     <div class="col-12 m-auto pb-5">
@@ -90,7 +90,7 @@
                         @endif
                     </div>
                     <input type="hidden" name="question_id" value="{{$Question->id}}">
-            <?php  $Q_option = DB::table('answers')->where('status',1 && 'question_id',$Question->id)->get(); 
+            <?php  $Q_option = DB::table('answers')->where('question_id',$Question->id)->get(); 
 
                 foreach ($Q_option as  $value) 
                 { ?>
@@ -135,6 +135,13 @@
         <!-- // END Drawer Layout -->
 
         @include('Students.Common.student_footer')
+        
+        <script>
+            $(document).ready(function()
+            {
+                $('.sidebar').hide();
+            });
+        </script>
         
     </body>
 
