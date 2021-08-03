@@ -13,6 +13,11 @@ Use App\chapter;
 Use App\College;
 Use App\Semister;
 Use App\Test_Type;
+Use App\branch;
+Use App\course;
+
+
+
 
 
 
@@ -443,6 +448,161 @@ class AdminController extends Controller
         $data['flag'] = 11; 
         $data['page_title'] = 'Edit College'; 
         $data['college'] = College::where('id',$id)->first();  
+        // dd($data);
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+
+    public function view_course()
+    {
+       $data['flag'] = 20; 
+       $data['page_title'] = 'All Course';  
+       $data['course'] = course::get();     
+       return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+    public function add_course()
+    {
+        $data['flag'] = 21; 
+        $data['page_title'] = 'Add Course';        
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+
+    public function submit_course(Request $req)
+    {
+    //    dd($req);
+        $this->validate($req,[
+            'course_name'=>'required',        
+            'status'=>'nullable|numeric'              
+         ]);
+
+
+         if($req->id) { 
+
+            course::where('id',$req->id)->update([
+                'course_name' => $req->course_name,
+                'status' => $req->status,
+            ]);
+            toastr()->success('Branch Updated Successfully!');
+            return redirect('view-course');
+
+         }else{
+
+            $result = course::where('course_name', $req->course_name)->first();  
+                if(!$result)
+                {   
+                // ======================================
+                $data = new course;
+                $data->course_name=$req->course_name;            
+                $data->status=$req->status;             
+                $result = $data->save();
+                if($result)
+                {
+                    toastr()->success('Course Successfully Added!');
+                }
+                else
+                {
+                    toastr()->error('Course Not Added!!!');
+                } 
+            }
+            else
+            {
+                toastr()->error('Course Already Exists!!! ');
+            }         
+            toastr()->success('Course Successfully Added!');
+            return redirect('view-course');
+            }
+    }
+
+    public function delete_course($id){ 
+        $data['result']=course::where('id',$id)->delete();
+        toastr()->error('Course Deleted !');
+        return redirect('view-course');
+    }
+
+    public function edit_course($id){
+        $data['flag'] = 22; 
+        $data['page_title'] = 'Edit Course'; 
+        $data['course'] = course::where('id',$id)->first();  
+        // dd($data);
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+
+
+    public function view_branch()
+    {
+       $data['flag'] = 23; 
+       $data['page_title'] = 'All Branch';  
+       $data['branch'] = branch::get();     
+       return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+    public function add_branch()
+    {
+        $data['flag'] = 24; 
+        $data['page_title'] = 'Add Branch';        
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+
+    public function submit_branch(Request $req)
+    {
+    //    dd($req);
+        $this->validate($req,[
+            'branch_name'=>'required',        
+            'status'=>'nullable|numeric'              
+         ]);
+
+
+         if($req->id) { 
+
+            branch::where('id',$req->id)->update([
+                'branch_name' => $req->branch_name,
+                'status' => $req->status,
+            ]);
+            toastr()->success('Branch Updated Successfully!');
+            return redirect('view-branch');
+
+         }else{
+
+            $result = branch::where('branch_name', $req->branch_name)->first();  
+                if(!$result)
+                {   
+                // ======================================
+                $data = new branch;
+                $data->branch_name=$req->branch_name;            
+                $data->status=$req->status;             
+                $result = $data->save();
+                if($result)
+                {
+                    toastr()->success('Branch Successfully Added!');
+                }
+                else
+                {
+                    toastr()->error('Branch Not Added!!!');
+                } 
+            }
+            else
+            {
+                toastr()->error('Branch Already Exists!!! ');
+            }         
+            toastr()->success('Branch Successfully Added!');
+            return redirect('view-branch');
+            }
+    }
+
+    public function delete_branch($id){ 
+        $data['result']=branch::where('id',$id)->delete();
+        toastr()->error('Branch Deleted !');
+        return redirect('view-branch');
+    }
+
+    public function edit_branch($id){
+        $data['flag'] = 25; 
+        $data['page_title'] = 'Edit Branch'; 
+        $data['branch'] = branch::where('id',$id)->first();  
         // dd($data);
         return view('Admin/webviews/manage_admin_user',$data);
     }

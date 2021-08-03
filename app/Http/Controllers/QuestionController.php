@@ -202,7 +202,7 @@ class QuestionController extends Controller
                 'standard_id' => $req->standard_id,
                 'status' => $req->status,
             ]);
-            toastr()->success('Question Updated Successfully!');
+            toastr()->success('Test Updated Successfully!');
             return redirect('view-question');
 
          }else{
@@ -211,7 +211,9 @@ class QuestionController extends Controller
                 $data->test_name=$req->test_name; 
                 $data->description=$req->description;            
                 $data->hours=$req->hours;  
-                $data->minute=$req->minute;            
+                $data->minute=$req->minute;  
+                $data->exam_date=$req->exam_date;            
+                $data->exam_time=$req->exam_time;            
                 $data->status=$req->status;               
                 $result = $data->save();
         
@@ -231,11 +233,11 @@ class QuestionController extends Controller
         }
     }
 
-    public function delete_test($id){ 
+    public function delete_test($id, $status){ 
         Test::where('id',$id)->update([
-            'status' => 0,
+            'status' => $status,
         ]);
-        toastr()->error('Question Deleted !');
+        toastr()->error('Test Status Updated!');
         return redirect('view-test');
     }
 

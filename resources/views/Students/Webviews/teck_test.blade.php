@@ -50,8 +50,8 @@
 
                                     <li class="breadcrumb-item active">
                                         {{$page_title}}
-                                        <!-- Dashboard{{$page_title}}  -->
-                                       <!--  {{$Question->question_title}} -->
+                                        {{-- <!-- Dashboard{{$page_title}}  --> --}}
+                                       {{-- <!--  {{$Question->question_title}} --> --}}
 
                                     </li>
 
