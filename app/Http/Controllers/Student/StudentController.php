@@ -373,7 +373,8 @@ class StudentController extends Controller
         $data['page_title'] = 'Start Test';
         $u_id = Auth::User()->id;
         $data['user'] = User::where('id',$u_id)->first();
-        $data['Question'] = Question::where('status',1)->first();
+        $data['Question'] = Question::where('status',1)->paginate(1);
+        // dd($data['Question']);
     	return view('Students/Webviews/teck_test',$data);
 
     }
@@ -394,6 +395,7 @@ class StudentController extends Controller
         $data['user'] = User::where('id',$u_id)->first();
         //dd(++$req->question_id);
         $data['Question'] = Question::where('status',1)->where('id',++$req->question_id)->first();
+        
 
         if($data['Question'])
         {      
@@ -401,7 +403,7 @@ class StudentController extends Controller
         }
         else
         {
-            return redirect('/'); 
+            return redirect('/studentdashboard'); 
         }
 
     }

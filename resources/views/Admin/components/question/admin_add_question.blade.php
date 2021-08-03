@@ -8,7 +8,7 @@
             </p> --}}
             <div class="col-md-8 m-auto">
                                        
-                <form class="" action="{{url('submit-question')}}" method="POST">                        
+                <form class="" action="{{url('submit-question')}}" method="POST" enctype="multipart/form-data">                        
                 @csrf 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Question Title</label>

@@ -82,15 +82,18 @@
             <div class="row bg-white p-3 shadow m-2">
                 <form class="form-group row col-12" action="{{url('submit-test')}}" method="POST">
                     @csrf
+                    @foreach ($Question as $question)
+                        
+                   
                     <div class="col-12 m-auto pb-5">
-                        @if($Question->question)
-                        <label class="h4"><span class="h3 mr-2">Q.</span> {{$Question->question}}</label>
+                        @if($question->question)
+                        <label class="h4"><span class="h3 mr-2">Q.</span> {{$question->question}}</label>
                         @else
-                            <img src="{{url('question_image')}}" class="img-thumbnail">
+                            <img src="{{url($question->question_image)}}" class="img-thumbnail">
                         @endif
                     </div>
-                    <input type="hidden" name="question_id" value="{{$Question->id}}">
-            <?php  $Q_option = DB::table('answers')->where('question_id',$Question->id)->get(); 
+                    <input type="hidden" name="question_id" value="{{$question->id}}">
+            <?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
 
                 foreach ($Q_option as  $value) 
                 { ?>
@@ -100,8 +103,10 @@
                    </div>
 
                <?php }
-
+                // dd($Question);
             ?>
+                 @endforeach
+                 {{ $Question->links() }}
                 <div class="col-md-10 text-center m-auto pt-3">
                     <button class="btn btn-info h3">Next</button>
                 </div>

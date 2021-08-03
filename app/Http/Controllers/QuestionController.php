@@ -64,7 +64,41 @@ class QuestionController extends Controller
             return redirect('view-question');
 
          }else{
- 
+
+            $file = $req->file('question_image');
+            // dd($file);
+            if($req->hasFile('question_image')) {
+                $file = $req->file('question_image');
+                $filename = 'question'.time().'.'.$req->question_image->extension();
+                $destinationPath = public_path('/images/question');
+                $file->move($destinationPath, $filename);
+
+            
+                $data = new Question;
+                $data->question_title=$req->question_title; 
+                $data->question_type=$req->question_type;   
+                $data->question=$req->question; 
+                $data->question_image=$req->question_image; 
+                $data->choice_count=$req->choice_count;   
+                $data->explanation=$req->explanation;           
+                $data->question_level=$req->question_level;
+                $data->question_image = 'images/question/'.$filename;
+                $data->status=$req->status;             
+                $result = $data->save();
+                $question_id = $data->id;
+                // dd($question_id);
+            
+            if($result)
+            {
+                toastr()->success('Question Successfully Added!');
+            }
+            else
+            {
+                toastr()->error('Question Not Added!!');
+            }         
+            
+            }else{
+                          
                 $data = new Question;
                 $data->question_title=$req->question_title; 
                 $data->question_type=$req->question_type;   
@@ -77,7 +111,7 @@ class QuestionController extends Controller
                 $result = $data->save();
                 $question_id = $data->id;
                 // dd($question_id);
-
+            
             if($result)
             {
                 toastr()->success('Question Successfully Added!');
@@ -85,11 +119,12 @@ class QuestionController extends Controller
             else
             {
                 toastr()->error('Question Not Added!!');
-            }         
-    
+            }  
+            
+            }
        
         return redirect('view-question');
-
+        
         }
     }
 
