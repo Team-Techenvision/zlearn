@@ -28,7 +28,7 @@ Route::get('/', 'QovexController@logout');
 Route::get('/Student-register', 'Student\StudentController@register');
 
 Route::middleware(['auth','User'])->group(function() {
-    Route::get('/', 'Student\StudentController@index');
+    Route::get('studentdashboard', 'Student\StudentController@index')->name('student');
     Route::get('resume-page-one', 'Student\StudentController@resume_page_one');
     Route::get('resume-page-two', 'Student\StudentController@resume_page_two');
     Route::get('resume-training-Info', 'Student\StudentController@resume_trainingInfo');
@@ -77,6 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::middleware(['auth', 'Admin'])->group(function () {
+    Route::get('admin', 'AdminController@admin_list')->name('Admin');
     Route::get('admin-list', 'AdminController@admin_list');
     Route::get('user-list', 'AdminController@user_list');
     Route::get('/home', 'HomeController@index')->name('home'); 
@@ -113,6 +114,19 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('edit-college/{id}', 'AdminController@edit_college');
     Route::get('delete-college/{id}', 'AdminController@delete_college');
 
+    Route::get('view-course', 'AdminController@view_course');
+    Route::get('add-course', 'AdminController@add_course');
+    Route::post('submit-course', 'AdminController@submit_course');
+    Route::get('edit-course/{id}', 'AdminController@edit_course');
+    Route::get('delete-course/{id}', 'AdminController@delete_course');
+
+
+    Route::get('view-branch', 'AdminController@view_branch');
+    Route::get('add-branch', 'AdminController@add_branch');
+    Route::post('submit-branch', 'AdminController@submit_branch');
+    Route::get('edit-branch/{id}', 'AdminController@edit_branch');
+    Route::get('delete-branch/{id}', 'AdminController@delete_branch');
+
 
     Route::get('view-test-type', 'AdminController@view_test_type');
     Route::get('add-test-type', 'AdminController@add_test_type');
@@ -136,7 +150,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('add-test', 'QuestionController@add_test');
     Route::post('submit-test', 'QuestionController@submit_test');
     Route::get('edit-test/{id}', 'QuestionController@edit_test');
-    Route::get('delete-test/{id}', 'QuestionController@delete_test');
+    Route::get('delete-test/{id}/{status}', 'QuestionController@delete_test');
 
     Route::get('{any}', 'QovexController@index');
  

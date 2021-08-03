@@ -46,6 +46,8 @@
                         <li><a href="{{url('view-chapter')}}">View Chapter</a></li>
                         <li><a href="{{url('view-college')}}">View College</a></li>
                         <li><a href="{{url('view-test-type')}}">View Test Type</a></li>
+                        <li><a href="{{url('view-branch')}}">View Branch</a></li>
+                        <li><a href="{{url('view-course')}}">View course</a></li>
                     </ul>
                 </li>
 

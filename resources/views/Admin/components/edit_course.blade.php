@@ -8,48 +8,15 @@
             </p> --}}
             <div class="col-md-8 m-auto">
                                        
-                <form class="" action="{{url('submit-test')}}" method="POST">                        
+                <form class="" action="{{url('submit-course')}}" method="POST">                        
                 @csrf 
+			<input type="hidden" class="form-control" name="id" value="{{$course->id}}" required>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Test Name</label>
+                        <label class="col-sm-3 col-form-label">Branch Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="test_name" required placeholder="Enter Test Name" required/>
+                            <input type="text" class="form-control" name="course_name"  placeholder="Enter Course Name" value="{{$course->course_name}}" required/>
                         </div>
-                    </div>
-                
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Test Description </label>
-                        <div class="col-sm-9">
-                            <div class="form-group">                            
-                                <div>
-                                    <textarea  class="form-control" rows="3" name="description" placeholder="Enter Description"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Test Duration</label>
-                        <div class="col-sm-4">
-                            <input type="number" class="form-control" name="hours"  placeholder="Enter hours" required/>
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="number" class="form-control" name="minute"  placeholder="Enter minute" required/>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Exam Date</label>
-                        <div class="col-sm-4">
-                            <input type="date" class="form-control" name="exam_date"/>
-                        </div>
-                        
-                        <div class="col-sm-4">
-                            <input type="time" class="form-control" name="exam_time"/>
-                        </div>
-                       
-                    </div>
-
+                    </div>                         
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Status</label>
                         <div class="col-sm-9">

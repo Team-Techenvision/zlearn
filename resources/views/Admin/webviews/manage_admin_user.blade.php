@@ -55,7 +55,19 @@
     @elseif($flag == 18) 
         @include('Admin.components/add_test_type') 
     @elseif($flag == 19) 
-        @include('Admin.components/edit_test_type')  
+        @include('Admin.components/edit_test_type') 
+    @elseif($flag == 20) 
+        @include('Admin.components/view_course')
+    @elseif($flag == 21) 
+        @include('Admin.components/add_course') 
+    @elseif($flag == 22) 
+        @include('Admin.components/edit_course') 
+    @elseif($flag == 23) 
+        @include('Admin.components/view_branch')
+    @elseif($flag == 24) 
+        @include('Admin.components/add_branch') 
+    @elseif($flag == 25) 
+        @include('Admin.components/edit_branch')
     @endif
     </div>
                     <!-- end row -->
