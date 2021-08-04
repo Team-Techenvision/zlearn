@@ -26,7 +26,9 @@
                         $deactive = 0;
                         $active = 1;
                         @endphp
-                        <td><a href="{{url('edit-test/'.$row->id)}}" class="btn btn-info mr-2">Edit</a> @if($row->status == 1) <a href="{{url('delete-test/'.$row->id.'/'.$deactive)}}" class="btn btn-danger">Deactive</a>@else <a href="{{url('delete-test/'.$row->id.'/'.$active)}}" class="btn btn-info">Active</a>@endif </td>                                               
+                        <td>
+                            {{-- <a href="{{url('edit-test/'.$row->id)}}" class="btn btn-info mr-2">Edit</a> --}}
+                             @if($row->status == 1) <a href="{{url('delete-test/'.$row->id.'/'.$deactive)}}" class="btn btn-danger">Deactive</a>@else <a href="{{url('delete-test/'.$row->id.'/'.$active)}}" class="btn btn-info">Active</a>@endif </td>                                               
                     </tr>
                     @endforeach
                    
