@@ -10,31 +10,20 @@
                                        
                 <form class="" action="{{url('submit-test')}}" method="POST">                        
                 @csrf 
+                <input type="hidden" class="form-control" name="id" value="{{$test->id}}" required>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Test Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="test_name" required placeholder="Enter Test Name" required/>
+                            <input type="text" class="form-control" name="test_name" placeholder="Enter Test Name" value="{{$test->test_name}}" required/>
                         </div>
                     </div>
-
-                    {{-- <div class="form-group row">
-                        <label class="control-label col-sm-3"> Select College</label>
-                        <div class="col-sm-9">
-                            <select class="select2 form-control select2-multiple" multiple="multiple" name="college[]" data-placeholder="Choose ...">
-                                @foreach($semister as $r) 
-                                    <option value="{{$r->id}}">{{$r->semister_name}}</option> 
-                                @endforeach
-                            </select>
-                        </div>
-
-                    </div> --}}
                 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Test Description </label>
                         <div class="col-sm-9">
                             <div class="form-group">                            
                                 <div>
-                                    <textarea  class="form-control" rows="3" name="description" placeholder="Enter Description"></textarea>
+                                    <textarea  class="form-control" rows="3" name="description" placeholder="Enter Description">{{$test->description}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -43,21 +32,21 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Test Duration</label>
                         <div class="col-sm-4">
-                            <input type="number" class="form-control" name="hours"  placeholder="Enter hours" required/>
+                            <input type="number" class="form-control" name="hours"  placeholder="Enter hours" value="{{$test->hours}}" required/>
                         </div>
                         <div class="col-sm-4">
-                            <input type="number" class="form-control" name="minute"  placeholder="Enter minute" required/>
+                            <input type="number" class="form-control" name="minute"  placeholder="Enter minute" value="{{$test->minute}}" />
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Exam Date</label>
                         <div class="col-sm-4">
-                            <input type="date" class="form-control" name="exam_date"/>
+                            <input type="date" class="form-control" name="exam_date" value="{{$test->exam_date}}" />
                         </div>
                         
                         <div class="col-sm-4">
-                            <input type="time" class="form-control" name="exam_time"/>
+                            <input type="time" class="form-control" name="exam_time" value="{{$test->exam_time}}"/>
                         </div>
                        
                     </div>

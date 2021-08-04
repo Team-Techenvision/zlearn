@@ -16,6 +16,30 @@
                             <input type="text" class="form-control" name="question_title" required placeholder="Enter Question Title" required/>
                         </div>
                     </div> 
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Subject</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="subject_id" required>
+                                <option value="">Select Subject</option>
+                                @foreach($subjects as $r) 
+                                    <option value="{{$r->id}}">{{$r->subject_name}}</option> 
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Chapter</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="chapter_id" required>
+                                <option value="">Select Chapter</option>
+                                @foreach($chapters as $r) 
+                                    <option value="{{$r->id}}">{{$r->chapter_name}}</option> 
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label"> Question Type </label>                

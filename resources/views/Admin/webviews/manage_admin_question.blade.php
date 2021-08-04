@@ -30,6 +30,8 @@
             @include('Admin.components/admin_view_test')
         @elseif($flag == 6) 
             @include('Admin.components/admin_add_test')
+        @elseif($flag == 7) 
+            @include('Admin.components/edit_test')
     @endif
     </div>
                     <!-- end row -->

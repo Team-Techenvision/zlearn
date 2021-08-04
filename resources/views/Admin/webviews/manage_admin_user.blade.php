@@ -19,7 +19,7 @@
 
      <div class="row">
         @if($flag == 1)
-        @include('Admin.components/admin_view_user')
+        @include('Admin.admin_list')
     @elseif($flag == 2) 
         @include('Admin.components/add_subject')
     @elseif($flag == 3) 
@@ -68,6 +68,10 @@
         @include('Admin.components/add_branch') 
     @elseif($flag == 25) 
         @include('Admin.components/edit_branch')
+    @elseif($flag == 26) 
+        @include('Admin.components/import_user')
+    @elseif($flag == 27) 
+        @include('Admin.user_list')
     @endif
     </div>
                     <!-- end row -->

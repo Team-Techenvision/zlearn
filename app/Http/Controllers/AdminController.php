@@ -16,7 +16,9 @@ Use App\Test_Type;
 Use App\branch;
 Use App\course;
 
-
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -27,9 +29,31 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+
+
+
+    public function import() 
+    {
+        Excel::import(new UsersImport,request()->file('file'));
+        toastr()->success('User Data Uploded Successfully!');   
+        return redirect()->back();
+    }
+    public function importExportView()
+    {
+        $data['flag'] = 26; 
+        $data['page_title'] = 'Import User'; 
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+    public function export() 
+    {
+        $student = User::where('user_type', 2)->get();
+        return Excel::download(new UsersExport($student), 'users.xlsx');
+    }
+
     public function admin_list(Request $request)
     {
-       $data =  User::get();
+       $data['admin'] =  User::where('user_type', 1)->get();
         $data['flag'] = 1; 
         $data['page_title'] = 'View Admin'; 
         return view('Admin/webviews/manage_admin_user',$data);
@@ -37,8 +61,10 @@ class AdminController extends Controller
 
     public function user_list(Request $request)
     {
-        
-        return view('Admin.user_list');
+        $data['student'] =  User::where('user_type', 2)->get();
+        $data['flag'] = 27; 
+        $data['page_title'] = 'View Student';    
+        return view('Admin/webviews/manage_admin_user',$data);
     }
 
     public function categories_list()

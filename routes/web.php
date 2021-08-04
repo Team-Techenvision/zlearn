@@ -134,6 +134,9 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('edit-test-type/{id}', 'AdminController@edit_test_type');
     Route::get('delete-test-type/{id}', 'AdminController@delete_test_type');
 
+    Route::post('import', 'AdminController@import')->name('import');
+    Route::get('importExportView', 'AdminController@importExportView');
+    Route::get('export', 'AdminController@export')->name('export');
 
     // Question pages  Start
 
@@ -151,6 +154,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::post('submit-test', 'QuestionController@submit_test');
     Route::get('edit-test/{id}', 'QuestionController@edit_test');
     Route::get('delete-test/{id}/{status}', 'QuestionController@delete_test');
+
 
     Route::get('{any}', 'QovexController@index');
  

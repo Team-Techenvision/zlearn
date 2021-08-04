@@ -39,7 +39,9 @@ class QuestionController extends Controller
     public function add_question()
     {
         $data['flag'] = 2; 
-        $data['page_title'] = 'Add Question';        
+        $data['page_title'] = 'Add Question';   
+        $data['subjects'] = DB::table('subjects')->where('status',"1")->get();
+        $data['chapters'] = DB::table('chapters')->where('status',"1")->get();       
         return view('Admin/webviews/manage_admin_question',$data);
     }
 
@@ -75,6 +77,8 @@ class QuestionController extends Controller
 
             
                 $data = new Question;
+                $data->subject_id=$req->subject_id;
+                $data->chapter_id=$req->chapter_id;
                 $data->question_title=$req->question_title; 
                 $data->question_type=$req->question_type;   
                 $data->question=$req->question; 
@@ -100,6 +104,8 @@ class QuestionController extends Controller
             }else{
                           
                 $data = new Question;
+                $data->subject_id=$req->subject_id;
+                $data->chapter_id=$req->chapter_id;
                 $data->question_title=$req->question_title; 
                 $data->question_type=$req->question_type;   
                 $data->question=$req->question; 
@@ -123,7 +129,7 @@ class QuestionController extends Controller
             
             }
        
-        return redirect('view-question');
+        return redirect('add-answer/'.$question_id);
         
         }
     }
@@ -149,7 +155,9 @@ class QuestionController extends Controller
     {
         $data['flag'] = 4; 
         $data['page_title'] = 'Add Answer';  
-        $data['question'] = Question::where('id',$id)->first();      
+        $data['question'] = Question::where('id',$id)->first(); 
+        $data['answer'] = Answer::where('question_id',$id)->first(); 
+        // dd($data['answer']);
         return view('Admin/webviews/manage_admin_question',$data);
     }
 
@@ -216,7 +224,8 @@ class QuestionController extends Controller
     public function add_test()
     {
         $data['flag'] = 6; 
-        $data['page_title'] = 'Add Test';        
+        $data['page_title'] = 'Add Test';    
+        $data['semister'] = Semister::where('status',"1")->get();  
         return view('Admin/webviews/manage_admin_question',$data);
     }
 
@@ -274,6 +283,14 @@ class QuestionController extends Controller
         ]);
         toastr()->error('Test Status Updated!');
         return redirect('view-test');
+    }
+
+    public function edit_test($id){
+        $data['flag'] = 7; 
+        $data['page_title'] = 'Edit Test'; 
+        $data['test'] = Test::where('id',$id)->first(); 
+        // dd($data);
+        return view('Admin/webviews/manage_admin_question',$data);
     }
 
 }
