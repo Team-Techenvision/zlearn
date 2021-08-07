@@ -13,7 +13,7 @@
                         <th>Mobile</th>
                         <th>Eamil</th>
                         <th>Status</th>                            
-                        {{-- <th>Action</th>                     --}}
+                        <th>Action</th>                    
                     </tr>
                 </thead>
 
@@ -27,7 +27,14 @@
                         <td>{{$row->phone}}</td>   
                         <td>{{$row->email}}</td>                            
                         <td>@if($row->status == 1) Active @else De-Active @endif</td>
-                        {{-- <td><a href="{{url('edit-college/'.$row->id)}}" class="btn btn-info mr-2">Edit</a><a href="{{url('delete-college/'.$row->id)}}" class="btn btn-danger">Delete</a></td>                                                --}}
+                        {{-- <td><a href="{{url('edit-college/'.$row->id)}}" class="btn btn-info mr-2">Edit</a><a href="{{url('delete-college/'.$row->id)}}" class="btn btn-danger">Delete</a></td>         
+                         --}}
+                       <td>
+                       @php
+                         $deactive = 0;
+                         $active = 1;
+                         @endphp
+                         @if($row->status == 1) <a href="{{url('status-student/'.$row->id.'/'.$deactive)}}" class="btn btn-danger">Deactive</a>@else <a href="{{url('status-student/'.$row->id.'/'.$active)}}" class="btn btn-info">Active</a>@endif </td>
                     </tr>
                     @endforeach
                    

@@ -30,7 +30,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{url('admin-list')}}">Admin list</a></li> 
                         <li><a href="{{url('user-list')}}">Student list</a></li>   
-                        <li><a href="{{url('importExportView')}}">Import Student</a></li> 
+                        {{-- <li><a href="{{url('importExportView')}}">Import Student</a></li>  --}}
                     </ul>
                 </li>
                 <li>
@@ -42,14 +42,20 @@
                         {{-- <li><a href="add-standard">Add Standard</a></li>
                         <li><a href="add-subject">Add Subject</a></li>
                         <li><a href="add-chapter">Add Chapter</a></li> --}}
-                        <li><a href="{{url('view-standard')}}"> View Standard</a></li>
-                        <li><a href="{{url('view-semister')}}">View Semester</a></li>
-                        <li><a href="{{url('view-subject')}}"> View Subject</a></li>
-                        <li><a href="{{url('view-chapter')}}">View Chapter</a></li>
                         <li><a href="{{url('view-college')}}">View College</a></li>
-                        <li><a href="{{url('view-test-type')}}">View Test Type</a></li>
+                        <li><a href="{{url('view-course')}}">View Course</a></li>
                         <li><a href="{{url('view-branch')}}">View Branch</a></li>
-                        <li><a href="{{url('view-course')}}">View course</a></li>
+                        <li><a href="{{url('view-semister')}}">View Semester</a></li>
+                        {{-- <li><a href="{{url('view-standard')}}"> View Standard</a></li> --}}                        
+                        <li><a href="{{url('view-subject')}}"> View Subject</a></li>
+                        <li><a href="{{url('view-chapter')}}">View Chapter</a></li>                        
+                        <li><a href="{{url('view-test-type')}}">View Test Type</a></li> 
+                        <li><a href="{{url('view-test-name')}}">View Test Name</a></li>                        
+                        <li><a href="{{url('view-question-level')}}">View Level</a></li>                        
+                        <li><a href="{{url('view-test-section')}}">View Test Section</a></li>                        
+                        <li><a href="{{url('view-program-name')}}">View Program Name</a></li>                        
+
+                        
                     </ul>
                 </li>
 
@@ -69,7 +75,8 @@
                         <span>Manage Test</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">                        
-                        <li><a href="{{url('view-test')}}"> View Test</a></li>                        
+                        <li><a href="{{url('view-test')}}"> View Test</a></li>   
+                        <li><a href="{{url('manage-test-question')}}"> Manage Test Question</a></li>                      
                     </ul>
                 </li>
                 

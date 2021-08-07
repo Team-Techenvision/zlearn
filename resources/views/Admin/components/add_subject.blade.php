@@ -15,6 +15,19 @@
                                 <input type="text" class="form-control" name="sub_name" required placeholder="Enter Subject Name"/>
                             </div>
                         </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Course</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="course_id" required>
+                                    <option value="">Select Course</option>
+                                    @foreach($courses as $r) 
+                                        <option value="{{$r->id}}">{{$r->course_name}}</option> 
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Semester</label>
                             <div class="col-sm-9">
@@ -27,17 +40,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Standard</label>
-                            <div class="col-sm-9">
-                                <select class="form-control" name="standard_id" required>
-                                    <option value="">Select Standard</option>
-                                    @foreach($standerds as $r) 
-                                        <option value="{{$r->id}}">{{$r->standerd_name}}</option> 
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                        
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Status</label>
                             <div class="col-sm-9">

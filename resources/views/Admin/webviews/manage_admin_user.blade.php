@@ -72,6 +72,16 @@
         @include('Admin.components/import_user')
     @elseif($flag == 27) 
         @include('Admin.user_list')
+    @elseif($flag == 28) 
+        @include('Admin.components/view_test_type')
+    @elseif($flag == 29) 
+        @include('Admin.components/view_test_name')
+    @elseif($flag == 30) 
+        @include('Admin.components/view_question_level')
+    @elseif($flag == 31) 
+        @include('Admin.components/view_test_section')
+    @elseif($flag == 32) 
+        @include('Admin.components/view_program_name')
     @endif
     </div>
                     <!-- end row -->

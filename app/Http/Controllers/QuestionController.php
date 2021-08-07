@@ -16,6 +16,12 @@ Use App\Test_Type;
 Use App\Question;
 Use App\Answer;
 Use App\Test;
+Use App\Question_level;
+Use App\Test_chapter;
+Use App\Test_college;
+Use App\Test_course;
+Use App\Test_subject;
+
 
 
 
@@ -41,7 +47,8 @@ class QuestionController extends Controller
         $data['flag'] = 2; 
         $data['page_title'] = 'Add Question';   
         $data['subjects'] = DB::table('subjects')->where('status',"1")->get();
-        $data['chapters'] = DB::table('chapters')->where('status',"1")->get();       
+        $data['chapters'] = DB::table('chapters')->where('status',"1")->get();  
+        $data['question_level'] = DB::table('question_level')->where('status',"1")->get();       
         return view('Admin/webviews/manage_admin_question',$data);
     }
 
@@ -144,8 +151,31 @@ class QuestionController extends Controller
         $data['flag'] = 3; 
         $data['page_title'] = 'Edit Question'; 
         $data['question'] = Question::where('id',$id)->first(); 
+        $data['subjects'] = DB::table('subjects')->where('status',"1")->get();
+        $data['chapter'] = DB::table('chapters')->where('status',"1")->get();   
         // dd($data);
         return view('Admin/webviews/manage_admin_question',$data);
+    }
+
+    public function myformAjax($id)
+    {
+        $chapter = DB::table("chapters")
+                    ->where("subject_id",$id)
+                    ->pluck("chapter_name","id");
+                    // dd($chapter);
+        return json_encode($chapter);
+    }
+
+
+    public function get_chapter(Request $req)
+    {
+        $subject_id = $req->subject_id;
+        // return($subject_id);
+        $chapter = DB::table("chapters")
+                    ->whereIn("subject_id",$subject_id)
+                    ->pluck("chapter_name","id");
+                    // dd($chapter);
+        return json_encode($chapter);
     }
 
 
@@ -225,7 +255,16 @@ class QuestionController extends Controller
     {
         $data['flag'] = 6; 
         $data['page_title'] = 'Add Test';    
-        $data['semister'] = Semister::where('status',"1")->get();  
+        $data['semister'] = Semister::where('status',"1")->get(); 
+        $data['college'] = College::where('status',"1")->get();
+        $data['courses'] = DB::table('courses')->where('status',"1")->get();
+        $data['branches'] = DB::table('branches')->where('status',"1")->get();  
+        $data['semisters'] = DB::table('semisters')->where('status',"1")->get();
+        $data['question_level'] = DB::table('question_level')->where('status',"1")->get();
+        $data['question_pattern'] = DB::table('question_pattern')->where('status',"1")->get();
+        $data['chapters'] = DB::table('chapters')->where('status',"1")->get();  
+        $data['subjects'] = DB::table('subjects')->where('status',"1")->get();   
+        $data['test_types'] = DB::table('test_types')->where('status',"1")->get();                
         return view('Admin/webviews/manage_admin_question',$data);
     }
 
@@ -241,7 +280,7 @@ class QuestionController extends Controller
 
          if($req->id) { 
             Answer::where('id',$req->id)->update([
-                'subject_name' => $req->sub_name,
+                'test_name' => $req->test_name,
                 'semister_id' => $req->semister_id,
                 'standard_id' => $req->standard_id,
                 'status' => $req->status,
@@ -253,15 +292,65 @@ class QuestionController extends Controller
            
                 $data = new Test;
                 $data->test_name=$req->test_name; 
-                $data->description=$req->description;            
+                $data->test_type_id=$req->test_type_id;
+                $data->test_instruction=$req->test_instruction;
+                $data->branch_id=$req->branch_id;
+                $data->semester_id=$req->semester_id;
+                $data->traning_program=$req->traning_program;
+                $data->description=$req->description;
+                $data->question_level=$req->question_level;                
+                $data->question_pattern=$req->question_pattern;
+                $data->total_question=$req->total_question;
+                $data->total_marks=$req->total_marks;
+                $data->time_per_question=$req->time_per_question;
                 $data->hours=$req->hours;  
                 $data->minute=$req->minute;  
                 $data->exam_date=$req->exam_date;            
                 $data->exam_time=$req->exam_time;            
                 $data->status=$req->status;               
-                $result = $data->save();
-        
-           
+                $result = $data->save();        
+                $test_id = $data->id;
+
+                $a=0;
+                foreach($req->college_id as $row)
+                {
+                    $data = new Test_college;
+                    $data->test_id=$test_id;            
+                    $data->college_id=$req->college_id[$a];
+                    $result = $data->save();
+                    $a++;
+                }
+
+                $b=0;
+                foreach($req->course_id as $row)
+                {
+                    $data = new Test_course;
+                    $data->test_id=$test_id;           
+                    $data->course_id=$req->course_id[$b];
+                    $result = $data->save();
+                    $b++;
+                }
+
+                $c=0;
+                foreach($req->subject_id as $row)
+                {
+                    $data = new Test_subject;
+                    $data->test_id=$test_id;           
+                    $data->subject_id=$req->subject_id[$c];
+                    $result = $data->save();
+                    $c++;
+                }
+
+                $d=0;
+                foreach($req->chapter_id as $row)
+                {
+                    $data = new Test_chapter;
+                    $data->test_id=$test_id;           
+                    $data->chapter_id=$req->chapter_id[$d];
+                    $result = $data->save();
+                    $d++;
+                }
+
             if($result)
             {
                 toastr()->success('Test Successfully added!');
@@ -291,6 +380,33 @@ class QuestionController extends Controller
         $data['test'] = Test::where('id',$id)->first(); 
         // dd($data);
         return view('Admin/webviews/manage_admin_question',$data);
+    }
+
+
+
+
+    public function add_test_question()
+    {
+        $data['flag'] = 8; 
+        $data['page_title'] = 'Add Question'; 
+        $data['tests'] = Test::where('status',1)->get();               
+        return view('Admin/webviews/manage_admin_question',$data);
+    }
+
+    
+    public function get_test_question(Request $req)
+    {
+        $test_id = $req->test_id;
+        // return($subject_id);
+        $test = DB::table("tests")
+                    ->join('test_subject', 'test_subject.test_id', '=', 'tests.id')
+                    ->join('question_level', 'question_level.id', '=', 'tests.id')
+                    ->join('categories', 'articles.categories_id', '=', 'tests.id')
+                    ->join('categories', 'articles.categories_id', '=', 'tests.id')
+                    ->where("id",$test_id)
+                    ->get();
+                    // dd($test);
+        return json_encode($test);
     }
 
 }

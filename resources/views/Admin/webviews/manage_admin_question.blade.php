@@ -23,7 +23,7 @@
         @elseif($flag == 2) 
             @include('Admin.components/question/admin_add_question')
         @elseif($flag == 3) 
-            @include('Admin.components/question/edit_add_question')
+            @include('Admin.components/question/admin_edit_question')
         @elseif($flag == 4) 
             @include('Admin.components/question/admin_add_answer')
         @elseif($flag == 5) 
@@ -32,6 +32,8 @@
             @include('Admin.components/admin_add_test')
         @elseif($flag == 7) 
             @include('Admin.components/edit_test')
+        @elseif($flag == 8) 
+            @include('Admin.components/question/add_test_question')
     @endif
     </div>
                     <!-- end row -->

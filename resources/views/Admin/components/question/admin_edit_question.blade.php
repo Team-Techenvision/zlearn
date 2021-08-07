@@ -10,10 +10,11 @@
                                        
                 <form class="" action="{{url('submit-question')}}" method="POST" enctype="multipart/form-data">                        
                 @csrf 
+                  
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Question Title</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="question_title"  placeholder="Enter Question Title"/>
+                            <input type="text" class="form-control" name="question_title"  placeholder="Enter Question Title" value="{{$question->question_title}}"/>
                         </div>
                     </div> 
 
@@ -22,9 +23,9 @@
                         <div class="col-sm-9">
                             <select class="form-control" name="subject_id" required>
                                 <option value="">Select Subject</option>
-                                @foreach($subjects as $r) 
-                                    <option value="{{$r->id}}">{{$r->subject_name}}</option> 
-                                @endforeach
+                                @foreach($subjects as $r)                                     
+                                    <option value="{{$r->id}}" @if($r->id == $question->subject_id)selected @endif>{{$r->subject_name}}</option> 
+                                @endforeach   
                             </select>
                         </div>
                     </div>
@@ -76,9 +77,8 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Question </label>
                         <div class="col-md-9">
-                            {{-- <input type="file" class="custom-file-input" id="customFile" name="question_image">
-                            <label class="custom-file-label" for="customFile">Choose file</label> --}}
-                            <input type="file" name="question_image" >
+                            <input type="file" class="custom-file-input" id="customFile" name="question_image">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
                         </div>
                     </div>
 
@@ -108,11 +108,12 @@
                         </div>
                     </div>
 
+                    
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Level</label>
+                        <label class="col-sm-3 col-form-label">Severity</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="question_level" required>
-                                <option value="">Select Level</option>
+                            <select class="form-control" name="question_level_id" required>
+                                <option value="">Select Severity</option>
                                 @foreach($question_level as $r) 
                                     <option value="{{$r->id}}">{{$r->question_level_name}}</option> 
                                 @endforeach

@@ -67,6 +67,15 @@ class AdminController extends Controller
         return view('Admin/webviews/manage_admin_user',$data);
     }
 
+    public function status_student($id, $status){ 
+        User::where('id',$id)->update([
+            'status' => $status,
+        ]);
+        toastr()->success('Student Updated!');
+        return redirect('user-list');
+    }
+
+
     public function categories_list()
     {
 
@@ -90,7 +99,7 @@ class AdminController extends Controller
     {
         $data['flag'] = 2; 
         $data['page_title'] = 'Add Subject';
-        $data['standerds'] = DB::table('standerds')->where('status',"1")->get();
+        $data['courses'] = DB::table('courses')->where('status',"1")->get();
         $data['semister'] = Semister::where('status',"1")->get();
         //dd($data['standerds']);  
         return view('Admin/webviews/manage_admin_user',$data);
@@ -104,7 +113,7 @@ class AdminController extends Controller
         $this->validate($req,[
             'sub_name'=>'required',
             'semister_id'=>'required|numeric',  
-            'standard_id'=>'required|numeric',         
+            'course_id'=>'required|numeric',         
             'status'=>'nullable|numeric'             
          ]);
 
@@ -114,10 +123,10 @@ class AdminController extends Controller
             Subject::where('id',$req->id)->update([
                 'subject_name' => $req->sub_name,
                 'semister_id' => $req->semister_id,
-                'standard_id' => $req->standard_id,
+                'course_id' => $req->course_id,
                 'status' => $req->status,
             ]);
-            toastr()->success('Standard Updated Successfully!');
+            toastr()->success('Subject Updated Successfully!');
             return redirect('view-subject');
 
          }else{
@@ -125,7 +134,7 @@ class AdminController extends Controller
                 $data = new Subject;
                 $data->subject_name=$req->sub_name; 
                 $data->semister_id=$req->semister_id;   
-                $data->standard_id=$req->standard_id;           
+                $data->course_id=$req->course_id;           
                 $data->status=$req->status;             
                 $result = $data->save();
             if($result)
@@ -153,7 +162,7 @@ class AdminController extends Controller
         $data['flag'] = 15; 
         $data['page_title'] = 'Edit Subject'; 
         $data['subject'] = Subject::where('id',$id)->first(); 
-        $data['standerds'] = DB::table('standerds')->where('status',"1")->get();
+        $data['courses'] = DB::table('courses')->where('status',"1")->get();
         $data['semister'] = Semister::where('status',"1")->get(); 
         // dd($data);
         return view('Admin/webviews/manage_admin_user',$data);
@@ -711,6 +720,41 @@ class AdminController extends Controller
         $data['page_title'] = 'Edit Test Type'; 
         $data['test_type'] = Test_Type::where('id',$id)->first();  
         // dd($data);
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+    public function view_test_name()
+    {
+       
+        $data['flag'] = 29; 
+        $data['page_title'] = 'All Test Name';  
+        $data['test_name'] = DB::table('test_name')->where('status',"1")->get();     
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+    public function view_question_level()
+    {
+        $data['flag'] = 30; 
+        $data['page_title'] = 'All Level';  
+        $data['question_level'] = DB::table('question_level')->where('status',"1")->get();     
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+    public function view_test_section()
+    {
+       
+        $data['flag'] = 31; 
+        $data['page_title'] = 'All Test Section';  
+        $data['test_section'] = DB::table('test_section')->where('status',"1")->get();     
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+    public function view_program_name()
+    {
+       
+        $data['flag'] = 32; 
+        $data['page_title'] = 'All Program Name';  
+        $data['program_name'] = DB::table('program_name')->where('status',"1")->get();     
         return view('Admin/webviews/manage_admin_user',$data);
     }
     

@@ -80,6 +80,8 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('admin', 'AdminController@admin_list')->name('Admin');
     Route::get('admin-list', 'AdminController@admin_list');
     Route::get('user-list', 'AdminController@user_list');
+    Route::get('status-student/{id}/{status}', 'AdminController@status_student');
+
     Route::get('/home', 'HomeController@index')->name('home'); 
 
     Route::get('view-standard', 'AdminController@view_standard');
@@ -146,6 +148,8 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('edit-question/{id}', 'QuestionController@edit_question');
     Route::get('delete-question/{id}', 'QuestionController@delete_question');
 
+    Route::get('myform/ajax/{id}',array('as'=>'myform.ajax','uses'=>'QuestionController@myformAjax'));
+
     Route::get('add-answer/{id}', 'QuestionController@add_answer');
     Route::post('submit-answer', 'QuestionController@submit_answer');
 
@@ -155,6 +159,17 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('edit-test/{id}', 'QuestionController@edit_test');
     Route::get('delete-test/{id}/{status}', 'QuestionController@delete_test');
 
+    Route::post('get_chapter', 'QuestionController@get_chapter');
+
+    Route::get('manage-test-question', 'QuestionController@add_test_question');
+    Route::post('save-test-question', 'QuestionController@save_test_question');
+
+    Route::post('get-test-question', 'QuestionController@get_test_question');
+    
+    Route::get('view-test-name', 'AdminController@view_test_name');
+    Route::get('view-question-level', 'AdminController@view_question_level');
+    Route::get('view-test-section', 'AdminController@view_test_section');
+    Route::get('view-program-name', 'AdminController@view_program_name');
 
     Route::get('{any}', 'QovexController@index');
  
