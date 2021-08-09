@@ -16,6 +16,13 @@ use App\Question;
 use App\Answer;
 use App\Save_Answer;
 use App\Categories;
+use App\Test;
+use App\UserTest;
+use App\College;
+use App\course;
+use App\Semister;
+use App\branch;
+use Session;
 
 use DB;
 
@@ -28,7 +35,11 @@ class StudentController extends Controller
     //
     public function index(Request $request)
     {
-        $data['page_title'] = 'Dashboard'; 
+        $data['page_title'] = 'Dashboard';
+        if (Session::has('Test_Id'))
+        { 
+            Session::flush();
+        }
     	return view('Students/Webviews/student_dashboard',$data);
     }
 
@@ -38,7 +49,11 @@ class StudentController extends Controller
         $u_id = Auth::User()->id;
         $data['user'] = User::where('id',$u_id)->first();
         $data['UserDetails'] = UserDetails::where('user_id',$u_id)->first(); 
-        $data['Education'] = Education_Detail::where('user_id',$u_id)->first();     
+        $data['Education'] = Education_Detail::where('user_id',$u_id)->first();
+        $data['College']= College::where('status',1)->get();
+        $data['course']= course::where('status',1)->get();
+        $data['Semister'] = Semister::where('status',1)->get();
+        $data['branch'] = branch::where('status',1)->get();    
     	return view('Students/Webviews/student_add_resume',$data);
 
     }
@@ -130,7 +145,7 @@ class StudentController extends Controller
         $user_result = DB::table('education__details')->where('user_id', $u_id)->first();
         if($user_result)
         {
-            $result = DB::table('education__details')->where('user_id', $u_id)->update(['compus' => $req->campus, 'degree'=> $req->degree,'roll_no' => $req->roll_no, 'education' => $req->education,'current_address'=> $req->current_address]); 
+            $result = DB::table('education__details')->where('user_id', $u_id)->update(['compus' => $req->campus, 'degree'=> $req->degree,'roll_no' => $req->roll_no, 'education' => $req->education,'current_address'=> $req->current_address,'collage_id'=>$req->collage,'branch_id'=>$req->branch]); 
         }
         else
         {  
@@ -141,6 +156,8 @@ class StudentController extends Controller
             $data->roll_no=$req->roll_no; 
             $data->education=$req->education; 
             $data->current_address=$req->current_address;
+            $data->collage_id=$req->collage;
+            $data->branch_id=$req->branch;
             $result = $data->save();
         }
 
@@ -167,6 +184,7 @@ class StudentController extends Controller
         $u_id = Auth::User()->id;
         $data['user'] = User::where('id',$u_id)->first(); 
         $data['Academics'] = Academics_detail::where('user_id',$u_id)->first();
+        $data['Semister'] = Semister::where('status',1)->get();
     	return view('Students/Webviews/student_add_academics',$data);
 
     }
@@ -175,7 +193,12 @@ class StudentController extends Controller
     {
         $data['page_title'] = 'Training Details';
         $u_id = Auth::User()->id;
-        $data['user'] = User::where('id',$u_id)->first();      
+        $data['user'] = User::where('id',$u_id)->first();
+        $data['Academic_project'] = Academic_project::where('user_id',$u_id)->get();        
+        $data['Certification'] = Certification::where('user_id',$u_id)->get();
+        $data['Interships'] = Interships::where('user_id',$u_id)->get();
+        $data['Technical_skill'] = Technical_skill::where('user_id',$u_id)->first(); 
+       // dd($data);     
     	return view('Students/Webviews/training_details',$data);
     }
 
@@ -233,8 +256,10 @@ class StudentController extends Controller
          }
          else
          {
-               $req->session()->flash('alert-danger', 'Academics Information Not Submited!!');
-               return back(); 
+               //$req->session()->flash('alert-danger', 'Academics Information Not Submited!!');
+              // return back(); 
+             $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!'); 
+               return redirect('resume-training-Info');
          } 
 
 
@@ -254,7 +279,7 @@ class StudentController extends Controller
          $user_result = Technical_skill::where('user_id',$u_id)->first();
          if($user_result)
          {
-            $update = DB::table('technical_skills')->where('user_id', $u_id)->update([ 'tech_skill' => $req->tech_skill, 'linkedin_link'=> $req->linkedin_link,'achievement' => $req->achievement, 'hobbies' => $req->hobbies,'career_object'=> $req->career_object]);
+            $result = DB::table('technical_skills')->where('user_id', $u_id)->update([ 'tech_skill' => $req->tech_skill, 'linkedin_link'=> $req->linkedin_link,'achievement' => $req->achievement, 'hobbies' => $req->hobbies,'career_object'=> $req->career_object]);
          }
          else
          {
@@ -299,113 +324,286 @@ class StudentController extends Controller
         //     } 
         //     $s++;               
         // }
-        foreach($req->file('upload_certificat') as $row)
-        {    
-            //dd("Yes");  
-            //$req->file('upload_certificat');          
-           // $name = rand(11111, 99999).'.'.$req->upload_certificat->extension();
-           //$filename = $req->file('upload_certificat')[$s];
-           $name = rand(11111, 99999).'.'.$row->upload_certificat->extension();            
-            $destinationPath1 = 'images/Certificate';
-            $cust_newfile2 = $destinationPath1.'/'.$name;
-                //dd($cust_newfile2);
+        if ($req->hasfile('upload_certificat')) 
+        {
+            foreach($req->file('upload_certificat') as $row)
+            {    
+                //dd("Yes");  
+                //$req->file('upload_certificat');          
+            // $name = rand(11111, 99999).'.'.$req->upload_certificat->extension();
+                $filename = $req->file('upload_certificat')[$s];
+                $name = rand(11111, 99999).'.'.$row->extension();            
+                $destinationPath1 = 'images/Certificate';
+                $cust_newfile2 = $destinationPath1.'/'.$name;
+                    //dd($cust_newfile2);
 
-            $data = new Certification;
-            $data->user_id=$u_id; 
-            $data->Certification_name=$req->certificate[$s]; 
-            $data->upload_certificat=$cust_newfile2;
-            $result21 = $data->save(); 
-            if($result21)
+                $data = new Certification;
+                $data->user_id=$u_id; 
+                $data->Certification_name=$req->certificate[$s]; 
+                $data->upload_certificat=$cust_newfile2;
+                $result21 = $data->save(); 
+                if($result21)
+                {
+                    $filename->move($destinationPath1,$name);
+                } 
+                $s++;               
+            }
+        }
+        if($req->project_name)
+        {
+            $i = 0;
+            foreach($req->project_name as $row)
             {
-                $filename->move($destinationPath1,$name);
-            } 
-            $s++;               
-        }
-        $i = 0;
-        foreach($req->project_name as $row)
-        {
-            // echo $row;
-            // echo "<br/>";
-            // echo $req->team_size[$i]; 
+                // echo $row;
+                // echo "<br/>";
+                // echo $req->team_size[$i]; 
 
-            $data = new Academic_project;
-            $data->user_id=$u_id;            
-            $data->project_name=$row;
-            $data->team_size=$req->team_size[$i]; 
-            $data->project_detail=$req->project_detail[$i];
-            $result = $data->save();
-            $i++;
-            
-        }
-        $j = 0;
-        dd($req->int_comp_name);
-        foreach($req->int_comp_name as $row)
-        {
-            // echo $row;
-            // echo "<br/>";
-            // echo $req->team_size[$i]; 
+                $data = new Academic_project;
+                $data->user_id=$u_id;            
+                $data->project_name=$row;
+                $data->team_size=$req->team_size[$i]; 
+                $data->project_detail=$req->project_detail[$i];
+                $result = $data->save();
+                $i++;
+                
+            }
+        } 
+        if($req->int_comp_name)
+        {   
+            $j = 0;
+        // dd($req->int_comp_name);
+            foreach($req->int_comp_name as $row)
+            {
+                // echo $row;
+                // echo "<br/>";
+                // echo $req->team_size[$i]; 
 
-            $data = new Interships;
-            $data->user_id=$u_id;            
-            $data->int_comp_name=$row;
-            $data->intship_duration=$req->intship_duration[$j]; 
-            $data->your_roles=$req->your_roles[$j];
-            $result = $data->save();
-            $j++;
-            
-        }
-
-        if($result)
-        {
+                $data = new Interships;
+                $data->user_id=$u_id;            
+                $data->int_comp_name=$row;
+                $data->intship_duration=$req->intship_duration[$j]; 
+                $data->your_roles=$req->your_roles[$j];
+                $result = $data->save();
+                $j++;
+                
+            }
+        }    
+        // if($result)
+        // {
             $req->session()->flash('alert-success', 'Training Information Submited Successfully!!');
-            return redirect('/'); 
-        }
-        else
-        {
-            $req->session()->flash('alert-danger', 'Training Information Not Submited!!');
-            return back(); 
-        }
+            return redirect('studentdashboard'); 
+        // }
+        // else
+        // {
+        //     $req->session()->flash('alert-danger', 'Training Information Not Submited!!');
+        //     return back(); 
+        // }
 
     }
 
-    public function Start_Test()
+    // public function Start_Test()
+    // {
+    //     $data['page_title'] = 'Start Test';
+    //     $u_id = Auth::User()->id;
+    //     $data['user'] = User::where('id',$u_id)->first();
+    //     $data['Question'] = Question::where('status',1)->first();
+    // 	return view('Students/Webviews/teck_test',$data);
+
+    // }
+    public function View_all_Test()
     {
         $data['page_title'] = 'Start Test';
         $u_id = Auth::User()->id;
         $data['user'] = User::where('id',$u_id)->first();
-        $data['Question'] = Question::where('status',1)->paginate(1);
-        // dd($data['Question']);
-    	return view('Students/Webviews/teck_test',$data);
+        // $data['Question'] = Question::where('status',1)->paginate(1);
+        $data['count_Que'] = Question::where('status',1)->get();
+        $data['Test_time']= Test::where('status',1)->get();
+        //dd($data['Test_time']);
+        // return view('Students/Webviews/teck_test',$data);
+        return view('Students/Webviews/all_test',$data);       
 
     }
 
-    public function Submit_test (Request $req)
+    public function Start_Test(Request $req)
+    {
+        //dd($req);
+        $u_id = Auth::User()->id;
+        session()->flush();
+        $user_test = UserTest::where('Test_status',1)->where('test_id',$req->test_id)->where('user_id',$u_id)->first();
+        if(!$user_test)
+        {
+
+            $data = new UserTest;
+            $data->user_id=$u_id;            
+            $data->test_id=$req->test_id;            
+            $result = $data->save();
+
+            $test_question = Question::get();
+            foreach($test_question as $list)
+            {
+                $data = new Save_Answer;
+                $data->user_id=$u_id;                             
+                $data->test_id=$req->test_id;
+                $data->question_id=$list->id; 
+                $data->correct_answer=$list->correct_answer;             
+                $result = $data->save(); 
+            }
+
+
+            Session::put('Test_Id',$req->test_id);
+            return redirect('Test');
+            // $data['page_title'] = 'Start Test';
+            // $u_id = Auth::User()->id;
+            // $data['user'] = User::where('id',$u_id)->first();
+            // $data['Question'] = Question::where('status',1)->paginate(1);
+            // $data['count_Que'] = Question::where('status',1)->get();
+            // $data['Test_time']=Test::where('id',$req->test_id)->first();
+            // //dd($data['Test_time']);
+            // return view('Students/Webviews/teck_test',$data);
+        }
+        else
+        {
+            $data['page_title'] = 'Start Test';
+            $u_id = Auth::User()->id;
+            $data['user'] = User::where('id',$u_id)->first();
+            // $data['Question'] = Question::where('status',1)->paginate(1);
+            // $data['count_Que'] = Question::where('status',1)->get();
+            // $data['Test_time']=Test::where('id',$t_id)->first();
+            //dd($data['Test_time']);
+            return redirect('studentdashboard');
+        }    
+        
+    }
+
+    public function Test_Start()
+    {
+        if (Session::has('Test_Id'))
+        {
+            //
+
+           $test_id = Session::get('Test_Id');
+            $data['page_title'] = 'Start Test';
+            $u_id = Auth::User()->id;
+            $data['user'] = User::where('id',$u_id)->first();
+            $data['Question'] = Question::where('status',1)->paginate(1);
+            $data['count_Que'] = Question::where('status',1)->get();
+            $data['Test_time']=Test::where('id',$test_id)->first();
+            //dd($data['Test_time']);
+            return view('Students/Webviews/teck_test',$data);
+        }
+    }
+
+    public function Submit_test(Request $req)
     {
         //dd($req);
         $u_id = Auth::User()->id;
         //$update = DB::table('save__answers')->where('user_id', $u_id)->where('question_id', $req->question_id)->update(['Select_option' => $req->option]);
-        $data = new Save_Answer;
-        $data->user_id=$u_id;            
-        $data->question_id=$req->question_id;
-        $data->Select_option=$req->option;
-        $result = $data->save();
+        // $data = new Save_Answer;
+        // $data->user_id=$u_id;            
+        // $data->question_id=$req->question_id;
+        // $data->Select_option=$req->option;
+        // $result = $data->save();
 
-        $data['page_title'] = 'Start Test';
-        $u_id = Auth::User()->id;
-        $data['user'] = User::where('id',$u_id)->first();
-        //dd(++$req->question_id);
-        $data['Question'] = Question::where('status',1)->where('id',++$req->question_id)->first();
-        
+        $update = DB::table('save__answers')->where('user_id', $u_id)->where('test_id',$req->test_id)->where('question_id',$req->question_id)->update([ 'Select_option' => $req->option]);
+        // $data['page_title'] = 'Start Test';
+        // $u_id = Auth::User()->id;
+        // $data['user'] = User::where('id',$u_id)->first();
+        // //dd(++$req->question_id);
+        // $data['Question'] = Question::where('status',1)->where('id',++$req->question_id)->first();
 
-        if($data['Question'])
-        {      
-    	    return view('Students/Webviews/teck_test',$data);
-        }
-        else
-        {
-            return redirect('/studentdashboard'); 
-        }
+        // if($data['Question'])
+        // {      
+    	//     return view('Students/Webviews/teck_test',$data);
+        // }
+        // else
+        // {
+        //     return redirect('studentdashboard'); 
+        // }
+
+
+        // ===============================
+        return Response()->json($update);
 
     }
+
+    // ===================================================
+
+    public function Test_Result()
+    {
+       // dd($t_id);
+
+        $data['page_title'] = 'Test Result';
+        $test_id = Session::get('Test_Id');
+        $u_id = Auth::User()->id;
+        $data['Test_time']=Test::where('id',$test_id)->select('test_name')->first();
+        //dd($test_id);
+        $data['user'] = User::where('id',$u_id)->first();
+        $data['Q_total'] = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->get();
+        $data['Compl_total'] = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereNotNull('Select_option')->get();
+        $data['U_total'] = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereNull('Select_option')->get(); 
+        $data['C_total'] = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereColumn('Select_option','correct_answer')->get();
+        $data['W_total'] = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereColumn('Select_option','!=','correct_answer')->get();         
+        //dd($data['Q_total']);
+        // $data['Test_time']=Test::where('id',$t_id)->first();
+        return view('Students/Webviews/Test_result',$data);   
+    }
+
+
+
+    // ====================================================================
+
+    public function Delete_Intership($Int_id)
+    {
+        $u_id = Auth::User()->id;
+        $result = "";
+        $Interships = Interships::where('user_id',$u_id)->where('id',$Int_id)->first();
+        if($Interships)
+        {
+            $result=Interships::where('id',$Int_id)->where('user_id',$u_id)->delete();
+        }
+        return back();
+    }
+
+    public function Delete_project($proj_id)
+    {
+        $u_id = Auth::User()->id;
+        $result = "";
+        $project = Academic_project::where('user_id',$u_id)->where('id',$proj_id)->first();
+        if($project)
+        {
+            $result=Academic_project::where('id',$proj_id)->where('user_id',$u_id)->delete();
+        }
+        return back();
+    }
+
+    public function Delete_Certificate($certi_id)
+    {
+        $u_id = Auth::User()->id;
+        $result = "";
+        $certificate = Certification::where('user_id',$u_id)->where('id',$certi_id)->first();
+        if($certificate)
+        {
+            $uploaded_certifi = "";
+            if($certificate->upload_certificat)
+            {
+                $uploaded_certifi = $certificate->upload_certificat;
+            }
+            $result= Certification::where('id',$certi_id)->where('user_id',$u_id)->delete();
+            if($result)
+            {
+                unlink(public_path($uploaded_certifi));
+            }
+
+        }
+        return back();
+    }
+
+    public function E_Learn()
+    {
+         return view('Students/Webviews/E-learn');
+    }
+
+
+    
 
 }

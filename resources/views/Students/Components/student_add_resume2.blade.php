@@ -46,11 +46,11 @@
                                 <h2 class="mb-0">Dashboard</h2>
 
                                 <ol class="breadcrumb p-0 m-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="index.html">Student</a></li>
 
                                     <li class="breadcrumb-item active">
 
-                                        Dashboard
+                                        ACADEMIC Details
 
                                     </li>
 
@@ -59,13 +59,13 @@
                             </div>
                         </div>
 
-                        {{-- <div class="row"
+                        <!-- <div class="row"
                              role="tablist">
                             <div class="col-auto">
                                 <a href="student-my-courses.html"
                                    class="btn btn-outline-secondary">My Courses</a>
                             </div>
-                        </div> --}}
+                        </div> -->
 
                     </div>
                 </div>
@@ -78,8 +78,40 @@
 
     <div class="container page__container">
         <div class="page-section">
+            <!-- =================================-->
+                      <div class="any_message row col-12">  
+                          @if ($errors->any())
+                          <div class="alert alert-danger col-12">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                      @endif
+                      @if(session()->has('alert-danger'))
+                        <div class="alert alert-danger col-12">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            {{ session()->get('alert-danger') }}
+                        </div>
+                      @endif
 
-
+                      @if(session()->has('alert-success'))
+                        <div class="alert alert-success col-12">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          {{ session('alert-success') }}
+                        </div> 
+                        @endif
+                      </div>  
+                    <!-- =================================== -->
+            
         </div>
     </div>
 
@@ -88,7 +120,7 @@
 
                 <!-- Footer -->
 
-                <!-- @include('Students.Common.student_footertext') -->
+                <!--@include('Students.Common.student_footertext')-->
 
                 <!-- // END Footer -->
 
