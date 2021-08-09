@@ -40,13 +40,13 @@
                                     <span class="sidebar-menu-text">Resume</span>
                                 </a>
                             </li>
-                            <li class="sidebar-menu-item">
+                            {{-- <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button"
                                    href="{{url('View-All-Test')}}">
                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">message</span>
                                     <span class="sidebar-menu-text">Start Test</span>
                                 </a>
-                            </li>
+                            </li> --}}
                              <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button"
                                    data-toggle="collapse"
