@@ -15,6 +15,11 @@ Use App\Semister;
 Use App\Test_Type;
 Use App\branch;
 Use App\course;
+Use App\Test_name;
+Use App\Test_Section;
+Use App\Program_Name;
+Use App\Question_level;
+
 
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
@@ -745,7 +750,76 @@ class AdminController extends Controller
        
         $data['flag'] = 31; 
         $data['page_title'] = 'All Test Section';  
-        $data['test_section'] = DB::table('test_section')->where('status',"1")->get();     
+        $data['test_section'] = DB::table('test_section')->get();     
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+    public function add_test_section()
+    {
+        $data['flag'] = 33; 
+        $data['page_title'] = 'Add Test Section';        
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+
+    public function submit_test_section(Request $req)
+    {
+    //    dd($req);
+        $this->validate($req,[
+            'test_section_name'=>'required',        
+            'status'=>'nullable|numeric'              
+         ]);
+
+
+         if($req->id) { 
+
+            Test_Section::where('id',$req->id)->update([
+                'test_section_name' => $req->test_section_name,
+                'status' => $req->status,
+            ]);
+            toastr()->success('Test Section Updated Successfully!');
+            return redirect('view-test-section');
+
+         }else{
+
+            $result = Test_Section::where('test_section_name', $req->test_section_name)->first();  
+                if(!$result)
+                {   
+                // ======================================
+                $data = new Test_Section;
+                $data->test_section_name=$req->test_section_name;            
+                $data->status=$req->status;             
+                $result = $data->save();
+                if($result)
+                {
+                    toastr()->success('Test Section Successfully Added!');
+                }
+                else
+                {
+                    toastr()->error('Test Section Not Added!!!');
+                } 
+            }
+            else
+            {
+                toastr()->error('Test Section Already Exists!!! ');
+            }         
+            toastr()->success('Test Section Successfully Added!');
+            return redirect('view-test-section');
+
+            }
+    }
+
+    public function delete_test_section($id){ 
+        $data['result']=Test_Section::where('id',$id)->delete();
+        toastr()->error('Test Section Deleted !');
+        return redirect('view-test-section');
+    }
+
+    public function edit_test_section($id){
+        $data['flag'] = 34; 
+        $data['page_title'] = 'Edit Test Section'; 
+        $data['test_section'] = Test_Section::where('id',$id)->first();  
+        // dd($data);
         return view('Admin/webviews/manage_admin_user',$data);
     }
 

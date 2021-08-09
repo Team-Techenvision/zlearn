@@ -165,10 +165,22 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::post('save-test-question', 'QuestionController@save_test_question');
 
     Route::post('get-test-question', 'QuestionController@get_test_question');
+
+    Route::post('find-test-question', 'QuestionController@get_test_question');
+
+    Route::post('save-test-question', 'QuestionController@save_test_question');
+
     
     Route::get('view-test-name', 'AdminController@view_test_name');
     Route::get('view-question-level', 'AdminController@view_question_level');
+
+    
     Route::get('view-test-section', 'AdminController@view_test_section');
+    Route::get('add-test-section', 'AdminController@add_test_section');
+    Route::post('submit-test-section', 'AdminController@submit_test_section');
+    Route::get('edit-test-section/{id}', 'AdminController@edit_test_section');
+    Route::get('delete-test-section/{id}', 'AdminController@delete_test_section');
+
     Route::get('view-program-name', 'AdminController@view_program_name');
 
     Route::get('{any}', 'QovexController@index');

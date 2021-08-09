@@ -82,6 +82,10 @@
         @include('Admin.components/view_test_section')
     @elseif($flag == 32) 
         @include('Admin.components/view_program_name')
+    @elseif($flag == 33) 
+        @include('Admin.components/add_test_section') 
+    @elseif($flag == 34) 
+        @include('Admin.components/edit_test_section')
     @endif
     </div>
                     <!-- end row -->

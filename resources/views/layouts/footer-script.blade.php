@@ -82,7 +82,7 @@
 
 
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $.ajaxSetup({
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -106,7 +106,7 @@
                             success:function(data) {        
                                 // alert(data);
                                 data.forEach(function(row) {
-                                $tableSearch.append('<tr><td>'+ row.test_name +'</td><td>'+ row.created_at +'</td></tr>');
+                                $tableSearch.append('<tr><td>'+ row.question_name +'</td><td>'+ row.q_id +'</td></tr>');
                             });
                             }
                         });
@@ -116,6 +116,6 @@
                     }
                 });
             });
-        </script>
+        </script> --}}
 
         @yield('script-bottom')

@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-body"> 
             <div class="col-12 text-right pb-2"> 
-                {{-- <a href="add-test-type" class="btn btn-info">Add Test Types</a> --}}
+                <a href="{{url('add-test-section')}}" class="btn btn-info">Add Test Section</a>
             </div>    
         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                 <thead>
@@ -11,8 +11,7 @@
                         <th>No </th>
                         <th>Test Section</th>
                         <th>Status</th>                            
-                        {{-- <th>Action</th> --}}
-                    
+                        <th>Action</th>                    
                     </tr>
                 </thead>
 
@@ -23,7 +22,7 @@
                         <td>{{$i++}}</td>
                         <td>{{$row->test_section_name}}</td>                            
                         <td>@if($row->status == 1) Active @else De-Active @endif</td>
-                        {{-- <td><a href="{{url('edit-test-type/'.$row->id)}}" class="btn btn-info mr-2">Edit</a><a href="{{url('delete-test-type/'.$row->id)}}" class="btn btn-danger">Delete</a></td>                                                --}}
+                        <td><a href="{{url('edit-test-section/'.$row->id)}}" class="btn btn-info mr-2">Edit</a><a href="{{url('delete-test-section/'.$row->id)}}" class="btn btn-danger">Delete</a></td>                                               
                     </tr>
                     @endforeach
                    

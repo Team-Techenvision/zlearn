@@ -34,6 +34,8 @@
             @include('Admin.components/edit_test')
         @elseif($flag == 8) 
             @include('Admin.components/question/add_test_question')
+        @elseif($flag == 9) 
+            @include('Admin.components/question/select_question')
     @endif
     </div>
                     <!-- end row -->

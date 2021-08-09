@@ -21,6 +21,7 @@ Use App\Test_chapter;
 Use App\Test_college;
 Use App\Test_course;
 Use App\Test_subject;
+Use App\Test_question;
 
 
 
@@ -48,7 +49,8 @@ class QuestionController extends Controller
         $data['page_title'] = 'Add Question';   
         $data['subjects'] = DB::table('subjects')->where('status',"1")->get();
         $data['chapters'] = DB::table('chapters')->where('status',"1")->get();  
-        $data['question_level'] = DB::table('question_level')->where('status',"1")->get();       
+        $data['question_level'] = DB::table('question_level')->where('status',"1")->get();  
+        $data['test_section'] = DB::table('test_section')->where('status',"1")->get();   
         return view('Admin/webviews/manage_admin_question',$data);
     }
 
@@ -93,6 +95,7 @@ class QuestionController extends Controller
                 $data->choice_count=$req->choice_count;   
                 $data->explanation=$req->explanation;           
                 $data->question_level=$req->question_level;
+                $data->test_section=$req->test_section;
                 $data->question_image = 'images/question/'.$filename;
                 $data->status=$req->status;             
                 $result = $data->save();
@@ -120,6 +123,7 @@ class QuestionController extends Controller
                 $data->choice_count=$req->choice_count;   
                 $data->explanation=$req->explanation;           
                 $data->question_level=$req->question_level;
+                $data->test_section=$req->test_section;
                 $data->status=$req->status;             
                 $result = $data->save();
                 $question_id = $data->id;
@@ -394,19 +398,73 @@ class QuestionController extends Controller
     }
 
     
+    // public function get_test_question(Request $req)
+    // {
+    //     $test_id = $req->test_id;
+    //     // return($subject_id);
+    //     $test = DB::table("tests")
+    //                 ->join('test_chapter', 'test_chapter.test_id', '=', 'tests.id')
+    //                 ->join('questions', 'questions.chapter_id', '=', 'test_chapter.chapter_id') 
+    //                 // ->join('questions AS q', 'tests.question_level', '=', 'q.question_level')
+    //                 ->join('question_level', 'question_level.id', '=', 'questions.question_level') 
+    //                 ->join('test_types', 'test_types.id', '=', 'tests.test_type_id')
+    //                 ->select('questions.id as q_id', 'questions.question as question_name','questions.question_level','tests.*')
+    //                 // ->where('tests.question_level','=','questions.question_level')
+    //                 ->where("tests.id",$test_id)                    
+    //                 ->get();
+    //                 // dd($test);
+    //     return json_encode($test);
+    // }
+
+
     public function get_test_question(Request $req)
     {
         $test_id = $req->test_id;
-        // return($subject_id);
-        $test = DB::table("tests")
-                    ->join('test_subject', 'test_subject.test_id', '=', 'tests.id')
-                    ->join('question_level', 'question_level.id', '=', 'tests.id')
-                    ->join('categories', 'articles.categories_id', '=', 'tests.id')
-                    ->join('categories', 'articles.categories_id', '=', 'tests.id')
-                    ->where("id",$test_id)
-                    ->get();
-                    // dd($test);
-        return json_encode($test);
+        $data['test_level']= DB::table("tests")
+                    ->where("tests.id",$test_id)                    
+                    ->first();
+                    // dd($data['test_level']);
+        $data['test_chapter']= DB::table('test_chapter')
+                                ->join('chapters', 'chapters.id', '=', 'test_chapter.chapter_id')
+                                ->where("test_chapter.test_id",$test_id)
+                                ->get();
+                                // dd($data['test_chapter']);
+        $data['flag'] = 9; 
+        $data['page_title'] = 'Select Question'; 
+        return view('Admin/webviews/manage_admin_question',$data);
     }
+
+
+    public function save_test_question(Request $req)
+    {
+    //    dd($req);
+        $this->validate($req,[
+            'question_id'=>'required',                     
+         ]);
+
+
+                 $i=0;
+                foreach($req->question_id as $row)
+                {
+                    $data = new Test_question;
+                    $data->question_id=$req->question_id[$i];
+                    $data->test_id=$req->test_id;                         
+                    $result = $data->save();
+                    $i++;
+                }
+                if($result)
+                {
+                    toastr()->success('Test Question Successfully Added!');
+                }
+                else
+                {
+                    toastr()->error('Test Question Not Added!!!');
+                } 
+                return redirect('view-test');
+            
+    }
+
+
+    
 
 }

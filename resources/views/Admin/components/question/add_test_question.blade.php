@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">   
-                <form class="" action="{{url('submit-branch')}}" method="POST">                        
+                <form class="" action="{{url('find-test-question')}}" method="POST">                        
                     @csrf 
                 <div class="col-md-8 m-auto">
                         <div class="form-group row">
@@ -16,8 +16,18 @@
                                 </select>
                             </div>
                         </div>
-                   
                 </div>
+
+                <div class="form-group text-center mt-5">
+                    <div>                        
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">
+                        Find Question
+                        </button>
+                       
+                    </div>
+                </div>
+
+            </form>
             </div>
         </div>
     </div>
@@ -44,4 +54,3 @@
     }
  </style>   
 <!-- end col -->
-</form>

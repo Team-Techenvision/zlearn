@@ -6,16 +6,15 @@
             {{-- <h4 class="card-title">Buttons example</h4> --}}
             {{-- <p class="card-title-desc">The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
             </p> --}}
-            <div class="col-md-8 m-auto">
-                                       
+            <div class="col-md-8 m-auto">                                       
                 <form class="" action="{{url('submit-question')}}" method="POST" enctype="multipart/form-data">                        
                 @csrf 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Question Title</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="question_title"  placeholder="Enter Question Title"/>
                         </div>
-                    </div> 
+                    </div>  --}}
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Subject</label>
@@ -115,6 +114,18 @@
                                 <option value="">Select Level</option>
                                 @foreach($question_level as $r) 
                                     <option value="{{$r->id}}">{{$r->question_level_name}}</option> 
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Section</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="test_section" required>
+                                <option value="">Select Section</option>
+                                @foreach($test_section as $r) 
+                                    <option value="{{$r->id}}">{{$r->test_section_name}}</option> 
                                 @endforeach
                             </select>
                         </div>
