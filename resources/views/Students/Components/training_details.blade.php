@@ -116,7 +116,7 @@
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3" id="certificate" title="Add More">+</a>                                     
                                     </div>
                                 </div>
-                                @if(count($Certification) > 0)
+                                @if($Certification)
                                     @foreach ($Certification as $item)
                                     <div class="col-12  form-group p-1 h6">
                                         CERTIFICATIONS :- {{$item->Certification_name}}
@@ -147,7 +147,7 @@
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3" title="Add More" id="add_project" >+</a>
                                     </div>
                                 </div>
-                                @if(count($Academic_project) > 0)
+                                @if($Academic_project)
                                     <div class="form-row">
                                         @foreach ($Academic_project as $item)
                                             <div class="col-md-12  form-group p-1 h6">
@@ -193,7 +193,7 @@
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3" id="enter_ship" title="Add More">+</a>                                     
                                     </div>
                                 </div>
-                                @if(count($Interships) > 0)
+                                @if($Interships)
                                     <div class="form-row">
                                         @foreach ($Interships as $item)
                                         <div class="col-md-12  form-group p-1 h6">

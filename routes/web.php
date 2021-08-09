@@ -32,14 +32,23 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('resume-page-one', 'Student\StudentController@resume_page_one');
     Route::get('resume-page-two', 'Student\StudentController@resume_page_two');
     Route::get('resume-training-Info', 'Student\StudentController@resume_trainingInfo');
+    
+    Route::get('View-All-Test', 'Student\StudentController@View_all_Test');
+    Route::get('Test', 'Student\StudentController@Test_Start');
+    Route::get('Delete-Intship/{Int_id}','Student\StudentController@Delete_Intership');
+    Route::get('Delete-Project/{proj_id}','Student\StudentController@Delete_project');
+    Route::get('Delete_Certificate/{certi_id}','Student\StudentController@Delete_Certificate');
+    Route::get('E-Learn','Student\StudentController@E_Learn');
+    
+    Route::get('Test-Result', 'Student\StudentController@Test_Result');
 
-    Route::get('Start-Test', 'Student\StudentController@Start_Test');
+    Route::post('Start-Test', 'Student\StudentController@Start_Test');
+     
 
     Route::post('Basic-Info', 'Student\StudentController@submit_BasicInfo');
     Route::post('Academics-Info', 'Student\StudentController@submit_AcademicsInfo');
     Route::post('Training-Info', 'Student\StudentController@submit_TrainingInfo');
-    Route::post('submit-test', 'Student\StudentController@Submit_test');
-    
+    Route::post('user-submit-test', 'Student\StudentController@Submit_test');
 
 });
 

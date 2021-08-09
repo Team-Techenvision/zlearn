@@ -142,6 +142,16 @@
                                 <input id="" type="text" class="form-control col-md-9" placeholder="Enter Campus Name" name="campus" value="@if($Education){{$Education->compus}}@endif" required="">
                             </div>
                             <div class="form-group row ">
+                                <label class="form-label col-md-3 p-2 text-uppercase">Collage:</label>
+                                <select id="" name="collage" class="form-control custom-select col-md-9" required="">
+                                    <option value="" selected>Select Collage</option>
+                                    @foreach($College as $list)
+                                    <option value="{{$list->id}}">{{$list->college_name}}</option>
+                                    @endforeach
+                                    
+                                </select>
+                            </div>
+                            <div class="form-group row ">
                                 <label class="form-label col-md-3 col-4 p-2">EDUCATION:</label>
                                 <div class="custom-control custom-radio co-md-9 col-8 p-2">
                                     <span class="mr-3">                                         
@@ -155,28 +165,31 @@
                                 </div>                                
                             </div>
                              <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">DEGREE:</label>
+                                <label class="form-label col-md-3 p-2 text-uppercase">course:</label>
                                 <select id="" name="degree" class="form-control custom-select col-md-9" required="">
-                                    <option value="" selected>Select Degree</option>
-                                    <option value="1">BE</option>
-                                    <option value="2">MBA</option>
-                                    <option value="3">BCOM</option>
-                                    <option value="4">BBA</option>
-                                    <option value="5">MCA</option>    
+                                    <option value="" selected>Select Course</option>
+                                    @foreach($course as $list)
+                                    <option value="{{$list->id}}">{{$list->course_name}}</option>
+                                    @endforeach                                      
                                 </select>                               
                             </div>
+                            <div class="form-group row ">
+                                <label class="form-label col-md-3 p-2 text-uppercase">branch:</label>
+                                <select id="" name="branch" class="form-control custom-select col-md-9" required="">
+                                    <option value="" selected>Select Course</option>
+                                    @foreach($branch as $list)
+                                    <option value="{{$list->id}}">{{$list->branch_name}}</option>
+                                    @endforeach                                      
+                                </select>                               
+                            </div>
+
                             <div class="form-group row">
                                 <label class="form-label col-md-3 p-2">SEMESTER:</label>
                                 <select id="" name="semester" class="form-control custom-select col-md-9" required="">
                                     <option value="" selected>Select Semester </option>
-                                    <option value="1">1 Semester</option>
-                                    <option value="2">2 Semester</option>
-                                    <option value="3">3 Semester</option>
-                                    <option value="4">4 Semester</option>
-                                    <option value="5">5 Semester</option>
-                                    <option value="6">6 Semester</option>
-                                    <option value="7">7 Semester</option>
-                                    <option value="8">8 Semester</option>    
+                                    @foreach($Semister as $list)
+                                    <option value="{{$list->id}}">{{$list->semister_name}}</option>
+                                    @endforeach                                       
                                 </select>                               
                             </div>
                             <div class="form-group row">

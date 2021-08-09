@@ -59,13 +59,13 @@
                             </div>
                         </div>
 
-                        {{-- <div class="row"
+                        <div class="row"
                              role="tablist">
                             <div class="col-auto">
                                 <a href="student-my-courses.html"
                                    class="btn btn-outline-secondary">My Courses</a>
                             </div>
-                        </div> --}}
+                        </div>
 
                     </div>
                 </div>
@@ -78,7 +78,39 @@
 
     <div class="container page__container">
         <div class="page-section">
-
+        {{-- {{$Test_time}} --}}
+            <div class="row"> 
+                @foreach($Test_time as $list)
+                    <div class="col-md-4 text-center mb-2" style="height:400px">
+                        <?php $test_status = DB::table('user_tests')->where('test_id',$list->id)->where('user_id', $user->id)->first(); ?>
+                        @if($test_status)
+                        {{-- <!-- <a href="javascript:void(0)" class="w-100 test_done" > --> --}}
+                            <form action="javascript:void(0)" method="post" class="w-100"> 
+                        @else 
+                        <form action="{{url('Start-Test')}}" method="post" class="w-100">
+                        {{-- <a href="{{url('Start-Test')}}/{{$list->id}}" class="w-100"> --}}
+                        @endif 
+                        @csrf
+                           <div class="card" style="height: 100%;">
+                              <img class="card-img-top" src="{{asset('Student/images/1280_work-station-straight-on-view.jpg')}}" alt="Card image cap">
+                              <div class="card-body">
+                                <h5 class="card-title">{{$list->test_name}}</h5>
+                                <input type="hidden" name="test_id" value="{{$list->id}}" class="form-control" >
+                                <p class="card-text" style="height: 50px;overflow: hidden;">{{$list->description}}</p>
+                                 <span class="d-flex text-center"><span class="m-auto">Date : {{$list->exam_date}} &nbsp;&nbsp; {{$list->exam_time}}</span> </span>
+                                 <span class="d-flex text-center"> <span class="m-auto">Time : {{$list->hours}} hr {{$list->minute}} min </span></span>
+                                @if($test_status)
+                                 <span class="btn btn-primary test_done mt-3">Test Completed</span>
+                                @else
+                                <button class="btn btn-primary mt-3">Start Test</button>
+                                @endif  
+                              </div>
+                            </div>
+                        </form>                         
+                    </div>                    
+                @endforeach     
+            </div>
+        
 
         </div>
     </div>
@@ -107,7 +139,15 @@
         <!-- // END Drawer Layout -->
 
         @include('Students.Common.student_footer')
-        
+        <script>
+            $(document).ready(function()
+            {
+                $('.test_done').click(function()
+                {
+                    alert("This Test Already Completed !!!");
+                });
+            });
+        </script>    
     </body>
 
 </html>

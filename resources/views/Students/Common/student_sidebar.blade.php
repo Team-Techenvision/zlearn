@@ -8,7 +8,7 @@
 
                        
 
-                        <a href="#"
+                        <a href="{{url('studentdashboard')}}"
                            class="sidebar-brand ">
                             <!-- <img class="sidebar-brand-icon" src="../../public/images/illustration/student/128/white.svg" alt="Luma"> -->
 
@@ -42,10 +42,35 @@
                             </li>
                             <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button"
-                                   href="{{url('Start-Test')}}">
+                                   href="{{url('View-All-Test')}}">
                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">message</span>
                                     <span class="sidebar-menu-text">Start Test</span>
                                 </a>
+                            </li>
+                             <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button"
+                                   data-toggle="collapse"
+                                   href="#Test_List">
+                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">message</span>
+                                    Start Test
+                                    <!-- <span class="sidebar-menu-badge badge badge-accent badge-notifications ml-auto">2</span> -->
+                                    <span class="sidebar-menu-toggle-icon"></span>
+                                </a>
+                                <ul class="sidebar-submenu collapse sm-indent"
+                                    id="Test_List">
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button"
+                                           href="{{url('View-All-Test')}}">
+                                            <span class="sidebar-menu-text">Class Room</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button"
+                                           href="{{url('E-Learn')}}">
+                                            <span class="sidebar-menu-text">e-Learn</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     

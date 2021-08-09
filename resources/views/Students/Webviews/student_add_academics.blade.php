@@ -136,14 +136,9 @@
                                     <label class="form-label" for="">GRADUATION</label>
                                    <select id="" name="ddl_graduation" class="form-control custom-select">
                                     <option value="" selected>Select Semester </option>
-                                    <option value="1">1st Semester SGPA</option>
-                                    <option value="2">2nd Semester SGPA</option>
-                                    <option value="3">3rd Semester CGPA</option>
-                                    <option value="4">4th Semester CGPA</option>
-                                    <option value="5">5th Semester CGPA</option>
-                                    <option value="6">6th Semester CGPA</option>
-                                    <option value="7">7th Semester CGPA</option>
-                                    <option value="8">8th Semester CGPA</option>
+                                    @foreach($Semister as $list)
+                                    <option value="{{$list->id}}">{{$list->semister_name}}</option>
+                                    @endforeach                                     
                                 </select>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
@@ -174,7 +169,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">YEAR OF GRADUATED <small>(FUTURE DATE)</small></label>
-                                    <input type="text" class="form-control" id="year_graduated" placeholder="Enter Year Of Graduated" value="@if($Academics){{$Academics->year_graduation}}@endif" name="year_graduated">
+                                    <input type="text" class="form-control" id="year_graduated1" placeholder="Enter Year Of Graduated" value="@if($Academics){{$Academics->year_graduation}}@endif" name="year_graduated">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -192,18 +187,18 @@
                                     <label class="form-label" for="">ANY GAPS IN THE ACADEMICS</label>
                                     <div class="custom-control custom-radio col-md-9 col-8 p-2">
                                         <span class="mr-3">
-                                            <input type="radio" id="" name="acd_gaps" value="1" class="" checked>
+                                            <input type="radio" id="" name="acd_gaps" value="1" class="gaps">
                                             <label for="Yes" class="pl-1">Yes</label>
                                         </span>
                                         <span class="ml-3">
-                                            <input type="radio" id="" name="acd_gaps" value="0">
+                                            <input type="radio" class="gaps" id="" name="acd_gaps" value="0" checked>
                                             <label for="No" class="pl-1">No</label>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">Explain </label>
-                                    <textarea class="form-control" name="explain_gaps" placeholder="If Any Gaps In The Academics Then Explain" >@if($Academics){{$Academics->gap_explan}}@endif</textarea>
+                                    <textarea class="form-control gap_explain" name="explain_gaps" placeholder="If Any Gaps In The Academics Then Explain" readonly="">@if($Academics){{$Academics->gap_explan}}@endif</textarea>
                                 </div>
                             </div> 
                             <div class="form-group row">
@@ -240,6 +235,20 @@
                     minDate: 1,
                     dateFormat: 'yy-mm-dd'
                 });
+
+              $('.gaps').click(function()
+              {
+                if($(this).val() == 1)
+                {
+                   $('.gap_explain').removeAttr('readonly');
+                   $('.gap_explain').attr('required',true); 
+                }
+                else
+                {                    
+                    $('.gap_explain').removeAttr('required');
+                    $('.gap_explain').attr('readonly',true);
+                }
+              });  
             });
         </script>
     </body>
