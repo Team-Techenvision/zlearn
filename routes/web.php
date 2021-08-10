@@ -165,6 +165,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('view-test', 'QuestionController@test_list');
     Route::get('add-test', 'QuestionController@add_test');
     Route::post('submit-test', 'QuestionController@submit_test');
+    Route::get('add-test-two/{id}', 'QuestionController@add_test_two');
     Route::get('edit-test/{id}', 'QuestionController@edit_test');
     Route::get('delete-test/{id}/{status}', 'QuestionController@delete_test');
 
