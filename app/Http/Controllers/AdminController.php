@@ -52,7 +52,13 @@ class AdminController extends Controller
 
     public function export() 
     {
-        $student = User::where('user_type', 2)->get();
+        $student = User::where('user_type', 2)
+                        ->leftJoin('user_details', 'user_details.user_id', '=', 'users.id')
+                        ->leftJoin('education__details as ed', 'ed.user_id', '=', 'users.id')
+                        ->leftJoin('colleges', 'colleges.id', '=', 'ed.collage_id')
+                        ->select('users.*', 'user_details.*', 'ed.*','colleges.*')
+                        ->get();
+                        // dd($student);
         return Excel::download(new UsersExport($student), 'users.xlsx');
     }
 
@@ -66,7 +72,8 @@ class AdminController extends Controller
 
     public function user_list(Request $request)
     {
-        $data['student'] =  User::where('user_type', 2)->get();
+        $data['student'] =  User::leftjoin('education__details', 'education__details.user_id', '=', 'users.id')->where('users.user_type', 2)->get();
+        // dd($data['student']);
         $data['flag'] = 27; 
         $data['page_title'] = 'View Student';    
         return view('Admin/webviews/manage_admin_user',$data);
@@ -116,9 +123,7 @@ class AdminController extends Controller
     //    dd($req);
 
         $this->validate($req,[
-            'sub_name'=>'required',
-            'semister_id'=>'required|numeric',  
-            'course_id'=>'required|numeric',         
+            'sub_name'=>'required',       
             'status'=>'nullable|numeric'             
          ]);
 
@@ -127,8 +132,6 @@ class AdminController extends Controller
 
             Subject::where('id',$req->id)->update([
                 'subject_name' => $req->sub_name,
-                'semister_id' => $req->semister_id,
-                'course_id' => $req->course_id,
                 'status' => $req->status,
             ]);
             toastr()->success('Subject Updated Successfully!');
@@ -137,9 +140,7 @@ class AdminController extends Controller
          }else{
  
                 $data = new Subject;
-                $data->subject_name=$req->sub_name; 
-                $data->semister_id=$req->semister_id;   
-                $data->course_id=$req->course_id;           
+                $data->subject_name=$req->sub_name;            
                 $data->status=$req->status;             
                 $result = $data->save();
             if($result)
@@ -167,8 +168,6 @@ class AdminController extends Controller
         $data['flag'] = 15; 
         $data['page_title'] = 'Edit Subject'; 
         $data['subject'] = Subject::where('id',$id)->first(); 
-        $data['courses'] = DB::table('courses')->where('status',"1")->get();
-        $data['semister'] = Semister::where('status',"1")->get(); 
         // dd($data);
         return view('Admin/webviews/manage_admin_user',$data);
     }
@@ -346,9 +345,9 @@ class AdminController extends Controller
     {
         $data['flag'] = 4; 
         $data['page_title'] = 'Add Chapter'; 
-        $data['subjects'] = DB::table('subjects')->where('status',"1")->get(); 
+        $data['subjects'] = DB::table('subjects')->where('status',"1")->orderBy('subject_name', 'asc')->get(); 
         $data['standerds'] = DB::table('standerds')->where('status',"1")->get();
-        $data['semister'] = Semister::where('status',"1")->get();
+        // $data['semister'] = Semister::where('status',"1")->get();
         return view('Admin/webviews/manage_admin_user',$data);
     }
 
@@ -359,7 +358,6 @@ class AdminController extends Controller
        $this->validate($req,[
         'subject_id'=>'required|numeric',
         'chapter_name'=>'required',
-        'semester_id'=>'required|numeric', 
         'subject_id'=>'required|numeric',       
         'status'=>'nullable|numeric'             
      ]);
@@ -369,7 +367,6 @@ class AdminController extends Controller
 
         chapter::where('id',$req->id)->update([
             'chapter_name' => $req->chapter_name,
-            'semister_id' => $req->semester_id,
             'subject_id' => $req->subject_id,
             'status' => $req->status,
         ]);
@@ -380,8 +377,7 @@ class AdminController extends Controller
 
             $data = new chapter;
             $data->chapter_name=$req->chapter_name; 
-            $data->subject_id=$req->subject_id;
-            $data->semister_id=$req->semester_id;          
+            $data->subject_id=$req->subject_id;          
             $data->status=$req->status;             
             $result = $data->save();
         if($result)
@@ -408,9 +404,9 @@ class AdminController extends Controller
         $data['flag'] = 16; 
         $data['page_title'] = 'Edit Chapter'; 
         $data['chapter'] = chapter::where('id',$id)->first(); 
-        $data['subjects'] = DB::table('subjects')->where('status',"1")->get(); 
+        $data['subjects'] = DB::table('subjects')->where('status',"1")->orderBy('subject_name', 'asc')->get(); 
         $data['standerds'] = DB::table('standerds')->where('status',"1")->get();
-        $data['semister'] = Semister::where('status',"1")->get(); 
+        // $data['semister'] = Semister::where('status',"1")->get(); 
         // dd($data);
         return view('Admin/webviews/manage_admin_user',$data);
     }

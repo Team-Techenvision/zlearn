@@ -10,20 +10,29 @@
                     <tr>
                         <th>No </th>
                         <th>Student Name</th>
+                        <th>College</th>
                         <th>Mobile</th>
-                        <th>Eamil</th>
+                        <th>Email</th>
                         <th>Status</th>                            
-                        <th>Action</th>                    
+                        <th>Action</th>  
+                        <th></th>                  
                     </tr>
                 </thead>
 
                 <tbody>
-                    {{-- <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a> --}}
+                    <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a>
                     <?php $i = 1; ?>
                     @foreach($student as $row)
+                    <?php $college = DB::table("colleges")->where("id",$row->collage_id)->pluck('college_name')->first();   
+                        // dd($college);
+                    ?> 
+                   
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$row->name}}</td>  
+                        <td>  
+                            {{$college}}
+                        </td> 
                         <td>{{$row->phone}}</td>   
                         <td>{{$row->email}}</td>                            
                         <td>@if($row->status == 1) Active @else De-Active @endif</td>
@@ -35,6 +44,7 @@
                          $active = 1;
                          @endphp
                          @if($row->status == 1) <a href="{{url('status-student/'.$row->id.'/'.$deactive)}}" class="btn btn-danger">Deactive</a>@else <a href="{{url('status-student/'.$row->id.'/'.$active)}}" class="btn btn-info">Active</a>@endif </td>
+                         <td>  </td>
                     </tr>
                     @endforeach
                    

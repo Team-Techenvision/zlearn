@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2021 at 03:20 PM
+-- Generation Time: Aug 09, 2021 at 02:26 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -50,6 +50,30 @@ CREATE TABLE `academics_details` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `academic_projects`
+--
+
+CREATE TABLE `academic_projects` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `project_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `team_size` int(11) DEFAULT NULL,
+  `project_detail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1 COMMENT '1-activate,0-de-activate',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `academic_projects`
+--
+
+INSERT INTO `academic_projects` (`id`, `user_id`, `project_name`, `team_size`, `project_detail`, `status`, `created_at`, `updated_at`) VALUES
+(1, 3, 'fdhdhfd', 1, 'dfdfhd', 1, '2021-08-07 10:20:21', '2021-08-07 10:20:21');
 
 -- --------------------------------------------------------
 
@@ -118,7 +142,31 @@ INSERT INTO `answers` (`id`, `question_id`, `answer`, `status`, `created_at`, `u
 (45, 15, 'A', 1, '2021-08-06 23:38:12', '2021-08-06 23:38:12'),
 (46, 15, 'B', 1, '2021-08-06 23:38:12', '2021-08-06 23:38:12'),
 (47, 15, 'C', 1, '2021-08-06 23:38:12', '2021-08-06 23:38:12'),
-(48, 15, 'D', 1, '2021-08-06 23:38:13', '2021-08-06 23:38:13');
+(48, 15, 'D', 1, '2021-08-06 23:38:13', '2021-08-06 23:38:13'),
+(49, 16, 'Ajatsatru', 1, '2021-08-09 00:33:02', '2021-08-09 00:33:02'),
+(50, 16, 'Ashoka', 1, '2021-08-09 00:33:02', '2021-08-09 00:33:02'),
+(51, 16, 'Kanishka', 1, '2021-08-09 00:33:02', '2021-08-09 00:33:02'),
+(52, 16, 'Kalasoka', 1, '2021-08-09 00:33:02', '2021-08-09 00:33:02'),
+(53, 17, 'A', 1, '2021-08-09 00:37:10', '2021-08-09 00:37:10'),
+(54, 17, 'B', 1, '2021-08-09 00:37:10', '2021-08-09 00:37:10'),
+(55, 17, 'C', 1, '2021-08-09 00:37:10', '2021-08-09 00:37:10'),
+(56, 17, 'D', 1, '2021-08-09 00:37:10', '2021-08-09 00:37:10'),
+(57, 19, 'A', 1, '2021-08-09 00:39:09', '2021-08-09 00:39:09'),
+(58, 19, 'B', 1, '2021-08-09 00:39:09', '2021-08-09 00:39:09'),
+(59, 19, 'C', 1, '2021-08-09 00:39:09', '2021-08-09 00:39:09'),
+(60, 19, 'D', 1, '2021-08-09 00:39:09', '2021-08-09 00:39:09'),
+(61, 1, 'Hastivarman', 1, '2021-08-09 04:03:25', '2021-08-09 04:03:25'),
+(62, 1, 'Mantaraja', 1, '2021-08-09 04:03:25', '2021-08-09 04:03:25'),
+(63, 1, 'Nilaraja', 1, '2021-08-09 04:03:25', '2021-08-09 04:03:25'),
+(64, 1, 'Vishnugopa', 1, '2021-08-09 04:03:25', '2021-08-09 04:03:25'),
+(65, 2, 'ex2', 1, '2021-08-09 04:06:13', '2021-08-09 04:06:13'),
+(66, 2, '2x', 1, '2021-08-09 04:06:13', '2021-08-09 04:06:13'),
+(67, 2, '2ex2', 1, '2021-08-09 04:06:13', '2021-08-09 04:06:13'),
+(68, 2, '2xex2', 1, '2021-08-09 04:06:13', '2021-08-09 04:06:13'),
+(69, 3, '{1,2,3} and {2,3,4}', 1, '2021-08-09 06:25:16', '2021-08-09 06:25:16'),
+(70, 3, '{1,3,5} and {1,3,5,7}', 1, '2021-08-09 06:25:16', '2021-08-09 06:25:16'),
+(71, 3, '{3,4,7} and {7,4,3}', 1, '2021-08-09 06:25:16', '2021-08-09 06:25:16'),
+(72, 3, '{1,2,7} and {2,7,1,4}', 1, '2021-08-09 06:25:16', '2021-08-09 06:25:16');
 
 -- --------------------------------------------------------
 
@@ -162,6 +210,31 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `categories_name`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'demo', 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `certifications`
+--
+
+CREATE TABLE `certifications` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `Certification_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `upload_certificat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1 COMMENT '1-activate,0-de-activate',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `certifications`
+--
+
+INSERT INTO `certifications` (`id`, `user_id`, `Certification_name`, `upload_certificat`, `status`, `created_at`, `updated_at`) VALUES
+(2, 4, 'sdgsdg', 'images/Certificate/40455.jpeg', 1, '2021-08-06 15:38:59', '2021-08-06 15:38:59'),
+(3, 4, 'svavdhj', 'images/Certificate/52690.pdf', 1, '2021-08-07 19:01:51', '2021-08-07 19:01:51'),
+(4, 3, 'dfgdhdfh', 'images/Certificate/90712.jpeg', 1, '2021-08-07 10:20:21', '2021-08-07 10:20:21');
 
 -- --------------------------------------------------------
 
@@ -272,6 +345,30 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `interships`
+--
+
+CREATE TABLE `interships` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `int_comp_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `intship_duration` int(11) DEFAULT NULL,
+  `your_roles` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1 COMMENT '1-activate,0-de-activate',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `interships`
+--
+
+INSERT INTO `interships` (`id`, `user_id`, `int_comp_name`, `intship_duration`, `your_roles`, `status`, `created_at`, `updated_at`) VALUES
+(1, 3, 'fdhdh', 1, 'dfhdfh', 1, '2021-08-07 10:20:21', '2021-08-07 10:20:21');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -356,6 +453,7 @@ CREATE TABLE `questions` (
   `choice_count` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `explanation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `question_level` int(50) DEFAULT NULL,
+  `test_section` int(50) DEFAULT NULL,
   `correct_answer` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1-activate,0-de-activate',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -366,13 +464,10 @@ CREATE TABLE `questions` (
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `subject_id`, `chapter_id`, `question_title`, `question_type`, `question`, `question_image`, `choice_count`, `explanation`, `question_level`, `correct_answer`, `status`, `created_at`, `updated_at`) VALUES
-(9, 6, 2, 'Current Affairs', 0, 'Who is the national record holder in the men’s 3000m steeplechase?', NULL, '4', 'Current Affairs', 0, '3', 1, '2021-08-04 06:18:20', '2021-08-04 06:21:06'),
-(10, 1, 1, 'demo', 1, 'demo', NULL, '2', 'demo', 0, '1', 1, '2021-08-04 06:21:38', '2021-08-04 06:21:56'),
-(12, 9, 6, 'Current Affairs', 0, 'What was the theme of the “World Day against Trafficking 2021”?', NULL, '4', '“World Day against Trafficking 2021” was observed on July 30 by the ‘United Nations Office on Drugs and Crime’. The theme of 2021 was “Victims’ voices lead the way”. This theme was set to raise awareness about the importance of interacting with the survivors of human trafficking. Their surviving stories will help in taking effective measures to prevent trafficking, identifying and rescuing victims and helping them in rehabilitation.', 0, '4', 1, '2021-08-06 00:26:59', '2021-08-06 00:27:38'),
-(13, 9, 6, 'Current Affairs', 0, 'Which two space agencies collaborated to launch the mission called “NISAR”?', NULL, '4', 'NISAR (NASA-ISRO Synthetic Aperture Radar) which is a joint mission of ISRO and NASA is proposed to be launched in 2023. It is focusing on making global measurement of land surface changes using advanced radar imaging. The information was given by Jitendra Singh, Earth Sciences Minister.\r\nNISAR Satellite will be the first satellite to use dual frequencies. It will be used for remote sensing. It will be also used for global observations over all land masses including the Polar cryosphere and the Indian Ocean region i.e. it will help in understanding the natural processes of the Earth.', 0, '4', 1, '2021-08-06 00:30:51', '2021-08-06 00:31:51'),
-(14, 1, 1, NULL, 1, 'demo', 'images/question/question1628312009.png', '4', 'demo', 1, '3', 1, '2021-08-06 23:23:29', '2021-08-06 23:23:43'),
-(15, 1, 1, 'demo', 1, 'demo', 'images/question/question1628312881.png', '4', 'demo', 1, '1', 1, '2021-08-06 23:38:01', '2021-08-06 23:38:13');
+INSERT INTO `questions` (`id`, `subject_id`, `chapter_id`, `question_title`, `question_type`, `question`, `question_image`, `choice_count`, `explanation`, `question_level`, `test_section`, `correct_answer`, `status`, `created_at`, `updated_at`) VALUES
+(1, 9, 6, NULL, 0, 'Who among the following was the ruler of Kanchi during the time of Samudragupta ?', NULL, '4', 'test', 3, 1, '2', 1, '2021-08-09 04:01:27', '2021-08-09 04:03:25'),
+(2, 1, 5, NULL, 0, 'Find the derivative of ex2', NULL, '4', 'Mathematics Multiple Choice Questions & Answers', 3, 1, '4', 1, '2021-08-09 04:05:23', '2021-08-09 04:06:13'),
+(3, 1, 1, NULL, 0, 'Which of the following two sets equal?', NULL, '4', 'Equal Sets', 3, 1, '2', 1, '2021-08-09 06:24:32', '2021-08-09 06:25:16');
 
 -- --------------------------------------------------------
 
@@ -421,6 +516,36 @@ INSERT INTO `question_pattern` (`id`, `question_pattern_name`, `status`, `create
 (3, 'MCQ + Coading', 1, '2021-08-07 06:58:22', '2021-08-07 06:58:22'),
 (4, 'Email writing', 1, '2021-08-07 06:59:17', '2021-08-07 06:59:17'),
 (5, 'Re arranging', 1, '2021-08-07 06:59:37', '2021-08-07 06:59:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `save__answers`
+--
+
+CREATE TABLE `save__answers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` tinyint(4) NOT NULL,
+  `test_id` int(11) NOT NULL,
+  `question_id` tinyint(4) NOT NULL,
+  `Select_option` tinyint(4) DEFAULT NULL,
+  `correct_answer` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1-activate,0-de-activate',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `save__answers`
+--
+
+INSERT INTO `save__answers` (`id`, `user_id`, `test_id`, `question_id`, `Select_option`, `correct_answer`, `status`, `created_at`, `updated_at`) VALUES
+(1, 3, 1, 9, NULL, 3, 1, '2021-08-09 04:49:22', '2021-08-09 04:49:22'),
+(2, 3, 1, 10, NULL, 1, 1, '2021-08-09 04:49:22', '2021-08-09 04:49:22'),
+(3, 3, 1, 12, NULL, 4, 1, '2021-08-09 04:49:22', '2021-08-09 04:49:22'),
+(4, 3, 1, 13, NULL, 4, 1, '2021-08-09 04:49:22', '2021-08-09 04:49:22'),
+(5, 3, 1, 14, NULL, 3, 1, '2021-08-09 04:49:22', '2021-08-09 04:49:22'),
+(6, 3, 1, 15, NULL, 1, 1, '2021-08-09 04:49:23', '2021-08-09 04:49:23');
 
 -- --------------------------------------------------------
 
@@ -502,6 +627,25 @@ INSERT INTO `subjects` (`id`, `subject_name`, `semister_id`, `course_id`, `statu
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `technical_skills`
+--
+
+CREATE TABLE `technical_skills` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` tinyint(4) NOT NULL,
+  `tech_skill` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `linkedin_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `achievement` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hobbies` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `career_object` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1-activate,0-de-activate',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tests`
 --
 
@@ -533,7 +677,8 @@ CREATE TABLE `tests` (
 --
 
 INSERT INTO `tests` (`id`, `test_name`, `test_type_id`, `test_instruction`, `branch_id`, `semester_id`, `traning_program`, `description`, `question_level`, `question_pattern`, `total_question`, `total_marks`, `time_per_question`, `hours`, `minute`, `exam_date`, `exam_time`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Practice test demo', 1, 'practice test', 3, 5, 'practice', 'demo', 1, 1, 20, 20, 2, 1, 30, '2021-08-09', '22:19:00', 1, '2021-08-07 04:19:11', '2021-08-07 04:19:11');
+(1, 'Practice', 2, 'test', 4, 4, 'test', 'test', 3, 1, 10, 10, 10, 1, 0, '2021-08-10', '15:07:00', 1, '2021-08-09 04:07:44', '2021-08-09 04:07:44'),
+(2, 'Ancient Indian History', 2, 'test2', 3, 4, 'test2', 'test', 3, 1, 10, 10, 1, 1, 0, '2021-08-12', '15:09:00', 1, '2021-08-09 04:09:23', '2021-08-09 04:09:23');
 
 -- --------------------------------------------------------
 
@@ -554,10 +699,9 @@ CREATE TABLE `test_chapter` (
 --
 
 INSERT INTO `test_chapter` (`id`, `test_id`, `chapter_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2021-08-07 04:19:11', '2021-08-07 04:19:11'),
-(2, 1, 2, '2021-08-07 04:19:11', '2021-08-07 04:19:11'),
-(3, 1, 4, '2021-08-07 04:19:11', '2021-08-07 04:19:11'),
-(4, 1, 5, '2021-08-07 04:19:11', '2021-08-07 04:19:11');
+(1, 1, 5, '2021-08-09 04:07:44', '2021-08-09 04:07:44'),
+(2, 2, 6, '2021-08-09 04:09:23', '2021-08-09 04:09:23'),
+(3, 1, 1, '2021-08-09 04:07:44', '2021-08-09 04:07:44');
 
 -- --------------------------------------------------------
 
@@ -578,9 +722,9 @@ CREATE TABLE `test_college` (
 --
 
 INSERT INTO `test_college` (`id`, `test_id`, `college_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2021-08-07 04:19:11', '2021-08-07 04:19:11'),
-(2, 1, 2, '2021-08-07 04:19:11', '2021-08-07 04:19:11'),
-(3, 1, 3, '2021-08-07 04:19:11', '2021-08-07 04:19:11');
+(1, 1, 1, '2021-08-09 04:07:44', '2021-08-09 04:07:44'),
+(2, 2, 2, '2021-08-09 04:09:23', '2021-08-09 04:09:23'),
+(3, 2, 3, '2021-08-09 04:09:23', '2021-08-09 04:09:23');
 
 -- --------------------------------------------------------
 
@@ -601,8 +745,8 @@ CREATE TABLE `test_course` (
 --
 
 INSERT INTO `test_course` (`id`, `test_id`, `course_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, '2021-08-07 04:19:11', '2021-08-07 04:19:11'),
-(2, 1, 3, '2021-08-07 04:19:11', '2021-08-07 04:19:11');
+(1, 1, 2, '2021-08-09 04:07:44', '2021-08-09 04:07:44'),
+(2, 2, 3, '2021-08-09 04:09:23', '2021-08-09 04:09:23');
 
 -- --------------------------------------------------------
 
@@ -632,6 +776,31 @@ INSERT INTO `test_name` (`id`, `test_name`, `status`, `created_at`, `updated_at`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `test_question`
+--
+
+CREATE TABLE `test_question` (
+  `id` int(20) NOT NULL,
+  `test_id` int(100) DEFAULT NULL,
+  `question_id` int(200) DEFAULT NULL,
+  `status` int(20) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `test_question`
+--
+
+INSERT INTO `test_question` (`id`, `test_id`, `question_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, 1, '2021-08-09 05:46:51', '2021-08-09 05:46:51'),
+(2, 2, 1, 1, '2021-08-09 05:57:37', '2021-08-09 05:57:37'),
+(3, 1, 3, 1, '2021-08-09 06:28:12', '2021-08-09 06:28:12'),
+(4, 1, 2, 1, '2021-08-09 06:28:12', '2021-08-09 06:28:12');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `test_section`
 --
 
@@ -650,7 +819,7 @@ CREATE TABLE `test_section` (
 INSERT INTO `test_section` (`id`, `test_section_name`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Quantitative Aptitude', 1, '2021-08-07 12:41:30', '2021-08-07 12:41:30'),
 (2, 'Verbal Ability', 1, '2021-08-07 12:41:49', '2021-08-07 12:41:49'),
-(3, 'Analytical Ability', 1, '2021-08-07 12:42:02', '2021-08-07 12:42:02');
+(3, 'Analytical Ability', 0, '2021-08-07 12:42:02', '2021-08-09 00:15:06');
 
 -- --------------------------------------------------------
 
@@ -672,7 +841,11 @@ CREATE TABLE `test_subject` (
 
 INSERT INTO `test_subject` (`id`, `test_id`, `subject_id`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, '2021-08-07 04:19:11', '2021-08-07 04:19:11'),
-(2, 1, 2, '2021-08-07 04:19:11', '2021-08-07 04:19:11');
+(2, 1, 2, '2021-08-07 04:19:11', '2021-08-07 04:19:11'),
+(3, 2, 1, '2021-08-09 03:37:31', '2021-08-09 03:37:31'),
+(4, 2, 2, '2021-08-09 03:37:31', '2021-08-09 03:37:31'),
+(5, 1, 1, '2021-08-09 04:07:44', '2021-08-09 04:07:44'),
+(6, 2, 9, '2021-08-09 04:09:23', '2021-08-09 04:09:23');
 
 -- --------------------------------------------------------
 
@@ -788,6 +961,28 @@ CREATE TABLE `user_profile` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_tests`
+--
+
+CREATE TABLE `user_tests` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `test_id` int(11) NOT NULL,
+  `Test_status` int(11) DEFAULT 1 COMMENT '1-Test Completed',
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_tests`
+--
+
+INSERT INTO `user_tests` (`id`, `user_id`, `test_id`, `Test_status`, `created_at`, `updated_at`) VALUES
+(1, 3, 1, 1, '2021-08-09 04:49:21', '2021-08-09 04:49:21');
+
 --
 -- Indexes for dumped tables
 --
@@ -796,6 +991,12 @@ CREATE TABLE `user_profile` (
 -- Indexes for table `academics_details`
 --
 ALTER TABLE `academics_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `academic_projects`
+--
+ALTER TABLE `academic_projects`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -814,6 +1015,12 @@ ALTER TABLE `branches`
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `certifications`
+--
+ALTER TABLE `certifications`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -844,6 +1051,12 @@ ALTER TABLE `education__details`
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `interships`
+--
+ALTER TABLE `interships`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -883,6 +1096,12 @@ ALTER TABLE `question_pattern`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `save__answers`
+--
+ALTER TABLE `save__answers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `semisters`
 --
 ALTER TABLE `semisters`
@@ -898,6 +1117,12 @@ ALTER TABLE `standerds`
 -- Indexes for table `subjects`
 --
 ALTER TABLE `subjects`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `technical_skills`
+--
+ALTER TABLE `technical_skills`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -928,6 +1153,12 @@ ALTER TABLE `test_course`
 -- Indexes for table `test_name`
 --
 ALTER TABLE `test_name`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `test_question`
+--
+ALTER TABLE `test_question`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -968,6 +1199,12 @@ ALTER TABLE `user_profile`
   ADD PRIMARY KEY (`user_profile_id`);
 
 --
+-- Indexes for table `user_tests`
+--
+ALTER TABLE `user_tests`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -978,10 +1215,16 @@ ALTER TABLE `academics_details`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `academic_projects`
+--
+ALTER TABLE `academic_projects`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `answers`
 --
 ALTER TABLE `answers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `branches`
@@ -994,6 +1237,12 @@ ALTER TABLE `branches`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `certifications`
+--
+ALTER TABLE `certifications`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `chapters`
@@ -1026,6 +1275,12 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `interships`
+--
+ALTER TABLE `interships`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -1041,7 +1296,7 @@ ALTER TABLE `program_name`
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `question_level`
@@ -1054,6 +1309,12 @@ ALTER TABLE `question_level`
 --
 ALTER TABLE `question_pattern`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `save__answers`
+--
+ALTER TABLE `save__answers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `semisters`
@@ -1074,16 +1335,22 @@ ALTER TABLE `subjects`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `technical_skills`
+--
+ALTER TABLE `technical_skills`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tests`
 --
 ALTER TABLE `tests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `test_chapter`
 --
 ALTER TABLE `test_chapter`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `test_college`
@@ -1104,16 +1371,22 @@ ALTER TABLE `test_name`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `test_question`
+--
+ALTER TABLE `test_question`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `test_section`
 --
 ALTER TABLE `test_section`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `test_subject`
 --
 ALTER TABLE `test_subject`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `test_types`
@@ -1138,6 +1411,12 @@ ALTER TABLE `user_details`
 --
 ALTER TABLE `user_profile`
   MODIFY `user_profile_id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_tests`
+--
+ALTER TABLE `user_tests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

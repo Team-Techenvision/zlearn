@@ -24,7 +24,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Semester</label>
                         <div class="col-sm-9">                                 
                             <select class="form-control" name="semester_id" readonly>                                    
@@ -34,7 +34,7 @@
                                 @endforeach                                                                    
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                     
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Status</label>

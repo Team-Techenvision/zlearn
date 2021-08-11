@@ -10,12 +10,6 @@
                                        
                 <form class="" action="{{url('submit-test')}}" method="POST">                        
                 @csrf 
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Test Name</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="test_name" required placeholder="Enter Test Name" required/>
-                        </div>
-                    </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Test Type</label>
@@ -26,6 +20,26 @@
                                     <option value="{{$r->id}}">{{$r->test_type_name}}</option> 
                                 @endforeach
                             </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Types Of Test </label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="test_name_id" required>
+                                <option value="">Select Types Of Test</option>
+                                @foreach($test_name as $r) 
+                                    <option value="{{$r->id}}">{{$r->test_name}}</option> 
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Test Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="test_name" required placeholder="Enter Test Name" required/>
                         </div>
                     </div>
 
@@ -63,16 +77,15 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Select Branch</label>
+                        <label class="control-label col-sm-3"> Select Branch</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="branch_id" required>
-                                <option value="">Select Branch</option>
+                            <select class="select2 form-control select2-multiple" multiple="multiple" name="branch_id[]" data-placeholder="Choose ...">
                                 @foreach($branches as $r) 
                                     <option value="{{$r->id}}">{{$r->branch_name}}</option> 
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div>                   
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Select Semester</label>
@@ -89,7 +102,12 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Training Program</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="traning_program" required placeholder="Enter Training Program Name" />
+                            <select class="form-control" name="program_name_id" required>
+                                <option value="">Select Training Program</option>
+                                @foreach($program_names as $r) 
+                                    <option value="{{$r->id}}">{{$r->program_name}}</option> 
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
@@ -105,13 +123,25 @@
                     </div>
 
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="control-label col-sm-3"> Select Chapter</label>
                         <div class="col-sm-9">
                             <select class="select2 form-control select2-multiple" multiple="multiple" name="chapter_id[]" data-placeholder="Choose ...">
-                                {{-- @foreach($chapters as $r) 
+                                -- @foreach($chapters as $r) 
                                     <option value="{{$r->id}}">{{$r->chapter_name}}</option> 
-                                @endforeach --}}
+                                @endforeach --
+                            </select>
+                        </div>
+                    </div> --}}
+
+
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3"> Select Section</label>
+                        <div class="col-sm-9">
+                            <select class="select2 form-control select2-multiple" id="test_section_id" multiple="multiple" name="test_section_id[]" data-placeholder="Choose ...">
+                                @foreach($test_section as $r) 
+                                    <option value="{{$r->id}}">{{$r->test_section_name}}</option> 
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -128,7 +158,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label"> Question Pattern</label>
+                        <label class="col-md-3 col-form-label">Question Pattern</label>
                         <div class="col-md-9">
                             <select class="form-control" name="question_pattern" required>
                                 <option value="">Select Question Pattern</option>
@@ -139,7 +169,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-md-3 col-form-label">Level</label>
                         <div class="col-md-9">
                             <select class="form-control" name="question_level" required>
@@ -149,7 +179,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Total Question</label>
@@ -165,12 +195,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Time Per Question</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="time_per_question"  placeholder="Enter Time Per Question" />
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Test Duration</label>

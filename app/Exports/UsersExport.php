@@ -13,13 +13,19 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 
 
 
-class UsersExport implements FromCollection
+class UsersExport implements FromView
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    use Exportable;
+    protected $request;
+
+    function __construct($request)
     {
-        return User::all();
+        $this->request = $request;
+    }
+    public function view(): View
+    {
+        $student =$this->request;
+        return view('Admin.components.admin_view_user_export', compact('student'));
     }
 }
+

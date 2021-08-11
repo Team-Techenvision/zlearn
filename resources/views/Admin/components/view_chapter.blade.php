@@ -10,7 +10,6 @@
                         <tr>
                             <th>No </th>
                             <th>Chapter Name</th>
-                            <th>Semester</th>
                             <th>Subject Name</th>
                             <th>Status</th>                            
                             <th>Action</th>
@@ -24,14 +23,13 @@
                         @foreach($chapters as $row)
 
                         @php
-                                $semister_name = DB::table('semisters')->where('id',$row->semister_id)->pluck('semister_name')->first();
+                                // $semister_name = DB::table('semisters')->where('id',$row->semister_id)->pluck('semister_name')->first();
                                 $subjects_name = DB::table('subjects')->where('id',$row->subject_id)->pluck('subject_name')->first();
                         @endphp
 
                         <tr>
                             <td>{{$i++}}</td>
-                            <td>{{$row->chapter_name}}</td>
-                            <td>{{$semister_name}}</td>                            
+                            <td>{{$row->chapter_name}}</td>                           
                             <td>{{$subjects_name}}</td>                            
                             <td>@if($row->status == 1) Active @else De-Active @endif</td>
                             <td><a href="{{url('edit-chapter/'.$row->id)}}" class="btn btn-info mr-2">Edit</a><a href="{{url('delete-chapter/'.$row->id)}}" class="btn btn-danger">Delete</a></td>                                               

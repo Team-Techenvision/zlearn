@@ -36,6 +36,8 @@
             @include('Admin.components/question/add_test_question')
         @elseif($flag == 9) 
             @include('Admin.components/question/select_question')
+        @elseif($flag == 10) 
+            @include('Admin.components/question/admin_add_test_two')
     @endif
     </div>
                     <!-- end row -->

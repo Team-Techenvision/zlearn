@@ -17,7 +17,7 @@
 
                 <tbody>
                     <?php $i = 1; ?>
-                    @foreach($admin as $row)
+                    @foreach($admin as $row)                                    
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$row->name}}</td>                            
