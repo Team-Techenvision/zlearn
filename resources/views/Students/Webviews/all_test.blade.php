@@ -87,8 +87,9 @@
                         {{-- <!-- <a href="javascript:void(0)" class="w-100 test_done" > --> --}}
                             <form action="javascript:void(0)" method="post" class="w-100"> 
                         @else 
-                        <form action="{{url('Start-Test')}}" method="post" class="w-100">
-                        {{-- <a href="{{url('Start-Test')}}/{{$list->id}}" class="w-100"> --}}
+                        <form action="{{url('Test-Instraction')}}" method="post" class="w-100">
+                        {{-- <form action="{{url('Start-Test')}}" method="post" class="w-100"> --}}
+                        {{-- <a href="{{url('Start-Test')}}/{{$list->id}}" class="w-100"> --}} 
                         @endif 
                         @csrf
                            <div class="card" style="height: 100%;">

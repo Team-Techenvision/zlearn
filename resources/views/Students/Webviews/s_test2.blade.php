@@ -93,11 +93,11 @@
             </div>
         </div> 
         <div class="row">         
-            <div class="page-section1 col-md-9 " style="width: 80vw;">            
+            <div class="page-section1 col-md-8">            
                 <div class="row bg-white p-3 shadow m-2">
-                    <!-- <div class="col-12 m-auto text-center">
+                    <div class="col-12 m-auto text-center">
                         <span class="border pagenation_row">{{ $Question->links() }}</span>
-                    </div> -->
+                    </div>
                      {{-- <div class="example stopwatch d-flex" data-timer="60"></div> --}}
                      
                     {{-- <form class="form-group row col-12" id="test_form" action="{{url('user-submit-test')}}" method="POST"> --}}
@@ -135,18 +135,13 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="col-md-10 m-auto pt-5" id="num_list">
                     <?php $i=1; ?>
                     @foreach($count_Que as $list)
                     {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
-                    {{-- {{$list->id}} --}}
-                    <span data="{{$i}}" class="col-2 bg-primary text-white pt-2 pb-2  Quest_No">{{$i++}}</span>
+                    <a href="javascript void(0);" data="{{$list->id}}" class="col-2 bg-primary text-white pt-2 pb-2" style="">{{$i++}}</a>
                     @endforeach
-                    <div class=" text-center" style="position: relative;margin-top: 75%;">
-                        <a href="{{ url('Test-Result')}}" class="btn btn-outline-danger btn-lx" style="bottom: 25px;">Finish Test</a>
-                    </div>
-                    
                 </div>
             </div>
         </div>  
@@ -154,7 +149,27 @@
 
     <!-- // END Page Content -->
 {{-- ========================================== --}}
- 
+{{-- <div class="toast bg-success">
+    <div class="toast-header">
+      <strong class="mr-auto text-primary">Message</strong>
+      <small class="text-muted">5 mins ago</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+    </div>
+    <div class="toast-body">
+        Answer Submited !!
+    </div>
+  </div>
+
+  <div class="toast1 bg-danger" >
+    <div class="toast-header">
+      <strong class="mr-auto text-primary">Message</strong>
+      <small class="text-muted">5 mins ago</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+    </div>
+    <div class="toast-body">
+        Answer Not Submited !!!
+    </div>
+  </div> --}}
 
 {{-- ======================================== --}}
 
@@ -209,10 +224,6 @@
              {                 
                   font-size: 110%;
              }
-             .Quest_No
-             {
-                cursor: pointer;
-             }
 
              @media screen and (max-width: 600px) 
              {
@@ -236,6 +247,7 @@
                     data: $('#test_form').serialize(),
                     success: function(response)
                     {
+
                         if(response)
                         {
                             let searchParams = new URLSearchParams(window.location.search);
@@ -283,24 +295,6 @@
                 });
             });
         </script>
-        <!-- ======================================= -->
-        <script>
-            $(document).ready(function()
-            {
-
-                $('.Quest_No').click(function()
-                {
-                    let cur_page = $(this).attr('data'); 
-                    let searchParams = new URLSearchParams(window.location.search);
-                    let url1 = "{{ url('Test')}}?page="+cur_page;
-                    //alert(url1);
-                    $(location).attr('href', url1);
-                               
-                });
-                 
-            });
-        </script>
-        <!-- ============================================= -->
         {{-- <script>
     $(document).ready(function()
     {  
