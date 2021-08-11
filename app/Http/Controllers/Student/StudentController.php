@@ -424,18 +424,30 @@ class StudentController extends Controller
 
     }
 
-    public function Start_Test(Request $req)
+    public function Test_Instraction(Request $req)
+    {
+        //dd($req->test_id);
+        $u_id = Auth::User()->id;
+        $data['test'] = Test::where('status',1)->where('id',$req->test_id)->first();
+        //dd($test);
+        $data['test_id'] = $req->test_id;
+        return view('Students/Webviews/Test_Instraction',$data);
+    }
+
+    // public function Start_Test(Request $req)
+    public function Start_Test($test_id)
     {
         //dd($req);
         $u_id = Auth::User()->id;
+        $Test_ID = $test_id;
         session()->flush();
-        $user_test = UserTest::where('Test_status',1)->where('test_id',$req->test_id)->where('user_id',$u_id)->first();
+        $user_test = UserTest::where('Test_status',1)->where('test_id',$Test_ID)->where('user_id',$u_id)->first();
         if(!$user_test)
         {
 
             $data = new UserTest;
             $data->user_id=$u_id;            
-            $data->test_id=$req->test_id;            
+            $data->test_id=$Test_ID;            
             $result = $data->save();
 
             $test_question = Question::get();
@@ -443,15 +455,18 @@ class StudentController extends Controller
             {
                 $data = new Save_Answer;
                 $data->user_id=$u_id;                             
-                $data->test_id=$req->test_id;
+                $data->test_id=$Test_ID;
                 $data->question_id=$list->id; 
                 $data->correct_answer=$list->correct_answer;             
                 $result = $data->save(); 
             }
 
 
-            Session::put('Test_Id',$req->test_id);
+            Session::put('Test_Id',$Test_ID);
             return redirect('Test');
+            //return redirect('s_test2');
+            // 
+            
             // $data['page_title'] = 'Start Test';
             // $u_id = Auth::User()->id;
             // $data['user'] = User::where('id',$u_id)->first();
@@ -601,6 +616,15 @@ class StudentController extends Controller
     public function E_Learn()
     {
          return view('Students/Webviews/E-learn');
+    }
+
+
+
+    // ====================================================
+
+    public function Get_TestQ(Request $req)
+    {
+        $_Que = Question::where('id',$req)->first();
     }
 
 

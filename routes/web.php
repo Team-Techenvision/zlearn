@@ -41,9 +41,12 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('E-Learn','Student\StudentController@E_Learn');
     
     Route::get('Test-Result', 'Student\StudentController@Test_Result');
+    Route::get('Start-Test-Demo/{test_id}', 'Student\StudentController@Start_Test');
+    Route::post('Test-Instraction', 'Student\StudentController@Test_Instraction');
+    Route::post('Get-TestQ', 'Student\StudentController@Get_TestQ');
 
-    Route::post('Start-Test', 'Student\StudentController@Start_Test');
-     
+    // Route::post('Start-Test', 'Student\StudentController@Start_Test');
+    
 
     Route::post('Basic-Info', 'Student\StudentController@submit_BasicInfo');
     Route::post('Academics-Info', 'Student\StudentController@submit_AcademicsInfo');
