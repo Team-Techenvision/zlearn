@@ -11,6 +11,8 @@
         <script src="{{ URL::asset('js/app.min.js')}}"></script>
 
         <script type="text/javascript">
+
+        
         $.ajaxSetup({
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -21,7 +23,7 @@
                         var subjectID = $(this).val();
                         if(subjectID) {
                             $.ajax({
-                                url: 'myform/ajax/'+subjectID,
+                                url: '/myform/ajax/'+subjectID,
                                 type: "GET",
                                 dataType: "json",
                                 success:function(data) {

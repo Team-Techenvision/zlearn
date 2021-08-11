@@ -20,7 +20,7 @@
                 </thead>
 
                 <tbody>
-                    <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a>
+                    {{-- <a class="btn btn-warning" href="{{ route('export') }}">Export User Data</a> --}}
                     <?php $i = 1; ?>
                     @foreach($student as $row)
                     <?php $college = DB::table("colleges")->where("id",$row->collage_id)->pluck('college_name')->first();   

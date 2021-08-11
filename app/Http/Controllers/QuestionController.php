@@ -24,6 +24,7 @@ Use App\Test_subject;
 Use App\Test_question;
 Use App\Test_branch;
 Use App\Test_tb_section;
+Use App\Test_Section;
 
 
 
@@ -154,11 +155,17 @@ class QuestionController extends Controller
     }
 
     public function edit_question($id){
-        $data['flag'] = 3; 
-        $data['page_title'] = 'Edit Question'; 
-        $data['question'] = Question::where('id',$id)->first(); 
+        $data['flag'] = 3;
+        $data['page_title'] = 'Edit Question';
+        $data['question'] = Question::leftJoin('chapters', 'chapters.id', '=', 'questions.chapter_id')
+                                    ->leftJoin('subjects', 'subjects.id', '=', 'questions.subject_id')
+                                    ->select('questions.*', 'chapters.id as Chapter_id', 'chapters.chapter_name','subjects.id as subject_id', 'subjects.subject_name')
+                                    ->where('questions.id',$id)
+                                    ->first(); 
         $data['subjects'] = DB::table('subjects')->where('status',"1")->get();
-        $data['chapter'] = DB::table('chapters')->where('status',"1")->get();   
+        $data['chapter'] = DB::table('chapters')->where('status',"1")->get(); 
+        $data['question_level'] = DB::table('question_level')->where('status',"1")->get();  
+
         // dd($data);
         return view('Admin/webviews/manage_admin_question',$data);
     }
@@ -386,18 +393,58 @@ class QuestionController extends Controller
     }
 
 
+
+
+    
+
+
     public function add_test_two($test_id)
     {
         $data['flag'] = 10; 
         $data['page_title'] = 'Add Test Chapter';    
-        $data['test'] = Test::where('id',$test_id)->get(); 
+        $data['test'] = Test::where('id',$test_id)->first(); 
         $data['chapters'] =  Chapter::join('subjects', 'subjects.id', '=', 'chapters.subject_id')
                                     ->join('test_subject', 'test_subject.subject_id', '=', 'chapters.subject_id')
-                                    // ->leftjoin('tests', 'test_subject.test_id', '=', 'test.id')
+                                    ->select('subjects.*','test_subject.*','chapters.id as chapter_id', 'chapters.chapter_name','chapters.subject_id')
                                     ->where('test_subject.test_id', $test_id)
                                     ->get();
-        // dd($data['test']);              
+        $data['test_section'] = Test_Section::join('test_tb_section','test_tb_section.test_section_id','=','test_section.id')
+                                            ->where('test_tb_section.test_id', $test_id)
+                                            ->select('test_section.*','test_tb_section.id as test_tb_section_id','test_tb_section.test_id','test_tb_section.test_section_id')
+                                            ->get();
+        // dd($data['test_section']);              
         return view('Admin/webviews/manage_admin_question',$data);
+    }
+
+
+    public function submit_test_two(Request $req)
+    {
+    //    dd($req);
+
+        $this->validate($req,[
+            'test_id'=>'required',           
+         ]);
+
+         $i=0;
+         foreach($req->chapter_id as $row)
+         {
+             $data = new Test_chapter;
+             $data->test_id=$req->test_id;           
+             $data->chapter_id=$req->chapter_id[$i];
+             $result = $data->save();
+             $i++;
+         }
+
+         $j=0;
+         foreach($req->test_tb_section_id as $row)
+         {
+         Test_tb_section::where('id',$req->test_tb_section_id[$j])->update([
+                'section_time' => $req->section_time[$j]
+            ]);
+            $j++;
+        }
+            toastr()->success('Test Added Successfully!');
+            return redirect('view-test');
     }
 
     public function delete_test($id, $status){ 

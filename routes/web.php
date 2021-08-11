@@ -166,6 +166,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('add-test', 'QuestionController@add_test');
     Route::post('submit-test', 'QuestionController@submit_test');
     Route::get('add-test-two/{id}', 'QuestionController@add_test_two');
+    Route::post('submit-test-two', 'QuestionController@submit_test_two');
     Route::get('edit-test/{id}', 'QuestionController@edit_test');
     Route::get('delete-test/{id}/{status}', 'QuestionController@delete_test');
 
@@ -173,11 +174,8 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 
     Route::get('manage-test-question', 'QuestionController@add_test_question');
     Route::post('save-test-question', 'QuestionController@save_test_question');
-
     Route::post('get-test-question', 'QuestionController@get_test_question');
-
     Route::post('find-test-question', 'QuestionController@get_test_question');
-
     Route::post('save-test-question', 'QuestionController@save_test_question');
 
     

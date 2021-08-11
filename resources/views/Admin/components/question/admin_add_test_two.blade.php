@@ -11,79 +11,35 @@
                 <form class="" action="{{url('submit-test-two')}}" method="POST">                        
                 @csrf 
 
-                   
-
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Test Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="test_name"  value="{{ $test['0']->test_name }}" readonly/>
+                            <input type="text" class="form-control" name="test_name"  value="{{ $test->test_name }}" readonly/>
                         </div>
                     </div>
 
-
+                    <input type="hidden" name="test_id" value="{{$test->id}}">
                     <div class="form-group row">
                         <label class="control-label col-sm-3"> Select Chapter</label>
                         <div class="col-sm-9">
-                            <select class="select2 form-control select2-multiple" multiple="multiple" name="chapter_id[]" data-placeholder="Choose ...">
+                            <select class="select2 form-control select2-multiple" multiple="multiple" name="chapter_id[]" data-placeholder="Choose ..." required>
                                  @foreach($chapters as $r) 
-                                    <option value="{{$r->id}}">{{$r->chapter_name}}</option> 
+                                    <option value="{{$r->chapter_id}}">{{$r->chapter_name}}</option> 
                                 @endforeach 
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Total Question</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="total_question"  placeholder="Enter Total Question" required/>
+                        @foreach($test_section as $r) 
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label"> {{$r->test_section_name}} </label>
+                            <input type="hidden" name="test_tb_section_id[]"  value="{{ $r->test_tb_section_id }}">
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="section_time[]"  placeholder="Enter Minute " />
+                            </div>
                         </div>
-                    </div>
+                        @endforeach
 
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Total Marks</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="total_marks"  placeholder="Enter Total Marks" required/>
-                        </div>
-                    </div>
-
-                    {{-- <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Time Per Question</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="time_per_question"  placeholder="Enter Time Per Question" />
-                        </div>
-                    </div> --}}
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Test Duration</label>
-                        <div class="col-sm-4">
-                            <input type="number" class="form-control" name="hours"  placeholder="Enter hours" required/>
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="number" class="form-control" name="minute"  placeholder="Enter minute" required/>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Exam Date</label>
-                        <div class="col-sm-4">
-                            <input type="date" class="form-control" name="exam_date"/>
-                        </div>
-                        
-                        <div class="col-sm-4">
-                            <input type="time" class="form-control" name="exam_time"/>
-                        </div>
-                       
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Status</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" name="status">                                    
-                                <option value="1">Active</option>
-                                <option value="0">De-Active</option>                                     
-                            </select>
-                        </div>
-                    </div>
                     <div class="form-group text-center mt-5">
                         <div>
                             <button type="reset" class="btn btn-secondary waves-effect m-l-5">

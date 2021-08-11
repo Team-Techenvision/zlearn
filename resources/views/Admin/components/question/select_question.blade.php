@@ -9,30 +9,35 @@
                 <thead>
                     <tr>
                         <th>Select </th>
+                        <th>Section</th>
                         <th>Question</th>                    
                     </tr>
                 </thead>
                 <form class="" action="{{url('save-test-question')}}" method="POST">                        
                     @csrf 
-                    <input type="hidden" name="test_id" value="{{$test_level->id}}">
+                    <input type="hidden" name="test_id" value="{{$test_level->id}}" >
                 <tbody>
                     <?php $i = 1; ?>
                     @foreach($test_chapter as $row)
                       <?php   
-                            $test_question= DB::table("questions")->where("questions.chapter_id",$row->chapter_id)->where('questions.question_level',$test_level->question_level)->first();
+                            $test_question= DB::table("questions")->where("questions.chapter_id",$row->chapter_id)->first();
                             // dd($test_question);
+                            
                       ?>
                        {{-- @foreach($test_question as $row) --}}
                     @if($test_question)
                     <tr>
-                        <td><input type="checkbox" name="question_id[]" value="{{$test_question->id}}" required></td>
+                        
+                        <td><input type="checkbox" name="question_id[]" value="{{$test_question->id}}" ></td>
+                        @php $test_section_name = DB::table('test_section')->where('id',$test_question->test_section)->pluck('test_section_name')->first(); @endphp
+                        <td>{{{$test_section_name}}}</td>
                         <td>{{$test_question->question}}</td>                                                                          
                     </tr>
                     {{-- @endforeach --}}
                     @else 
-                    <tr>
+                    {{-- <tr>
                         <td>No Question Available...</td>                                                                          
-                    </tr>
+                    </tr> --}}
                     @endif
                     @endforeach
                    
