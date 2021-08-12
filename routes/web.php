@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //     return redirect('/index');
 // });
 
-Route::get('/', 'QovexController@logout');
+// Route::get('/', 'QovexController@logout');
 // Route::get('/Web-login', 'Website\MainController@login');
 // Route::get('/Web-register', 'Website\MainController@register');
 // Route::post('/Register-submit', 'Website\MainController@register_submit');
@@ -28,6 +28,7 @@ Route::get('/', 'QovexController@logout');
 Route::get('/Student-register', 'Student\StudentController@register');
 
 Route::middleware(['auth','User'])->group(function() {
+    Route::get('/', 'Student\StudentController@index');
     Route::get('studentdashboard', 'Student\StudentController@index')->name('student');
     Route::get('resume-page-one', 'Student\StudentController@resume_page_one');
     Route::get('resume-page-two', 'Student\StudentController@resume_page_two');
