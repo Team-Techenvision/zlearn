@@ -9,6 +9,7 @@
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.css">
     </head>
 
+    
     <body class="layout-app ">
 
         <div class="preloader">
@@ -101,7 +102,7 @@
                  
                 {{-- <form class="form-group row col-12" id="test_form" action="{{url('user-submit-test')}}" method="POST"> --}}
                     <form class="form-group row col-12" id="test_form" action="javascript:void(0)" method="POST">
-                    @csrf
+                    @csrf                   
                     @foreach ($Question as $question)                        
                         <input type="hidden" value="{{count($count_Que)}}" id="total_Q">
                     <div class="col-12 m-auto pb-5">
@@ -116,6 +117,7 @@
                     <input type="hidden" name="question_id" value="{{$question->id}}">
             <?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
                     $i=1;
+                    dd($Q_option);
                 foreach ($Q_option as  $value) 
                 { ?>
                    <div class="col-md-6 h5">
@@ -209,6 +211,10 @@
                  cursor:pointer; 
                  display: inline-block; 
                  font-size: 2.5rem; }
+        .mdk-drawer__content
+             {
+                display: none!important;
+             }
         </style>
         <script>
             $(document).ready(function()

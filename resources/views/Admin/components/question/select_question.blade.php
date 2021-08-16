@@ -20,25 +20,27 @@
                     <?php $i = 1; ?>
                     @foreach($test_chapter as $row)
                       <?php   
-                            $test_question= DB::table("questions")->where("questions.chapter_id",$row->chapter_id)->first();
+                            $test_question= DB::table("questions")->where("questions.chapter_id",$row->chapter_id)->get();
                             // dd($test_question);
                             
                       ?>
-                       {{-- @foreach($test_question as $row) --}}
-                    @if($test_question)
+                       @foreach($test_question as $row)
+                    {{-- @if($test_question) --}}
                     <tr>
-                        
-                        <td><input type="checkbox" name="question_id[]" value="{{$test_question->id}}" ></td>
-                        @php $test_section_name = DB::table('test_section')->where('id',$test_question->test_section)->pluck('test_section_name')->first(); @endphp
+                        @php
+                            // dd($row->id);
+                        @endphp
+                        <td><input type="checkbox" name="question_id[]" value="{{$row->id}}" ></td>
+                        @php $test_section_name = DB::table('test_section')->where('id',$row->test_section)->pluck('test_section_name')->first(); @endphp
                         <td>{{{$test_section_name}}}</td>
-                        <td>{{$test_question->question}}</td>                                                                          
+                        <td>{{$row->question}}</td>                                                                          
                     </tr>
-                    {{-- @endforeach --}}
-                    @else 
+                    @endforeach
+                    {{-- @else  --}}
                     {{-- <tr>
                         <td>No Question Available...</td>                                                                          
                     </tr> --}}
-                    @endif
+                    {{-- @endif --}}
                     @endforeach
                    
                 </tbody>

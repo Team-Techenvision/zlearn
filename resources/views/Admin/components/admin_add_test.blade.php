@@ -195,12 +195,12 @@
                         </div>
                     </div>
 
-                    {{-- <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Time Per Question</label>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Mark Per Question</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="time_per_question"  placeholder="Enter Time Per Question" />
+                            <input type="text" class="form-control" name="mark_per_question"  placeholder="Enter Mark Per Question" />
                         </div>
-                    </div> --}}
+                    </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Test Duration</label>

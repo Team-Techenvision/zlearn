@@ -76,7 +76,8 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">                        
                         <li><a href="{{url('view-test')}}"> View Test</a></li>   
-                        <li><a href="{{url('manage-test-question')}}"> Manage Test Question</a></li>                      
+                        <li><a href="{{url('manage-test-question')}}"> Manage Test Question</a></li>
+                        <li><a href="{{url('view-test-question')}}"> View Test Question</a></li>                      
                     </ul>
                 </li>
                 

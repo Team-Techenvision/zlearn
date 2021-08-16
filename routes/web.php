@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //     return redirect('/index');
 // });
 
-// Route::get('/', 'QovexController@logout');
+Route::get('/', 'QovexController@logout');
 // Route::get('/Web-login', 'Website\MainController@login');
 // Route::get('/Web-register', 'Website\MainController@register');
 // Route::post('/Register-submit', 'Website\MainController@register_submit');
@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/Student-register', 'Student\StudentController@register');
 
 Route::middleware(['auth','User'])->group(function() {
-    Route::get('/', 'Student\StudentController@index');
+    // Route::get('/', 'Student\StudentController@index');
     Route::get('studentdashboard', 'Student\StudentController@index')->name('student');
     Route::get('resume-page-one', 'Student\StudentController@resume_page_one');
     Route::get('resume-page-two', 'Student\StudentController@resume_page_two');
@@ -182,6 +182,11 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::post('find-test-question', 'QuestionController@get_test_question');
     Route::post('save-test-question', 'QuestionController@save_test_question');
 
+    Route::get('view-test-question', 'QuestionController@view_test_question');
+    Route::post('view-test-question', 'QuestionController@view_test_question1');
+
+
+    
     
     Route::get('view-test-name', 'AdminController@view_test_name');
     Route::get('view-question-level', 'AdminController@view_question_level');

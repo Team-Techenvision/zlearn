@@ -319,7 +319,7 @@ class QuestionController extends Controller
                 $data->question_pattern=$req->question_pattern;
                 $data->total_question=$req->total_question;
                 $data->total_marks=$req->total_marks;
-                // $data->time_per_question=$req->time_per_question;
+                $data->mark_per_question=$req->mark_per_question;
                 $data->hours=$req->hours;  
                 $data->minute=$req->minute;  
                 $data->exam_date=$req->exam_date;            
@@ -474,24 +474,31 @@ class QuestionController extends Controller
         return view('Admin/webviews/manage_admin_question',$data);
     }
 
+    public function view_test_question()
+    {
+        $data['flag'] = 11; 
+        $data['page_title'] = 'View Question'; 
+        $data['tests'] = Test::where('status',1)->get();               
+        return view('Admin/webviews/manage_admin_question',$data);
+    }
+
     
-    // public function get_test_question(Request $req)
-    // {
-    //     $test_id = $req->test_id;
-    //     // return($subject_id);
-    //     $test = DB::table("tests")
-    //                 ->join('test_chapter', 'test_chapter.test_id', '=', 'tests.id')
-    //                 ->join('questions', 'questions.chapter_id', '=', 'test_chapter.chapter_id') 
-    //                 // ->join('questions AS q', 'tests.question_level', '=', 'q.question_level')
-    //                 ->join('question_level', 'question_level.id', '=', 'questions.question_level') 
-    //                 ->join('test_types', 'test_types.id', '=', 'tests.test_type_id')
-    //                 ->select('questions.id as q_id', 'questions.question as question_name','questions.question_level','tests.*')
-    //                 // ->where('tests.question_level','=','questions.question_level')
-    //                 ->where("tests.id",$test_id)                    
-    //                 ->get();
-    //                 // dd($test);
-    //     return json_encode($test);
-    // }
+    
+    public function view_test_question1(Request $req)
+    {
+        $test_id = $req->test_id;
+        // return($subject_id);
+        $data['test_question'] = DB::table("questions")
+                    ->join('test_question', 'test_question.question_id', '=', 'questions.id')
+                    ->join('tests', 'tests.id', '=', 'test_question.test_id')
+                    ->where("test_question.test_id",$test_id)                    
+                    ->get();
+                    // dd($data['test_question']);
+        $data['flag'] = 12; 
+        $data['page_title'] = 'View Test Question '; 
+        $data['tests'] = Test::where('id', $test_id)->first();              
+        return view('Admin/webviews/manage_admin_question',$data);
+    }
 
 
     public function get_test_question(Request $req)

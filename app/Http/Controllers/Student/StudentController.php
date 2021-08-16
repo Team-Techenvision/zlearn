@@ -440,7 +440,7 @@ class StudentController extends Controller
         //dd($req);
         $u_id = Auth::User()->id;
         $Test_ID = $test_id;
-        session()->flush();
+        // session()->flush();
         $user_test = UserTest::where('Test_status',1)->where('test_id',$Test_ID)->where('user_id',$u_id)->first();
         if(!$user_test)
         {
@@ -495,7 +495,6 @@ class StudentController extends Controller
         if (Session::has('Test_Id'))
         {
             //
-
            $test_id = Session::get('Test_Id');
             $data['page_title'] = 'Start Test';
             $u_id = Auth::User()->id;
@@ -503,7 +502,7 @@ class StudentController extends Controller
             $data['Question'] = Question::where('status',1)->paginate(1);
             $data['count_Que'] = Question::where('status',1)->get();
             $data['Test_time']=Test::where('id',$test_id)->first();
-            //dd($data['Test_time']);
+            // dd($data['Test_time']);
             return view('Students/Webviews/teck_test',$data);
         }
     }

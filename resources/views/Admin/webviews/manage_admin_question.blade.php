@@ -38,6 +38,10 @@
             @include('Admin.components/question/select_question')
         @elseif($flag == 10) 
             @include('Admin.components/question/admin_add_test_two')
+        @elseif($flag == 11) 
+            @include('Admin.components/question/show_test_question')
+        @elseif($flag == 12) 
+            @include('Admin.components/question/view_test_question')
     @endif
     </div>
                     <!-- end row -->

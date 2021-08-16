@@ -102,6 +102,7 @@
                                 <input type="text" class="form-control col-md-9"
                                 placeholder="Enter Your Name">
                             </div> -->
+                           
                              <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">First NAME</label>
@@ -146,9 +147,8 @@
                                 <select id="" name="collage" class="form-control custom-select col-md-9" required="">
                                     <option value="" selected>Select Collage</option>
                                     @foreach($College as $list)
-                                    <option value="{{$list->id}}">{{$list->college_name}}</option>
-                                    @endforeach
-                                    
+                                    <option value="{{$list->id}}" >{{$list->college_name}}</option>
+                                    @endforeach                                    
                                 </select>
                             </div>
                             <div class="form-group row ">

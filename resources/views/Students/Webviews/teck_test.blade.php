@@ -103,6 +103,10 @@
                     {{-- <form class="form-group row col-12" id="test_form" action="{{url('user-submit-test')}}" method="POST"> --}}
                         <form class="form-group row col-12" id="test_form" action="javascript:void(0)" method="POST">
                         @csrf
+                        @php
+                            // print_r($Question);
+
+                        @endphp
                         @foreach ($Question as $question)                        
                             <input type="hidden" value="{{count($count_Que)}}" id="total_Q">
                         <div class="col-12 m-auto pb-5">
@@ -116,7 +120,9 @@
                         <input type="hidden" name="test_id" value="{{$Test_time->id}}" >
                         <input type="hidden" name="question_id" value="{{$question->id}}">
                     <?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
+                   
                         $i=1;
+                        
                     foreach ($Q_option as  $value) 
                     { ?>
                        <div class="col-md-6 h5">
@@ -212,6 +218,10 @@
              .Quest_No
              {
                 cursor: pointer;
+             }
+             .mdk-drawer__content
+             {
+                display: none!important;
              }
 
              @media screen and (max-width: 600px) 
