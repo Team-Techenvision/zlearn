@@ -38,7 +38,7 @@
                     <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
                         <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
                             <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                                <h2 class="mb-0">Dashboard</h2>
+                                <h2 class="mb-0">RESUME</h2>
                                 <ol class="breadcrumb p-0 m-0">
                                     <li class="breadcrumb-item"><a href="JavaScript:Void(0);">Student</a></li>
                                     <li class="breadcrumb-item active">
@@ -216,9 +216,29 @@
                                     <!-- <label for="file" class="custom-file-label">Choose file</label> -->
                                 </div>                                
                             </div>
+
+                            @if($UserDetails->upload_kyc)
+                            <div class="form-group row ">
+                                <label class="form-label col-md-3 p-2">Preview</label>
+                                <div class=" col-md-9">                                  
+                                   <img class="document_img" src="{{asset($UserDetails->upload_kyc)}}" alt="" width="80" height="80">
+                                </div>                                
+                            </div>
+                            @endif
+
+                            @php
+                                
+                                // print_r($blood_group);  
+                            @endphp
                             <div class="form-group row">
                                 <label class="form-label col-md-3 p-2">BLOOD GROUP:</label>
-                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter Blood Group" name="blood_group" value="@if($UserDetails){{$UserDetails->blood_group}}@endif" required="">
+                                {{-- <input id="" type="text" class="form-control col-md-9" placeholder="Enter Blood Group" name="blood_group" value="@if($UserDetails){{$UserDetails->blood_group}}@endif" required=""> --}}
+                                <select id="" name="blood_group" class="form-control custom-select col-md-9" >
+                                <option value="" selected>Select Blood Group</option>
+                                @foreach($blood_group as $list)
+                                    <option value="{{$list->blood_group_name}}" @if($UserDetails) @if($UserDetails->blood_group == $list->blood_group_name)selected @endif @endif>{{$list->blood_group_name}}</option>
+                                    @endforeach 
+                                </select> 
                             </div>
                             <div class="form-group row">
                                 <div class="col-10 m-auto text-right pt-3">

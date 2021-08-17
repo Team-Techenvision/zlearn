@@ -14,6 +14,10 @@ class UsersImport implements ToModel, WithHeadingRow
             'name'     => $row['name'],
             'email'    => $row['email'], 
             'password' => \Hash::make($row['password']),
+            'phone'     => $row['phone'],
+            'user_type'    => $row['user_type'],
+            'gender'    => $row['gender'],
+            'status'    => $row['status'],
         ]);
     }
 }

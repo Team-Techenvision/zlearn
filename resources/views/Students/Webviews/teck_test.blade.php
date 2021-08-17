@@ -105,9 +105,14 @@
                         @csrf
                         @foreach ($Question as $question)                        
                             <input type="hidden" value="{{count($count_Que)}}" id="total_Q">
+                        @php     $section_name= DB::table("test_section")->where("test_section.id",$question->test_section)->pluck('test_section_name')->first();
+                                @endphp
+                        <div class="row col-3 ">
+                            <span class="badge badge-primary w-100">{{$section_name}}</span>
+                        </div>
                         <div class="col-12 m-auto pb-5">
                             @if($question->question)
-                                <label class="h5"><span class="h3">Q.</span><span  class="h3 mr-1" id="ques_no"></span> &nbsp;{{$question->question}}</label>
+                                <label class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></span> {{$question->question}}</label>
                             @endif
                             @if($question->question_image)
                                 <img src="{{url($question->question_image)}}" class="img-thumbnail">
@@ -138,17 +143,20 @@
             <div class="col-md-3">
                 <div class="col-md-10 m-auto pt-5" id="num_list">
                     <div class="col-12 Q_pagenate">
-                        <?php $i=1; ?>
-                        @foreach($count_Que as $list)
-                        {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
-                        {{-- {{$list->id}} --}}
-                        <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2 rounded pt-1 pb-1">{{$i++}}</span>
-                        @endforeach                     
+                    <?php $i=1; ?>
+                    @foreach($count_Que as $list)
+                    {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
+                    {{-- {{$list->id}} --}}
+                    
+                    {{-- <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2">{{$i++}}</span> --}}
+                    <span data="{{$i}}" class="col-2 @if(isset($list->Select_option)) bg-info @else bg-secondary @endif text-white Quest_No mb-2">{{$i++}}</span>
+                    @endforeach
                     </div>
                     <div class=" text-center pb-4" style="">
                         {{-- <a href="{{ url('Test-Result')}}" class="btn btn-outline-danger btn-lx" style="bottom: 25px;">Finish Test</a> --}}
                         <span class="btn btn-outline-danger btn-lx" id="test_finish" style="">Finish Test </span>
-                    </div>                    
+                    </div>
+                    
                 </div>
             </div>
         </div>  
@@ -215,7 +223,7 @@
              {
                 cursor: pointer;
              }
-             .mdk-drawer__content, .mdk-drawer__scrim
+             .mdk-drawer__content , .mdk-drawer__scrim
              {
                 display: none!important;
              }
@@ -227,6 +235,7 @@
              {
                 padding-bottom: 225px;
              }
+
              @media screen and (max-width: 600px) 
              {
                 #Q_paper
@@ -242,6 +251,7 @@
                 {
                     padding-bottom: 75px;
                 }
+                 
              }
         </style>
         <script>
@@ -249,7 +259,6 @@
             {
                 $('.sidebar, .alert').hide();
                 // $('.alert').hide();
-
                 let searchParams = new URLSearchParams(window.location.search);
                 //alert(searchParams.get('page'));
                 let cur_page = searchParams.get('page');
@@ -259,8 +268,7 @@
                 }
                 cur_page = parseInt(cur_page);
                 $('#ques_no').text(cur_page);
-
-
+                
                 $('#submit_testQ').click(function()
                 {
                     $.ajax({
@@ -290,9 +298,7 @@
                             }
                             else
                             {
-                                 
-                                $(location).attr('href', "{{ url('Test')}}?page=1");
-                                // $(location).attr('href',"{{ url('Test-Result')}}");
+                                $(location).attr('href',"{{ url('Test-Result')}}");
                             }    
                         }
                         else

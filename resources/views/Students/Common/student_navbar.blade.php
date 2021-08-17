@@ -31,10 +31,14 @@
         
                     <span class="d-none d-md-flex align-items-center mr-16pt">
         
+                       
                         <span class="avatar avatar-sm mr-12pt">
         
-                            <span class="avatar-title rounded navbar-avatar"><i class="material-icons">opacity</i></span>
-        
+                            <img class="p-1 logo-small" src="{{asset('images/zlearnlogo.jpg')}}" alt="">
+                            {{-- <span class="avatar-title rounded navbar-avatar">
+                               
+                                <i class="material-icons">opacity</i>
+                            </span> --}}
                         </span>
         
                         

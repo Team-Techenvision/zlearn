@@ -54,7 +54,8 @@ class StudentController extends Controller
         $data['College']= College::where('status',1)->orderBy('college_name','asc')->get();
         $data['course']= course::where('status',1)->orderBy('course_name','asc')->get();
         $data['Semister'] = Semister::where('status',1)->orderBy('semister_name','asc')->get();
-        $data['branch'] = branch::where('status',1)->orderBy('branch_name','asc')->get();  
+        $data['branch'] = branch::where('status',1)->orderBy('branch_name','asc')->get(); 
+        $data['blood_group'] = DB::table('blood_group')->where('status',1)->orderBy('id','asc')->get();  
         //dd($data['Education']['collage_id']);  
     	return view('Students/Webviews/student_add_resume',$data);
 
@@ -71,7 +72,7 @@ class StudentController extends Controller
             'gender'=>'required|numeric',
             'bod_date'=>'required',
             'email'=> 'required|email', 
-            'phone_no' => 'required|digits:10|numeric',         
+            'phone_no' => 'required|digits:10|numeric',             
             'education'=>'required|alpha', 
             'degree'=>'required|numeric',
             'semester'=>'required|numeric',
@@ -82,7 +83,8 @@ class StudentController extends Controller
             'permanent_address'=>'required',
             'current_address'=>'required',
             'kyc_doc'=>'required',
-            'blood_group'=>'required',                       
+            'blood_group'=>'required',
+                       
          ]);
 
           $u_id = Auth::User()->id; 
@@ -102,9 +104,11 @@ class StudentController extends Controller
         }   
        
         if($user_result)
-        { 
+        {  
+           // dd("'dob' => $req->bod_date, 'address'=> $req->permanent_address,'semister' => $req->semester, 'mother_name' => $req->mother_name,'father_name'=> $req->father_name,'occupation'=> $req->occupation,'kyc_name'=>$req->kyc_doc,'blood_group'=>$req->blood_group,'upload_kyc'=>$cust_newfile");
+
             $result = DB::table('user_details')->where('user_id', $u_id)->update([ 'dob' => $req->bod_date, 'address'=> $req->permanent_address,'semister' => $req->semester, 'mother_name' => $req->mother_name,'father_name'=> $req->father_name,'occupation'=> $req->occupation,'kyc_name'=>$req->kyc_doc,'blood_group'=>$req->blood_group,'upload_kyc'=>$cust_newfile]);
-            // dd($user_result->upload_kyc);
+           // dd($user_result->upload_kyc);
             if($result)
             {
                // dd("Hello");
@@ -145,13 +149,12 @@ class StudentController extends Controller
         $result = DB::table('education__details')->where('user_id', $u_id)->first();
         if($result)
         {
-            $result = DB::table('education__details')->where('user_id', $u_id)->update(['compus' => $req->campus, 'degree'=> $req->degree,'roll_no' => $req->roll_no, 'education' => $req->education,'current_address'=> $req->current_address,'collage_id'=>$req->collage,'branch_id'=>$req->branch]); 
+            $result = DB::table('education__details')->where('user_id', $u_id)->update(['degree'=> $req->degree,'roll_no' => $req->roll_no, 'education' => $req->education,'current_address'=> $req->current_address,'collage_id'=>$req->collage,'branch_id'=>$req->branch]); 
         }
         else
         {  
             $data = new Education_Detail;
-            $data->user_id=$u_id;            
-            $data->compus=$req->campus;
+            $data->user_id=$u_id; 
             $data->degree=$req->degree; 
             $data->roll_no=$req->roll_no; 
             $data->education=$req->education; 
@@ -254,14 +257,16 @@ class StudentController extends Controller
               $data['user'] = User::where('id',$u_id)->first(); 
               $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!');     
               // return view('Students/Webviews/student_add_resume2',$data);
-              return redirect('resume-training-Info');
+              // return redirect('resume-training-Info');
+              return redirect('studentdashboard'); 
          }
          else
          {
                //$req->session()->flash('alert-danger', 'Academics Information Not Submited!!');
               // return back(); 
              $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!'); 
-               return redirect('resume-training-Info');
+               // return redirect('resume-training-Info');
+               return redirect('studentdashboard'); 
          } 
 
 
@@ -303,7 +308,7 @@ class StudentController extends Controller
         {
             //dd("Yes");
         }
-        
+        $s = 0;
         // foreach($req->certificate as $row)
         // {    
         //     //dd("Yes");  
@@ -328,7 +333,6 @@ class StudentController extends Controller
         // }
         if ($req->hasfile('upload_certificat')) 
         {
-            $s = 0;
             foreach($req->file('upload_certificat') as $row)
             {    
                 //dd("Yes");  
@@ -351,21 +355,6 @@ class StudentController extends Controller
                 } 
                 $s++;               
             }
-        }
-        else
-        {
-            if ($req->certificate) 
-            {
-                foreach($req->certificate as $row)
-                {
-                    $data = new Certification;
-                    $data->user_id=$u_id; 
-                    $data->Certification_name=$row->certificate;                 
-                    $result21 = $data->save(); 
-                }
-
-            }
-
         }
         if($req->project_name)
         {
@@ -450,10 +439,10 @@ class StudentController extends Controller
 
     public function Test_Instraction(Request $req)
     {
-        //dd($req->test_id);
+        // dd($req->test_id);
         $u_id = Auth::User()->id;
         $data['test'] = Test::where('status',1)->where('id',$req->test_id)->first();
-        //dd($test);
+        // dd($data['test']);
         $data['test_id'] = $req->test_id;
         return view('Students/Webviews/Test_Instraction',$data);
     }
@@ -530,9 +519,7 @@ class StudentController extends Controller
            $test_id = Session::get('Test_Id');
             $data['page_title'] = 'Start Test';
             $u_id = Auth::User()->id;
-            $data['user'] = User::where('id',$u_id)->first();
-            // $data['Question'] = Question::where('status',1)->paginate(1);
-            // $data['count_Que'] = Question::where('status',1)->get();
+            $data['user'] = User::where('id',$u_id)->first();             
             $data['Test_time']=Test::where('id',$test_id)->first();
             // $data['Question'] = DB::table('test_question')
             // ->join('questions', 'questions.id', '=', 'test_question.question_id')           
@@ -553,14 +540,15 @@ class StudentController extends Controller
             // ->get();
             $data['count_Que'] = DB::table('test_question')
             ->join('questions', 'questions.id', '=', 'test_question.question_id')  
-            ->join('save__answers', 'save__answers.question_id', '=', 'questions.id')           
+            ->join('save__answers', 'save__answers.question_id', '=', 'questions.id')   
+            ->join('test_section', 'test_section.id', '=', 'questions.test_section')
             ->select('questions.*','save__answers.Select_option')
             ->where('test_question.test_id',$test_id)
+            ->where('save__answers.user_id',$u_id)
+            ->orderBy('test_section_name', 'asc')
             ->get();
             //dd($data['Test_time']);
             return view('Students/Webviews/teck_test',$data);
-            //return view('Students/Webviews/demo1_compiler',$data);
-            
         }
     }
 

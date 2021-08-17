@@ -81,6 +81,20 @@
                     </div>
                 </a>
               </div> -->
+
+
+              <div class="col-md-6">
+                @php 
+                  $user = Auth::user();
+                @endphp
+                <div class="alert alert-success" role="alert">
+                <h6> Welcome Back, <strong class="text-info ">@php echo $user->name; @endphp </strong>, how do you like to upskill today? </h6>  
+                </div>
+              </div>
+              <div class="col-md-6 text-center mb-3">
+                <img class="" src="{{asset('images/dashboard_scrore.png')}}" alt="">
+              </div>
+              
               <div class="col-sm-6">
                 <a href="{{url('resume-page-one')}}">
                     <div class="card text-center">

@@ -40,7 +40,7 @@
                             <div class="mb-24pt mb-sm-0 mr-sm-24pt">
                                 <h2 class="mb-0">Dashboard</h2>
                                 <ol class="breadcrumb p-0 m-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Student</a></li>
+                                    <li class="breadcrumb-item"><a href="JavaScript:Void(0);">Student</a></li>
                                     <li class="breadcrumb-item active">
                                         <!-- ACADEMIC Details -->
                                         {{$page_title}}
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">YEAR OF PASSING</label>
-                                    <input type="text" class="form-control" id="" placeholder="Enter Year Of Passing" value="@if($Academics){{$Academics->sslc_year}}@endif" name="year_sslc" required="">
+                                    <input type="text" class="form-control" id="" placeholder="Enter Year Of Passing (YYYY)" value="@if($Academics){{$Academics->sslc_year}}@endif" name="year_sslc" required="">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">YEAR OF PASSING</label>
-                                    <input type="text" class="form-control" id="" placeholder="Enter Year Of Passing" value="@if($Academics){{$Academics->puc_year}}@endif" name="year_puc" required="">
+                                    <input type="text" class="form-control" id="" placeholder="Enter Year Of Passing (YYYY)" value="@if($Academics){{$Academics->puc_year}}@endif" name="year_puc" required="">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -137,7 +137,7 @@
                                    <select id="" name="ddl_graduation" class="form-control custom-select">
                                     <option value="" selected>Select Semester </option>
                                     @foreach($Semister as $list)
-                                    <option value="{{$list->id}}">{{$list->semister_name}}</option>
+                                    <option value="{{$list->id}}" @if($UserDetails->semister == $list->id)selected @endif>{{$list->semister_name}}</option>
                                     @endforeach                                     
                                 </select>
                                 </div>
@@ -146,15 +146,16 @@
                                     <input type="text" class="form-control" id="" placeholder="Enter Other Graduation" value="@if($Academics){{$Academics->other_graduation}}@endif" name="write_graduation">
                                 </div>
                             </div>
+                            
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">PG</label>
                                    <select id="" name="ddl_pg" class="form-control custom-select">
-                                    <option value="" selected>Select Semester </option>
-                                    <option value="1">1st Semester </option>
-                                    <option value="2">2nd Semester </option>
-                                    <option value="3">3rd Semester </option>
-                                    <option value="4">4th Semester </option>
+                                    <option value="" >Select Semester </option>
+                                    <option value="1" @if($Academics) @if($Academics->ddl_pg == "1")selected @endif @endif>1st Semester </option>
+                                    <option value="2" @if($Academics) @if($Academics->ddl_pg == "2")selected @endif @endif>2nd Semester </option>
+                                    <option value="3" @if($Academics) @if($Academics->ddl_pg == "3")selected @endif @endif>3rd Semester </option>
+                                    <option value="4" @if($Academics) @if($Academics->ddl_pg == "4")selected @endif @endif>4th Semester </option>
                                 </select>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
@@ -168,8 +169,8 @@
                                     <input type="text" class="form-control" name="avg_cgpa" id="" value="@if($Academics){{$Academics->avg_cgpa}}@endif" placeholder="Enter Total CGPA " >
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label" for="">YEAR OF GRADUATED <small>(FUTURE DATE)</small></label>
-                                    <input type="text" class="form-control" id="year_graduated" placeholder="Enter Year Of Graduated" value="@if($Academics){{$Academics->year_graduation}}@endif" name="year_graduated">
+                                    <label class="form-label" for="">YEAR OF GRADUATED <small>(FUTURE DATE (YYYY))</small></label>
+                                    <input type="text" class="form-control" id="year_graduated1" placeholder="Enter Year Of Graduated (YYYY)" value="@if($Academics){{$Academics->year_graduation}}@endif" name="year_graduated">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -187,11 +188,11 @@
                                     <label class="form-label" for="">ANY GAPS IN THE ACADEMICS</label>
                                     <div class="custom-control custom-radio col-md-9 col-8 p-2">
                                         <span class="mr-3">
-                                            <input type="radio" id="" name="acd_gaps" value="1" class="gaps">
+                                            <input type="radio" id="" name="acd_gaps" value="1" class="gaps" @if($Academics) @if($Academics->gap == "1")checked @endif @endif>
                                             <label for="Yes" class="pl-1">Yes</label>
                                         </span>
                                         <span class="ml-3">
-                                            <input type="radio" class="gaps" id="" name="acd_gaps" value="0" checked>
+                                            <input type="radio" class="gaps" id="" name="acd_gaps" value="0"  @if($Academics) @if($Academics->gap == "0")checked @endif @endif>
                                             <label for="No" class="pl-1">No</label>
                                         </span>
                                     </div>
@@ -225,7 +226,7 @@
         
          <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
          rel = "stylesheet">
-        <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+        {{-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> --}}
         <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
         <script>

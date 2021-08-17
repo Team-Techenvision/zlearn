@@ -19,7 +19,11 @@
                                          alt="logo" /></span>
                             </span>
 
-                            <span>ZLearn</span>
+                            <span>@php 
+                                $user = Auth::user();
+                                echo $user->name;
+                              @endphp
+                              </span>
                         </a>
 
                         <div class="sidebar-heading">Student</div>
