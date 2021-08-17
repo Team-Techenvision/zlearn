@@ -3,6 +3,7 @@
     dir="ltr">
     <head>
         @include('Students.Common.student_head')
+        
     </head>
     <body class="layout-app ">
         <div class="preloader">
@@ -128,5 +129,7 @@
         </div>
         <!-- // END Drawer Layout -->
         @include('Students.Common.student_footer')
+        @toastr_js
+        @toastr_render
     </body>
 </html>
