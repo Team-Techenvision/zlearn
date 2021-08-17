@@ -12,12 +12,11 @@
                            class="sidebar-brand ">
                             <!-- <img class="sidebar-brand-icon" src="../../public/images/illustration/student/128/white.svg" alt="Luma"> -->
 
-                            <span class="avatar avatar-xl sidebar-brand-icon h-auto">
+                            <span class="avatar avatar-xl sidebar-brand-icon h-auto rounded-circle">
 
                                 <span class="avatar-title rounded bg-primary"><img src="{{asset('Student/images/illustration/student/128/white.svg')}}"
-                                         class="img-fluid"
+                                         class="img-fluid rounded-circle"
                                          alt="logo" /></span>
-
                             </span>
 
                             <span>ZLearn</span>
@@ -28,9 +27,10 @@
 
                             <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button"
-                                   href="index.html">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
-                                    <span class="sidebar-menu-text">Home</span>
+                                   href="{{url('studentdashboard')}}">
+                                    {{-- <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">view_compact</span> --}}
+                                    <i class="fa fa-th-large sidebar-menu-icon--left" aria-hidden="true"></i>
+                                    <span class="sidebar-menu-text">Dashboard</span>
                                 </a>
                             </li>
                             <li class="sidebar-menu-item">

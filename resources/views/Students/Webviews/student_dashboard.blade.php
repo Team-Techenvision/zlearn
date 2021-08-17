@@ -45,27 +45,18 @@
                             <div class="mb-24pt mb-sm-0 mr-sm-24pt">
                                 <h2 class="mb-0">Dashboard</h2>
 
-                                <ol class="breadcrumb p-0 m-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <!-- <ol class="breadcrumb p-0 m-0">
+                                    <li class="breadcrumb-item"><a href="JavaScript:Void(0);">Home</a></li>
 
                                     <li class="breadcrumb-item active">
-
                                         Dashboard
-
                                     </li>
-
-                                </ol>
+                                </ol> -->
 
                             </div>
                         </div>
 
-                        {{-- <div class="row"
-                             role="tablist">
-                            <div class="col-auto">
-                                <a href="student-my-courses.html"
-                                   class="btn btn-outline-secondary">My Courses</a>
-                            </div>
-                        </div> --}}
+                        
 
                     </div>
                 </div>
@@ -78,7 +69,64 @@
 
     <div class="container page__container">
         <div class="page-section">
-
+            <div class="row">
+             <!--  <div class="col-sm-6">
+                <a href="{{url('studentdashboard')}}">
+                    <div class="card text-center">
+                      <div class="card-body text-center">
+                        <span  class="h1 text-info"><i class="fa fa-th-large" aria-hidden="true"></i></span>
+                        <p class="h3">Dashboard</p>
+                        <hr class="style1 w-75 m-auto bg-info">                   
+                      </div>
+                    </div>
+                </a>
+              </div> -->
+              <div class="col-sm-6">
+                <a href="{{url('resume-page-one')}}">
+                    <div class="card text-center">
+                      <div class="card-body text-center">
+                        <span  class="h1 text-primary"><i class="fa fa-graduation-cap" aria-hidden="true"></i></span>
+                        <p class="h3 text-uppercase">Resume</p>
+                        <hr class="style1 w-75 m-auto bg-primary">                   
+                      </div>
+                    </div>
+                </a>
+              </div>
+              <div class="col-sm-6">
+                <a href="{{url('E-Learn')}}">
+                    <div class="card text-center">
+                      <div class="card-body text-center">
+                        <span  class="h1 text-danger"><i class="fa fa-play-circle" aria-hidden="true"></i></span>
+                        <p class="h3">LEARNING VIDEOS & CONTENT</p>
+                        <hr class="style1 w-75 m-auto bg-danger">                   
+                      </div>
+                    </div>
+                </a>
+              </div>
+              <div class="col-sm-6">
+                <a href="{{url('View-All-Test')}}">
+                    <div class="card text-center">
+                      <div class="card-body text-center">
+                        <span  class="h1 text-success"><i class="fa fa-university" aria-hidden="true"></i></span>
+                        <p class="h3 text-uppercase">TEST RESULTS & ANAYLYSIS</p>
+                        <hr class="style1 w-75 m-auto bg-success">                   
+                      </div>
+                    </div>
+                </a>
+              </div>
+              
+              <div class="col-sm-6">
+                <a href="{{url('View-All-Test')}}">
+                    <div class="card text-center">
+                      <div class="card-body text-center">
+                        <span  class="h1 text-success"><i class="fa fa-university" aria-hidden="true"></i></span>
+                        <p class="h3 text-uppercase">CLASS ROOM TRAINING </p>
+                        <hr class="style1 w-75 m-auto bg-success">                   
+                      </div>
+                    </div>
+                </a>
+              </div>              
+            </div>
 
         </div>
     </div>

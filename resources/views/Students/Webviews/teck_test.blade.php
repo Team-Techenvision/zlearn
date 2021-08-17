@@ -81,37 +81,33 @@
                 <!-- Page Content -->
 
     <div class="row" id="Q_paper" style="">
-            <div class="row">
-                <div class="block btn12 col-12 col-12 text-center m-auto"></div>
-            </div>
-        <div class="alert_div">
+        <div class="row text-right col-12">                
+            <div class="btn12 col-12 text-right m-auto"><span>Time: &nbsp;</span><span class="block"></span></div>
+        </div>
+        {{-- <div class="alert_div">
             <div class="alert alert-danger" role="alert">
                 Answer Submited !!
             </div>
             <div class="alert alert-success" role="alert">
                 Answer Not Submited !!
             </div>
-        </div> 
+        </div>  --}}
         <div class="row">         
-            <div class="page-section1 col-md-9 " style="width: 80vw;">            
+            <div class="page-section1 col-md-9 " >            
                 <div class="row bg-white p-3 shadow m-2">
                     <!-- <div class="col-12 m-auto text-center">
-                        <span class="border pagenation_row">{{ $Question->links() }}</span>
+                        <span class="border pagenation_row">{ { $Question->links() } }</span>
                     </div> -->
                      {{-- <div class="example stopwatch d-flex" data-timer="60"></div> --}}
                      
                     {{-- <form class="form-group row col-12" id="test_form" action="{{url('user-submit-test')}}" method="POST"> --}}
                         <form class="form-group row col-12" id="test_form" action="javascript:void(0)" method="POST">
                         @csrf
-                        @php
-                            // print_r($Question);
-
-                        @endphp
                         @foreach ($Question as $question)                        
                             <input type="hidden" value="{{count($count_Que)}}" id="total_Q">
                         <div class="col-12 m-auto pb-5">
                             @if($question->question)
-                                <label class="h5"><span class="h3 mr-2">Q.</span> {{$question->question}}</label>
+                                <label class="h5"><span class="h3">Q.</span><span  class="h3 mr-1" id="ques_no"></span> &nbsp;{{$question->question}}</label>
                             @endif
                             @if($question->question_image)
                                 <img src="{{url($question->question_image)}}" class="img-thumbnail">
@@ -120,9 +116,7 @@
                         <input type="hidden" name="test_id" value="{{$Test_time->id}}" >
                         <input type="hidden" name="question_id" value="{{$question->id}}">
                     <?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
-                   
                         $i=1;
-                        
                     foreach ($Q_option as  $value) 
                     { ?>
                        <div class="col-md-6 h5">
@@ -131,7 +125,7 @@
                        </div>
 
                    <?php }
-                    // dd($Question);
+                    //  dd($Question);
                     ?>
                      @endforeach
                    
@@ -143,16 +137,18 @@
             </div>
             <div class="col-md-3">
                 <div class="col-md-10 m-auto pt-5" id="num_list">
-                    <?php $i=1; ?>
-                    @foreach($count_Que as $list)
-                    {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
-                    {{-- {{$list->id}} --}}
-                    <span data="{{$i}}" class="col-2 bg-primary text-white pt-2 pb-2  Quest_No">{{$i++}}</span>
-                    @endforeach
-                    <div class=" text-center" style="position: relative;margin-top: 75%;">
-                        <a href="{{ url('Test-Result')}}" class="btn btn-outline-danger btn-lx" style="bottom: 25px;">Finish Test</a>
+                    <div class="col-12 Q_pagenate">
+                        <?php $i=1; ?>
+                        @foreach($count_Que as $list)
+                        {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
+                        {{-- {{$list->id}} --}}
+                        <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2 rounded pt-1 pb-1">{{$i++}}</span>
+                        @endforeach                     
                     </div>
-                    
+                    <div class=" text-center pb-4" style="">
+                        {{-- <a href="{{ url('Test-Result')}}" class="btn btn-outline-danger btn-lx" style="bottom: 25px;">Finish Test</a> --}}
+                        <span class="btn btn-outline-danger btn-lx" id="test_finish" style="">Finish Test </span>
+                    </div>                    
                 </div>
             </div>
         </div>  
@@ -187,9 +183,9 @@
         @include('Students.Common.student_footer')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.min.js"></script> --}}
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.min.js"></script>
  
-       <!--  <script src="{{asset('Student/vendor/timer.js')}}"></script> -->
+  <script src="{{asset('Student/vendor/timer.js')}}"></script> 
         <style>
             .pagenation_row ul li{
                 border: 1px solid black;
@@ -209,7 +205,7 @@
                  color: #212529; 
                  cursor:pointer; 
                  display: inline-block; 
-                 font-size: 2.5rem; 
+                 font-size: 1.5rem; 
              }
              #num_lis1 a
              {                 
@@ -219,17 +215,32 @@
              {
                 cursor: pointer;
              }
-             .mdk-drawer__content
+             .mdk-drawer__content, .mdk-drawer__scrim
              {
                 display: none!important;
              }
-
+             .page-section1
+             {
+                 width: 80vw;
+             }
+             .Q_pagenate
+             {
+                padding-bottom: 225px;
+             }
              @media screen and (max-width: 600px) 
              {
                 #Q_paper
                 {
                     padding-right: 0rem!important; 
                     padding-left: 0rem!important;
+                }
+                .page-section1
+                {
+                    width: 100vw;
+                }
+                .Q_pagenate
+                {
+                    padding-bottom: 75px;
                 }
              }
         </style>
@@ -238,6 +249,18 @@
             {
                 $('.sidebar, .alert').hide();
                 // $('.alert').hide();
+
+                let searchParams = new URLSearchParams(window.location.search);
+                //alert(searchParams.get('page'));
+                let cur_page = searchParams.get('page');
+                if(!cur_page)
+                {
+                    cur_page = 1;
+                }
+                cur_page = parseInt(cur_page);
+                $('#ques_no').text(cur_page);
+
+
                 $('#submit_testQ').click(function()
                 {
                     $.ajax({
@@ -267,7 +290,9 @@
                             }
                             else
                             {
-                                $(location).attr('href',"{{ url('Test-Result')}}");
+                                 
+                                $(location).attr('href', "{{ url('Test')}}?page=1");
+                                // $(location).attr('href',"{{ url('Test-Result')}}");
                             }    
                         }
                         else
@@ -307,6 +332,16 @@
                     $(location).attr('href', url1);
                                
                 });
+
+                $('#test_finish').click(function()
+                {
+                   let key = confirm(" Are you sure Finish Test !!!!");
+
+                   if(key == true)
+                   {
+                    $(location).attr('href',"{{ url('Test-Result')}}");
+                   }
+                });
                  
             });
         </script>
@@ -322,18 +357,19 @@
     });
 </script> --}}
 
-{{-- <script>
+<script>
     let hr = {{$Test_time->hours}};
     let min = {{$Test_time->minute}};
-     //set_timer($('.block'), [0, hr,min, 0], 
-        //  set_timer($('.block'), [0, 0,1, 0], 
-        //   function(block) {
-        //     block.html('<h1>time is over</h1>');
-        //     window.clearTimeout();
-        //     sessionStorage.removeItem("timer_start_");
-        //      $(location).attr('href',"{{ url('studentdashboard')}}");
-        // });
-    </script>  --}}
+   //let hr = 0;
+   //let min = 50;
+    set_timer($('.block'), [00, hr,min, 0],
+         function(block) {
+           block.html('<h1>time is over</h1>');
+           window.clearTimeout();
+           sessionStorage.removeItem("timer_start_");
+            $(location).attr('href',"{{ url('Test-Result')}}");
+       });
+   </script> 
         
     </body>
 

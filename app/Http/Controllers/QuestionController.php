@@ -482,8 +482,6 @@ class QuestionController extends Controller
         return view('Admin/webviews/manage_admin_question',$data);
     }
 
-    
-    
     public function view_test_question1(Request $req)
     {
         $test_id = $req->test_id;

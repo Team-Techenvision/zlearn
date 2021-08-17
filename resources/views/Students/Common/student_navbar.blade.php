@@ -61,7 +61,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-header"><strong>Account</strong></div>
                                 <a class="dropdown-item"
-                                   href="edit-account.html">Edit Account</a>                               
+                                   href="{{url('/edit-password')}}">Edit Password</a>                               
                                 <a class="dropdown-item"
                                    href="{{url('/logout')}}">Logout</a>
                             </div>

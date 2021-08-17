@@ -88,9 +88,9 @@
                                           <td>Test Name</td>
                                           <td class="bg-warning">{{$test->test_name}}</td>
                                           <td>Total Questions</td>
-                                          <td class="bg-warning">{{$test->total_question}}</td>
+                                          <td class="bg-warning">100</td>
                                            <td>Total Time</td>
-                                          <td class="bg-warning">{{$test->hours}}:{{$test->minute}} Min</td>
+                                          <td class="bg-warning">100 Mins</td>
                                        </tr>
                                    </table>
                                     <table class="table table-bordered text-white table-sm text-center">

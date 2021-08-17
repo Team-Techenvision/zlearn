@@ -102,7 +102,7 @@
                 </div>
                 <div class="col-md-2 p-2 border">
                     <div class="col-12"> Total Score</div>
-                    <div class="col-12 h4 p-2"><?= count($C_total) * 2 ;?></div>                   
+                    <div class="col-12 h4 p-2"><?= count($C_total) * $Test_time->mark_per_question ;?></div>                   
                 </div>
 
                 <div class="col-12 mt-3">
@@ -110,13 +110,14 @@
                        {{$Test_time->test_name}} Submited !!!!
                     </div>
                 </div>
+                    <?php $j = 1; ?>
                    @foreach ($W_total as $item)
                     <?php    
                             $Question = DB::table('questions')->where('id',$item->question_id)->first();
                     ?>
                         <div class="col-md-12 row">
                             @if($Question->question)
-                                <label class="h5"><span class="h3 mr-2">Q.</span> {{$Question->question}}</label>
+                                <label class="h5"><span class="h3 mr-2">Q. {{$j++}}</span> {{$Question->question}}</label>
                             @endif
                         </div>
                         <div class="col-md-12 row">
@@ -137,6 +138,11 @@
                     <?php $i++; }
                     // dd($Question);
                              ?>
+
+                    <div class="col-md-12 bg-info px-3 py-2  mb-3">        
+                        <p class="text-left font-weight-bold text-dark">Explanation :- </p>
+                        <p class="h5 text-left">{{$Question->explanation}}</p>
+                    </div>      
 
                    @endforeach
                 
@@ -171,6 +177,12 @@
 
         @include('Students.Common.student_footer')
         
+        <script>
+            $(document).ready(function()
+            {
+                localStorage.clear();
+            });
+        </script>
     </body>
 
 </html>

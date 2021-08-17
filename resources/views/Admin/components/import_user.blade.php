@@ -8,13 +8,15 @@
             </p> --}}
             <div class="col-md-8 m-auto">
                                        
-                <form class="" action="{{ route('import') }}" method="POST" enctype="multipart/form-data">                        
+                {{-- <form class="" action="{{ route('importuser') }}" method="POST" enctype="multipart/form-data"> --}}
+                <form class="" action="{{url('importuser')}}" method="POST" enctype="multipart/form-data">                        
+
                 @csrf 
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                     <div class="col-sm-12 text-right">
                         <a href="{{url('import/sample.csv')}}" download="sample.csv">Download sample</a>
                     </div>
-                </div>
+                </div> --}}
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Import User</label>
                         <div class="col-sm-9">

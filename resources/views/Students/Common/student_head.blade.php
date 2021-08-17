@@ -44,3 +44,8 @@
         href="{{asset('Student/css/app.css')}}"
         rel="stylesheet">
 
+        <!-- Custom  CSS -->
+  <link type="text/css"
+  href="{{asset('Student/css/custom.css')}}"
+  rel="stylesheet">
+

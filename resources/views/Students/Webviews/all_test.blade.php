@@ -46,11 +46,11 @@
                                 <h2 class="mb-0">Dashboard</h2>
 
                                 <ol class="breadcrumb p-0 m-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="JavaScript:Void(0);">Dashboard</a></li>
 
                                     <li class="breadcrumb-item active">
 
-                                        Dashboard
+                                        {{$page_title}}
 
                                     </li>
 
@@ -59,13 +59,7 @@
                             </div>
                         </div>
 
-                        <div class="row"
-                             role="tablist">
-                            <div class="col-auto">
-                                <a href="student-my-courses.html"
-                                   class="btn btn-outline-secondary">My Courses</a>
-                            </div>
-                        </div>
+                         
 
                     </div>
                 </div>
@@ -81,7 +75,7 @@
         {{-- {{$Test_time}} --}}
             <div class="row"> 
                 @foreach($Test_time as $list)
-                    <div class="col-md-4 text-center mb-2" style="height:400px">
+                    <div class="col-md-4 text-center mb-2 height-testcard" >
                         <?php $test_status = DB::table('user_tests')->where('test_id',$list->id)->where('user_id', $user->id)->first(); ?>
                         @if($test_status)
                         {{-- <!-- <a href="javascript:void(0)" class="w-100 test_done" > --> --}}

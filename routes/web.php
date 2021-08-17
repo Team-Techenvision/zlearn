@@ -33,6 +33,9 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('resume-page-one', 'Student\StudentController@resume_page_one');
     Route::get('resume-page-two', 'Student\StudentController@resume_page_two');
     Route::get('resume-training-Info', 'Student\StudentController@resume_trainingInfo');
+
+    Route::get('edit-password', 'Student\ProfileController@edit_password');
+    Route::post('update-password', 'Student\ProfileController@update_password');
     
     Route::get('View-All-Test', 'Student\StudentController@View_all_Test');
     Route::get('Test', 'Student\StudentController@Test_Start');
@@ -45,6 +48,7 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('Start-Test-Demo/{test_id}', 'Student\StudentController@Start_Test');
     Route::post('Test-Instraction', 'Student\StudentController@Test_Instraction');
     Route::post('Get-TestQ', 'Student\StudentController@Get_TestQ');
+
 
     // Route::post('Start-Test', 'Student\StudentController@Start_Test');
     
@@ -149,7 +153,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('edit-test-type/{id}', 'AdminController@edit_test_type');
     Route::get('delete-test-type/{id}', 'AdminController@delete_test_type');
 
-    Route::post('import', 'AdminController@import')->name('import');
+    Route::post('importuser', 'AdminController@import')->name('importuser');
     Route::get('importExportView', 'AdminController@importExportView');
     Route::get('export', 'AdminController@export')->name('export');
 
