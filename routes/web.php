@@ -49,6 +49,9 @@ Route::middleware(['auth','User'])->group(function() {
     Route::post('Test-Instraction', 'Student\StudentController@Test_Instraction');
     Route::post('Get-TestQ', 'Student\StudentController@Get_TestQ');
 
+    Route::post('QuestionOn-Section', 'Student\StudentController@QuestionOnSection');
+
+    Route::get('pagination/fetch_data', 'Student\StudentController@fetch_section_question');
 
     // Route::post('Start-Test', 'Student\StudentController@Start_Test');
     
@@ -156,6 +159,8 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::post('importuser', 'AdminController@import')->name('importuser');
     Route::get('importExportView', 'AdminController@importExportView');
     Route::get('export', 'AdminController@export')->name('export');
+    Route::get('questionexport', 'AdminController@questionexport')->name('questionexport');
+
 
     // Question pages  Start
 

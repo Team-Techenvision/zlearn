@@ -56,7 +56,9 @@ class AdminController extends Controller
                         ->leftJoin('user_details', 'user_details.user_id', '=', 'users.id')
                         ->leftJoin('education__details as ed', 'ed.user_id', '=', 'users.id')
                         ->leftJoin('colleges', 'colleges.id', '=', 'ed.collage_id')
-                        ->select('users.*', 'user_details.*', 'ed.*','colleges.*')
+                        ->leftJoin('branches', 'branches.id', '=', 'ed.branch_id')
+                        ->leftJoin('semisters', 'semisters.id', '=', 'user_details.semister')
+                        ->select('users.*', 'user_details.*', 'ed.*','colleges.*','branches.*','semisters.*')
                         ->get();
                         // dd($student);
         return Excel::download(new UsersExport($student), 'users.xlsx');
@@ -72,7 +74,10 @@ class AdminController extends Controller
 
     public function user_list(Request $request)
     {
-        $data['student'] =  User::leftjoin('education__details', 'education__details.user_id', '=', 'users.id')->where('users.user_type', 2)->get();
+        $data['student'] =  User::leftjoin('education__details', 'education__details.user_id', '=', 'users.id')
+                            ->where('users.user_type', 2)
+                            ->select('users.*','education__details.collage_id')
+                            ->get();
         // dd($data['student']);
         $data['flag'] = 27; 
         $data['page_title'] = 'View Student';    

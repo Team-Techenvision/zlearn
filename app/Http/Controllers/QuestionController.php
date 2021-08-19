@@ -288,9 +288,10 @@ class QuestionController extends Controller
     public function submit_test(Request $req)
     {
     //    dd($req);
-
         $this->validate($req,[
-            'test_name'=>'required',           
+            'test_name'=>'required', 
+            'subject_id'=>'required',           
+            'test_section_id'=>'required',           
          ]);
 
 
@@ -421,9 +422,20 @@ class QuestionController extends Controller
     {
     //    dd($req);
 
+
         $this->validate($req,[
             'test_id'=>'required',           
          ]);
+
+
+         if($req->test_id) { 
+            Test::where('id',$req->test_id)->update([
+                'mark_per_question' => $req->mark_per_question,
+                'exam_date' => $req->exam_date,
+                'exam_time' => $req->exam_time,
+            ]);
+
+         }
 
          $i=0;
          foreach($req->chapter_id as $row)
@@ -444,7 +456,7 @@ class QuestionController extends Controller
             $j++;
         }
             toastr()->success('Test Added Successfully!');
-            return redirect('view-test');
+            return redirect('manage-test-question');
     }
 
     public function delete_test($id, $status){ 

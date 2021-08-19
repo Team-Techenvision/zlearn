@@ -83,15 +83,25 @@
     <div class="row" id="Q_paper" style="">
         <div class="row text-right col-12">                
             <div class="btn12 col-12 text-right m-auto"><span>Time: &nbsp;</span><span class="block"></span></div>
+        </div>        
+    </div>
+        <div class="row">                
+            <div class=" col-12 ">
+                <div class="row">
+               
+                    <div class="col-3">
+                        {{-- <button type="button" class="btn btn-sm btn-primary" id="section_{{$row->section_id}}">{{$row->test_section_name}}</button> --}}
+                        <select class="form-control" name="section_name" id="section_id">                                     
+                            @foreach($section as $r)                                     
+                                <option value="{{$r->section_id}}">{{$r->test_section_name}}</option> 
+                            @endforeach                                 
+                        </select>
+                    </div>
+                   
+                </div> 
+            </div>
         </div>
-        {{-- <div class="alert_div">
-            <div class="alert alert-danger" role="alert">
-                Answer Submited !!
-            </div>
-            <div class="alert alert-success" role="alert">
-                Answer Not Submited !!
-            </div>
-        </div>  --}}
+
         <div class="row">         
             <div class="page-section1 col-md-9 " >            
                 <div class="row bg-white p-3 shadow m-2">
@@ -103,6 +113,9 @@
                     {{-- <form class="form-group row col-12" id="test_form" action="{{url('user-submit-test')}}" method="POST"> --}}
                         <form class="form-group row col-12" id="test_form" action="javascript:void(0)" method="POST">
                         @csrf
+
+                        
+
                         @foreach ($Question as $question)                        
                             <input type="hidden" value="{{count($count_Que)}}" id="total_Q">
                         @php     $section_name= DB::table("test_section")->where("test_section.id",$question->test_section)->pluck('test_section_name')->first();
@@ -112,27 +125,30 @@
                         </div>
                         <div class="col-12 m-auto pb-5">
                             @if($question->question)
-                                <label class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></span> {{$question->question}}</label>
+                                <label id="question" class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></span> {{$question->question}}</label>
                             @endif
                             @if($question->question_image)
                                 <img src="{{url($question->question_image)}}" class="img-thumbnail">
                             @endif
                         </div>
-                        <input type="hidden" name="test_id" value="{{$Test_time->id}}" >
-                        <input type="hidden" name="question_id" value="{{$question->id}}">
-                    <?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
+                        <input type="hidden" name="test_id" id="test_id" value="{{$Test_time->id}}" >
+                        <input type="hidden" name="question_id" id="question_id" value="{{$question->id}}">
+                    <!-- < ?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
                         $i=1;
                     foreach ($Q_option as  $value) 
                     { ?>
                        <div class="col-md-6 h5">
-                          <input type="radio"  name="option" value="{{$i++}}">
-                            <label>{{$value->answer}}</label><br>
+                          <input type="radio"  name="option" value="{ {$i++} }">
+                            <label>{ {$value->answer} }</label><br>
                        </div>
 
-                   <?php }
+                   < ?php }
                     //  dd($Question);
                     ?>
-                     @endforeach
+                     @endforeach -->
+                     <div class="col-12 row" id="all_options">
+                         
+                     </div>
                    
                     <div class="col-md-10 text-center m-auto pt-3">
                         <button class="btn btn-info h3" id="submit_testQ">Next</button>
@@ -143,15 +159,17 @@
             <div class="col-md-3">
                 <div class="col-md-10 m-auto pt-5" id="num_list">
                     <div class="col-12 Q_pagenate">
-                    <?php $i=1; ?>
+                    {{-- <?php $i=1; ?>
                     @foreach($count_Que as $list)
                     {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
                     {{-- {{$list->id}} --}}
                     
-                    {{-- <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2">{{$i++}}</span> --}}
+                    {{-- <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2">{{$i++}}</span> 
                     <span data="{{$i}}" class="col-2 @if(isset($list->Select_option)) bg-info @else bg-secondary @endif text-white Quest_No mb-2">{{$i++}}</span>
                     @endforeach
-                    </div>
+                    </div> --}}
+                </div>
+                <div class="col-12">
                     <div class=" text-center pb-4" style="">
                         {{-- <a href="{{ url('Test-Result')}}" class="btn btn-outline-danger btn-lx" style="bottom: 25px;">Finish Test</a> --}}
                         <span class="btn btn-outline-danger btn-lx" id="test_finish" style="">Finish Test </span>
@@ -277,36 +295,36 @@
                     data: $('#test_form').serialize(),
                     success: function(response)
                     {
-                        if(response)
-                        {
-                            let searchParams = new URLSearchParams(window.location.search);
-                            //alert(searchParams.get('page'));
-                            let cur_page = searchParams.get('page');
-                            if(!cur_page)
-                            {
-                                cur_page = 1;
-                            }
-                            //$('.alert-success').show();
-                            //$('.alert_div').hide(2000);
-                            cur_page = parseInt(cur_page);
-                            if($('#total_Q').val() > cur_page)
-                            {
-                                cur_page = cur_page + 1;
-                                let url1 = "{{ url('Test')}}?page="+cur_page;
-                                //alert(url1);
-                                $(location).attr('href', url1);
-                            }
-                            else
-                            {
-                                $(location).attr('href',"{{ url('Test-Result')}}");
-                            }    
-                        }
-                        else
-                        {
-                            //$('.alert-danger').show();
-                           // $('.alert_div').hide(2000);
-                            //alert("Not Submited !!!");
-                        }
+                        // if(response)
+                        // {
+                        //     let searchParams = new URLSearchParams(window.location.search);
+                        //     //alert(searchParams.get('page'));
+                        //     let cur_page = searchParams.get('page');
+                        //     if(!cur_page)
+                        //     {
+                        //         cur_page = 1;
+                        //     }
+                        //     //$('.alert-success').show();
+                        //     //$('.alert_div').hide(2000);
+                        //     cur_page = parseInt(cur_page);
+                        //     if($('#total_Q').val() > cur_page)
+                        //     {
+                        //         cur_page = cur_page + 1;
+                        //         let url1 = "{{ url('Test')}}?page="+cur_page;
+                        //         //alert(url1);
+                        //         $(location).attr('href', url1);
+                        //     }
+                        //     else
+                        //     {
+                        //         $(location).attr('href',"{{ url('Test-Result')}}");
+                        //     }    
+                        // }
+                        // else
+                        // {
+                        //     //$('.alert-danger').show();
+                        //    // $('.alert_div').hide(2000);
+                        //     //alert("Not Submited !!!");
+                        // }
                         //------------------------
                             // $('#send_form').html('Submit');
                             // $('#res_message').show();
@@ -335,8 +353,7 @@
                     let searchParams = new URLSearchParams(window.location.search);
                     let url1 = "{{ url('Test')}}?page="+cur_page;
                     //alert(url1);
-                    $(location).attr('href', url1);
-                               
+                    $(location).attr('href', url1);                               
                 });
 
                 $('#test_finish').click(function()
@@ -376,7 +393,168 @@
             $(location).attr('href',"{{ url('Test-Result')}}");
        });
    </script> 
+
+
+
+            {{-- dhananjay code  --}}
+
+            <!-- <script>
+                myElement.find('option:eq(0)').prop('selected', true);
+            </script>
+            <script>
+                $(document).ready(function(){
+                $(document).on("click","button",function(){
+                    alert(this.id);
+                    // alert("I am (this.id) and automatically clicked");
+                });
+                });
+            </script> -->
+
+            <!-- <script>
+                window.onload=function(){
+                    $("#section_1").click();
+                    }
+            </script> -->
+
+            {{-- dhananjay code  --}}
+
+        <script>
+            $(document).ready(function()
+            {
+                $('#section_id').change(function()
+                {
+                   // alert($(this).val());
+
+                    $.ajax({
+                        method: "POST",
+                        url: "{{url('QuestionOn-Section')}}",
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'section_id': $(this).val()
+                        },
+                    success: function(response,status)
+                    {
+                        // data = JSON.parse(response);
+                        // alert(response['response'])
+                        console.log(response['question']);
+                        console.log(response['links']);
+                        $('#question').html(response['question']['data']['0']['question']);
+                        // $('#question_id').html(response['question']['data']['0']['id']);
+                        $('#question_id').val(response['question']['data']['0']['id']);
+                        $('.Q_pagenate').html(response['links']);
+
+                        Q_option();
+
+                    }
+                });
+            });
+
+                function Q_option()
+                {
+                     $("div").remove(".option");
+
+                    $.ajax({
+                        type: "POST",          
+                        url: "{{ url('question-option') }}",
+                        dataType: "json",
+                        data: {
+                           "_token": "{{ csrf_token() }}",
+                            'q_id': $('#question_id').val()                              
+                          },
+                        success : function(response)
+                        { 
+                          var len = 0;
+                          console.log(response);
+
+                             console.log(response['data'].length);
+                             len = response['data'].length;
+                             let j=1;
+                             for(var i = 0;i < len;i++)
+                            {
+                                // console.log('<div class="col-md-6 h5"><input type="radio" name="option"value="'i'"><label>'response['data'][i].answer'</label><br></div>');
+                                //$('#all_options').append(response['data'][i].answer);
+                                   $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'"><label>'+ response['data'][i].answer + '</label><br></div>');
+
+                                   j++;
+                            }
+                       
+                        }
+                    });  
+                }
+
+            });    
+        </script>
+
+<script>
+    $(document).ready(function(){
+     $(document).on('click', '.pagination a', function(event){
+      event.preventDefault(); 
+      var page = $(this).attr('href').split('page=')[1];
+      fetch_data(page);
+     });
+    
+     function fetch_data(page)
+     {
         
+
+      $.ajax({
+       url:"/pagination/fetch_data?page="+page,
+       success:function(response)
+       {
+                        console.log(response['question']);
+                        console.log(response['links']);
+                        $('#question').html(response['question']['data']['0']['question']);
+                        $('#question_id').val(response['question']['data']['0']['id']);
+                        $('.Q_pagenate').html(response['links']);
+                         Q_option();
+       }
+      });
+
+       function Q_option()
+                {
+                     $("div").remove(".option");
+                    $.ajax({
+                        type: "POST",          
+                        url: "{{ url('question-option') }}",
+                        dataType: "json",
+                        data: {
+                           "_token": "{{ csrf_token() }}",
+                            'q_id': $('#question_id').val()                              
+                          },
+                        success : function(response)
+                        { 
+                          var len = 0;
+                          console.log(response);
+
+                             console.log(response['data'].length);
+                             len = response['data'].length;
+                             let j =1;
+                             for(var i = 0;i < len;i++)
+                            {
+                                // console.log('<div class="col-md-6 h5"><input type="radio" name="option"value="'i'"><label>'response['data'][i].answer'</label><br></div>');
+                               //$('#all_options').append(response['data'][i].answer);
+                                   $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'"><label>'+ response['data'][i].answer + '</label><br></div>');
+
+                                   j++;
+                            }
+                       
+                        }
+                    });  
+                }
+     }
+     
+    });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+           $('#question_id').val(); 
+        });
+    </script>
     </body>
 
 </html>
+
+ 

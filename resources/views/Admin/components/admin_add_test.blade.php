@@ -44,22 +44,22 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Test Instruction </label>
+                        <label class="col-sm-3 col-form-label">General Directions </label>
                         <div class="col-sm-9">
                             <div class="form-group">                            
                                 <div>
-                                    <textarea  class="form-control" rows="3" name="test_instruction" placeholder="Test Instruction"></textarea>
+                                    <textarea  class="form-control" rows="3" name="test_instruction" placeholder="General Directions"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Test Description </label>
+                        <label class="col-sm-3 col-form-label">Test Instructions </label>
                         <div class="col-sm-9">
                             <div class="form-group">                            
                                 <div>
-                                    <textarea  class="form-control" rows="3" name="description" placeholder="Enter Description"></textarea>
+                                    <textarea  class="form-control" rows="3" name="description" placeholder="Test Instructions"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-3"> Select Section</label>
                         <div class="col-sm-9">
-                            <select class="select2 form-control select2-multiple" id="test_section_id" multiple="multiple" name="test_section_id[]" data-placeholder="Choose ...">
+                            <select class="select2 form-control select2-multiple" id="test_section_id" multiple="multiple" name="test_section_id[]" data-placeholder="Choose ..." required>
                                 @foreach($test_section as $r) 
                                     <option value="{{$r->id}}">{{$r->test_section_name}}</option> 
                                 @endforeach
@@ -152,7 +152,7 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-3"> Select Subject</label>
                         <div class="col-sm-9">
-                            <select class="select2 form-control select2-multiple" id="test_subject_id" multiple="multiple" name="subject_id[]" data-placeholder="Choose ...">
+                            <select class="select2 form-control select2-multiple" id="test_subject_id" multiple="multiple" name="subject_id[]" data-placeholder="Choose ..." required>
                                 @foreach($subjects as $r) 
                                     <option value="{{$r->id}}">{{$r->subject_name}}</option> 
                                 @endforeach

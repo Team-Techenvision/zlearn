@@ -25,10 +25,9 @@
                     
                     <?php for($i=0; $i < $question->choice_count; $i++) {  ?>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Answer {{$i+1}} </label>
-                       
+                        <label class="col-md-3 col-form-label">Answer {{$i+1}} </label>                       
                         <div class="col-md-9">
-                            <input type="text" class="form-control" name="answer[]"  placeholder="Enter Answer "  placeholder="Enter Answer "/>
+                            <input type="text" class="form-control" name="answer[]" placeholder="Enter Answer "  placeholder="Enter Answer "/>
                         </div>
                     </div>
                     <?php  }  ?>

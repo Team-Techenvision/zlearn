@@ -23,6 +23,7 @@ use App\course;
 use App\Semister;
 use App\branch;
 use App\Test_question;
+use App\Test_Section;
 use Session;
 
 use DB;
@@ -54,9 +55,9 @@ class StudentController extends Controller
         $data['College']= College::where('status',1)->orderBy('college_name','asc')->get();
         $data['course']= course::where('status',1)->orderBy('course_name','asc')->get();
         $data['Semister'] = Semister::where('status',1)->orderBy('semister_name','asc')->get();
-        $data['branch'] = branch::where('status',1)->orderBy('branch_name','asc')->get(); 
-        $data['blood_group'] = DB::table('blood_group')->where('status',1)->orderBy('id','asc')->get();  
+        $data['branch'] = branch::where('status',1)->orderBy('branch_name','asc')->get();  
         //dd($data['Education']['collage_id']);  
+        $data['blood_group'] = DB::table('blood_group')->where('status',1)->orderBy('id','asc')->get();
     	return view('Students/Webviews/student_add_resume',$data);
 
     }
@@ -169,7 +170,8 @@ class StudentController extends Controller
                 $data['page_title'] = 'Resume Form One';
                 $u_id = Auth::User()->id;
                 $data['user'] = User::where('id',$u_id)->first(); 
-                $req->session()->flash('alert-success', 'Basic Information Submited Successfully!!');     
+                // $req->session()->flash('alert-success', 'Basic Information Submited Successfully!!');     
+                 toastr()->success('Information Submited!!');  
                 // return view('Students/Webviews/student_add_resume2',$data);
                 return redirect('resume-page-two');
         //    }
@@ -189,6 +191,7 @@ class StudentController extends Controller
         $data['UserDetails'] = UserDetails::where('user_id',$u_id)->first();        
         $data['Academics'] = Academics_detail::where('user_id',$u_id)->first();
         $data['Semister'] = Semister::where('status',1)->orderBy('semister_name','asc')->get();
+        $data['graduation_sem'] = DB::table("graduation_sem")->where('status',1)->orderBy('sem_id','asc')->get();
         //dd($data['Academics']); 
     	return view('Students/Webviews/student_add_academics',$data);
 
@@ -255,18 +258,20 @@ class StudentController extends Controller
          {              
               $u_id = Auth::User()->id;
               $data['user'] = User::where('id',$u_id)->first(); 
-              $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!');     
+              // $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!');  
+               toastr()->success('Information Submited!!');     
               // return view('Students/Webviews/student_add_resume2',$data);
-              // return redirect('resume-training-Info');
-              return redirect('studentdashboard'); 
+               return redirect('resume-training-Info');
+             // return redirect('studentdashboard'); 
          }
          else
          {
                //$req->session()->flash('alert-danger', 'Academics Information Not Submited!!');
               // return back(); 
-             $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!'); 
-               // return redirect('resume-training-Info');
-               return redirect('studentdashboard'); 
+             // $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!'); 
+             toastr()->success('Information Submited!!');  
+                return redirect('resume-training-Info');
+               //return redirect('studentdashboard'); 
          } 
 
 
@@ -298,46 +303,18 @@ class StudentController extends Controller
             $data->hobbies=$req->hobbies; 
             $data->career_object=$req->career_object;
             $result = $data->save();
-
-            // $file = $req->file('upload_certificat');
-            // dd($file);             
-            
-                //dd("string");            
+                        
         }
         if ($req->hasfile('upload_certificat')) 
         {
             //dd("Yes");
         }
         $s = 0;
-        // foreach($req->certificate as $row)
-        // {    
-        //     //dd("Yes");  
-        //     //$req->file('upload_certificat');          
-        //    // $name = rand(11111, 99999).'.'.$req->upload_certificat->extension();
-        //    $filename = $req->file('upload_certificat')[$s];
-        //    $name = rand(11111, 99999).'.'.$filename->extension();            
-        //     $destinationPath1 = 'images/Certificate';
-        //     $cust_newfile2 = $destinationPath1.'/'.$name;
-        //         //dd($cust_newfile2);
-
-        //     $data = new Certification;
-        //     $data->user_id=$u_id; 
-        //     $data->Certification_name=$row; 
-        //     $data->upload_certificat=$cust_newfile2;
-        //     $result21 = $data->save(); 
-        //     if($result21)
-        //     {
-        //         $filename->move($destinationPath1,$name);
-        //     } 
-        //     $s++;               
-        // }
+        
         if ($req->hasfile('upload_certificat')) 
         {
             foreach($req->file('upload_certificat') as $row)
-            {    
-                //dd("Yes");  
-                //$req->file('upload_certificat');          
-            // $name = rand(11111, 99999).'.'.$req->upload_certificat->extension();
+            {  
                 $filename = $req->file('upload_certificat')[$s];
                 $name = rand(11111, 99999).'.'.$row->extension();            
                 $destinationPath1 = 'images/Certificate';
@@ -356,14 +333,33 @@ class StudentController extends Controller
                 $s++;               
             }
         }
-        if($req->project_name)
+        else
+        {
+            if($req->input('certificate') == "null")
+            {
+
+
+
+            }
+            else
+            {    
+                $i= 0;
+                //dd($req->certificate);
+                foreach($req->certificate as $row)
+                {    
+                    $data = new Certification;
+                    $data->user_id=$u_id; 
+                    $data->Certification_name=$req->certificate[$i];
+                    $result21 = $data->save();
+                }    
+            }
+             //dd("12"); 
+        }
+        if($req->project_name != null)
         {
             $i = 0;
             foreach($req->project_name as $row)
             {
-                // echo $row;
-                // echo "<br/>";
-                // echo $req->team_size[$i]; 
 
                 $data = new Academic_project;
                 $data->user_id=$u_id;            
@@ -375,16 +371,13 @@ class StudentController extends Controller
                 
             }
         } 
-        if($req->int_comp_name)
+        //dd($req->proj_roles);
+        if($req->int_comp_name != null)
         {   
             $j = 0;
         // dd($req->int_comp_name);
             foreach($req->int_comp_name as $row)
             {
-                // echo $row;
-                // echo "<br/>";
-                // echo $req->team_size[$i]; 
-
                 $data = new Interships;
                 $data->user_id=$u_id;            
                 $data->int_comp_name=$row;
@@ -397,7 +390,8 @@ class StudentController extends Controller
         }    
         // if($result)
         // {
-            $req->session()->flash('alert-success', 'Training Information Submited Successfully!!');
+            // $req->session()->flash('alert-success', 'Training Information Submited Successfully!!');
+         toastr()->success('Information Submited!!');  
             return redirect('studentdashboard'); 
         // }
         // else
@@ -515,7 +509,7 @@ class StudentController extends Controller
         if (Session::has('Test_Id'))
         {
             //
-
+           
            $test_id = Session::get('Test_Id');
             $data['page_title'] = 'Start Test';
             $u_id = Auth::User()->id;
@@ -533,6 +527,14 @@ class StudentController extends Controller
             ->select('questions.*')
             ->where('test_question.test_id',$test_id)
             ->paginate(1); 
+
+            $data['section'] = DB::table('test_section')
+            ->join('test_tb_section','test_tb_section.test_section_id', '=', 'test_section.id')
+            ->join('tests','tests.id', '=', 'test_tb_section.test_id')
+            ->orderBy('test_section.Priority', 'asc') 
+            ->where('test_tb_section.test_id',$test_id)
+            ->select('test_section.id as section_id','test_section.test_section_name')
+            ->get();
             // $data['count_Que'] = DB::table('test_question')
             // ->join('questions', 'questions.id', '=', 'test_question.question_id')           
             // ->select('questions.*')
@@ -552,6 +554,47 @@ class StudentController extends Controller
         }
     }
 
+    // public function Test_Start()
+    // {
+    //     if (Session::has('Test_Id'))
+    //     {
+    //         //
+
+    //        $test_id = Session::get('Test_Id');
+    //         $data['page_title'] = 'Start Test';
+    //         $u_id = Auth::User()->id;
+    //         $data['user'] = User::where('id',$u_id)->first();             
+    //         $data['Test_time']=Test::where('id',$test_id)->first();
+    //         // $data['Question'] = DB::table('test_question')
+    //         // ->join('questions', 'questions.id', '=', 'test_question.question_id')           
+    //         // ->select('questions.*')
+    //         // ->where('test_question.test_id',$test_id)
+    //         // ->paginate(1);
+    //         $data['Question'] = DB::table('test_question')
+    //         ->join('questions', 'questions.id', '=', 'test_question.question_id')
+    //         ->join('test_section', 'test_section.id', '=', 'questions.test_section')
+    //         ->orderBy('test_section_name', 'asc')          
+    //         ->select('questions.*')
+    //         ->where('test_question.test_id',$test_id)
+    //         ->paginate(1); 
+    //         // $data['count_Que'] = DB::table('test_question')
+    //         // ->join('questions', 'questions.id', '=', 'test_question.question_id')           
+    //         // ->select('questions.*')
+    //         // ->where('test_question.test_id',$test_id)
+    //         // ->get();
+    //         $data['count_Que'] = DB::table('test_question')
+    //         ->join('questions', 'questions.id', '=', 'test_question.question_id')  
+    //         ->join('save__answers', 'save__answers.question_id', '=', 'questions.id')   
+    //         ->join('test_section', 'test_section.id', '=', 'questions.test_section')
+    //         ->select('questions.*','save__answers.Select_option')
+    //         ->where('test_question.test_id',$test_id)
+    //         ->orderBy('test_section_name', 'asc')
+    //         ->get();
+    //         //dd($data['Test_time']);
+    //         return view('Students/Webviews/teck_test',$data);
+    //     }
+    // }
+
     public function Submit_test(Request $req)
     {
         //dd($req);
@@ -563,7 +606,7 @@ class StudentController extends Controller
         // $data->Select_option=$req->option;
         // $result = $data->save();
 
-        $update = DB::table('save__answers')->where('user_id', $u_id)->where('test_id',$req->test_id)->where('question_id',$req->question_id)->update([ 'Select_option' => $req->option]);
+        $update = DB::table('save__answers')->where('user_id', $u_id)->where('test_id',$req->test_id)->where('question_id',$req->question_id)->update([ 'Select_option' => $req->option,'updated_at' => date("Y-m-d h:i:s")]);
         // $data['page_title'] = 'Start Test';
         // $u_id = Auth::User()->id;
         // $data['user'] = User::where('id',$u_id)->first();
@@ -650,7 +693,10 @@ class StudentController extends Controller
             $result= Certification::where('id',$certi_id)->where('user_id',$u_id)->delete();
             if($result)
             {
-                unlink(public_path($uploaded_certifi));
+                if($certificate->upload_certificat != null)
+                {
+                    unlink(public_path($uploaded_certifi));
+                }
             }
 
         }
@@ -671,6 +717,123 @@ class StudentController extends Controller
         $_Que = Question::where('id',$req)->first();
     }
 
+
+    // public function QuestionOnSection(Request $req)
+    // {
+    //     $u_id = Auth::User()->id;
+    //     $test_id = Session::get('Test_Id');
+    //      $Question = DB::table('test_question')
+    //         ->join('questions', 'questions.id', '=', 'test_question.question_id')
+    //         ->join('test_section', 'test_section.id', '=', 'questions.test_section')
+    //         ->orderBy('test_section_name', 'asc')          
+    //         ->select('questions.*')
+    //         ->where('test_question.test_id',$test_id)
+    //         ->paginate(1);
+
+    //     $result = '
+
+    // @csrf
+ 
+    //                     @foreach ($Question as $question)                        
+    //                         <input type="hidden" value="{{count($count_Que)}}" id="total_Q">
+                         
+    //                     <div class="row col-3 ">
+    //                         <span class="badge badge-primary w-100">{{$section_name}}</span>
+    //                     </div>
+    //                     <div class="col-12 m-auto pb-5">
+    //                         @if($question->question)
+    //                             <label class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></span> {{$question->question}}</label>
+    //                         @endif
+    //                         @if($question->question_image)
+    //                             <img src="{{url($question->question_image)}}" class="img-thumbnail">
+    //                         @endif
+    //                     </div>
+    //                     <input type="hidden" name="test_id" value="{{$Test_time->id}}" >
+    //                     <input type="hidden" name="question_id" value="{{$question->id}}">
+    //               $Q_option = DB::table("answers")->where("question_id",$question->id)->get(); 
+    //                     $i=1;
+    //                 foreach ($Q_option as  $value) 
+    //                 { ? >
+    //                    <div class="col-md-6 h5">
+    //                       <input type="radio"  name="option" value="{{$i++}}">
+    //                         <label>{{$value->answer}}</label><br>
+    //                    </div>
+
+    //                <?php }
+    //                 //  dd($Question);
+    //                 ? >
+    //                  @endforeach
+                   
+    //                 <div class="col-md-10 text-center m-auto pt-3">
+    //                     <button class="btn btn-info h3" id="submit_testQ">Next</button>
+    //                 </div>
+
+
+
+    //     ';
+
+
+
+        
+    //     return Response()->json($result);
+
+        
+    // }
+
+// ============================================
+
+    public function QuestionOnSection(Request $req)
+    {
+        $u_id = Auth::User()->id;
+        $test_id = Session::get('Test_Id');
+        $section_id = $req->section_id;
+         $Question = DB::table('test_question')
+            ->join('questions', 'questions.id', '=', 'test_question.question_id')
+            ->join('test_section', 'test_section.id', '=', 'questions.test_section')          
+            ->select('questions.*')
+            ->where('test_question.test_id',$test_id)
+            ->where('questions.test_section',$section_id)
+            ->paginate(1);
+        // return response()->json(array('$question'=> $Question), 200);
+        return response()->json($data = [
+            'status' => 200,
+            'msg' => 'success',
+            'question' => $Question,
+            'links' => $Question->links()->render()
+        ]);
+    }
+
+
+    public function fetch_section_question()
+    {
+
+        $u_id = Auth::User()->id;
+        $test_id = Session::get('Test_Id');
+        $section_id = 5;
+        $Question = DB::table('test_question')
+            ->join('questions', 'questions.id', '=', 'test_question.question_id')
+            ->join('test_section', 'test_section.id', '=', 'questions.test_section')          
+            ->select('questions.*')
+            ->where('test_question.test_id',$test_id)
+            ->where('questions.test_section',$section_id)
+            ->paginate(1);
+
+        return response()->json($data = [
+            'status' => 200,
+            'msg' => 'success',
+            'question' => $Question,
+            'links' => $Question->links()->render()
+        ]);
+    }
+
+    public function question_option(Request $req)
+    {
+        $Q_option = DB::table('answers')->where('question_id',$req->q_id)->get();
+
+         $producttest['data'] =  $Q_option; 
+       echo json_encode($producttest);
+       exit; 
+    }
 
     
 

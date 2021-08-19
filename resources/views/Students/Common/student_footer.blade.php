@@ -45,5 +45,6 @@
   <!-- Tables -->
   <script src="{{asset('Student/js/toggle-check-all.js')}}"></script>
   <script src="{{asset('Student/js/check-selected-row.js')}}"></script>
-
+  @toastr_js
+  @toastr_render
  

@@ -38,7 +38,7 @@
                     <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
                         <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
                             <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                                <h2 class="mb-0">Dashboard</h2>
+                                <h2 class="mb-0">RESUME</h2>
                                 <ol class="breadcrumb p-0 m-0">
                                     <li class="breadcrumb-item"><a href="JavaScript:Void(0);">Student</a></li>
                                     <li class="breadcrumb-item active">
@@ -136,8 +136,8 @@
                                     <label class="form-label" for="">GRADUATION</label>
                                    <select id="" name="ddl_graduation" class="form-control custom-select">
                                     <option value="" selected>Select Semester </option>
-                                    @foreach($Semister as $list)
-                                    <option value="{{$list->id}}" @if($UserDetails->semister == $list->id)selected @endif>{{$list->semister_name}}</option>
+                                    @foreach($graduation_sem as $list)
+                                    <option value="{{$list->sem_id}}" @if($UserDetails->semister == $list->sem_id)selected @endif>{{$list->sem_name}}</option>
                                     @endforeach                                     
                                 </select>
                                 </div>
@@ -176,7 +176,7 @@
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">CURRENT BACK LOGS</label>
-                                    <input type="text" class="form-control" name="current_backLog" id="" value="@if($Academics){{$Academics->curr_backlog}}@endif" placeholder="Enter Current Back Logs" >
+                                    <input type="number" class="form-control" name="current_backLog" min="0" id="" value="@if($Academics){{$Academics->curr_backlog}}@endif" placeholder="Enter Current Back Logs" >
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">NUMBER OF YEAR BACKS <small>(IF ANY)</small></label>
@@ -199,13 +199,14 @@
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">Explain </label>
-                                    <textarea class="form-control gap_explain" name="explain_gaps" placeholder="If Any Gaps In The Academics Then Explain" readonly="">@if($Academics){{$Academics->gap_explan}}@endif</textarea>
+                                    <textarea class="form-control gap_explain" name="explain_gaps" placeholder="If Any Gaps In The Academics Then Explain" maxlength="300" readonly="">@if($Academics){{$Academics->gap_explan}}@endif</textarea>
                                 </div>
                             </div> 
                             <div class="form-group row">
                                 <div class="col-10 m-auto text-right pt-3">
-                                    <button type="reset" name="reset" class="btn btn-secondary mr-2">Reset</button>
-                                    <button name="submit" class="btn btn-primary">Next</button>
+                                    {{-- <button type="reset" name="reset" class="btn btn-secondary mr-2">Reset</button> --}}
+                                    <a href="{{url('resume-page-one')}}" class="btn btn-secondary mr-2" >Back</a>
+                                    <button name="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </form>
@@ -228,7 +229,8 @@
          rel = "stylesheet">
         {{-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> --}}
         <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
+         @toastr_js
+        @toastr_render
         <script>
             $(document).ready(function()
             {

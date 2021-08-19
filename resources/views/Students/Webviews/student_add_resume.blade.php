@@ -212,8 +212,8 @@
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">UPLOAD KYC:</label>
                                 <div class="custom-file col-md-9">
-                                    <input type="file" id="file" class="form-control" name="upload_kyc_doc" readonly="">
-                                    <!-- <label for="file" class="custom-file-label">Choose file</label> -->
+                                    <input type="file" id="file" class="form-control" name="upload_kyc_doc" >
+                                    
                                 </div>                                
                             </div>
 
@@ -242,8 +242,9 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-10 m-auto text-right pt-3">
-                                    <button type="reset" name="reset" class="btn btn-secondary mr-2">Reset</button>
-                                    <button name="submit" class="btn btn-primary">Next</button>
+                                    {{-- <button type="reset" name="reset" class="btn btn-secondary mr-2">Reset</button> --}}
+                                    <a href="{{url('studentdashboard')}}" class="btn btn-secondary mr-2" >Back</a>
+                                    <button name="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>   
                         </form>
@@ -265,7 +266,8 @@
          rel = "stylesheet">
         {{-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> --}}
         <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
+         @toastr_js
+        @toastr_render
         <script>
             $(document).ready(function()
             {

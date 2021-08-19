@@ -30,6 +30,8 @@
                         </div>
                     </div>
 
+                   
+
                         @foreach($test_section as $r) 
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label"> {{$r->test_section_name}} </label>
@@ -39,6 +41,29 @@
                             </div>
                         </div>
                         @endforeach
+
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Mark Per Question</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="mark_per_question"  placeholder="Enter Mark Per Question" />
+                            </div>
+                        </div>
+
+
+                        @if($test->test_type_id == 1)
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Exam Date</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" name="exam_date"/>
+                            </div>
+                            
+                            <div class="col-sm-4">
+                                <input type="time" class="form-control" name="exam_time"/>
+                            </div>
+                           
+                        </div> 
+                        @endif
 
                     <div class="form-group text-center mt-5">
                         <div>

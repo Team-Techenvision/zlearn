@@ -68,29 +68,15 @@
                         </div> --}}
                         <div class="hero py-64pt text-center text-sm-left">
                             <div class="container page__container">
-                                <!-- <h1 class="text-white">{{$test->test_name}}</h1>
-                                <p class="lead text-white-50 measure-hero-lead mb-24pt">{{$test->test_instruction}}</p>
-                                <div class="row">
-                                    <div class="col-md-4">
-
-                                    </div>
-                                    <div class="col-md-4">
-
-                                    </div>
-                                    <div class="col-md-4">
-                                        
-                                    </div>
-                                </div>    
-                                <a href="student-take-lesson.html"
-                                   class="btn btn-white">Resume course</a> -->
+                                                      
                                    <table class="table table-bordered text-white table-sm text-center">
                                        <tr>
                                           <td>Test Name</td>
-                                          <td class="bg-warning">{{$test->test_name}}</td>
+                                          <td class="bg-warning">Demo</td>
                                           <td>Total Questions</td>
-                                          <td class="bg-warning">{{$test->total_question}}</td>
+                                          <td class="bg-warning">10</td>
                                            <td>Total Time</td>
-                                          <td class="bg-warning">{{$test->hours}}:{{$test->minute}} Min</td>
+                                          <td class="bg-warning">1:30</td>
                                        </tr>
                                    </table>
                                     <table class="table table-bordered text-white table-sm text-center">
@@ -131,11 +117,11 @@
                                        </tr>
                                    </table>
                                    <div class="row text-center">
-                                       <div class="col-6">
-                                           <p class="text-left text-white h4">General Directions:</p>
+                                       <div class="col-md-6">
+                                           <p class="text-white h4">General Directions:</p>
                                            {{-- {{$test->test_instruction}} --}}
                                            
-                                           <ul class="text-left text-white" style="font-size: 14px;">
+                                           <ul class="text-left text-white pr-2" style="font-size: 14px;">
                                                 <li> This test is designed to check your competency in all the sections.
                                                 </li>
                                                 <li>You are advised to conduct the test with complete seriousness and environment simulated to match the actual test conditions.</li> 
@@ -144,11 +130,11 @@
                                                <li>On completion of the test, you can view the Score Card.</li>    
                                            </ul>
                                        </div>
-                                       <div class="col-6">
-                                            <p class="text-left text-white h4">General Instructions:</p>
+                                       <div class="col-md-6">
+                                            <p class="text-white h4">General Instructions:</p>
                                            {{-- {{$test->test_instruction}} --}}
                                            
-                                           <ul class="text-left text-white" style="font-size: 14px;">
+                                           <ul class="text-left text-white pr-2" style="font-size: 14px;">
                                                 <li> Total duration of examination is 100 minutes. 
                                                 </li>
                                                 <li> Your clock will be set at the server. The countdown timer at the top right corner of screen will display the remaining time available for you to complete the examination. When the timer reaches zero, the examination will end by itself. You need not terminate the examination or submit your paper.</li> 

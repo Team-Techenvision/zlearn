@@ -38,9 +38,9 @@
                     <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
                         <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
                             <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                                <h2 class="mb-0">Dashboard</h2>
+                                <h2 class="mb-0">RESUME</h2>
                                 <ol class="breadcrumb p-0 m-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Student</a></li>
+                                    <li class="breadcrumb-item"><a href="JavaScript:Void(0);">Student</a></li>
                                     <li class="breadcrumb-item active">
                                         <!-- ACADEMIC Details -->
                                         {{$page_title}}
@@ -48,13 +48,7 @@
                                 </ol>
                             </div>
                         </div>
-                        <!-- <div class="row"
-                            role="tablist">
-                            <div class="col-auto">
-                                <a href="student-my-courses.html"
-                                class="btn btn-outline-secondary">My Courses</a>
-                            </div>
-                        </div> -->
+                        
                     </div>
                 </div>
                 <!-- BEFORE Page Content -->
@@ -131,11 +125,11 @@
                                     <div class="form-row">
                                         <div class="col-12 col-md-6 mb-3">
                                             <label class="form-label" for="">CERTIFICATIONS</label>
-                                            <input type="text" class="form-control" name="certificate[]" id="" placeholder="Enter Any Certifications" required="">
+                                            <input type="text" class="form-control" name="certificate[]" id="" placeholder="Enter Any Certifications" >
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
                                             <label class="form-label" for="">UPLOAD CERTIFICATIONS</label>
-                                            <input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" required="">
+                                            <input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" >
                                         </div>
                                     </div>
                                 @endif
@@ -170,7 +164,7 @@
                                     <div class="form-row">   
                                         <div class="col-12 col-md-6 mb-3">
                                             <label class="form-label text-uppercase" for="">Project Name:</label>
-                                            <input type="text" class="form-control" id="" placeholder="Enter Project Name" name="project_name[]" required="">
+                                            <input type="text" class="form-control" id="" placeholder="Enter Project Name" name="project_name[]" >
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
                                             <label class="form-label text-uppercase" for="">Team/single:</label>
@@ -181,7 +175,7 @@
                                     <div class="form-row">
                                         <div class="col-12 col-md-12 mb-3">
                                             <label class="form-label text-uppercase" for="">Project details:</label>                                     
-                                            <textarea class="form-control" name="project_detail[]" placeholder="Enter Project Details" required=""></textarea>
+                                            <textarea class="form-control" name="project_detail[]" placeholder="Enter Project Details" ></textarea>
                                         </div>                                
                                     </div>
                                 @endif    
@@ -251,13 +245,14 @@
                             <div class="form-row">                                 
                                 <div class="col-12 col-md-12 mb-3">
                                     <label class="form-label" for="">CAREER OBJECTIVE:</label>
-                                    <textarea class="form-control" id="" placeholder="Enter Career Objective" name="career_object">@if($Technical_skill){{$Technical_skill->career_object}}@endif</textarea>
+                                    <textarea class="form-control" id="" placeholder="Enter Career Objective" name="career_object" required="">@if($Technical_skill){{$Technical_skill->career_object}}@endif</textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-10 m-auto text-right pt-3">
-                                    <button type="reset" name="reset" class="btn btn-secondary mr-2">Reset</button>
-                                    <button name="submit" class="btn btn-primary">Next</button>
+                                    <!-- <button type="reset" name="reset" class="btn btn-secondary mr-2">Reset</button> -->
+                                    <a href="{{url('resume-page-two')}}" class="btn btn-secondary mr-2" >Back</a>
+                                    <button name="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </form>
@@ -285,7 +280,8 @@
          rel = "stylesheet">
         <!-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> -->
         <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
+         @toastr_js
+        @toastr_render
         <script>
             $(document).ready(function()
             {
@@ -307,7 +303,7 @@
 
                 $('#enter_ship').click(function()
                 {
-                    $("#internship_div").append('<div class="form-row enter_ship col-12 border pt-2 pb-2"><div class="col-12"><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right">Remove</a></div><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">COMPANY Name</label><input type="text" class="form-control" name="int_comp_name" id="" placeholder="Enter Company Name" ></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">DURATION <small>(No Of Month)</small>:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="Enter Year Of Graduated" name="intship_duration"></div> <div class="form-row col-12"><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">ROLES & RESPONSIBILITIES:</label><input type="text" class="form-control col-12" name="proj_roles" id="" placeholder="Enter Your Roles" ></div></div></div> ');
+                    $("#internship_div").append('<div class="form-row enter_ship col-12 border pt-2 pb-2"><div class="col-12"><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right">Remove</a></div><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">COMPANY Name</label><input type="text" class="form-control" name="int_comp_name[]" id="" placeholder="Enter Company Name" ></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">DURATION <small>(No Of Month)</small>:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="DURATION" name="intship_duration[]"></div> <div class="form-row col-12"><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">ROLES & RESPONSIBILITIES:</label><input type="text" class="form-control col-12" name="proj_roles[]" id="" placeholder="Enter Your Roles" ></div></div></div> ');
                 });
 
                 $('#internship_div').on('click','.remCF1',function() 
@@ -319,7 +315,7 @@
 
                 $('#certificate').click(function()
                 {
-                    $("#certificate_section").append('<div class="form-row border col-12 pt-2 pb-2"><div class="col-12"><a href="javascript:void(0);" id="remCF1" class="remCF2 btn btn-danger float-right">Remove</a></div><div class="col-12 col-md-6 mb-3"> <label class="form-label" for="">CERTIFICATIONS</label><input type="text" class="form-control" name="certificate[]" id="" placeholder="Enter Any Certifications" required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">UPLOAD CERTIFICATIONS</label><input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat" required=""></div></div>');
+                    $("#certificate_section").append('<div class="form-row border col-12 pt-2 pb-2"><div class="col-12"><a href="javascript:void(0);" id="remCF1" class="remCF2 btn btn-danger float-right">Remove</a></div><div class="col-12 col-md-6 mb-3"> <label class="form-label" for="">CERTIFICATIONS</label><input type="text" class="form-control" name="certificate[]" id="" placeholder="Enter Any Certifications" required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">UPLOAD CERTIFICATIONS</label><input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" ></div></div>');
                 });
 
                 $('#certificate_section').on('click','.remCF2',function() 
