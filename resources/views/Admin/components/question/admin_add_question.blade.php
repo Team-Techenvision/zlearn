@@ -131,13 +131,6 @@
                         </div>
                     </div>
 
-                    <div data-pym-src=
-                    "https://www.jdoodle.com/embed/v0/3w9a">
-                        </div>
-                    {{-- <iframe width="420" height="315" src="https://www.jdoodle.com/embed/v0/3w90" frameborder="0" allowfullscreen></iframe> --}}
-
-                    
-
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Status</label>
                         <div class="col-sm-9">
