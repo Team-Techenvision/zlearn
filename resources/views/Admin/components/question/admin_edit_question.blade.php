@@ -15,7 +15,7 @@
                             <input type="text" class="form-control" name="question_title"  placeholder="Enter Question Title" value="{{$question->question_title}}"/>
                         </div>
                     </div>  --}}
-
+                    <input type="hidden" name="question_id" value="{{$question->id}}">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Subject</label>
                         <div class="col-sm-9">
@@ -38,7 +38,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Chapter</label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="chapter_id" required>
+                            <select class="form-control" name="chapter_id">
                                  <option value="">Select Chapter</option>
                               {{--  @foreach($chapters as $r) 
                                     <option value="{{$r->id}}">{{$r->chapter_name}}</option> 
@@ -53,13 +53,13 @@
                             <div class="row">
                                 {{-- <h5 class="font-size-14 mb-4">Default Radios</h5> --}}
                                 <div class="form-check mb-2 col-6">
-                                    <input class="form-check-input" type="radio"  name="question_type" id="exampleRadios1" value="1" checked>
+                                    <input class="form-check-input" type="radio"  name="question_type" id="exampleRadios1" value="1"  <?php echo ($question->question_type == '1') ?  "checked" : "" ;  ?> >
                                     <label class="form-check-label" for="exampleRadios1">
                                        Image
                                     </label>
                                 </div>
                                 <div class="form-check col-6">
-                                    <input class="form-check-input" type="radio"  name="question_type" id="exampleRadios2" value="0">
+                                    <input class="form-check-input" type="radio"  name="question_type" id="exampleRadios2" value="0" <?php echo ($question->question_type == '0') ?  "checked" : "" ;  ?>>
                                     <label class="form-check-label" for="exampleRadios2">
                                         Text
                                     </label>
@@ -73,7 +73,7 @@
                         <div class="col-sm-9">
                             <div class="form-group">                            
                                 <div>
-                                    <textarea  class="form-control" rows="3" name="question" placeholder="Enter Question"></textarea>
+                                    <textarea  class="form-control" rows="3" name="question" placeholder="Enter Question">{{ $question->question }} </textarea>
                                 </div>
                             </div>
                         </div>
@@ -82,21 +82,32 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Question </label>
                         <div class="col-md-9">
-                            <input type="file" class="custom-file-input" id="customFile" name="question_image">
+                            <input type="file" class="custom-file-input" id="customFile" name="question_image_new">
                             <label class="custom-file-label" for="customFile">Choose file</label>
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                    @if($question->question_image)
+                    <label class="col-md-2 col-form-label">Question </label>
+                    <div class="col-md-8">
+                        <img class="document_img" src="{{asset($question->question_image)}}" alt="" width="100" height="100">
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{{url('delete-question-image')}}/{{$question->id}}" class="btn btn-accent float-right" title="Delete"><i class="fa fa-trash " style="color: red;" aria-hidden="true"></i></a>
+                    </div>
+                    @endif
+                </div>
                 
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Choice Count</label>
                         <div class="col-md-9">
-                            <select class="form-control" name="choice_count">
+                            <select class="form-control" name="choice_count"  disabled="true">
                                 <option>Select Choice</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>                                                               
+                                <option value="2" @if($question->choice_count == "2")selected @endif>2</option>
+                                <option value="3" @if($question->choice_count == "3")selected @endif>3</option>
+                                <option value="4" @if($question->choice_count == "4")selected @endif>4</option>
+                                <option value="5" @if($question->choice_count == "5")selected @endif>5</option>                                                               
                             </select>
                         </div>
                     </div>
@@ -107,7 +118,7 @@
                         <div class="col-sm-9">
                             <div class="form-group">                            
                                 <div>
-                                    <textarea  class="form-control" rows="3" name="explanation" placeholder="Enter Explanation"></textarea>
+                                    <textarea  class="form-control" rows="3" name="explanation" placeholder="Enter Explanation">{{ $question->explanation }} </textarea>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +131,19 @@
                             <select class="form-control" name="question_level" required>
                                 <option value="">Select Level</option>
                                 @foreach($question_level as $r) 
-                                    <option value="{{$r->id}}">{{$r->question_level_name}}</option> 
+                                    <option value="{{$r->id}}" @if($r->id == $question->question_level)selected @endif>{{$r->question_level_name}}</option> 
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Section</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="test_section" required>
+                                <option value="">Select Section</option>
+                                @foreach($test_section as $r) 
+                                    <option value="{{$r->id}}" @if($r->id == $question->test_section)selected @endif>{{$r->test_section_name}}</option> 
                                 @endforeach
                             </select>
                         </div>

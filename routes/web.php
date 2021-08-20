@@ -49,6 +49,7 @@ Route::middleware(['auth','User'])->group(function() {
     Route::post('Test-Instraction', 'Student\StudentController@Test_Instraction');
     Route::post('Get-TestQ', 'Student\StudentController@Get_TestQ');
 
+    Route::post('question-option', 'Student\StudentController@question_option');
     Route::post('QuestionOn-Section', 'Student\StudentController@QuestionOnSection');
 
     Route::get('pagination/fetch_data', 'Student\StudentController@fetch_section_question');
@@ -170,10 +171,15 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('edit-question/{id}', 'QuestionController@edit_question');
     Route::get('delete-question/{id}', 'QuestionController@delete_question');
 
+    Route::get('delete-question-image/{id}','QuestionController@delete_question_image');
+
+
     Route::get('myform/ajax/{id}',array('as'=>'myform.ajax','uses'=>'QuestionController@myformAjax'));
 
     Route::get('add-answer/{id}', 'QuestionController@add_answer');
     Route::post('submit-answer', 'QuestionController@submit_answer');
+
+    Route::get('edit-answer/{id}', 'QuestionController@edit_answer');
 
     Route::get('view-test', 'QuestionController@test_list');
     Route::get('add-test', 'QuestionController@add_test');

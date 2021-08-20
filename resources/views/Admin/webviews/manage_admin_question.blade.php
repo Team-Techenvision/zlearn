@@ -42,6 +42,8 @@
             @include('Admin.components/question/show_test_question')
         @elseif($flag == 12) 
             @include('Admin.components/question/view_test_question')
+        @elseif($flag == 13) 
+            @include('Admin.components/question/admin_edit_answer')
     @endif
     </div>
                     <!-- end row -->

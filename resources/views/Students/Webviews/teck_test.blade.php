@@ -116,23 +116,26 @@
 
                         
 
-                        @foreach ($Question as $question)                        
+                        {{-- @foreach ($Question as $question)                         --}}
                             <input type="hidden" value="{{count($count_Que)}}" id="total_Q">
-                        @php     $section_name= DB::table("test_section")->where("test_section.id",$question->test_section)->pluck('test_section_name')->first();
-                                @endphp
-                        <div class="row col-3 ">
+                        {{-- @php     $section_name= DB::table("test_section")->where("test_section.id",$question->test_section)->pluck('test_section_name')->first();
+                                @endphp --}}
+                        {{-- <div class="row col-3 ">
                             <span class="badge badge-primary w-100">{{$section_name}}</span>
-                        </div>
+                        </div> --}}
                         <div class="col-12 m-auto pb-5">
-                            @if($question->question)
-                                <label id="question" class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></span> {{$question->question}}</label>
-                            @endif
+                            {{-- @if($question->question) --}}
+                                <label  class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></span><span id="question">  </span></label>
+                            {{-- @endif
                             @if($question->question_image)
                                 <img src="{{url($question->question_image)}}" class="img-thumbnail">
-                            @endif
+                            @endif --}}
+                            <div class="col-12 m-auto" id="Que_img">
+                                
+                            </div>
                         </div>
                         <input type="hidden" name="test_id" id="test_id" value="{{$Test_time->id}}" >
-                        <input type="hidden" name="question_id" id="question_id" value="{{$question->id}}">
+                        <input type="hidden" name="question_id" id="question_id" value="">
                     <!-- < ?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
                         $i=1;
                     foreach ($Q_option as  $value) 
@@ -144,8 +147,8 @@
 
                    < ?php }
                     //  dd($Question);
-                    ?>
-                     @endforeach -->
+                    ?>-->
+                     {{-- @endforeach  --}}
                      <div class="col-12 row" id="all_options">
                          
                      </div>
@@ -276,7 +279,9 @@
             $(document).ready(function()
             {
                 $('.sidebar, .alert').hide();
+
                 // $('.alert').hide();
+                // $('#ques_no').text($('.pagination .active span').text());
                 let searchParams = new URLSearchParams(window.location.search);
                 //alert(searchParams.get('page'));
                 let cur_page = searchParams.get('page');
@@ -285,7 +290,7 @@
                     cur_page = 1;
                 }
                 cur_page = parseInt(cur_page);
-                $('#ques_no').text(cur_page);
+                // $('#ques_no').text(cur_page);
                 
                 $('#submit_testQ').click(function()
                 {
@@ -380,7 +385,7 @@
     });
 </script> --}}
 
-<script>
+{{-- <script>
     let hr = {{$Test_time->hours}};
     let min = {{$Test_time->minute}};
    //let hr = 0;
@@ -392,7 +397,7 @@
            sessionStorage.removeItem("timer_start_");
             $(location).attr('href',"{{ url('Test-Result')}}");
        });
-   </script> 
+   </script>  --}}
 
 
 
@@ -424,7 +429,17 @@
                 $('#section_id').change(function()
                 {
                    // alert($(this).val());
-
+                //    if(localStorage.getItem('timer_start_'))
+                //    {
+                         
+                        //localStorage.removeItem("timer_start_");
+                         //sessionStorage.removeItem("timer_start_");
+                        //window.clearTimeout();
+                        //sessionStorage.removeItem("timer_start_");
+                        //localStorage.clear();
+                        //window.localStorage.removeItem("timer_start_");
+                       clearInterval();
+                //    }
                     $.ajax({
                         method: "POST",
                         url: "{{url('QuestionOn-Section')}}",
@@ -439,11 +454,20 @@
                         // alert(response['response'])
                         console.log(response['question']);
                         console.log(response['links']);
-                        $('#question').html(response['question']['data']['0']['question']);
-                        // $('#question_id').html(response['question']['data']['0']['id']);
+                        if(response['question']['data']['0']['question'])
+                        {
+                            $('#question').html(response['question']['data']['0']['question']);
+                        }
+                        if(response['question']['data']['0']['question_image'])
+                        {
+                            $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
+                        }
                         $('#question_id').val(response['question']['data']['0']['id']);
                         $('.Q_pagenate').html(response['links']);
-
+                         $('#ques_no').text($('.pagination .active span').text());
+                         let timeMM = response['question']['data']['0']['section_time'];
+                         
+                         section_time(timeMM);
                         Q_option();
 
                     }
@@ -474,13 +498,38 @@
                             {
                                 // console.log('<div class="col-md-6 h5"><input type="radio" name="option"value="'i'"><label>'response['data'][i].answer'</label><br></div>');
                                 //$('#all_options').append(response['data'][i].answer);
+                                //console.log(response['select_op']['Select_option']);
+                                if (response['select_op']['Select_option'] == j) 
+                                {
+                                    $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'" checked ><label>'+ response['data'][i].answer + '</label><br></div>');
+                                }
+                                else
+                                {
                                    $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'"><label>'+ response['data'][i].answer + '</label><br></div>');
+                                 }  
 
                                    j++;
                             }
                        
                         }
                     });  
+                }
+
+                function section_time(timeMM)
+                {
+                    //let hr = {{$Test_time->hours}};
+                    let hr = 0;
+                        // let min = {{$Test_time->minute}};
+                        let min =timeMM
+                    //let hr = 0;
+                    //let min = 50;
+                        set_timer($('.block'), [00, hr,min, 0],
+                            function(block) {
+                            block.html('<h1>time is over</h1>');
+                            window.clearTimeout();
+                            sessionStorage.removeItem("timer_start_");
+                                $(location).attr('href',"{{ url('Test-Result')}}");
+                        });
                 }
 
             });    
@@ -507,6 +556,7 @@
                         $('#question').html(response['question']['data']['0']['question']);
                         $('#question_id').val(response['question']['data']['0']['id']);
                         $('.Q_pagenate').html(response['links']);
+                         $('#ques_no').text($('.pagination .active span').text());
                          Q_option();
        }
       });
@@ -534,8 +584,14 @@
                             {
                                 // console.log('<div class="col-md-6 h5"><input type="radio" name="option"value="'i'"><label>'response['data'][i].answer'</label><br></div>');
                                //$('#all_options').append(response['data'][i].answer);
+                                   if (response['select_op']['Select_option'] == j) 
+                                {
+                                    $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'" checked ><label>'+ response['data'][i].answer + '</label><br></div>');
+                                }
+                                else
+                                {
                                    $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'"><label>'+ response['data'][i].answer + '</label><br></div>');
-
+                                 } 
                                    j++;
                             }
                        

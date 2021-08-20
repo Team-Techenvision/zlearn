@@ -63,19 +63,55 @@ class QuestionController extends Controller
 
         $this->validate($req,[
             'question_type'=>'required',
-            'choice_count'=>'required|numeric',            
+            'question'=>'required',            
          ]);
 
 
-         if($req->id) { 
-            Question::where('id',$req->id)->update([
-                'subject_name' => $req->sub_name,
-                'semister_id' => $req->semister_id,
-                'standard_id' => $req->standard_id,
-                'status' => $req->status,
-            ]);
+         if($req->question_id) { 
+
+    
+             if($req->chapter_id != null){
+                Question::where('id',$req->question_id)->update([
+                    'subject_id' => $req->subject_id,
+                    'chapter_id' => $req->chapter_id,
+                    'question_type' => $req->question_type,
+                    'question' => $req->question,
+                    // 'question_image' => $req->question_image,
+                    // 'choice_count' => $req->choice_count,
+                    'explanation' => $req->explanation,
+                    'question_level' => $req->question_level,
+                    'test_section' => $req->test_section,
+                    'status' => $req->status,
+                ]);
+             }else{
+                Question::where('id',$req->question_id)->update([
+                    'subject_id' => $req->subject_id,
+                    // 'chapter_id' => $req->chapter_id,
+                    'question_type' => $req->question_type,
+                    'question' => $req->question,
+                    // 'question_image' => $req->question_image,
+                    // 'choice_count' => $req->choice_count,
+                    'explanation' => $req->explanation,
+                    'question_level' => $req->question_level,
+                    'test_section' => $req->test_section,
+                    'status' => $req->status,
+                ]);
+             }
+
+             if($req->hasFile('question_image_new')) {
+                $file = $req->file('question_image_new');
+                $filename = 'question'.time().'.'.$req->question_image_new->extension();
+                $destinationPath = public_path('/images/question');
+                $file->move($destinationPath, $filename);
+
+                Question::where('id',$req->question_id)->update([
+                    'question_image' => 'images/question/'.$filename,
+                ]);
+             }
+          
             toastr()->success('Question Updated Successfully!');
-            return redirect('view-question');
+            
+            return redirect('edit-answer/'.$req->question_id);
 
          }else{
 
@@ -148,6 +184,14 @@ class QuestionController extends Controller
         }
     }
 
+    public function delete_question_image($id){ 
+        Question::where('id',$id)->update([
+            'question_image' => null,
+        ]);
+        toastr()->error('Question Image Deleted !');
+        return back();
+    }
+
     public function delete_question($id){ 
         $data['result']=Question::where('id',$id)->delete();
         toastr()->error('Question Deleted !');
@@ -165,7 +209,7 @@ class QuestionController extends Controller
         $data['subjects'] = DB::table('subjects')->where('status',"1")->get();
         $data['chapter'] = DB::table('chapters')->where('status',"1")->get(); 
         $data['question_level'] = DB::table('question_level')->where('status',"1")->get();  
-
+        $data['test_section'] = DB::table('test_section')->where('status',"1")->get();   
         // dd($data);
         return view('Admin/webviews/manage_admin_question',$data);
     }
@@ -200,7 +244,17 @@ class QuestionController extends Controller
         $data['flag'] = 4; 
         $data['page_title'] = 'Add Answer';  
         $data['question'] = Question::where('id',$id)->first(); 
-        $data['answer'] = Answer::where('question_id',$id)->first(); 
+        $data['answer'] = Answer::where('question_id',$id)->get(); 
+        // dd($data['answer']);
+        return view('Admin/webviews/manage_admin_question',$data);
+    }
+
+    public function edit_answer($id)
+    {
+        $data['flag'] = 13; 
+        $data['page_title'] = 'edit Answer';  
+        $data['question'] = Question::where('id',$id)->first(); 
+        $data['answer'] = Answer::where('question_id',$id)->get();
         // dd($data['answer']);
         return view('Admin/webviews/manage_admin_question',$data);
     }
@@ -215,16 +269,17 @@ class QuestionController extends Controller
          ]);
 
 
-         if($req->id) { 
-            Answer::where('id',$req->id)->update([
-                'subject_name' => $req->sub_name,
-                'semister_id' => $req->semister_id,
-                'standard_id' => $req->standard_id,
-                'status' => $req->status,
-            ]);
+         if($req->answer_id) { 
+            $i=0;
+            foreach($req->answer_id as $row)
+                {
+                Answer::where('id',$req->answer_id[$i])->update([
+                    'answer' => $req->answer[$i],
+                ]);
+                $i++;
+            }
             toastr()->success('Question Updated Successfully!');
             return redirect('view-question');
-
          }else{
             $j=0;
             foreach($req->answer as $row)
@@ -236,7 +291,6 @@ class QuestionController extends Controller
                 $result = $data->save();
                 $j++;
             }
-
             Question::where('id',$req->question_id)->update([
                 'correct_answer' => $req->correct_answer,
             ]);

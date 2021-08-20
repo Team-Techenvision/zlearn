@@ -826,13 +826,26 @@ class StudentController extends Controller
         ]);
     }
 
+    // public function question_option(Request $req)
+    // {
+    //     $Q_option = DB::table('answers')->where('question_id',$req->q_id)->get();
+
+    //      $producttest['data'] =  $Q_option; 
+    //    echo json_encode($producttest);
+    //    exit; 
+    // }
+
     public function question_option(Request $req)
     {
+        $test_id = Session::get('Test_Id');
+       
         $Q_option = DB::table('answers')->where('question_id',$req->q_id)->get();
 
-         $producttest['data'] =  $Q_option; 
+        $Select_option = DB::table('save__answers')->where('test_id',$test_id)->where('user_id',Auth::User()->id)->where('question_id',$req->q_id)->select('Select_option')->first();
+        $producttest['select_op'] = $Select_option;
+         $producttest['data'] =  $Q_option;
        echo json_encode($producttest);
-       exit; 
+       exit;
     }
 
     
