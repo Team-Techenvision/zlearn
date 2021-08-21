@@ -2,10 +2,15 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body"> 
-            <div class="col-12 text-left pb-2"> 
-                <h4 class=""> Test Name : {{$test_level->test_name}}</a>
-            </div>    
-        <table  class="table table-striped table-bordered dt-responsive nowrap text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+            <div class="row">
+                    <div class="col-6 pb-2"> 
+                        <h4 class=""> Test Name : {{$test_level->test_name}}</a>
+                    </div>    
+                    <div class="col-6">
+                        <input class="form-control mb-5" type="text" id="myInput" placeholder="search section">
+                    </div>
+        </div>
+        <table  id="question_table" class="table table-striped table-bordered dt-responsive nowrap text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                 <thead>
                     <tr>
                         <th>Select </th>
@@ -33,7 +38,8 @@
                         <td><input type="checkbox" name="question_id[]" value="{{$row->id}}" ></td>
                         @php $test_section_name = DB::table('test_section')->where('id',$row->test_section)->pluck('test_section_name')->first(); @endphp
                         <td>{{{$test_section_name}}}</td>
-                        <td>{{$row->question}}</td>                                                                          
+                        <td>{{$row->question}}</td>   
+                        {{-- <td>{{$row->question_level_name}}</td>                                                                           --}}
                     </tr>
                     @endforeach
                     {{-- @else  --}}

@@ -91,7 +91,7 @@
                
                     <div class="col-3">
                         {{-- <button type="button" class="btn btn-sm btn-primary" id="section_{{$row->section_id}}">{{$row->test_section_name}}</button> --}}
-                        <select class="form-control" name="section_name" id="section_id">                                     
+                        <select class="form-control" name="section_name" id="section_id" disabled="true">                                     
                             @foreach($section as $r)                                     
                                 <option value="{{$r->section_id}}">{{$r->test_section_name}}</option> 
                             @endforeach                                 
@@ -117,7 +117,7 @@
                         
 
                         {{-- @foreach ($Question as $question)                         --}}
-                            <input type="hidden" value="{{count($count_Que)}}" id="total_Q">
+                            
                         {{-- @php     $section_name= DB::table("test_section")->where("test_section.id",$question->test_section)->pluck('test_section_name')->first();
                                 @endphp --}}
                         {{-- <div class="row col-3 ">
@@ -136,6 +136,7 @@
                         </div>
                         <input type="hidden" name="test_id" id="test_id" value="{{$Test_time->id}}" >
                         <input type="hidden" name="question_id" id="question_id" value="">
+                        <input type="hidden" value="" id="total_Q">
                     <!-- < ?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
                         $i=1;
                     foreach ($Q_option as  $value) 
@@ -279,88 +280,68 @@
             $(document).ready(function()
             {
                 $('.sidebar, .alert').hide();
-
-                // $('.alert').hide();
-                // $('#ques_no').text($('.pagination .active span').text());
-                let searchParams = new URLSearchParams(window.location.search);
-                //alert(searchParams.get('page'));
-                let cur_page = searchParams.get('page');
-                if(!cur_page)
-                {
-                    cur_page = 1;
-                }
-                cur_page = parseInt(cur_page);
-                // $('#ques_no').text(cur_page);
+               // alert($("#section_id").prop("selectedIndex"));
+                //$("#section_id").prop("selectedIndex", 0).change(); 
+                //$("#section_id").val($("#section_id option:first").val()).change();
+                $("#section_id option:first").attr('selected','selected');
+                //$("#section_id").change();
+                ddl_section();
                 
                 $('#submit_testQ').click(function()
                 {
                     $.ajax({
-                    url: "{{ url('user-submit-test')}}",
-                    method: 'post',
-                    data: $('#test_form').serialize(),
-                    success: function(response)
-                    {
-                        // if(response)
-                        // {
-                        //     let searchParams = new URLSearchParams(window.location.search);
-                        //     //alert(searchParams.get('page'));
-                        //     let cur_page = searchParams.get('page');
-                        //     if(!cur_page)
-                        //     {
-                        //         cur_page = 1;
-                        //     }
-                        //     //$('.alert-success').show();
-                        //     //$('.alert_div').hide(2000);
-                        //     cur_page = parseInt(cur_page);
-                        //     if($('#total_Q').val() > cur_page)
-                        //     {
-                        //         cur_page = cur_page + 1;
-                        //         let url1 = "{{ url('Test')}}?page="+cur_page;
-                        //         //alert(url1);
-                        //         $(location).attr('href', url1);
-                        //     }
-                        //     else
-                        //     {
-                        //         $(location).attr('href',"{{ url('Test-Result')}}");
-                        //     }    
-                        // }
-                        // else
-                        // {
-                        //     //$('.alert-danger').show();
-                        //    // $('.alert_div').hide(2000);
-                        //     //alert("Not Submited !!!");
-                        // }
-                        //------------------------
-                            // $('#send_form').html('Submit');
-                            // $('#res_message').show();
-                            // $('#res_message').html(response.msg);
-                            // $('#msg_div').removeClass('d-none');
+                        url: "{{ url('user-submit-test')}}",
+                        method: 'post',
+                        data: $('#test_form').serialize(),
+                        success: function(response)
+                        { 
+                            let current_Q = $('.pagination .active span').text();
+                           current_Q = parseInt(current_Q);
+                           //alert(current_Q + " "+ $('#total_Q').val() > current_Q);
 
-                            // document.getElementById("contact_us").reset(); 
-                            // setTimeout(function()
-                            // {
-                            //     $('#res_message').hide();
-                            //     $('#msg_div').hide();
-                            // },10000);
-                        //--------------------------
-                    }});
-                });
-            });
-        </script>
-        <!-- ======================================= -->
-        <script>
-            $(document).ready(function()
-            {
+                            if($('#total_Q').val() > current_Q)
+                            {
+                                current_Q = current_Q + 1;
+                                //alert(current_Q);
+                                fetch_data(current_Q);                                 
+                                
+                            }
+                            else
+                            {
+                                //alert("else part");
+                                
+                                var T_section = $("#section_id option").length;
+                                var selectedIndex = $("#section_id").prop("selectedIndex");
 
-                $('.Quest_No').click(function()
-                {
-                    let cur_page = $(this).attr('data'); 
-                    let searchParams = new URLSearchParams(window.location.search);
-                    let url1 = "{{ url('Test')}}?page="+cur_page;
-                    //alert(url1);
-                    $(location).attr('href', url1);                               
+                                // alert(selectedIndex + " "+ T_section);
+                                // alert((selectedIndex-1) > T_section);
+                                selectedIndex = selectedIndex + 1;
+                                if(selectedIndex < T_section)
+                                {
+                                    // alert("else part If");
+                                    $("#section_id").prop("selectedIndex", selectedIndex).change();
+                                }
+                                else
+                                {
+                                   // alert("Test Completed !!");
+                                    $(location).attr('href',"{{ url('Test-Result')}}");
+                                }
+
+                            }   
+                        }
+                    });
                 });
 
+                // ============================================================
+                // $('.Quest_No').click(function()
+                // {
+                //     let cur_page = $(this).attr('data'); 
+                //     let searchParams = new URLSearchParams(window.location.search);
+                //     let url1 = "{{ url('Test')}}?page="+cur_page;
+                //     //alert(url1);
+                //     $(location).attr('href', url1);                               
+                // });
+                // ====================================================
                 $('#test_finish').click(function()
                 {
                    let key = confirm(" Are you sure Finish Test !!!!");
@@ -370,67 +351,13 @@
                     $(location).attr('href',"{{ url('Test-Result')}}");
                    }
                 });
-                 
-            });
-        </script>
-        <!-- ============================================= -->
-        {{-- <script>
-    $(document).ready(function()
-    {  
-     // $("#count-down").TimeCircles();
-		//$("#count-down").TimeCircles().end().fadeOut();	
-		
-        $(".example.stopwatch").TimeCircles();
- 
-    });
-</script> --}}
-
-{{-- <script>
-    let hr = {{$Test_time->hours}};
-    let min = {{$Test_time->minute}};
-   //let hr = 0;
-   //let min = 50;
-    set_timer($('.block'), [00, hr,min, 0],
-         function(block) {
-           block.html('<h1>time is over</h1>');
-           window.clearTimeout();
-           sessionStorage.removeItem("timer_start_");
-            $(location).attr('href',"{{ url('Test-Result')}}");
-       });
-   </script>  --}}
-
-
-
-            {{-- dhananjay code  --}}
-
-            <!-- <script>
-                myElement.find('option:eq(0)').prop('selected', true);
-            </script>
-            <script>
-                $(document).ready(function(){
-                $(document).on("click","button",function(){
-                    alert(this.id);
-                    // alert("I am (this.id) and automatically clicked");
-                });
-                });
-            </script> -->
-
-            <!-- <script>
-                window.onload=function(){
-                    $("#section_1").click();
-                    }
-            </script> -->
-
-            {{-- dhananjay code  --}}
-
-        <script>
-            $(document).ready(function()
-            {
+                // ======================================
                 $('#section_id').change(function()
                 {
-                   // alert($(this).val());
-                //    if(localStorage.getItem('timer_start_'))
-                //    {
+                    //alert($(this).val());
+                     
+                    //    if(localStorage.getItem('timer_start_'))
+                    //    {
                          
                         //localStorage.removeItem("timer_start_");
                          //sessionStorage.removeItem("timer_start_");
@@ -439,7 +366,7 @@
                         //localStorage.clear();
                         //window.localStorage.removeItem("timer_start_");
                        clearInterval();
-                //    }
+                    //    }
                     $.ajax({
                         method: "POST",
                         url: "{{url('QuestionOn-Section')}}",
@@ -451,9 +378,10 @@
                     success: function(response,status)
                     {
                         // data = JSON.parse(response);
-                        // alert(response['response'])
-                        console.log(response['question']);
-                        console.log(response['links']);
+                         //alert(response['question']['total']);
+                         console.log(response['question']);
+                         $('#total_Q').val(response['question']['total']);
+                        // console.log(response['links']);
                         if(response['question']['data']['0']['question'])
                         {
                             $('#question').html(response['question']['data']['0']['question']);
@@ -467,7 +395,7 @@
                          $('#ques_no').text($('.pagination .active span').text());
                          let timeMM = response['question']['data']['0']['section_time'];
                          
-                         section_time(timeMM);
+                         //section_time(timeMM);
                         Q_option();
 
                     }
@@ -514,7 +442,7 @@
                         }
                     });  
                 }
-
+// ===============================================================
                 function section_time(timeMM)
                 {
                     //let hr = {{$Test_time->hours}};
@@ -532,83 +460,77 @@
                         });
                 }
 
-            });    
-        </script>
-
-<script>
-    $(document).ready(function(){
-     $(document).on('click', '.pagination a', function(event){
-      event.preventDefault(); 
-      var page = $(this).attr('href').split('page=')[1];
-      fetch_data(page);
-     });
+                // ==========================================
+        $(document).on('click', '.pagination a', function(event)
+        {
+            event.preventDefault(); 
+            var page = $(this).attr('href').split('page=')[1];
+            fetch_data(page);
+        });
     
-     function fetch_data(page)
-     {
-        
+        function fetch_data(page)
+        { 
+        $.ajax({
+            url:"/pagination/fetch_data?page="+page,
+            success:function(response)
+            {
+                console.log(response['question']);                       
+                console.log(response['links']);
+                $('#question').html(response['question']['data']['0']['question']);
+                $('#question_id').val(response['question']['data']['0']['id']);
+                $('.Q_pagenate').html(response['links']);
+                $('#ques_no').text($('.pagination .active span').text());
+                Q_option();
+            }
+            });
+        }
+                // ============================================
 
-      $.ajax({
-       url:"/pagination/fetch_data?page="+page,
-       success:function(response)
-       {
-                        console.log(response['question']);
-                        console.log(response['links']);
-                        $('#question').html(response['question']['data']['0']['question']);
+
+                function ddl_section()
+                {
+                     clearInterval();
+                    //    }
+                    $.ajax({
+                        method: "POST",
+                        url: "{{url('QuestionOn-Section')}}",
+                        dataType: 'json',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            'section_id': $('#section_id').val()
+                        },
+                    success: function(response,status)
+                    {
+                        // data = JSON.parse(response);
+                         //alert(response['question']['total']);
+                         console.log(response['question']);
+                         $('#total_Q').val(response['question']['total']);
+                        // console.log(response['links']);
+                        if(response['question']['data']['0']['question'])
+                        {
+                            $('#question').html(response['question']['data']['0']['question']);
+                        }
+                        if(response['question']['data']['0']['question_image'])
+                        {
+                            $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
+                        }
                         $('#question_id').val(response['question']['data']['0']['id']);
                         $('.Q_pagenate').html(response['links']);
                          $('#ques_no').text($('.pagination .active span').text());
-                         Q_option();
-       }
-      });
+                         let timeMM = response['question']['data']['0']['section_time'];
+                         
+                         //section_time(timeMM);
+                        Q_option();
 
-       function Q_option()
-                {
-                     $("div").remove(".option");
-                    $.ajax({
-                        type: "POST",          
-                        url: "{{ url('question-option') }}",
-                        dataType: "json",
-                        data: {
-                           "_token": "{{ csrf_token() }}",
-                            'q_id': $('#question_id').val()                              
-                          },
-                        success : function(response)
-                        { 
-                          var len = 0;
-                          console.log(response);
-
-                             console.log(response['data'].length);
-                             len = response['data'].length;
-                             let j =1;
-                             for(var i = 0;i < len;i++)
-                            {
-                                // console.log('<div class="col-md-6 h5"><input type="radio" name="option"value="'i'"><label>'response['data'][i].answer'</label><br></div>');
-                               //$('#all_options').append(response['data'][i].answer);
-                                   if (response['select_op']['Select_option'] == j) 
-                                {
-                                    $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'" checked ><label>'+ response['data'][i].answer + '</label><br></div>');
-                                }
-                                else
-                                {
-                                   $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'"><label>'+ response['data'][i].answer + '</label><br></div>');
-                                 } 
-                                   j++;
-                            }
-                       
                         }
-                    });  
+                    });
                 }
-     }
+                // ==================================================
+            });
+        </script>
+        <!-- ======================================= -->
+        
      
-    });
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function()
-        {
-           $('#question_id').val(); 
-        });
-    </script>
     </body>
 
 </html>
