@@ -136,4 +136,39 @@
             });
             </script>
 
+
+<script>
+    $('#form_two').submit(function () {
+        var sum = 0;
+        $(".section_question").each(function(){
+            sum += +$(this).val();
+        });
+
+        var timingsum = 0;
+        $(".section_time").each(function(){
+            timingsum += +$(this).val();
+        });
+
+        var added_question = parseInt(sum);
+        var total_question = parseInt($('#total_question').val());
+
+        var added_timing = parseInt(timingsum);
+        var total_timing = parseInt($('#total_minutes').val());
+        
+        if(added_question > total_question || added_question < total_question){
+            $('.question_count_msg').show();
+            return false;
+        }
+
+        if(added_timing > total_timing || added_timing < total_timing){
+            $('.question_timing_msg').show();
+            return false;
+        }
+
+        });
+</script>
+
+
+
+
         @yield('script-bottom')

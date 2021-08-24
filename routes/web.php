@@ -189,6 +189,11 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('edit-test/{id}', 'QuestionController@edit_test');
     Route::get('delete-test/{id}/{status}', 'QuestionController@delete_test');
 
+    Route::get('edit-test-two/{id}', 'QuestionController@edit_test_two');
+    Route::post('submit-test-two-edit', 'QuestionController@submit_test_two_edit');
+
+    
+
     Route::post('get_chapter', 'QuestionController@get_chapter');
 
     Route::get('manage-test-question', 'QuestionController@add_test_question');
@@ -214,6 +219,14 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('delete-test-section/{id}', 'AdminController@delete_test_section');
 
     Route::get('view-program-name', 'AdminController@view_program_name');
+
+
+    Route::get('view-material', 'MaterialController@view_material');
+    Route::get('add-material', 'MaterialController@add_material');
+    Route::post('submit-material', 'MaterialController@submit_material');
+    Route::get('edit-material/{id}', 'MaterialController@edit_material');
+    Route::get('delete-material/{id}', 'MaterialController@delete_material');
+
 
     Route::get('{any}', 'QovexController@index');
  

@@ -550,7 +550,8 @@ class StudentController extends Controller
             ->orderBy('test_section_name', 'asc')
             ->get();
             //dd($data['Test_time']);
-            return view('Students/Webviews/teck_test',$data);
+            // return view('Students/Webviews/teck_test',$data);
+            return view('Students/Webviews/demo1_compiler',$data);
         }
     }
 

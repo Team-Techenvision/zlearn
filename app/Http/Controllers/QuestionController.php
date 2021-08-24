@@ -349,16 +349,26 @@ class QuestionController extends Controller
          ]);
 
 
-         if($req->id) { 
-            Answer::where('id',$req->id)->update([
+         if($req->test_id) { 
+            // dd($req);
+            Test::where('id',$req->test_id)->update([
                 'test_name' => $req->test_name,
-                'semister_id' => $req->semister_id,
-                'standard_id' => $req->standard_id,
+                'test_type_id' => $req->test_type_id,
+                'test_name_id' => $req->test_name_id,
+                'test_instruction' => $req->test_instruction,
+                'semester_id' => $req->semester_id,
+                'program_name_id' => $req->program_name_id,
+                'question_pattern' => $req->question_pattern,
+                'total_question' => $req->total_question,
+                'total_marks' => $req->total_marks,
+                'hours' => $req->hours,
+                'minute' => $req->minute,
                 'status' => $req->status,
             ]);
-            toastr()->success('Test Updated Successfully!');
-            return redirect('view-question');
 
+           
+            toastr()->success('Test Updated Successfully!');
+            return redirect('edit-test-two/'.$req->test_id);
          }else{
            
                 $data = new Test;
@@ -382,7 +392,6 @@ class QuestionController extends Controller
                 $data->status=$req->status;               
                 $result = $data->save();        
                 $test_id = $data->id;
-
                 $a=0;
                 foreach($req->college_id as $row)
                 {
@@ -465,7 +474,25 @@ class QuestionController extends Controller
                                     ->get();
         $data['test_section'] = Test_Section::join('test_tb_section','test_tb_section.test_section_id','=','test_section.id')
                                             ->where('test_tb_section.test_id', $test_id)
-                                            ->select('test_section.*','test_tb_section.id as test_tb_section_id','test_tb_section.test_id','test_tb_section.test_section_id')
+                                            ->select('test_section.*','test_tb_section.id as test_tb_section_id','test_tb_section.test_id','test_tb_section.test_section_id','test_tb_section.section_time','test_tb_section.section_question')
+                                            ->get();
+        // dd($data['test_section']);              
+        return view('Admin/webviews/manage_admin_question',$data);
+    }
+
+    public function edit_test_two($test_id)
+    {
+        $data['flag'] = 14; 
+        $data['page_title'] = 'edit Test Chapter';    
+        $data['test'] = Test::where('id',$test_id)->first(); 
+        $data['chapters'] =  Chapter::join('subjects', 'subjects.id', '=', 'chapters.subject_id')
+                                    ->join('test_subject', 'test_subject.subject_id', '=', 'chapters.subject_id')
+                                    ->select('subjects.*','test_subject.*','chapters.id as chapter_id', 'chapters.chapter_name','chapters.subject_id')
+                                    ->where('test_subject.test_id', $test_id)
+                                    ->get();
+        $data['test_section'] = Test_Section::join('test_tb_section','test_tb_section.test_section_id','=','test_section.id')
+                                            ->where('test_tb_section.test_id', $test_id)
+                                            ->select('test_section.*','test_tb_section.id as test_tb_section_id','test_tb_section.test_id','test_tb_section.test_section_id','test_tb_section.section_time','test_tb_section.section_question')
                                             ->get();
         // dd($data['test_section']);              
         return view('Admin/webviews/manage_admin_question',$data);
@@ -505,10 +532,34 @@ class QuestionController extends Controller
          foreach($req->test_tb_section_id as $row)
          {
          Test_tb_section::where('id',$req->test_tb_section_id[$j])->update([
-                'section_time' => $req->section_time[$j]
+                'section_time' => $req->section_time[$j],
+                'section_question' => $req->section_question[$j],
             ]);
             $j++;
         }
+            toastr()->success('Test Added Successfully!');
+            return redirect('manage-test-question');
+    }
+
+    public function submit_test_two_edit(Request $req)
+    {
+    //    dd($req);
+
+        $this->validate($req,[
+            'test_id'=>'required',           
+         ]);
+
+
+         if($req->test_id) { 
+            Test::where('id',$req->test_id)->update([
+                'mark_per_question' => $req->mark_per_question,
+                'exam_date' => $req->exam_date,
+                'exam_time' => $req->exam_time,
+            ]);
+
+         }
+
+        
             toastr()->success('Test Added Successfully!');
             return redirect('manage-test-question');
     }
@@ -525,6 +576,18 @@ class QuestionController extends Controller
         $data['flag'] = 7; 
         $data['page_title'] = 'Edit Test'; 
         $data['test'] = Test::where('id',$id)->first(); 
+        $data['semister'] = Semister::where('status',"1")->get(); 
+        $data['college'] = College::where('status',"1")->get();
+        $data['courses'] = DB::table('courses')->where('status',"1")->get();
+        $data['branches'] = DB::table('branches')->where('status',"1")->get();  
+        $data['semisters'] = DB::table('semisters')->where('status',"1")->get();
+        $data['question_level'] = DB::table('question_level')->where('status',"1")->get();
+        $data['question_pattern'] = DB::table('question_pattern')->where('status',"1")->get();
+        $data['test_section'] = DB::table('test_section')->where('status',"1")->get();  
+        $data['subjects'] = DB::table('subjects')->where('status',"1")->orderBy('subject_name', 'asc')->get();   
+        $data['test_name'] = DB::table('test_name')->where('status',"1")->get();
+        $data['program_names'] = DB::table('program_name')->where('status',"1")->get();
+        $data['test_types'] = DB::table('test_types')->where('status',"1")->get();
         // dd($data);
         return view('Admin/webviews/manage_admin_question',$data);
     }

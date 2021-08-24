@@ -39,7 +39,7 @@
                         <div class="col-sm-9">
                             <select class="form-control" name="correct_answer">    
                             <?php for($i=0; $i < $question->choice_count; $i++) {  ?>                                
-                                <option value="{{$i+1}}" >{{$i+1}}</option>
+                                <option value="{{$i+1}}"   @if($i+1 == $question->correct_answer)selected @endif>{{$i+1}}</option>
                             <?php  }  ?>                              
                             </select>
                         </div>

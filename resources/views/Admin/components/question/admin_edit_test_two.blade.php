@@ -7,7 +7,7 @@
             {{-- <p class="card-title-desc">The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
             </p> --}}
             <div class="col-md-8 m-auto"> 
-                <form id="form_two" class="" action="{{url('submit-test-two')}}" method="POST">                        
+                <form id="form_two" class="" action="{{url('submit-test-two-edit')}}" method="POST">                        
                 @csrf 
                     <div class="form-group row question_count_msg" style="display: none;">
                         <div class="alert alert-danger col-12 " role="alert">
@@ -19,8 +19,7 @@
                         <div class="alert alert-danger col-12" role="alert">
                             Please Enter Correct Timing
                         </div>
-                    </div>
-                    
+                    </div>                    
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Test Name</label>
@@ -37,11 +36,11 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Total Question </label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" name="test_total_question" id="total_question" value="{{ $test->total_question }}" readonly>
+                            <input type="text" class="form-control" name="test_total_question"  value="{{ $test->total_question }}" readonly>
                         </div>
                         <label class="col-sm-3 col-form-label">Total Minutes</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="total_minutes"  value="{{ $test_duration }}" readonly/>
+                            <input type="text" class="form-control"   value="{{ $test_duration }}" readonly/>
                         </div>
                     </div>
 
@@ -49,7 +48,7 @@
                     <div class="form-group row">
                         <label class="control-label col-sm-3"> Select Chapter</label>
                         <div class="col-sm-9">
-                            <select class="select2 form-control select2-multiple" multiple="multiple" name="chapter_id[]" data-placeholder="Choose ..." required>
+                            <select class="select2 form-control select2-multiple" multiple="multiple" name="chapter_id[]" data-placeholder="Choose ..." >
                                  @foreach($chapters as $r) 
                                     <option value="{{$r->chapter_id}}">{{$r->chapter_name}}</option> 
                                 @endforeach 
@@ -64,10 +63,10 @@
                             <label class="col-md-3 col-form-label"> {{$r->test_section_name}} </label>
                             <input type="hidden" name="test_tb_section_id[]"  value="{{ $r->test_tb_section_id }}">
                             <div class="col-md-4">
-                                <input type="text" class="form-control section_time" name="section_time[]"  placeholder="Enter Minute" />
+                                <input type="text" class="form-control section_time" name="section_time[]"  placeholder="Enter Minute " value="{{$r->section_time}}" readonly/>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control section_question" name="section_question[]"  placeholder="Enter Section Question" />
+                                <input type="text" class="form-control section_question" name="section_question[]"  placeholder="Enter Section Question" value="{{$r->section_question}} " readonly/>
                             </div>
                         </div>
                         @endforeach
@@ -76,7 +75,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Mark Per Question</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="mark_per_question"  placeholder="Enter Mark Per Question"  />
+                                <input type="text" class="form-control" name="mark_per_question"  placeholder="Enter Mark Per Question" value="@if(isset($test->mark_per_question)){{ $test->mark_per_question }}@endif" />
                             </div>
                         </div>
 
@@ -85,11 +84,11 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Exam Date</label>
                             <div class="col-sm-4">
-                                <input type="date" class="form-control" name="exam_date" />
+                                <input type="date" class="form-control" name="exam_date" value="@if(isset($test->exam_date)){{ $test->exam_date }}@endif"/>
                             </div>
                             
                             <div class="col-sm-4">
-                                <input type="time" class="form-control" name="exam_time" />
+                                <input type="time" class="form-control" name="exam_time" value="@if(isset($test->exam_time)){{ $test->exam_time }}@endif"/>
                             </div>
                            
                         </div> 

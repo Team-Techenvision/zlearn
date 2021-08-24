@@ -80,6 +80,16 @@
                         <li><a href="{{url('view-test-question')}}"> View Test Question</a></li>                      
                     </ul>
                 </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-map-marker-outline"></i>
+                        <span>Manage Material</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">                        
+                        <li><a href="{{url('view-material')}}"> View Material</a></li>                                              
+                    </ul>
+                </li>
                 
 
             </ul>
