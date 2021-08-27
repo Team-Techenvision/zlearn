@@ -25,6 +25,7 @@ Use App\Test_question;
 Use App\Test_branch;
 Use App\Test_tb_section;
 Use App\Test_Section;
+Use App\Test_semester;
 
 
 
@@ -345,7 +346,8 @@ class QuestionController extends Controller
         $this->validate($req,[
             'test_name'=>'required', 
             'subject_id'=>'required',           
-            'test_section_id'=>'required',           
+            'test_section_id'=>'required',
+            'semester_id'=>'required',  
          ]);
 
 
@@ -356,7 +358,7 @@ class QuestionController extends Controller
                 'test_type_id' => $req->test_type_id,
                 'test_name_id' => $req->test_name_id,
                 'test_instruction' => $req->test_instruction,
-                'semester_id' => $req->semester_id,
+                // 'semester_id' => $req->semester_id,
                 'program_name_id' => $req->program_name_id,
                 'question_pattern' => $req->question_pattern,
                 'total_question' => $req->total_question,
@@ -365,6 +367,22 @@ class QuestionController extends Controller
                 'minute' => $req->minute,
                 'status' => $req->status,
             ]);
+
+
+            $new_semester=array_merge(array_diff($req->semester_id , $req->old_semester_id ));
+            // dd($new_semester);
+            // dd($req->semester_id);
+            if(isset($new_semester)){
+                $a=0;
+                foreach($new_semester as $row)
+                {
+                    $data = new Test_semester;
+                    $data->test_id=$req->test_id;            
+                    $data->semester_id=$new_semester[$a];
+                    $result = $data->save();
+                    $a++;
+                }
+            }
 
            
             toastr()->success('Test Updated Successfully!');
@@ -377,7 +395,7 @@ class QuestionController extends Controller
                 $data->test_name_id=$req->test_name_id;
                 $data->test_instruction=$req->test_instruction;
                 // $data->branch_id=$req->branch_id;
-                $data->semester_id=$req->semester_id;
+                // $data->semester_id=$req->semester_id;
                 $data->program_name_id=$req->program_name_id;
                 $data->description=$req->description;
                 $data->program_name_id=$req->program_name_id;                
@@ -440,6 +458,15 @@ class QuestionController extends Controller
                     $data->test_section_id=$req->test_section_id[$e];
                     $result = $data->save();
                     $e++;
+                }
+                $f=0;
+                foreach($req->semester_id as $row)
+                {
+                    $data = new Test_semester;
+                    $data->test_id=$test_id;            
+                    $data->semester_id=$req->semester_id[$f];
+                    $result = $data->save();
+                    $f++;
                 }
 
             if($result)

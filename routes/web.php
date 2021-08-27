@@ -158,9 +158,12 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('delete-test-type/{id}', 'AdminController@delete_test_type');
 
     Route::post('importuser', 'AdminController@import')->name('importuser');
+
     Route::get('importExportView', 'AdminController@importExportView');
     Route::get('export', 'AdminController@export')->name('export');
     Route::get('questionexport', 'AdminController@questionexport')->name('questionexport');
+    Route::get('export_test_report/{id}', 'AdminController@export_test_report')->name('export_test_report');
+
 
 
     // Question pages  Start

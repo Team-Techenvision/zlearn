@@ -98,7 +98,18 @@
                         </div>
                     </div>                   
 
-                    <div class="form-group row">
+                     <div class="form-group row">
+                        <label class="control-label col-sm-3">Select Semester</label>
+                        <div class="col-sm-9">
+                            <select class="select2 form-control select2-multiple" multiple="multiple" name="semester_id[]" data-placeholder="Choose ...">
+                                @foreach($semisters as $r) 
+                                    <option value="{{$r->id}}">{{$r->semister_name}}</option> 
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    {{-- <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Select Semester</label>
                         <div class="col-sm-9">
                             <select class="form-control" name="semester_id" required>
@@ -108,7 +119,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Training Program</label>

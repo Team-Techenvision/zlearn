@@ -11,7 +11,7 @@
                 <form class="" action="{{url('submit-test')}}" method="POST">                        
                 @csrf 
 
-                    <input type="text" name="test_id" value="{{$test->id}}">
+                    <input type="hidden" name="test_id" value="{{$test->id}}">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Test Type</label>
                         <div class="col-sm-9">
@@ -113,13 +113,41 @@
                         </div>
                     </div>                   
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Select Semester</label>
                         <div class="col-sm-9">
                             <select class="form-control" name="semester_id" required>
                                 <option value="">Select Semester</option>
                                 @foreach($semisters as $r) 
                                     <option value="{{$r->id}}" @if($r->id == $test->semester_id)selected @endif >{{$r->semister_name}}</option> 
+                                @endforeach
+                            </select>
+                        </div>
+                    </div> --}}
+
+                    @php
+                        $test_semester= DB::table("test_semester")->where("test_id",$test->id)->get();
+                        // dd($test_semester);
+                    @endphp
+
+                    
+                    <div class="form-group row" style="display: none">
+                        <label class="control-label col-sm-3"> Select Semester</label>
+                        <div class="col-sm-9">
+                            <select class="select2 form-control select2-multiple" multiple="multiple" name="old_semester_id[]" data-placeholder="Choose ...">
+                                @foreach($semisters as $r) 
+                                    <option value="{{$r->id}}" @foreach($test_semester as $list){{$list->semester_id == $r->id ? 'selected': ''}}   @endforeach>{{$r->semister_name}}</option> 
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-sm-3"> Select Semester</label>
+                        <div class="col-sm-9">
+                            <select class="select2 form-control select2-multiple" multiple="multiple" name="semester_id[]" data-placeholder="Choose ...">
+                                @foreach($semisters as $r) 
+                                    <option value="{{$r->id}}" @foreach($test_semester as $list){{$list->semester_id == $r->id ? 'selected': ''}}   @endforeach>{{$r->semister_name}}</option> 
                                 @endforeach
                             </select>
                         </div>

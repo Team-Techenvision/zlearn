@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      dir="ltr">
-
+      dir="ltr" >
+      {{-- oncontextmenu="return false" --}}
     <head>
       @include('Students.Common.student_head')
       <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -83,6 +83,9 @@
     <div class="row" id="Q_paper" style="">
         <div class="row text-right col-12">                
             <div class="btn12 col-12 text-right m-auto"><span>Time: &nbsp;</span><span class="block"></span></div>
+            @php
+            print_r($_COOKIE['setsectiontime']);
+        @endphp 
         </div>        
     </div>
         <div class="row">                
@@ -91,7 +94,7 @@
                
                     <div class="col-3">
                         {{-- <button type="button" class="btn btn-sm btn-primary" id="section_{{$row->section_id}}">{{$row->test_section_name}}</button> --}}
-                        <select class="form-control" name="section_name" id="section_id" disabled="true">                                     
+                        <select class="form-control col-md-8" name="section_name" id="section_id" disabled="true">                                     
                             @foreach($section as $r)                                     
                                 <option value="{{$r->section_id}}">{{$r->test_section_name}}</option> 
                             @endforeach                                 
@@ -163,7 +166,7 @@
             <div class="col-md-3">
                 <div class="col-md-10 m-auto pt-5" id="num_list">
                     <div class="col-12 Q_pagenate">
-                    {{-- <?php $i=1; ?>
+                    {{-- < ?php $i=1; ?>
                     @foreach($count_Que as $list)
                     {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
                     {{-- {{$list->id}} --}}
@@ -256,6 +259,11 @@
              .Q_pagenate
              {
                 padding-bottom: 225px;
+             }
+
+             .avatar .logo-small , .dropdown-menu
+             {
+                 display:none!important;
              }
 
              @media screen and (max-width: 600px) 
@@ -354,6 +362,8 @@
                 // ======================================
                 $('#section_id').change(function()
                 {
+                    var timeMM = "";
+                    //alert(timeMM);
                     //alert($(this).val());
                      
                     //    if(localStorage.getItem('timer_start_'))
@@ -365,7 +375,7 @@
                         //sessionStorage.removeItem("timer_start_");
                         //localStorage.clear();
                         //window.localStorage.removeItem("timer_start_");
-                       clearInterval();
+                        
                     //    }
                     $.ajax({
                         method: "POST",
@@ -380,23 +390,35 @@
                         // data = JSON.parse(response);
                          //alert(response['question']['total']);
                          console.log(response['question']);
-                         $('#total_Q').val(response['question']['total']);
-                        // console.log(response['links']);
-                        if(response['question']['data']['0']['question'])
+                        if(response['question']['total']) 
                         {
-                            $('#question').html(response['question']['data']['0']['question']);
+                            $('#total_Q').val(response['question']['total']);
+                            // console.log(response['links']);
+                            if(response['question']['data']['0']['question'])
+                            {
+                                $('#question').html(response['question']['data']['0']['question']);
+                            }
+                            if(response['question']['data']['0']['question_image'])
+                            {
+                                $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
+                            }
+                            $('#question_id').val(response['question']['data']['0']['id']);
+                            $('.Q_pagenate').html(response['links']);
+                            $('#ques_no').text($('.pagination .active span').text());
+                            timeMM = response['question']['data']['0']['section_time'];
+                            if($('#total_Q').val() == 1)
+                            {
+                                $('#ques_no').text($('#total_Q').val());
+                            }
+                            //section_time(timeMM);
+                            //alert(timeMM);
+                            section_timer(timeMM);
+                            Q_option();
                         }
-                        if(response['question']['data']['0']['question_image'])
+                        else
                         {
-                            $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
+                            alert("This Section Question Not Available !!!");
                         }
-                        $('#question_id').val(response['question']['data']['0']['id']);
-                        $('.Q_pagenate').html(response['links']);
-                         $('#ques_no').text($('.pagination .active span').text());
-                         let timeMM = response['question']['data']['0']['section_time'];
-                         
-                         //section_time(timeMM);
-                        Q_option();
 
                     }
                 });
@@ -417,48 +439,96 @@
                         success : function(response)
                         { 
                           var len = 0;
-                          console.log(response);
+                         // console.log(response);
 
-                             console.log(response['data'].length);
+                            // console.log(response['data'].length);
                              len = response['data'].length;
                              let j=1;
+                             const fruits=[];
                              for(var i = 0;i < len;i++)
                             {
-                                // console.log('<div class="col-md-6 h5"><input type="radio" name="option"value="'i'"><label>'response['data'][i].answer'</label><br></div>');
-                                //$('#all_options').append(response['data'][i].answer);
-                                //console.log(response['select_op']['Select_option']);
                                 if (response['select_op']['Select_option'] == j) 
                                 {
-                                    $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'" checked ><label>'+ response['data'][i].answer + '</label><br></div>');
+                                    fruits.push('<input type="radio" class="mr-2" name="option"value="'+ j +'" checked ><label>'+ response['data'][i].answer + '</label>');
                                 }
                                 else
                                 {
-                                   $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'"><label>'+ response['data'][i].answer + '</label><br></div>');
-                                 }  
+                                    fruits.push('<input type="radio" class="mr-2" name="option"value="'+ j +'"  ><label>'+ response['data'][i].answer + '</label>');
+                                }
+                                // console.log('<div class="col-md-6 h5"><input type="radio" name="option"value="'i'"><label>'response['data'][i].answer'</label><br></div>');
+                                //$('#all_options').append(response['data'][i].answer);
+                                //console.log(response['select_op']['Select_option']);
+                                // if (response['select_op']['Select_option'] == j) 
+                                // {
+                                //     $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'" checked ><label>'+ response['data'][i].answer + '</label><br></div>');
+                                // }
+                                // else
+                                // {
+                                //    $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ j +'"><label>'+ response['data'][i].answer + '</label><br></div>');
+                                //  }  
 
-                                   j++;
+                                    j++;
                             }
+                            // console.log("new Array = "+fruits.length);
+                            // console.log("new Array = "+ fruits);
+                                var test124 = randomArrayShuffle(fruits);
+                                // console.log("Newlyy = "+ test124);
+                             var demo = 0;
+                             demo = test124.length;
+                              let s=1;
+                             for(var i = 0;i < demo;i++)
+                            {
+
+                                $('#all_options').append('<div class="col-md-6 h5 option">'+test124[i]+'<br></div>');
+                                //  if (response['select_op']['Select_option'] == j) 
+                                // {
+                                //     $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ s +'" checked ><label>'+ response['data'][i].answer + '</label><br></div>');
+                                // }
+                                // else
+                                // {
+                                //    $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ s +'"><label>'+ response['data'][i].answer + '</label><br></div>');
+                                //  }  
+
+                                   s++;
+                            }
+
+                           
+
                        
                         }
                     });  
                 }
-// ===============================================================
-                function section_time(timeMM)
-                {
-                    //let hr = {{$Test_time->hours}};
-                    let hr = 0;
-                        // let min = {{$Test_time->minute}};
-                        let min =timeMM
-                    //let hr = 0;
-                    //let min = 50;
-                        set_timer($('.block'), [00, hr,min, 0],
-                            function(block) {
-                            block.html('<h1>time is over</h1>');
-                            window.clearTimeout();
-                            sessionStorage.removeItem("timer_start_");
-                                $(location).attr('href',"{{ url('Test-Result')}}");
-                        });
+
+               function randomArrayShuffle(array) 
+               {
+                  var currentIndex = array.length, temporaryValue, randomIndex;
+                  while (0 !== currentIndex) 
+                  {
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex -= 1;
+                    temporaryValue = array[currentIndex];
+                    array[currentIndex] = array[randomIndex];
+                    array[randomIndex] = temporaryValue;
+                  }
+                  return array;
                 }
+// ===============================================================
+                // function section_time(timeMM)
+                // {
+                //     //let hr = {{$Test_time->hours}};
+                //     let hr = 0;
+                //         // let min = {{$Test_time->minute}};
+                //         let min =timeMM
+                //     //let hr = 0;
+                //     //let min = 50;
+                //         set_timer($('.block'), [00, hr,min, 0],
+                //             function(block) {
+                //             block.html('<h1>time is over</h1>');
+                //             window.clearTimeout();
+                //             sessionStorage.removeItem("timer_start_");
+                //                 $(location).attr('href',"{{ url('Test-Result')}}");
+                //         });
+                // }
 
                 // ==========================================
         $(document).on('click', '.pagination a', function(event)
@@ -470,12 +540,15 @@
     
         function fetch_data(page)
         { 
+            var section = $('#section_id').val();
+             
         $.ajax({
-            url:"/pagination/fetch_data?page="+page,
+            url:"/pagination/fetch_data/"+ section +"?page="+page,
             success:function(response)
             {
                 console.log(response['question']);                       
-                console.log(response['links']);
+                //console.log(response['links']);
+                console.log("HHHHHH = "+ response['question']['data']['0']['question']);
                 $('#question').html(response['question']['data']['0']['question']);
                 $('#question_id').val(response['question']['data']['0']['id']);
                 $('.Q_pagenate').html(response['links']);
@@ -488,8 +561,10 @@
 
 
                 function ddl_section()
-                {
-                     clearInterval();
+                { 
+                    var timeMM ="";
+                   // alert(timeMM);
+                     //clearInterval();
                     //    }
                     $.ajax({
                         method: "POST",
@@ -502,33 +577,103 @@
                     success: function(response,status)
                     {
                         // data = JSON.parse(response);
-                         //alert(response['question']['total']);
+                         //alert(response);
                          console.log(response['question']);
-                         $('#total_Q').val(response['question']['total']);
-                        // console.log(response['links']);
-                        if(response['question']['data']['0']['question'])
-                        {
-                            $('#question').html(response['question']['data']['0']['question']);
-                        }
-                        if(response['question']['data']['0']['question_image'])
-                        {
-                            $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
-                        }
-                        $('#question_id').val(response['question']['data']['0']['id']);
-                        $('.Q_pagenate').html(response['links']);
-                         $('#ques_no').text($('.pagination .active span').text());
-                         let timeMM = response['question']['data']['0']['section_time'];
-                         
-                         //section_time(timeMM);
-                        Q_option();
+                            if(response['question']['total']) 
+                            {
+                                $('#total_Q').val(response['question']['total']);
+                                // console.log(response['links']);
+                                if(response['question']['data']['0']['question'])
+                                {
+                                    $('#question').html(response['question']['data']['0']['question']);
+                                }
+                                if(response['question']['data']['0']['question_image'])
+                                {
+                                    $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
+                                }
+                                $('#question_id').val(response['question']['data']['0']['id']);
+                                $('.Q_pagenate').html(response['links']);
+                                $('#ques_no').text($('.pagination .active span').text());
+                                timeMM = response['question']['data']['0']['section_time'];
+                                if($('#total_Q').val() == 1)
+                                {
+                                    $('#ques_no').text($('#total_Q').val());
+                                }
+                                // alert(timeMM);
+                                section_timer(timeMM);
+                                Q_option();
+                            }
+                            else
+                            {
+                                alert("This Section Question Not Available !!!");
+                            }
 
                         }
                     });
                 }
                 // ==================================================
+
+                function section_timer(section_time)
+                {
+                    //alert(section_time);
+                   
+                    var timerInterval;
+                    clearInterval(timerInterval);
+                    let minutes = section_time;
+                    let seconds = 00;
+                    clearInterval(timerInterval);
+                    let duration = (minutes * 60) + seconds;
+                    let display = document.querySelector('.block');
+                    startTimer(duration, display);
+
+                }
+
+                function startTimer(duration, display) 
+                {                     
+                     //alert(duration);
+                    
+                    var timer = duration, minutes, seconds;
+                    clearTimeout(this.timerInterval);
+                    timerInterval = setInterval(function() {
+                        minutes = parseInt(timer / 60, 10)
+                        seconds = parseInt(timer % 60, 10);
+
+                        minutes = minutes < 10 ? "0" + minutes : minutes;
+                        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                        display.textContent = minutes + ":" + seconds;
+
+                        if (--timer < 0) {
+                        timer = duration;
+                        clearInterval(timerInterval);
+                        section_ddl();
+                        }
+                    }, 1000);
+                }
+                // ==============================================
+                function section_ddl()
+                {
+                    var T_section = $("#section_id option").length;
+                    var selectedIndex = $("#section_id").prop("selectedIndex");
+
+                    // alert(selectedIndex + " "+ T_section);
+                    // alert((selectedIndex-1) > T_section);
+                    selectedIndex = selectedIndex + 1;
+                    if(selectedIndex < T_section)
+                    {
+                        // alert("else part If");
+                        $("#section_id").prop("selectedIndex", selectedIndex).change();
+                    }
+                    else
+                    {
+                         alert("Test Completed !!");
+                        $(location).attr('href',"{{ url('Test-Result')}}");
+                    }
+                }
+                // ==========================================
             });
         </script>
-        <!-- ======================================= -->
+        <!-- ======================================= --
         
      
     </body>

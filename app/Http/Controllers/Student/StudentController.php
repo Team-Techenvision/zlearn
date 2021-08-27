@@ -24,7 +24,9 @@ use App\Semister;
 use App\branch;
 use App\Test_question;
 use App\Test_Section;
+use App\Test_semester;
 use Session;
+use Carbon\Carbon;
 
 use DB;
 
@@ -42,6 +44,11 @@ class StudentController extends Controller
         {              
             session()->forget('Test_Id');
         }
+        $todayDate = Carbon::now()->format('H:i:m');
+        // dd($todayDate);
+
+        setcookie("setsectiontime", true, time() + (60 * 1));
+
     	return view('Students/Webviews/student_dashboard',$data);
     }
 
@@ -56,8 +63,8 @@ class StudentController extends Controller
         $data['course']= course::where('status',1)->orderBy('course_name','asc')->get();
         $data['Semister'] = Semister::where('status',1)->orderBy('semister_name','asc')->get();
         $data['branch'] = branch::where('status',1)->orderBy('branch_name','asc')->get();  
+         $data['blood_group'] = DB::table('blood_group')->where('status',1)->orderBy('id','asc')->get(); 
         //dd($data['Education']['collage_id']);  
-        $data['blood_group'] = DB::table('blood_group')->where('status',1)->orderBy('id','asc')->get();
     	return view('Students/Webviews/student_add_resume',$data);
 
     }
@@ -335,59 +342,73 @@ class StudentController extends Controller
         }
         else
         {
-            if($req->input('certificate') == "null")
-            {
+            // if($req->input('certificate') == "null")
+            // {
 
 
 
-            }
-            else
-            {    
+            // }
+            // else
+            // {    
                 $i= 0;
                 //dd($req->certificate);
+            if($req->certificate)
+            {
                 foreach($req->certificate as $row)
                 {    
-                    $data = new Certification;
-                    $data->user_id=$u_id; 
-                    $data->Certification_name=$req->certificate[$i];
-                    $result21 = $data->save();
+                    if( $row != null)
+                    {
+                        $data = new Certification;
+                        $data->user_id=$u_id; 
+                        $data->Certification_name= $row;
+                        // $data->Certification_name=$req->certificate[$i];
+                        $result21 = $data->save();
+                    }
+                    $i++;
                 }    
-            }
+             }
              //dd("12"); 
         }
-        if($req->project_name != null)
-        {
+         if($req->project_name)
+         {
             $i = 0;
             foreach($req->project_name as $row)
             {
-
-                $data = new Academic_project;
-                $data->user_id=$u_id;            
-                $data->project_name=$row;
-                $data->team_size=$req->team_size[$i]; 
-                $data->project_detail=$req->project_detail[$i];
-                $result = $data->save();
+                if($row != null)
+                {    
+                    $data = new Academic_project;
+                    $data->user_id=$u_id;            
+                    $data->project_name=$row;
+                    $data->team_size=$req->team_size[$i]; 
+                    $data->project_detail=$req->project_detail[$i];
+                    $result = $data->save();
+                }
                 $i++;
                 
             }
-        } 
+         } 
         //dd($req->proj_roles);
-        if($req->int_comp_name != null)
-        {   
+           
             $j = 0;
         // dd($req->int_comp_name);
+        if($req->int_comp_name)
+        {
             foreach($req->int_comp_name as $row)
             {
-                $data = new Interships;
-                $data->user_id=$u_id;            
-                $data->int_comp_name=$row;
-                $data->intship_duration=$req->intship_duration[$j]; 
-                $data->your_roles=$req->your_roles[$j];
-                $result = $data->save();
+                if($row != null)
+                {
+                    $data = new Interships;
+                    $data->user_id=$u_id;            
+                    $data->int_comp_name=$row;
+                    $data->intship_duration=$req->intship_duration[$j]; 
+                    $data->your_roles=$req->your_roles[$j];
+                    $result = $data->save();
+                }
                 $j++;
                 
             }
-        }    
+        }
+           
         // if($result)
         // {
             // $req->session()->flash('alert-success', 'Training Information Submited Successfully!!');
@@ -419,7 +440,8 @@ class StudentController extends Controller
         $data['count_Que'] = Question::where('status',1)->get();       
         $data['Test_time'] = DB::table('tests')
 		->join('test_branch', 'test_branch.test_id', '=', 'tests.id')
-         ->join('test_college','test_college.test_id','=','tests.id')
+        ->join('test_college','test_college.test_id','=','tests.id')
+        // ->join('test_semester','test_semester.test_id','=','tests.id')
         ->join('education__details as ed_D', 'ed_D.collage_id', '=', 'test_college.college_id')
        	->join('education__details as ed', 'ed.branch_id', '=', 'test_branch.branch_id')       
         ->select('tests.*')
@@ -436,7 +458,7 @@ class StudentController extends Controller
         // dd($req->test_id);
         $u_id = Auth::User()->id;
         $data['test'] = Test::where('status',1)->where('id',$req->test_id)->first();
-        // dd($data['test']);
+        //  dd($data['test']);
         $data['test_id'] = $req->test_id;
         return view('Students/Webviews/Test_Instraction',$data);
     }
@@ -520,13 +542,13 @@ class StudentController extends Controller
             // ->select('questions.*')
             // ->where('test_question.test_id',$test_id)
             // ->paginate(1);
-            $data['Question'] = DB::table('test_question')
-            ->join('questions', 'questions.id', '=', 'test_question.question_id')
-            ->join('test_section', 'test_section.id', '=', 'questions.test_section')
-            ->orderBy('test_section_name', 'asc')          
-            ->select('questions.*')
-            ->where('test_question.test_id',$test_id)
-            ->paginate(1); 
+            // $data['Question'] = DB::table('test_question')
+            // ->join('questions', 'questions.id', '=', 'test_question.question_id')
+            // ->join('test_section', 'test_section.id', '=', 'questions.test_section')
+            // ->orderBy('test_section_name', 'asc')          
+            // ->select('questions.*')
+            // ->where('test_question.test_id',$test_id)
+            // ->paginate(1); 
 
             $data['section'] = DB::table('test_section')
             ->join('test_tb_section','test_tb_section.test_section_id', '=', 'test_section.id')
@@ -550,8 +572,8 @@ class StudentController extends Controller
             ->orderBy('test_section_name', 'asc')
             ->get();
             //dd($data['Test_time']);
-            // return view('Students/Webviews/teck_test',$data);
-            return view('Students/Webviews/demo1_compiler',$data);
+           // return view('Students/Webviews/demo1_compiler',$data);
+            return view('Students/Webviews/teck_test',$data);
         }
     }
 
@@ -790,10 +812,12 @@ class StudentController extends Controller
         $section_id = $req->section_id;
          $Question = DB::table('test_question')
             ->join('questions', 'questions.id', '=', 'test_question.question_id')
-            ->join('test_section', 'test_section.id', '=', 'questions.test_section')          
-            ->select('questions.*')
+            ->join('test_section', 'test_section.id', '=', 'questions.test_section')
+            ->join('test_tb_section', 'test_tb_section.test_section_id', '=', 'test_section.id')          
+            ->select('questions.*','test_tb_section.section_time')
             ->where('test_question.test_id',$test_id)
             ->where('questions.test_section',$section_id)
+            ->where('test_tb_section.test_id',$test_id)
             ->paginate(1);
         // return response()->json(array('$question'=> $Question), 200);
         return response()->json($data = [
@@ -805,12 +829,12 @@ class StudentController extends Controller
     }
 
 
-    public function fetch_section_question()
+    public function fetch_section_question($section_id)
     {
 
         $u_id = Auth::User()->id;
         $test_id = Session::get('Test_Id');
-        $section_id = 5;
+        //$section_id = Session::get('section_id');
         $Question = DB::table('test_question')
             ->join('questions', 'questions.id', '=', 'test_question.question_id')
             ->join('test_section', 'test_section.id', '=', 'questions.test_section')          
@@ -827,26 +851,17 @@ class StudentController extends Controller
         ]);
     }
 
-    // public function question_option(Request $req)
-    // {
-    //     $Q_option = DB::table('answers')->where('question_id',$req->q_id)->get();
-
-    //      $producttest['data'] =  $Q_option; 
-    //    echo json_encode($producttest);
-    //    exit; 
-    // }
-
     public function question_option(Request $req)
     {
         $test_id = Session::get('Test_Id');
-       
+        
         $Q_option = DB::table('answers')->where('question_id',$req->q_id)->get();
 
         $Select_option = DB::table('save__answers')->where('test_id',$test_id)->where('user_id',Auth::User()->id)->where('question_id',$req->q_id)->select('Select_option')->first();
         $producttest['select_op'] = $Select_option;
-         $producttest['data'] =  $Q_option;
+         $producttest['data'] =  $Q_option; 
        echo json_encode($producttest);
-       exit;
+       exit; 
     }
 
     

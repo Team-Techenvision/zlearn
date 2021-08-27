@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2021 at 02:46 PM
+-- Generation Time: Aug 27, 2021 at 02:41 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -690,12 +690,21 @@ CREATE TABLE `save__answers` (
 --
 
 INSERT INTO `save__answers` (`id`, `user_id`, `test_id`, `question_id`, `Select_option`, `correct_answer`, `status`, `created_at`, `updated_at`) VALUES
-(1, 3, 3, 1, NULL, 2, 1, '2021-08-23 12:26:39', '2021-08-23 12:26:39'),
-(2, 3, 3, 2, NULL, 4, 1, '2021-08-23 12:26:39', '2021-08-23 12:26:39'),
-(3, 3, 3, 5, NULL, 1, 1, '2021-08-23 12:26:39', '2021-08-23 12:26:39'),
-(4, 3, 3, 6, NULL, 3, 1, '2021-08-23 12:26:39', '2021-08-23 12:26:39'),
-(5, 3, 3, 7, NULL, 4, 1, '2021-08-23 12:26:39', '2021-08-23 12:26:39'),
-(6, 3, 3, 8, NULL, 3, 1, '2021-08-23 12:26:39', '2021-08-23 12:26:39');
+(7, 3, 3, 1, 2, 2, 1, '2021-08-27 09:44:53', '2021-08-26 21:48:19'),
+(8, 3, 3, 2, 2, 4, 1, '2021-08-27 09:44:53', '2021-08-26 21:48:23'),
+(9, 3, 3, 5, NULL, 1, 1, '2021-08-27 09:44:53', '2021-08-27 09:44:53'),
+(10, 3, 3, 6, NULL, 3, 1, '2021-08-27 09:44:53', '2021-08-27 09:44:53'),
+(11, 3, 3, 7, NULL, 4, 1, '2021-08-27 09:44:53', '2021-08-27 09:44:53'),
+(12, 3, 3, 8, NULL, 3, 1, '2021-08-27 09:44:53', '2021-08-27 09:44:53'),
+(13, 3, 1, 2, NULL, 4, 1, '2021-08-27 10:28:55', '2021-08-27 10:28:55'),
+(14, 3, 1, 3, NULL, 2, 1, '2021-08-27 10:28:55', '2021-08-27 10:28:55'),
+(15, 3, 1, 4, NULL, 1, 1, '2021-08-27 10:28:55', '2021-08-27 10:28:55'),
+(16, 3, 3, 1, NULL, 2, 1, '2021-08-27 11:48:26', '2021-08-27 11:48:26'),
+(17, 3, 3, 2, NULL, 4, 1, '2021-08-27 11:48:26', '2021-08-27 11:48:26'),
+(18, 3, 3, 5, NULL, 1, 1, '2021-08-27 11:48:26', '2021-08-27 11:48:26'),
+(19, 3, 3, 6, NULL, 3, 1, '2021-08-27 11:48:26', '2021-08-27 11:48:26'),
+(20, 3, 3, 7, NULL, 4, 1, '2021-08-27 11:48:26', '2021-08-27 11:48:26'),
+(21, 3, 3, 8, NULL, 3, 1, '2021-08-27 11:48:26', '2021-08-27 11:48:26');
 
 -- --------------------------------------------------------
 
@@ -834,9 +843,10 @@ CREATE TABLE `tests` (
 
 INSERT INTO `tests` (`id`, `test_name`, `test_type_id`, `test_name_id`, `test_instruction`, `branch_id`, `semester_id`, `program_name_id`, `description`, `question_level`, `question_pattern`, `total_question`, `total_marks`, `mark_per_question`, `hours`, `minute`, `exam_date`, `exam_time`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Practice edit', 1, 2, 'test edit', 4, 5, 2, 'test', 3, 3, 20, 20, 2, 0, 50, '2021-08-25', '15:07:00', 1, '2021-08-09 04:07:44', '2021-08-24 12:39:57'),
-(3, 'practice Test demo 3', 2, 4, 'demo', NULL, 4, 1, 'demo', NULL, 1, 50, 50, 2, 1, 0, '2021-08-12', '10:00:00', 1, '2021-08-10 06:56:41', '2021-08-10 06:56:41'),
+(3, 'practice Test demo 3', 2, 4, 'demo', NULL, 4, 1, 'demo', NULL, 1, 50, 50, 2, 1, 0, '2021-08-12', '10:00:00', 1, '2021-08-10 06:56:41', '2021-08-26 08:06:36'),
 (10, 'daily assesment test', 2, 1, 'demo\r\ndemo', NULL, 5, 2, 'demo\r\ndemo', NULL, 1, 45, 60, NULL, 1, 0, NULL, NULL, 1, '2021-08-23 09:37:01', '2021-08-23 09:37:01'),
-(11, 'pre assesment 3', 1, 2, 'demo', NULL, 5, 1, 'demo', NULL, 1, 45, 90, 2, 1, 45, '2021-08-25', '01:21:00', 1, '2021-08-24 04:23:22', '2021-08-24 05:54:25');
+(11, 'pre assesment 3', 1, 2, 'demo', NULL, 5, 1, 'demo', NULL, 1, 45, 90, 2, 1, 45, '2021-08-25', '01:21:00', 1, '2021-08-24 04:23:22', '2021-08-24 05:54:25'),
+(15, 'semester test', 1, 1, 'demo', NULL, NULL, 1, 'demo', NULL, 1, 10, 50, NULL, 0, 50, NULL, NULL, 1, '2021-08-26 04:46:34', '2021-08-26 04:46:34');
 
 -- --------------------------------------------------------
 
@@ -869,7 +879,15 @@ INSERT INTO `test_branch` (`id`, `test_id`, `branch_id`, `created_at`, `updated_
 (10, 9, 3, '2021-08-23 07:55:52', '2021-08-23 07:55:52'),
 (11, 10, 3, '2021-08-23 09:37:01', '2021-08-23 09:37:01'),
 (12, 11, 3, '2021-08-24 04:23:22', '2021-08-24 04:23:22'),
-(13, 11, 4, '2021-08-24 04:23:22', '2021-08-24 04:23:22');
+(13, 11, 4, '2021-08-24 04:23:22', '2021-08-24 04:23:22'),
+(14, 12, 3, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(15, 12, 4, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(16, 13, 3, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(17, 13, 4, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(18, 14, 3, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(19, 14, 4, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(20, 15, 3, '2021-08-26 04:46:35', '2021-08-26 04:46:35'),
+(21, 15, 4, '2021-08-26 04:46:35', '2021-08-26 04:46:35');
 
 -- --------------------------------------------------------
 
@@ -943,7 +961,15 @@ INSERT INTO `test_college` (`id`, `test_id`, `college_id`, `created_at`, `update
 (14, 9, 2, '2021-08-23 07:55:52', '2021-08-23 07:55:52'),
 (15, 10, 1, '2021-08-23 09:37:01', '2021-08-23 09:37:01'),
 (16, 10, 2, '2021-08-23 09:37:01', '2021-08-23 09:37:01'),
-(18, 11, 2, '2021-08-24 04:23:22', '2021-08-24 04:23:22');
+(18, 11, 2, '2021-08-24 04:23:22', '2021-08-24 04:23:22'),
+(22, 12, 1, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(23, 12, 2, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(24, 13, 1, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(25, 13, 2, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(26, 14, 1, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(27, 14, 2, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(28, 15, 1, '2021-08-26 04:46:34', '2021-08-26 04:46:34'),
+(29, 15, 2, '2021-08-26 04:46:34', '2021-08-26 04:46:34');
 
 -- --------------------------------------------------------
 
@@ -976,7 +1002,15 @@ INSERT INTO `test_course` (`id`, `test_id`, `course_id`, `created_at`, `updated_
 (10, 8, 3, '2021-08-18 04:28:47', '2021-08-18 04:28:47'),
 (11, 9, 3, '2021-08-23 07:55:52', '2021-08-23 07:55:52'),
 (12, 10, 3, '2021-08-23 09:37:01', '2021-08-23 09:37:01'),
-(13, 11, 2, '2021-08-24 04:23:22', '2021-08-24 04:23:22');
+(13, 11, 2, '2021-08-24 04:23:22', '2021-08-24 04:23:22'),
+(14, 12, 2, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(15, 12, 3, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(16, 13, 2, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(17, 13, 3, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(18, 14, 2, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(19, 14, 3, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(20, 15, 2, '2021-08-26 04:46:34', '2021-08-26 04:46:34'),
+(21, 15, 3, '2021-08-26 04:46:34', '2021-08-26 04:46:34');
 
 -- --------------------------------------------------------
 
@@ -1069,6 +1103,27 @@ INSERT INTO `test_section` (`id`, `test_section_name`, `Priority`, `status`, `cr
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `test_semester`
+--
+
+CREATE TABLE `test_semester` (
+  `id` bigint(100) NOT NULL,
+  `test_id` bigint(255) DEFAULT NULL,
+  `semester_id` int(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `test_semester`
+--
+
+INSERT INTO `test_semester` (`id`, `test_id`, `semester_id`, `created_at`, `updated_at`) VALUES
+(7, 3, 6, '2021-08-27 09:39:58', '2021-08-27 09:39:58');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `test_subject`
 --
 
@@ -1118,7 +1173,19 @@ INSERT INTO `test_subject` (`id`, `test_id`, `subject_id`, `created_at`, `update
 (31, 11, 12, '2021-08-24 04:23:22', '2021-08-24 04:23:22'),
 (32, 11, 9, '2021-08-24 04:23:22', '2021-08-24 04:23:22'),
 (33, 11, 10, '2021-08-24 04:23:22', '2021-08-24 04:23:22'),
-(34, 11, 2, '2021-08-24 04:23:22', '2021-08-24 04:23:22');
+(34, 11, 2, '2021-08-24 04:23:22', '2021-08-24 04:23:22'),
+(35, 12, 12, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(36, 12, 9, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(37, 12, 10, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(38, 13, 12, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(39, 13, 9, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(40, 13, 10, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(41, 14, 12, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(42, 14, 9, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(43, 14, 10, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(44, 15, 12, '2021-08-26 04:46:34', '2021-08-26 04:46:34'),
+(45, 15, 9, '2021-08-26 04:46:35', '2021-08-26 04:46:35'),
+(46, 15, 10, '2021-08-26 04:46:35', '2021-08-26 04:46:35');
 
 -- --------------------------------------------------------
 
@@ -1157,7 +1224,19 @@ INSERT INTO `test_tb_section` (`id`, `test_id`, `test_section_id`, `section_time
 (16, 11, 1, 20, 10, '2021-08-24 04:23:22', '2021-08-24 05:54:25'),
 (17, 11, 2, 20, 10, '2021-08-24 04:23:22', '2021-08-24 05:54:25'),
 (18, 11, 5, 20, 20, '2021-08-24 04:23:22', '2021-08-24 05:54:25'),
-(19, 11, 6, 45, 5, '2021-08-24 04:23:23', '2021-08-24 05:54:25');
+(19, 11, 6, 45, 5, '2021-08-24 04:23:23', '2021-08-24 05:54:25'),
+(20, 12, 1, NULL, NULL, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(21, 12, 2, NULL, NULL, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(22, 12, 5, NULL, NULL, '2021-08-26 04:42:10', '2021-08-26 04:42:10'),
+(23, 13, 1, NULL, NULL, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(24, 13, 2, NULL, NULL, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(25, 13, 5, NULL, NULL, '2021-08-26 04:43:42', '2021-08-26 04:43:42'),
+(26, 14, 1, NULL, NULL, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(27, 14, 2, NULL, NULL, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(28, 14, 5, NULL, NULL, '2021-08-26 04:45:33', '2021-08-26 04:45:33'),
+(29, 15, 1, NULL, NULL, '2021-08-26 04:46:35', '2021-08-26 04:46:35'),
+(30, 15, 2, NULL, NULL, '2021-08-26 04:46:35', '2021-08-26 04:46:35'),
+(31, 15, 5, NULL, NULL, '2021-08-26 04:46:35', '2021-08-26 04:46:35');
 
 -- --------------------------------------------------------
 
@@ -1210,8 +1289,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `l_name`, `email`, `phone`, `email_verified_at`, `password`, `remember_token`, `user_type`, `gender`, `standers`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', NULL, 'admin@gmail.com', NULL, NULL, '$2y$10$.SPPmQbIh.L2L.eig6UIfOqp3NM5YDr2C9M7uOLQ9Hdb.thjdPl/2', 'ycVQqx5gmEIv0j2sg64zLSPcA2g93iHWXYUpgC2tiqcM1KKqNS8dATWcpwKC', 1, NULL, NULL, 1, '2021-07-04 05:23:21', '2021-07-04 05:23:21'),
-(3, 'Dhananjay', 'Sawant', 'student@gmail.com', '9876543210', NULL, '$2y$10$w24PG7/VcghhKFZfHszFR.N4lRuVPtw9hmA3KSTl0i4nYNu7JcG8a', 'SOIruMIBZBcDF3JVvbP4iiLLaUbitU0tTGeie4dAnOQp1NiAHaIpcCUw7adm', 2, '1', 'UG', 1, '2021-07-08 04:33:21', '2021-08-19 02:34:58'),
+(1, 'admin', NULL, 'admin@gmail.com', NULL, NULL, '$2y$10$.SPPmQbIh.L2L.eig6UIfOqp3NM5YDr2C9M7uOLQ9Hdb.thjdPl/2', 'YysNZQA0VISzwWmGuOFpGrZvMUrCRqTfQnoP34Z6V4JvqZN5h5OMrvlvft8b', 1, NULL, NULL, 1, '2021-07-04 05:23:21', '2021-07-04 05:23:21'),
+(3, 'Dhananjay', 'Sawant', 'student@gmail.com', '9876543210', NULL, '$2y$10$w24PG7/VcghhKFZfHszFR.N4lRuVPtw9hmA3KSTl0i4nYNu7JcG8a', 'VxLsVKfJMPmK1tUcRWSwNRf4HhWycKZNlpQLXj0jehdBpyfHvFx8THNlkFka', 2, '1', 'UG', 1, '2021-07-08 04:33:21', '2021-08-19 02:34:58'),
 (4, 'rahul', NULL, 'student1@gmail.com', NULL, NULL, '$2y$10$nH0Ba7P/gZIZqOW6dLC8SOVnhQ5p0Nv0LQqqpNRwEqL.Drjr1M64C', NULL, 2, NULL, NULL, 1, '2021-07-31 04:18:00', '2021-08-19 04:53:10'),
 (5, 'demo', NULL, 'demo@gmail.com', NULL, NULL, '$2y$10$pi8/wl09oeckbrfLY4xnCeUMZPDpin7aiZwBHhp2XxSpS4UvK3dwW', 'Qug8JTHTyrRDvY8Y5h0G8JNlIxLgNZA3RDqqRSxtDnMk52EoJWDZMwqYAuDv', 2, NULL, NULL, 1, '2021-07-31 05:11:47', '2021-07-31 05:11:47'),
 (8, 'nikhil', NULL, 'dhananjaydemo@gmail.com', NULL, NULL, '$2y$10$12v5W./XTBt0dgtDSozdhOE369PJN5coKEJwIJeNAGIQOeRKftb1.', NULL, 2, NULL, NULL, 1, '2021-08-04 02:38:05', '2021-08-04 02:38:05'),
@@ -1666,7 +1745,8 @@ INSERT INTO `users` (`id`, `name`, `l_name`, `email`, `phone`, `email_verified_a
 (1429, 'Yashwanth R', NULL, 'yashwanthr2018@gmail.com', '7625010031', NULL, '$2y$10$Zgvjd6MYfMbdn/7TdPeq1OkuSC2oy2XuuPI1tJv7vp7vf72gZpnmm', NULL, 2, NULL, NULL, 1, '2021-08-23 11:39:56', '2021-08-23 11:39:56'),
 (1430, 'Mohammed Yasir Baig', NULL, 'yasir28destiny@gmail.com', '9448066780', NULL, '$2y$10$v66oXLQXgJ2WUiPFBfO7meMIc0MQ2iBBUQJJ/G7fRCS5z8tJY..JG', NULL, 2, NULL, NULL, 1, '2021-08-23 11:39:56', '2021-08-23 11:39:56'),
 (1431, 'Sampoorna HS', NULL, 'yukthapoorna@gmail.com', '8867143875', NULL, '$2y$10$1E8N2mIfQ6s1x.oQLFvskOFkqUaTNdmgKPgYMFyt9tvvEjcRyUhGG', NULL, 2, NULL, NULL, 1, '2021-08-23 11:39:56', '2021-08-23 11:39:56'),
-(1432, 'Yashwanth K', NULL, 'yyashwanth1280@gmail.com', '7795563155', NULL, '$2y$10$gnt5guFFLDY1tLx.tQb9XeEi6wBmNcePpVBuqlyRPdYFr/q71gV2q', NULL, 2, NULL, NULL, 1, '2021-08-23 11:39:56', '2021-08-23 11:39:56');
+(1432, 'Yashwanth K', NULL, 'yyashwanth1280@gmail.com', '7795563155', NULL, '$2y$10$gnt5guFFLDY1tLx.tQb9XeEi6wBmNcePpVBuqlyRPdYFr/q71gV2q', NULL, 2, NULL, NULL, 1, '2021-08-23 11:39:56', '2021-08-23 11:39:56'),
+(1433, 'demo', NULL, 'demopassword@gmail.com', NULL, NULL, '$2y$10$7cAORjf8i3Z6YmiDu.sLbu8Q8rT6nZbEFMNan7AfnW1c8PmVK2aY.', NULL, 2, NULL, NULL, 1, '2021-08-26 07:53:37', '2021-08-26 07:53:37');
 
 -- --------------------------------------------------------
 
@@ -1702,7 +1782,7 @@ CREATE TABLE `user_details` (
 --
 
 INSERT INTO `user_details` (`id`, `user_id`, `dob`, `image`, `address`, `city`, `pin_code`, `state`, `country`, `semister`, `role_id`, `status`, `created_at`, `updated_at`, `mother_name`, `father_name`, `occupation`, `kyc_name`, `upload_kyc`, `blood_group`) VALUES
-(2, 3, '2021-07-01', NULL, 'asdfafafg', NULL, NULL, NULL, NULL, '4', NULL, 1, '2021-07-31 04:53:23', '2021-07-31 04:53:23', 'dgsdgf', 'dsfadsfgsad', 'dfg', '41541', NULL, 'A +');
+(2, 3, '2021-07-01', NULL, 'asdfafafg', NULL, NULL, NULL, NULL, '6', NULL, 1, '2021-07-31 04:53:23', '2021-07-31 04:53:23', 'dgsdgf', 'dsfadsfgsad', 'dfg', '41541', NULL, 'A +');
 
 -- --------------------------------------------------------
 
@@ -1743,7 +1823,8 @@ CREATE TABLE `user_tests` (
 --
 
 INSERT INTO `user_tests` (`id`, `user_id`, `test_id`, `Test_status`, `created_at`, `updated_at`) VALUES
-(11, 3, 3, 1, '2021-08-23 12:26:39', '2021-08-23 12:26:39');
+(13, 3, 3, 1, '2021-08-27 10:28:55', '2021-08-27 10:28:55'),
+(14, 3, 3, 1, '2021-08-27 11:48:26', '2021-08-27 11:48:26');
 
 --
 -- Indexes for dumped tables
@@ -1960,6 +2041,12 @@ ALTER TABLE `test_section`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `test_semester`
+--
+ALTER TABLE `test_semester`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `test_subject`
 --
 ALTER TABLE `test_subject`
@@ -2136,7 +2223,7 @@ ALTER TABLE `question_pattern`
 -- AUTO_INCREMENT for table `save__answers`
 --
 ALTER TABLE `save__answers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `semisters`
@@ -2166,13 +2253,13 @@ ALTER TABLE `technical_skills`
 -- AUTO_INCREMENT for table `tests`
 --
 ALTER TABLE `tests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `test_branch`
 --
 ALTER TABLE `test_branch`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `test_chapter`
@@ -2184,13 +2271,13 @@ ALTER TABLE `test_chapter`
 -- AUTO_INCREMENT for table `test_college`
 --
 ALTER TABLE `test_college`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `test_course`
 --
 ALTER TABLE `test_course`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `test_name`
@@ -2211,16 +2298,22 @@ ALTER TABLE `test_section`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `test_semester`
+--
+ALTER TABLE `test_semester`
+  MODIFY `id` bigint(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `test_subject`
 --
 ALTER TABLE `test_subject`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `test_tb_section`
 --
 ALTER TABLE `test_tb_section`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `test_types`
@@ -2232,7 +2325,7 @@ ALTER TABLE `test_types`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1433;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1434;
 
 --
 -- AUTO_INCREMENT for table `user_details`
@@ -2250,7 +2343,7 @@ ALTER TABLE `user_profile`
 -- AUTO_INCREMENT for table `user_tests`
 --
 ALTER TABLE `user_tests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

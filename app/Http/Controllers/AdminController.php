@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
-
+Use App\Test;
 use App\Categories;
 use App\Standerd;
 Use App\Subject;
@@ -22,6 +22,7 @@ Use App\Question_level;
 
 
 use App\Exports\UsersExport;
+use App\Exports\TestReportExport;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -62,6 +63,20 @@ class AdminController extends Controller
                         ->get();
                         // dd($student);
         return Excel::download(new UsersExport($student), 'users.xlsx');
+    }
+
+    public function export_test_report($test_id) 
+    {
+        $test_result = Test::where('tests.id', $test_id)
+                        ->Join('user_tests', 'user_tests.test_id', '=', 'tests.id')
+                        ->Join('users', 'users.id', '=', 'user_tests.user_id')
+                        // ->leftJoin('colleges', 'colleges.id', '=', 'ed.collage_id')
+                        // ->leftJoin('branches', 'branches.id', '=', 'ed.branch_id')
+                        // ->leftJoin('semisters', 'semisters.id', '=', 'user_details.semister')
+                        // ->select('users.*')
+                        ->get();
+                        // dd($test_result);
+        return Excel::download(new TestReportExport($test_result), 'test_report.xlsx');
     }
 
     public function admin_list(Request $request)
