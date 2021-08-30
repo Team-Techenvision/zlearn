@@ -34,7 +34,7 @@
                 <!-- // END Navbar -->
                 
                 <!-- // END Header -->
-                <div class="pt-32pt">
+                {{-- <div class="pt-32pt">
                     <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
                         <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
                             <div class="mb-24pt mb-sm-0 mr-sm-24pt">
@@ -50,7 +50,43 @@
                         </div>
                         
                     </div>
+                </div> --}}
+                {{-- ==================================== --}}
+                <div class="py-32pt navbar-submenu">
+                    <div class="container page__container">
+                        <div class="progression-bar progression-bar--active-accent">
+                            <a href="JavaScript:Void(0);"
+                               class="progression-bar__item progression-bar__item--complete">
+                                <span class="progression-bar__item-content">
+                                    <i class="material-icons progression-bar__item-icon bg-success">done</i>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase">BASIC INFO</span>
+                                </span>
+                            </a>
+                            <a href="JavaScript:Void(0);"
+                               class="progression-bar__item progression-bar__item--complete">
+                                <span class="progression-bar__item-content">
+                                    <i class="material-icons progression-bar__item-icon bg-primary bg-success"> done</i>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase">ACADEMICS INFO</span>
+                                </span>
+                            </a>
+                            <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete text-danger">
+                             <span class="progression-bar__item-content">
+                                 <i class="material-icons progression-bar__item-icon bg-primary bg-success"></i>
+                                 <span class="progression-bar__item-text h5 mb-0 text-uppercase">TRAINING INFO</span>
+                             </span>
+                         </a>
+                            <a href="JavaScript:Void(0);"
+                               class="progression-bar__item progression-bar__item--complete progression-bar__item--active">
+                                <span class="progression-bar__item-content">
+                                    <i class="material-icons progression-bar__item-icon"></i>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase">RESUME</span>
+                                </span>
+                            </a>
+                            
+                        </div>
+                    </div>
                 </div>
+                {{-- ====================================== --}}
                 <!-- BEFORE Page Content -->
                 <!-- // END BEFORE Page Content -->
                 <!-- Page Content -->
@@ -121,7 +157,7 @@
                                     </div> 
                                     <hr style="w-50 m-auto text-dark">
                                     @endforeach                                    
-                                @else
+                                {{-- @else
                                     <div class="form-row">
                                         <div class="col-12 col-md-6 mb-3">
                                             <label class="form-label" for="">CERTIFICATIONS</label>
@@ -131,7 +167,7 @@
                                             <label class="form-label" for="">UPLOAD CERTIFICATIONS</label>
                                             <input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" >
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 @endif
                             </div>
                             <div id="project_details" class="border p-2">
@@ -160,7 +196,7 @@
                                              <hr style="w-50 m-auto text-dark"> 
                                         @endforeach
                                     </div>                                        
-                                @else 
+                                {{-- @else 
                                     <div class="form-row">   
                                         <div class="col-12 col-md-6 mb-3">
                                             <label class="form-label text-uppercase" for="">Project Name:</label>
@@ -177,7 +213,7 @@
                                             <label class="form-label text-uppercase" for="">Project details:</label>                                     
                                             <textarea class="form-control" name="project_detail[]" placeholder="Enter Project Details" ></textarea>
                                         </div>                                
-                                    </div>
+                                    </div> --}}
                                 @endif    
                             </div>
                             <div id="internship_div" class="border p-2"> 
@@ -204,7 +240,7 @@
                                             </div> 
                                         @endforeach 
                                     </div>                                       
-                                @else
+                                {{-- @else
                                   <div class="form-row">
                                     <div class="col-12 col-md-6 mb-3">
                                         <label class="form-label text-uppercase" for="">COMPANY Name:</label>
@@ -221,7 +257,7 @@
                                         <label class="form-label text-uppercase" for="">ROLES & RESPONSIBILITIES:</label>
                                         <input type="text" class="form-control" name="your_roles[]" id="" placeholder="Enter Your Roles" >
                                     </div>                                
-                                </div>
+                                </div> --}}
                                 @endif
                             </div>    
 
@@ -303,7 +339,7 @@
 
                 $('#enter_ship').click(function()
                 {
-                    $("#internship_div").append('<div class="form-row enter_ship col-12 border pt-2 pb-2"><div class="col-12"><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right">Remove</a></div><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">COMPANY Name</label><input type="text" class="form-control" name="int_comp_name[]" id="" placeholder="Enter Company Name" ></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">DURATION <small>(No Of Month)</small>:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="DURATION" name="intship_duration[]"></div> <div class="form-row col-12"><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">ROLES & RESPONSIBILITIES:</label><input type="text" class="form-control col-12" name="proj_roles[]" id="" placeholder="Enter Your Roles" ></div></div></div> ');
+                    $("#internship_div").append('<div class="form-row enter_ship col-12 border pt-2 pb-2"><div class="col-12"><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right">Remove</a></div><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">COMPANY Name</label><input type="text" class="form-control" name="int_comp_name[]" id="" placeholder="Enter Company Name" required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">DURATION <small>(No Of Month)</small>:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="DURATION" name="intship_duration[]"></div> <div class="form-row col-12"><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">ROLES & RESPONSIBILITIES:</label><input type="text" class="form-control col-12" name="proj_roles[]" id="" placeholder="Enter Your Roles" required=""></div></div></div> ');
                 });
 
                 $('#internship_div').on('click','.remCF1',function() 

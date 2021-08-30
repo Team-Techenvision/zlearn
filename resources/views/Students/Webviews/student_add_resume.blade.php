@@ -34,7 +34,7 @@
                 <!-- // END Navbar -->
                 
                 <!-- // END Header -->
-                <div class="pt-32pt">
+                {{-- <div class="pt-32pt">
                     <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
                         <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
                             <div class="mb-24pt mb-sm-0 mr-sm-24pt">
@@ -50,7 +50,43 @@
                         </div>
                          
                     </div>
+                </div> --}}
+                {{-- ==================================== --}}
+                <div class="py-32pt navbar-submenu">
+                    <div class="container page__container">
+                        <div class="progression-bar progression-bar--active-accent">
+                            <a href="JavaScript:Void(0);"
+                               class="progression-bar__item progression-bar__item--complete text-danger">
+                                <span class="progression-bar__item-content">
+                                    <i class="material-icons progression-bar__item-icon bg-success">done</i>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase">BASIC INFO</span>
+                                </span>
+                            </a>
+                            <a href="JavaScript:Void(0);"
+                               class="progression-bar__item progression-bar__item--complete">
+                                <span class="progression-bar__item-content">
+                                    <i class="material-icons progression-bar__item-icon bg-primary"> </i>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase">ACADEMICS INFO</span>
+                                </span>
+                            </a>
+                            <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete">
+                             <span class="progression-bar__item-content">
+                                 <i class="material-icons progression-bar__item-icon bg-primary"> </i>
+                                 <span class="progression-bar__item-text h5 mb-0 text-uppercase">TRAINING INFO</span>
+                             </span>
+                         </a>
+                            <a href="JavaScript:Void(0);"
+                               class="progression-bar__item progression-bar__item--complete progression-bar__item--active">
+                                <span class="progression-bar__item-content">
+                                    <i class="material-icons progression-bar__item-icon"></i>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase">RESUME</span>
+                                </span>
+                            </a>
+                            
+                        </div>
+                    </div>
                 </div>
+                {{-- ====================================== --}}
                 <!-- BEFORE Page Content -->
                 <!-- // END BEFORE Page Content -->
                 <!-- Page Content -->

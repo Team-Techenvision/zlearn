@@ -82,7 +82,7 @@
 
     <div class="row" id="Q_paper" style="">
             <div class="row">
-                <div class="block btn12 col-12 col-12 text-center m-auto"></div>
+                <div class="btn12 col-12 col-12 text-center m-auto">&nbsp;Time:- <span class="block"><span></div>
             </div>
         <div class="alert_div">
             <div class="alert alert-danger" role="alert">
@@ -98,7 +98,7 @@
                     <!-- <div class="col-12 m-auto text-center">
                         <span class="border pagenation_row">{ { $Question->links() } }</span>
                     </div> -->
-                     <div class="example stopwatch d-flex" data-timer="60"></div>
+                     {{-- <div class="example stopwatch d-flex" data-timer="60"></div> --}}
                      
                     {{-- <form class="form-group row col-12" id="test_form" action="{{url('user-submit-test')}}" method="POST"> --}}
                         {{-- <iframe src="https://onecompiler.com/" class="col-12 w-100" style="height:500px;" title="W3Schools Free Online Web Tutorials"  allowfullscreen>
@@ -129,24 +129,24 @@
                         </div>
                         <input type="hidden" name="test_id" value="{{$Test_time->id}}" >
                         <input type="hidden" name="question_id" value="{{$question->id}}">
-                    <?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
+                    {{-- < ?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
                         $i=1;
                     foreach ($Q_option as  $value) 
-                    { ?>
-                       <div class="col-md-12">
+                    { ?> --}}
+                       {{-- <div class="col-md-12">
                           <input type="radio"  name="option" value="{{$i++}}">
                             <label>{{$value->answer}}</label><br>
-                       </div>
+                       </div> --}}
 
-                   <?php }
+                   {{-- < ?php }
                     //  dd($Question);
                     ?>
                      @endforeach
                    
                     <div class="col-md-10 text-center m-auto pt-3">
                         <button class="btn btn-info h3" id="submit_testQ">Next</button>
-                    </div>
-                    </form>
+                    </div> --}}
+                    {{-- </form> --}}
                     {{-- < ?php $i=1; ? >
                     @foreach($count_Que as $list)
                     {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
@@ -154,10 +154,10 @@
                     <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2">{{$i++}}</span>
                     @endforeach --}}
                     <div class=" text-left" style="position: relative;margin-top: 10%;">
-                        <a href="{{ url('Test-Result')}}" class="btn btn-outline-danger btn-lx" style="bottom: 25px;">Finish Test</a>
+                        <a href="{{ url('studentdashboard')}}" class="btn btn-outline-danger btn-lx" style="bottom: 25px;">Finish Test</a>
                     </div>
                     
-                </div> --}}
+                {{-- </div>  --}}
             </div>
         </div>  
     </div>
@@ -359,9 +359,8 @@
 </script> --}}
 
 <script>
-    // let hr = {{$Test_time->hours}};
-    // let min = {{$Test_time->minute}};
-    let hr = 150;
+    
+    let hr = 0;
     let min = 30;
      set_timer($('.block'), [0, hr,min, 0], 
          //set_timer($('.block'), [0, 0,1, 0], 
@@ -374,12 +373,12 @@
     </script> 
 
     <script>
-        $(document).ready(function()
-        {
-            $('.preloader').css("display","none");
-            $('.MuiPaper-root').css("display","none");
-            $('#left-component').css("width","0px");
-        });
+        // $(document).ready(function()
+        // {
+        //     $('.preloader').css("display","none");
+        //     $('.MuiPaper-root').css("display","none");
+        //     $('#left-component').css("width","0px");
+        // });
     </script>
         
     </body>

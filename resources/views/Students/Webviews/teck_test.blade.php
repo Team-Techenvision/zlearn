@@ -83,9 +83,6 @@
     <div class="row" id="Q_paper" style="">
         <div class="row text-right col-12">                
             <div class="btn12 col-12 text-right m-auto"><span>Time: &nbsp;</span><span class="block"></span></div>
-            @php
-            print_r($_COOKIE['setsectiontime']);
-        @endphp 
         </div>        
     </div>
         <div class="row">                
@@ -96,7 +93,7 @@
                         {{-- <button type="button" class="btn btn-sm btn-primary" id="section_{{$row->section_id}}">{{$row->test_section_name}}</button> --}}
                         <select class="form-control col-md-8" name="section_name" id="section_id" disabled="true">                                     
                             @foreach($section as $r)                                     
-                                <option value="{{$r->section_id}}">{{$r->test_section_name}}</option> 
+                                <option value="{{$r->section_id}}" @if($r->section_id == Session::get('current_session'))selected @endif>{{$r->test_section_name}}</option> 
                             @endforeach                                 
                         </select>
                     </div>
@@ -139,6 +136,7 @@
                         </div>
                         <input type="hidden" name="test_id" id="test_id" value="{{$Test_time->id}}" >
                         <input type="hidden" name="question_id" id="question_id" value="">
+                        <input type="hidden" name="current_section_id" id="current_section_id" value="{{ Session::get('current_session') }}">
                         <input type="hidden" value="" id="total_Q">
                     <!-- < ?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
                         $i=1;
@@ -281,7 +279,6 @@
                 {
                     padding-bottom: 75px;
                 }
-                 
              }
         </style>
         <script>
@@ -291,7 +288,12 @@
                // alert($("#section_id").prop("selectedIndex"));
                 //$("#section_id").prop("selectedIndex", 0).change(); 
                 //$("#section_id").val($("#section_id option:first").val()).change();
-                $("#section_id option:first").attr('selected','selected');
+                var current_section_id = $( "#current_section_id" ).val();
+                // alert(current_section_id);
+                
+                // $("#section_id option:first").attr('selected','selected');
+                $( "#section_id option:selected" ).val(current_section_id);
+                
                 //$("#section_id").change();
                 ddl_section();
                 
@@ -328,6 +330,7 @@
                                 {
                                     // alert("else part If");
                                     $("#section_id").prop("selectedIndex", selectedIndex).change();
+                                    localStorage.clear();
                                 }
                                 else
                                 {
@@ -412,7 +415,31 @@
                             }
                             //section_time(timeMM);
                             //alert(timeMM);
-                            section_timer(timeMM);
+                            // section_timer(timeMM);
+
+                                // timer section wiese start 
+
+                                var section_minute = parseInt(localStorage.getItem('section_minute'));
+                                var section_second = parseInt(localStorage.getItem('section_second'));
+                                //  alert(section_minute);
+                                //     alert(section_second);
+                                
+                                if(isNaN(section_minute) || isNaN(section_second)){
+                                    localStorage.clear();
+                                    section_timer(timeMM, 0);
+                                    // alert(section_minute);
+                                }else{
+                                if (Number.isNaN(section_minute) && section_minute == null && section_second == null) {
+                                   
+                                    section_timer(timeMM, 0);
+                                   
+                                }else{
+                                    section_timer(section_minute, section_second);
+                                  
+                                }
+                                }
+                                // timer section wiese ends 
+
                             Q_option();
                         }
                         else
@@ -600,7 +627,30 @@
                                     $('#ques_no').text($('#total_Q').val());
                                 }
                                 // alert(timeMM);
-                                section_timer(timeMM);
+                                    // timer section wiese start 
+
+                                var section_minute = parseInt(localStorage.getItem('section_minute'));
+                                var section_second = parseInt(localStorage.getItem('section_second'));
+                                //  alert(section_minute);
+                                //     alert(section_second);
+                                
+                                if(isNaN(section_minute) || isNaN(section_second)){
+                                    localStorage.clear();
+                                    section_timer(timeMM, 0);
+                                    // alert(section_minute);
+                                }else{
+                                if (Number.isNaN(section_minute) && section_minute == null && section_second == null) {
+                                   
+                                    section_timer(timeMM, 0);
+                                   
+                                }else{
+                                    section_timer(section_minute, section_second);
+                                  
+                                }
+                                }
+                                
+                                    // timer section wiese Ends 
+
                                 Q_option();
                             }
                             else
@@ -613,14 +663,14 @@
                 }
                 // ==================================================
 
-                function section_timer(section_time)
+                function section_timer(section_minute, section_second)
                 {
                     //alert(section_time);
                    
                     var timerInterval;
                     clearInterval(timerInterval);
-                    let minutes = section_time;
-                    let seconds = 00;
+                    let minutes = section_minute;
+                    let seconds = section_second;
                     clearInterval(timerInterval);
                     let duration = (minutes * 60) + seconds;
                     let display = document.querySelector('.block');
@@ -635,11 +685,14 @@
                     var timer = duration, minutes, seconds;
                     clearTimeout(this.timerInterval);
                     timerInterval = setInterval(function() {
-                        minutes = parseInt(timer / 60, 10)
+                        minutes = parseInt(timer / 60, 10);
                         seconds = parseInt(timer % 60, 10);
 
                         minutes = minutes < 10 ? "0" + minutes : minutes;
                         seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                        localStorage.section_minute = minutes;
+                        localStorage.section_second = seconds;
 
                         display.textContent = minutes + ":" + seconds;
 
@@ -663,6 +716,7 @@
                     {
                         // alert("else part If");
                         $("#section_id").prop("selectedIndex", selectedIndex).change();
+                        localStorage.clear();
                     }
                     else
                     {
@@ -673,7 +727,12 @@
                 // ==========================================
             });
         </script>
-        <!-- ======================================= --
+        <script>
+            $(document).bind("contextmenu",function(e){
+  return false;
+    });
+        </script>
+        <!-- ======================================= -->
         
      
     </body>

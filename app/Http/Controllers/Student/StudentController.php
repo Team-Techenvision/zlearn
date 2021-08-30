@@ -25,8 +25,8 @@ use App\branch;
 use App\Test_question;
 use App\Test_Section;
 use App\Test_semester;
+// use App\test_result;
 use Session;
-use Carbon\Carbon;
 
 use DB;
 
@@ -44,11 +44,6 @@ class StudentController extends Controller
         {              
             session()->forget('Test_Id');
         }
-        $todayDate = Carbon::now()->format('H:i:m');
-        // dd($todayDate);
-
-        setcookie("setsectiontime", true, time() + (60 * 1));
-
     	return view('Students/Webviews/student_dashboard',$data);
     }
 
@@ -62,8 +57,8 @@ class StudentController extends Controller
         $data['College']= College::where('status',1)->orderBy('college_name','asc')->get();
         $data['course']= course::where('status',1)->orderBy('course_name','asc')->get();
         $data['Semister'] = Semister::where('status',1)->orderBy('semister_name','asc')->get();
-        $data['branch'] = branch::where('status',1)->orderBy('branch_name','asc')->get();  
-         $data['blood_group'] = DB::table('blood_group')->where('status',1)->orderBy('id','asc')->get(); 
+        $data['branch'] = branch::where('status',1)->orderBy('branch_name','asc')->get();
+        $data['blood_group'] = DB::table('blood_group')->where('status',1)->orderBy('id','asc')->get();  
         //dd($data['Education']['collage_id']);  
     	return view('Students/Webviews/student_add_resume',$data);
 
@@ -74,9 +69,9 @@ class StudentController extends Controller
         // dd($req);
 
         $this->validate($req,[
-            'first_name'=>'required|alpha',
-            'last_name'=>'required|alpha',
-            'first_name'=>'required|alpha',        
+            'first_name'=>'required',
+            'last_name'=>'nullable',
+            'first_name'=>'required',        
             'gender'=>'required|numeric',
             'bod_date'=>'required',
             'email'=> 'required|email', 
@@ -85,13 +80,14 @@ class StudentController extends Controller
             'degree'=>'required|numeric',
             'semester'=>'required|numeric',
             'roll_no'=>'required',
-            'mother_name'=>'required|alpha',
-            'father_name'=>'required|alpha',
+            'mother_name'=>'nullable',
+            'father_name'=>'nullable',
             'occupation'=>'required',
             'permanent_address'=>'required',
             'current_address'=>'required',
             'kyc_doc'=>'required',
             'blood_group'=>'required',
+            'upload_kyc_doc' => 'nullable|image|mimes:jpeg,png,jpg,gif'
                        
          ]);
 
@@ -114,8 +110,14 @@ class StudentController extends Controller
         if($user_result)
         {  
            // dd("'dob' => $req->bod_date, 'address'=> $req->permanent_address,'semister' => $req->semester, 'mother_name' => $req->mother_name,'father_name'=> $req->father_name,'occupation'=> $req->occupation,'kyc_name'=>$req->kyc_doc,'blood_group'=>$req->blood_group,'upload_kyc'=>$cust_newfile");
-
-            $result = DB::table('user_details')->where('user_id', $u_id)->update([ 'dob' => $req->bod_date, 'address'=> $req->permanent_address,'semister' => $req->semester, 'mother_name' => $req->mother_name,'father_name'=> $req->father_name,'occupation'=> $req->occupation,'kyc_name'=>$req->kyc_doc,'blood_group'=>$req->blood_group,'upload_kyc'=>$cust_newfile]);
+           if($req->hasFile('upload_kyc_doc'))
+           {
+                $result = DB::table('user_details')->where('user_id', $u_id)->update([ 'dob' => $req->bod_date, 'address'=> $req->permanent_address,'semister' => $req->semester, 'mother_name' => $req->mother_name,'father_name'=> $req->father_name,'occupation'=> $req->occupation,'kyc_name'=>$req->kyc_doc,'blood_group'=>$req->blood_group,'upload_kyc'=>$cust_newfile]);
+           }
+           else
+           {
+                $result = DB::table('user_details')->where('user_id', $u_id)->update([ 'dob' => $req->bod_date, 'address'=> $req->permanent_address,'semister' => $req->semester, 'mother_name' => $req->mother_name,'father_name'=> $req->father_name,'occupation'=> $req->occupation,'kyc_name'=>$req->kyc_doc,'blood_group'=>$req->blood_group]); 
+           }
            // dd($user_result->upload_kyc);
             if($result)
             {
@@ -178,8 +180,8 @@ class StudentController extends Controller
                 $u_id = Auth::User()->id;
                 $data['user'] = User::where('id',$u_id)->first(); 
                 // $req->session()->flash('alert-success', 'Basic Information Submited Successfully!!');     
-                 toastr()->success('Information Submited!!');  
                 // return view('Students/Webviews/student_add_resume2',$data);
+                toastr()->success('Information Submited!!');  
                 return redirect('resume-page-two');
         //    }
         //    else
@@ -265,18 +267,18 @@ class StudentController extends Controller
          {              
               $u_id = Auth::User()->id;
               $data['user'] = User::where('id',$u_id)->first(); 
-              // $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!');  
-               toastr()->success('Information Submited!!');     
+              // $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!');     
               // return view('Students/Webviews/student_add_resume2',$data);
-               return redirect('resume-training-Info');
-             // return redirect('studentdashboard'); 
+              toastr()->success('Information Submited!!'); 
+              return redirect('resume-training-Info');
+              //return redirect('studentdashboard'); 
          }
          else
          {
                //$req->session()->flash('alert-danger', 'Academics Information Not Submited!!');
               // return back(); 
              // $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!'); 
-             toastr()->success('Information Submited!!');  
+                toastr()->success('Information Submited!!'); 
                 return redirect('resume-training-Info');
                //return redirect('studentdashboard'); 
          } 
@@ -284,7 +286,7 @@ class StudentController extends Controller
 
 
     }
-
+    // =================================================================
     public function submit_TrainingInfo(Request $req)
     {
         //dd($req);
@@ -341,15 +343,7 @@ class StudentController extends Controller
             }
         }
         else
-        {
-            // if($req->input('certificate') == "null")
-            // {
-
-
-
-            // }
-            // else
-            // {    
+        {    
                 $i= 0;
                 //dd($req->certificate);
             if($req->certificate)
@@ -366,11 +360,11 @@ class StudentController extends Controller
                     }
                     $i++;
                 }    
-             }
+            }
              //dd("12"); 
         }
-         if($req->project_name)
-         {
+        if($req->project_name)
+        {
             $i = 0;
             foreach($req->project_name as $row)
             {
@@ -386,7 +380,7 @@ class StudentController extends Controller
                 $i++;
                 
             }
-         } 
+        } 
         //dd($req->proj_roles);
            
             $j = 0;
@@ -401,13 +395,13 @@ class StudentController extends Controller
                     $data->user_id=$u_id;            
                     $data->int_comp_name=$row;
                     $data->intship_duration=$req->intship_duration[$j]; 
-                    $data->your_roles=$req->your_roles[$j];
+                    $data->your_roles=$req->proj_roles[$j];
                     $result = $data->save();
                 }
                 $j++;
                 
             }
-        }
+        }    
            
         // if($result)
         // {
@@ -422,6 +416,110 @@ class StudentController extends Controller
         // }
 
     }
+    // ================================================================
+
+    // public function submit_TrainingInfo(Request $req)
+    // {        
+       
+    //     $this->validate($req,[
+    //         'tech_skill'=>'required',
+    //         'career_object'=>'required'
+    //      ]);
+
+    //      $u_id = Auth::User()->id;
+    //      $user_result = Technical_skill::where('user_id',$u_id)->first();
+    //      if($user_result)
+    //      {
+    //         $result = DB::table('technical_skills')->where('user_id', $u_id)->update([ 'tech_skill' => $req->tech_skill, 'linkedin_link'=> $req->linkedin_link,'achievement' => $req->achievement, 'hobbies' => $req->hobbies,'career_object'=> $req->career_object]);
+    //      }
+    //      else
+    //      {
+    //         $data = new Technical_skill;
+    //         $data->user_id=$u_id;            
+    //         $data->tech_skill=$req->tech_skill;
+    //         $data->linkedin_link=$req->linkedin_link; 
+    //         $data->achievement=$req->achievement; 
+    //         $data->hobbies=$req->hobbies; 
+    //         $data->career_object=$req->career_object;
+    //         $result = $data->save();
+
+                      
+    //     }
+    //     if ($req->hasfile('upload_certificat')) 
+    //     {
+    //         //dd("Yes");
+    //     }
+    //     $s = 0;
+        
+    //     if ($req->hasfile('upload_certificat')) 
+    //     {
+    //         foreach($req->file('upload_certificat') as $row)
+    //         {    
+                
+    //             $filename = $req->file('upload_certificat')[$s];
+    //             $name = rand(11111, 99999).'.'.$row->extension();            
+    //             $destinationPath1 = 'images/Certificate';
+    //             $cust_newfile2 = $destinationPath1.'/'.$name;
+    //                 //dd($cust_newfile2);
+
+    //             $data = new Certification;
+    //             $data->user_id=$u_id; 
+    //             $data->Certification_name=$req->certificate[$s]; 
+    //             $data->upload_certificat=$cust_newfile2;
+    //             $result21 = $data->save(); 
+    //             if($result21)
+    //             {
+    //                 $filename->move($destinationPath1,$name);
+    //             } 
+    //             $s++;               
+    //         }
+    //     }
+    //     if($req->project_name)
+    //     {
+    //         $i = 0;
+    //         foreach($req->project_name as $row)
+    //         {
+                
+
+    //             $data = new Academic_project;
+    //             $data->user_id=$u_id;            
+    //             $data->project_name=$row;
+    //             $data->team_size=$req->team_size[$i]; 
+    //             $data->project_detail=$req->project_detail[$i];
+    //             $result = $data->save();
+    //             $i++;
+                
+    //         }
+    //     } 
+    //     if($req->int_comp_name)
+    //     {   
+    //         $j = 0;
+    //     // dd($req->int_comp_name);
+    //         foreach($req->int_comp_name as $row)
+    //         {
+                
+    //             $data = new Interships;
+    //             $data->user_id=$u_id;            
+    //             $data->int_comp_name=$row;
+    //             $data->intship_duration=$req->intship_duration[$j]; 
+    //             $data->your_roles=$req->your_roles[$j];
+    //             $result = $data->save();
+    //             $j++;
+                
+    //         }
+    //     }    
+    //     // if($result)
+    //     // {
+    //         $req->session()->flash('alert-success', 'Training Information Submited Successfully!!');
+    //         return redirect('studentdashboard'); 
+    //     // }
+    //     // else
+    //     // {
+    //     //     $req->session()->flash('alert-danger', 'Training Information Not Submited!!');
+    //     //     return back(); 
+    //     // }
+
+    // }
 
     // public function Start_Test()
     // {
@@ -432,23 +530,33 @@ class StudentController extends Controller
     // 	return view('Students/Webviews/teck_test',$data);
 
     // }
+    // ==========================================================
     public function View_all_Test()
     {
         $data['page_title'] = 'All Test';
         $u_id = Auth::User()->id;
-        $data['user'] = User::where('id',$u_id)->first();      
+        $data['user'] = User::where('id',$u_id)->first(); 
+        $college = Education_Detail::where('user_id',$u_id)->first(); 
+        $user_semester = UserDetails::where('user_id',$u_id)->first();      
         $data['count_Que'] = Question::where('status',1)->get();       
         $data['Test_time'] = DB::table('tests')
 		->join('test_branch', 'test_branch.test_id', '=', 'tests.id')
         ->join('test_college','test_college.test_id','=','tests.id')
-        // ->join('test_semester','test_semester.test_id','=','tests.id')
+        ->join('test_course','test_course.test_id','=','tests.id')
         ->join('education__details as ed_D', 'ed_D.collage_id', '=', 'test_college.college_id')
-       	->join('education__details as ed', 'ed.branch_id', '=', 'test_branch.branch_id')       
+        ->join('test_semester','test_semester.test_id','=','tests.id')
+       	// ->join('education__details as ed', 'ed.branch_id', '=', 'test_branch.branch_id')       
         ->select('tests.*')
-        ->where("ed.user_id",$u_id)
+        ->where("test_college.college_id",$college->collage_id)
+        ->where("test_branch.branch_id",$college->branch_id)
+        ->where("test_course.course_id",$college->degree)
+        ->where("test_semester.semester_id",$user_semester->semister)
+        ->where("tests.status",1)
+        ->where("ed_D.user_id",$u_id)
         ->get();
+        // ->toSql();
 
-        //dd($data['Test_time']);         
+       // dd($data['Test_time']);         
         return view('Students/Webviews/all_test',$data);       
 
     }
@@ -458,7 +566,14 @@ class StudentController extends Controller
         // dd($req->test_id);
         $u_id = Auth::User()->id;
         $data['test'] = Test::where('status',1)->where('id',$req->test_id)->first();
-        //  dd($data['test']);
+        $data['test_section'] = DB::table('test_section')
+        ->join('test_tb_section','test_tb_section.test_section_id', '=', 'test_section.id')             
+        ->orderBy('test_section.Priority', 'asc') 
+        ->where('test_tb_section.test_id',$req->test_id)
+        ->select('test_section.test_section_name as section_name','test_tb_section.*')
+        ->get();
+    // dd($data['test_section']);
+        // dd($data['test']);
         $data['test_id'] = $req->test_id;
         return view('Students/Webviews/Test_Instraction',$data);
     }
@@ -526,7 +641,49 @@ class StudentController extends Controller
         
     }
 
-    public function Test_Start()
+    // public function Test_Start()
+    // {
+    //     if (Session::has('Test_Id'))
+    //     {
+    //         //
+
+    //        $test_id = Session::get('Test_Id');
+    //         $data['page_title'] = 'Start Test';
+    //         $u_id = Auth::User()->id;
+    //         $data['user'] = User::where('id',$u_id)->first();             
+    //         $data['Test_time']=Test::where('id',$test_id)->first();
+    //         // $data['Question'] = DB::table('test_question')
+    //         // ->join('questions', 'questions.id', '=', 'test_question.question_id')           
+    //         // ->select('questions.*')
+    //         // ->where('test_question.test_id',$test_id)
+    //         // ->paginate(1);
+    //         $data['Question'] = DB::table('test_question')
+    //         ->join('questions', 'questions.id', '=', 'test_question.question_id')
+    //         ->join('test_section', 'test_section.id', '=', 'questions.test_section')
+    //         ->orderBy('test_section_name', 'asc')          
+    //         ->select('questions.*')
+    //         ->where('test_question.test_id',$test_id)
+    //         ->paginate(1); 
+    //         // ==========================================
+    //         // $data['count_Que'] = DB::table('test_question')
+    //         // ->join('questions', 'questions.id', '=', 'test_question.question_id')           
+    //         // ->select('questions.*')
+    //         // ->where('test_question.test_id',$test_id)
+    //         // ->get();
+    //         $data['count_Que'] = DB::table('test_question')
+    //         ->join('questions', 'questions.id', '=', 'test_question.question_id')  
+    //         ->join('save__answers', 'save__answers.question_id', '=', 'questions.id')   
+    //         ->join('test_section', 'test_section.id', '=', 'questions.test_section')
+    //         ->select('questions.*','save__answers.Select_option')
+    //         ->where('test_question.test_id',$test_id)
+    //         ->orderBy('test_section_name', 'asc')
+    //         ->get();
+    //         //dd($data['Test_time']);
+    //         return view('Students/Webviews/teck_test',$data);
+    //     }
+    // }
+    // ====================================================
+      public function Test_Start()
     {
         if (Session::has('Test_Id'))
         {
@@ -557,6 +714,12 @@ class StudentController extends Controller
             ->where('test_tb_section.test_id',$test_id)
             ->select('test_section.id as section_id','test_section.test_section_name')
             ->get();
+            // dd($data['section'][0]->section_id);
+            if (Session::has('current_session')){
+
+            }else{
+            Session::put('current_session', $data['section'][0]->section_id);
+            }
             // $data['count_Que'] = DB::table('test_question')
             // ->join('questions', 'questions.id', '=', 'test_question.question_id')           
             // ->select('questions.*')
@@ -572,11 +735,10 @@ class StudentController extends Controller
             ->orderBy('test_section_name', 'asc')
             ->get();
             //dd($data['Test_time']);
-           // return view('Students/Webviews/demo1_compiler',$data);
             return view('Students/Webviews/teck_test',$data);
         }
     }
-
+    // ===============================================
     // public function Test_Start()
     // {
     //     if (Session::has('Test_Id'))
@@ -656,10 +818,54 @@ class StudentController extends Controller
     public function Test_Result()
     {
        // dd($t_id);
-
-        $data['page_title'] = 'Test Result';
+       session()->forget('current_session');
+       // $data['page_title'] = 'Test Result';
         $test_id = Session::get('Test_Id');
         $u_id = Auth::User()->id;
+        //$data['Test_time']=Test::where('id',$test_id)->select('test_name','mark_per_question')->first();
+        //dd($test_id);
+        $user = User::where('id',$u_id)->first();
+        $Q_total1 = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->get();
+        $Compl_total1 = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereNotNull('Select_option')->get();
+        $U_total1 = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereNull('Select_option')->get(); 
+        $C_total1 = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereColumn('Select_option','correct_answer')->get();
+        $W_total1 = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereColumn('Select_option','!=','correct_answer')->get();         
+        //dd($data['W_total']);
+        // $data['Test_time']=Test::where('id',$t_id)->first();
+
+        // ===================================================
+        // $test_result1 = test_result::where('test_id',$test_id)->where('user_id',$u_id)->first();
+        // if(!$test_result1)
+        // {
+        //     $Test_time1 =Test::where('id',$test_id)->select('test_name','mark_per_question')->first();
+        //    // dd( $Test_time1 );
+        //     $Total_Q1 = count($Q_total1);
+        //     $Compl_Q1 = count($Compl_total1);
+        //     $Un_Comp_Q1 = count($U_total1);
+        //     $Correct_Ans1 = count($C_total1);
+        //     $Wrong_Ans1 = count($W_total1);
+        //     if( $Test_time1 )
+        //     {
+        //         $Score = $Correct_Ans1 * $Test_time1->mark_per_question;
+        //     }
+        //     else
+        //     {
+        //         $Score = $Correct_Ans1 * 0;
+        //     }          
+
+        //     $data = new test_result;
+        //     $data->user_id=$u_id;                             
+        //     $data->test_id=$test_id;
+        //     $data->total_question=$Total_Q1; 
+        //     $data->completed=$Compl_Q1; 
+        //     $data->un_answered=$Un_Comp_Q1; 
+        //     $data->correct=$Correct_Ans1;
+        //     $data->wrong=$Wrong_Ans1;
+        //     $data->total_score=$Score;           
+        //     $result = $data->save();
+        // }
+
+        $data['page_title'] = 'Test Result';
         $data['Test_time']=Test::where('id',$test_id)->select('test_name','mark_per_question')->first();
         //dd($test_id);
         $data['user'] = User::where('id',$u_id)->first();
@@ -667,9 +873,10 @@ class StudentController extends Controller
         $data['Compl_total'] = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereNotNull('Select_option')->get();
         $data['U_total'] = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereNull('Select_option')->get(); 
         $data['C_total'] = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereColumn('Select_option','correct_answer')->get();
-        $data['W_total'] = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereColumn('Select_option','!=','correct_answer')->get();         
-        //dd($data['W_total']);
-        // $data['Test_time']=Test::where('id',$t_id)->first();
+        $data['W_total'] = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereColumn('Select_option','!=','correct_answer')->get(); 
+        // =========================================================
+
+
         return view('Students/Webviews/Test_result',$data);   
     }
 
@@ -719,7 +926,7 @@ class StudentController extends Controller
                 if($certificate->upload_certificat != null)
                 {
                     unlink(public_path($uploaded_certifi));
-                }
+                }    
             }
 
         }
@@ -741,75 +948,16 @@ class StudentController extends Controller
     }
 
 
-    // public function QuestionOnSection(Request $req)
-    // {
-    //     $u_id = Auth::User()->id;
-    //     $test_id = Session::get('Test_Id');
-    //      $Question = DB::table('test_question')
-    //         ->join('questions', 'questions.id', '=', 'test_question.question_id')
-    //         ->join('test_section', 'test_section.id', '=', 'questions.test_section')
-    //         ->orderBy('test_section_name', 'asc')          
-    //         ->select('questions.*')
-    //         ->where('test_question.test_id',$test_id)
-    //         ->paginate(1);
 
-    //     $result = '
-
-    // @csrf
- 
-    //                     @foreach ($Question as $question)                        
-    //                         <input type="hidden" value="{{count($count_Que)}}" id="total_Q">
-                         
-    //                     <div class="row col-3 ">
-    //                         <span class="badge badge-primary w-100">{{$section_name}}</span>
-    //                     </div>
-    //                     <div class="col-12 m-auto pb-5">
-    //                         @if($question->question)
-    //                             <label class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></span> {{$question->question}}</label>
-    //                         @endif
-    //                         @if($question->question_image)
-    //                             <img src="{{url($question->question_image)}}" class="img-thumbnail">
-    //                         @endif
-    //                     </div>
-    //                     <input type="hidden" name="test_id" value="{{$Test_time->id}}" >
-    //                     <input type="hidden" name="question_id" value="{{$question->id}}">
-    //               $Q_option = DB::table("answers")->where("question_id",$question->id)->get(); 
-    //                     $i=1;
-    //                 foreach ($Q_option as  $value) 
-    //                 { ? >
-    //                    <div class="col-md-6 h5">
-    //                       <input type="radio"  name="option" value="{{$i++}}">
-    //                         <label>{{$value->answer}}</label><br>
-    //                    </div>
-
-    //                <?php }
-    //                 //  dd($Question);
-    //                 ? >
-    //                  @endforeach
-                   
-    //                 <div class="col-md-10 text-center m-auto pt-3">
-    //                     <button class="btn btn-info h3" id="submit_testQ">Next</button>
-    //                 </div>
-
-
-
-    //     ';
-
-
-
-        
-    //     return Response()->json($result);
-
-        
-    // }
-
-// ============================================
+// ======================21-8-21======================
 
     public function QuestionOnSection(Request $req)
     {
         $u_id = Auth::User()->id;
         $test_id = Session::get('Test_Id');
         $section_id = $req->section_id;
+        // return $section_id;
+        Session::put('current_session', $section_id);
          $Question = DB::table('test_question')
             ->join('questions', 'questions.id', '=', 'test_question.question_id')
             ->join('test_section', 'test_section.id', '=', 'questions.test_section')
@@ -827,14 +975,14 @@ class StudentController extends Controller
             'links' => $Question->links()->render()
         ]);
     }
-
+// =======================================================
 
     public function fetch_section_question($section_id)
     {
 
         $u_id = Auth::User()->id;
         $test_id = Session::get('Test_Id');
-        //$section_id = Session::get('section_id');
+        //$section_id = 5;
         $Question = DB::table('test_question')
             ->join('questions', 'questions.id', '=', 'test_question.question_id')
             ->join('test_section', 'test_section.id', '=', 'questions.test_section')          
@@ -850,7 +998,7 @@ class StudentController extends Controller
             'links' => $Question->links()->render()
         ]);
     }
-
+// ==================================================
     public function question_option(Request $req)
     {
         $test_id = Session::get('Test_Id');
@@ -863,7 +1011,11 @@ class StudentController extends Controller
        echo json_encode($producttest);
        exit; 
     }
+// ============================================================
 
-    
+    public function View_Compiler()
+    {
+        return view('Students/Webviews/demo1_compiler');
+    }
 
 }

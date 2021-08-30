@@ -70,7 +70,7 @@
     <div class="container page__container">
         <div class="page-section">
             <div class="row">
-             <!--  <div class="col-sm-6">
+            {{-- <div class="col-sm-6">
                 <a href="{{url('studentdashboard')}}">
                     <div class="card text-center">
                       <div class="card-body text-center">
@@ -80,24 +80,18 @@
                       </div>
                     </div>
                 </a>
-              </div> -->
-
-
+              </div>  --}}
               <div class="col-md-6">
                 @php 
                   $user = Auth::user();
                 @endphp
                 <div class="alert alert-success" role="alert">
                 <h6> Welcome Back, <strong class="text-info ">@php echo $user->name; @endphp </strong>, how do you like to upskill today? </h6>  
-               @php
-                   print_r($_COOKIE['setsectiontime']);
-               @endphp 
-              </div>
+                </div>
               </div>
               <div class="col-md-6 text-center mb-3">
                 <img class="" src="{{asset('images/dashboard_scrore.png')}}" alt="">
               </div>
-              
               <div class="col-sm-6">
                 <a href="{{url('resume-page-one')}}">
                     <div class="card text-center">
@@ -121,12 +115,12 @@
                 </a>
               </div>
               <div class="col-sm-6">
-                <a href="{{url('View-All-Test')}}">
+                <a href="JavaScript:Void(0);">
                     <div class="card text-center">
                       <div class="card-body text-center">
-                        <span  class="h1 text-success"><i class="fa fa-university" aria-hidden="true"></i></span>
+                        <span  class="h1 text-warning"><i class="fas fa-clipboard-list"></i></span>
                         <p class="h3 text-uppercase">TEST RESULTS & ANAYLYSIS</p>
-                        <hr class="style1 w-75 m-auto bg-success">                   
+                        <hr class="style1 w-75 m-auto bg-warning">                   
                       </div>
                     </div>
                 </a>

@@ -52,7 +52,7 @@ Route::middleware(['auth','User'])->group(function() {
     Route::post('question-option', 'Student\StudentController@question_option');
     Route::post('QuestionOn-Section', 'Student\StudentController@QuestionOnSection');
 
-    Route::get('pagination/fetch_data', 'Student\StudentController@fetch_section_question');
+    Route::get('pagination/fetch_data/{section_id}', 'Student\StudentController@fetch_section_question');
 
     // Route::post('Start-Test', 'Student\StudentController@Start_Test');
     

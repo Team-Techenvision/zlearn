@@ -68,15 +68,15 @@
                         </div> --}}
                         <div class="hero py-64pt text-center text-sm-left">
                             <div class="container page__container">
-                                                      
+                                                               
                                    <table class="table table-bordered text-white table-sm text-center">
                                        <tr>
                                           <td>Test Name</td>
-                                          <td class="bg-warning">Demo</td>
+                                          <td class="bg-warning">{{$test->test_name}}</td>
                                           <td>Total Questions</td>
-                                          <td class="bg-warning">10</td>
+                                          <td class="bg-warning">{{$test->total_question}}</td>
                                            <td>Total Time</td>
-                                          <td class="bg-warning">1:30</td>
+                                          <td class="bg-warning">{{$test->hours}}:{{$test->minute}}</td>
                                        </tr>
                                    </table>
                                     <table class="table table-bordered text-white table-sm text-center">
@@ -86,35 +86,17 @@
                                           <td class="tb_col">Time limit</td>
                                           <td class="">Marks per Question</td>
                                            <td class="tb_col">Negative Marking</td>                                  
-                                       </tr>                                        
-                                        <tr>
-                                          <td class="tb_col">Section Name 1</td>
-                                          <td class="">25</td>
-                                          <td class="tb_col">00:25(h:m)</td>
-                                          <td class="">1</td>
-                                           <td class="tb_col">1/3</td>                                  
                                        </tr>
+                                       @foreach($test_section as $list)
                                         <tr>
-                                          <td class="tb_col">Section Name 2</td>
-                                          <td class="">25</td>
-                                          <td class="tb_col">00:25(h:m)</td>
-                                          <td class="">1</td>
-                                           <td class="tb_col">1/3</td>                                  
+                                          <td class="tb_col">{{$list->section_name}}</td>
+                                          <td class="">{{$list->section_question}}</td>
+                                          <td class="tb_col">{{$list->section_time}} Min</td>
+                                          <td class="">{{$test->mark_per_question}}</td>
+                                           <td class="tb_col">0/0</td>                                  
                                        </tr>
-                                        <tr>
-                                          <td class="tb_col">Section Name 3</td>
-                                          <td class="">25</td>
-                                          <td class="tb_col">00:25(h:m)</td>
-                                          <td class="">1</td>
-                                           <td class="tb_col">1/3</td>                                  
-                                       </tr>
-                                        <tr>
-                                          <td class="tb_col">Section Name 4</td>
-                                          <td class="">25</td>
-                                          <td class="tb_col">00:25(h:m)</td>
-                                          <td class="">1</td>
-                                           <td class="tb_col">1/3</td>                                  
-                                       </tr>
+                                       @endforeach                                       
+                                        
                                    </table>
                                    <div class="row text-center">
                                        <div class="col-md-6">
@@ -122,26 +104,27 @@
                                            {{-- {{$test->test_instruction}} --}}
                                            
                                            <ul class="text-left text-white pr-2" style="font-size: 14px;">
-                                                <li> This test is designed to check your competency in all the sections.
-                                                </li>
-                                                <li>You are advised to conduct the test with complete seriousness and environment simulated to match the actual test conditions.</li> 
-                                               <li>You can quit the test at any time by pressing Quit Test button (Available in the Review Screen) & take it later. While quitting the test you will get the option to start the test afresh or resume it from saved attempt.</li>
-                                               <li>Press the Quit Test button once you have finished taking the test. Once submitted you cannot retake this test.</li>
-                                               <li>On completion of the test, you can view the Score Card.</li>    
+                                                 {{-- <li> --}}
+                                                     <?php echo nl2br($test->description); ?>
+                                                    {{-- </li>     --}}
                                            </ul>
                                        </div>
                                        <div class="col-md-6">
-                                            <p class="text-white h4">General Instructions:</p>
+                                            <p class="text-white h4">Test Instructions:</p>
                                            {{-- {{$test->test_instruction}} --}}
                                            
                                            <ul class="text-left text-white pr-2" style="font-size: 14px;">
-                                                <li> Total duration of examination is 100 minutes. 
+                                                {{-- <li> Total duration of examination is 100 minutes. 
                                                 </li>
                                                 <li> Your clock will be set at the server. The countdown timer at the top right corner of screen will display the remaining time available for you to complete the examination. When the timer reaches zero, the examination will end by itself. You need not terminate the examination or submit your paper.</li> 
                                                <li>You are not allowed to use any calculator and any other computing machine.</li>
                                                <li>Click on the question number in the Question Palette to go to that question directly.</li>
                                                <li> Select an answer for a multiple choice type question by clicking on the bubble placed before the 4 choices in the form of radio buttons (o).</li>
-                                               <li> Click on Save & Next to save your answer for the current question and then go to the next question. </li>    
+                                               <li> Click on Save & Next to save your answer for the current question and then go to the next question. </li>     --}}
+                                               {{-- <li> --}}
+                                                   <?php echo nl2br($test->test_instruction); ?>
+                                                {{-- {{$test->test_instruction}} --}}
+                                            {{-- </li> --}}
                                            </ul>
                                        </div>
                                        <div class="col-12 text-center">
