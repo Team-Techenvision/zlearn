@@ -22,8 +22,8 @@
             @include('Admin.components/Material/view_material')
         @elseif($flag == 2) 
             @include('Admin.components/Material/add_material')
-        @elseif($flag == 13) 
-            @include('Admin.components/Material/admin_edit_answer')
+        @elseif($flag == 3)
+            @include('Admin.components/Material/edit_material')
         @endif
     </div>
                     <!-- end row -->

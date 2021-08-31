@@ -9,7 +9,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Chapter Name</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="chapter_name" required placeholder="Enter Chapter Name" value="{{$chapter->chapter_name}}" />   
+                        <input type="text" class="form-control" name="chapter_name"  placeholder="Enter Chapter Name" value="{{$chapter->chapter_name}}" required />   
                     </div>
                 </div>
 

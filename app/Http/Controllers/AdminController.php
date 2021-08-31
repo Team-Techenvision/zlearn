@@ -196,7 +196,6 @@ class AdminController extends Controller
 
     public function view_standard()
     {
-       
         $data['flag'] = 5; 
         $data['page_title'] = 'All Standard';  
         $data['standerds'] = Standerd::get();     

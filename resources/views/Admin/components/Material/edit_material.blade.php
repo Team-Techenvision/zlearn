@@ -9,21 +9,22 @@
             <div class="col-md-8 m-auto">                                       
                 <form class="" action="{{url('submit-material')}}" method="POST" enctype="multipart/form-data">                        
                 @csrf 
+                <input type="hidden" class="form-control" name="material_id" value="{{$material->id}}" required>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Material Title</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="material_name"  placeholder="Enter Material Name" required/>
+                            <input type="text" class="form-control" name="material_name" value="{{$material->material_name}}"  placeholder="Enter Material Name"/>
                         </div>
                     </div> 
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Subject</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" name="subject_id" required>
+                        <div class="col-sm-9">                                 
+                            <select class="form-control" name="subject_id" required>                                      
                                 <option value="">Select Subject</option>
-                                @foreach($subjects as $r) 
-                                    <option value="{{$r->id}}">{{$r->subject_name}}</option> 
-                                @endforeach
+                                @foreach($subjects as $r)                                     
+                                    <option value="{{$r->id}}" @if($r->id == $material->subject_id)selected @endif>{{$r->subject_name}}</option> 
+                                @endforeach                                 
                             </select>
                         </div>
                     </div>
@@ -36,13 +37,13 @@
                             <div class="row">
                                 {{-- <h5 class="font-size-14 mb-4">Default Radios</h5> --}}
                                 <div class="form-check mb-2 col-6">
-                                    <input class="form-check-input" type="radio"  name="attachment_type" id="pdf_upload" value="1" checked>
+                                    <input class="form-check-input" type="radio"  name="attachment_type" id="pdf_upload" value="1" @if($material->attachment_type == 1) checked @endif >
                                     <label class="form-check-label" for="exampleRadios1">
                                        PDF
                                     </label>
                                 </div>
                                 <div class="form-check col-6">
-                                    <input class="form-check-input" type="radio"  name="attachment_type" id="video_upload" value="0">
+                                    <input class="form-check-input" type="radio"  name="attachment_type" id="video_upload" value="0" @if($material->attachment_type == 0) checked @endif>
                                     <label class="form-check-label" for="exampleRadios2">
                                         Video Link
                                     </label>
@@ -51,17 +52,25 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Uploaded Material</label>
+                        <div class="col-sm-9 mt-2">
+                            {{-- <input type="text" class="form-control" name="pdf_link" value="@if(isset($material->pdf_link)) {{ $material->pdf_link }} @endif" readonly/> --}}
+                            <a href="{{asset($material->pdf_link) }}" download="{{$material->pdf_link}}" title="Download">{{$material->pdf_link}}</a> 
+                        </div>
+                    </div> 
+
                     <div class="form-group row show_pdf">
-                        <label class="col-md-3 col-form-label">Upload Material </label>
+                        <label class="col-md-3 col-form-label">Update Material </label>
                         <div class="col-md-9">                         
-                            <input type="file" name="pdf_link" >
+                            <input type="file" name="new_pdf_link">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Video link</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="video_link"  placeholder="Enter Video Link"/>
+                            <input type="text" class="form-control" name="video_link" value="@if(isset($material->video_link)) {{ $material->video_link }} @endif"  placeholder="Enter Video Link"/>
                         </div>
                     </div> 
                    
@@ -70,7 +79,7 @@
                         <div class="col-sm-9">
                             <div class="form-group">                            
                                 <div>
-                                    <textarea  class="form-control" rows="3" name="description" placeholder="Enter Description"></textarea>
+                                    <textarea  class="form-control" rows="3" name="description" placeholder="Enter Description">{{ $material->description }}</textarea>
                                 </div>
                             </div>
                         </div>
