@@ -35,7 +35,7 @@ class MaterialController extends Controller
         $data['flag'] = 2; 
         $data['page_title'] = 'Add Material';   
         $data['subjects'] = DB::table('subjects')->where('status',"1")->orderBy('subject_name', 'asc')->get();
-        $data['chapters'] = DB::table('chapters')->where('status',"1")->get();    
+        $data['sections'] = DB::table('test_section')->where('status',"1")->get();    
         return view('Admin/webviews/manage_admin_material',$data);
     }
 
@@ -43,7 +43,7 @@ class MaterialController extends Controller
     {
     //    dd($req);
         $this->validate($req,[
-            'subject_id'=>'required',
+            'section_id'=>'required',
             'material_name'=>'required',   
          ]);
 
@@ -63,8 +63,8 @@ class MaterialController extends Controller
              if($req->material_id){
                 Material::where('id',$req->material_id)->update([
                     'material_name' => $req->material_name,
-                    'subject_id' => $req->subject_id,
-                    'chapter_id' => $req->chapter_id,
+                    'section_id' => $req->section_id,
+                    // 'chapter_id' => $req->chapter_id,
                     'attachment_type' => $req->attachment_type,
                     'video_link' => $req->video_link,
                     'description' => $req->description,
@@ -87,8 +87,8 @@ class MaterialController extends Controller
             
                 $data = new Material;
                 $data->material_name=$req->material_name;             
-                $data->subject_id=$req->subject_id;
-                $data->chapter_id=$req->chapter_id;
+                $data->section_id=$req->section_id;
+                // $data->chapter_id=$req->chapter_id;
                 $data->attachment_type=$req->attachment_type;
                 $data->pdf_link = 'images/material/'.$filename;
                 $data->video_link=$req->video_link;
@@ -109,8 +109,8 @@ class MaterialController extends Controller
             }else{
                 $data = new Material;
                 $data->material_name=$req->material_name;             
-                $data->subject_id=$req->subject_id;
-                $data->chapter_id=$req->chapter_id;
+                $data->section_id=$req->section_id;
+                // $data->chapter_id=$req->chapter_id;
                 $data->attachment_type=$req->attachment_type;
                 $data->video_link=$req->video_link;
                 $data->description=$req->description;
@@ -143,7 +143,7 @@ class MaterialController extends Controller
         $data['page_title'] = 'Edit Material'; 
         $data['material'] = Material::where('id',$id)->first(); 
         $data['subjects'] = DB::table('subjects')->where('status',"1")->orderBy('subject_name', 'asc')->get();
-        $data['chapters'] = DB::table('chapters')->where('status',"1")->get();    
+        $data['sections'] = DB::table('test_section')->where('status',"1")->get(); 
         // dd($data);
         return view('Admin/webviews/manage_admin_material',$data);
     }

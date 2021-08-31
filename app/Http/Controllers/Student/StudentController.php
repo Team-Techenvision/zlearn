@@ -933,10 +933,24 @@ class StudentController extends Controller
         return back();
     }
 
-    public function E_Learn()
+    public function learing_video_section()
     {
-         return view('Students/Webviews/E-learn');
+        $data['sections'] = DB::table('test_section')->where('status',"1")->get();  
+         return view('Students/Webviews/all_video_page', $data);
     }
+
+    public function E_Learn($section_id)
+    {
+        $data['material'] = DB::table('material')->where('section_id', $section_id)->whereNotNull('video_link')->get();  
+         return view('Students/Webviews/all_video_section_wise', $data);
+    }
+
+    public function get_video_link(Request $req)
+    {
+        $data['material'] = DB::table('material')->where('id',$req->material_id)->first();
+    return $data;
+    }
+    
 
 
 

@@ -68,13 +68,20 @@
                                             <span class="sidebar-menu-text">Class Room</span>
                                         </a>
                                     </li>
-                                    <li class="sidebar-menu-item">
+                                    {{-- <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
                                            href="{{url('E-Learn')}}">
                                             <span class="sidebar-menu-text">e-Learn</span>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
+                            </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button"
+                                   href="{{url('learing_video')}}">
+                                   <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">school</span>
+                                    <span class="sidebar-menu-text">Learning Videos</span>
+                                </a>
                             </li>
                         </ul>
                     

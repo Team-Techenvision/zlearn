@@ -42,7 +42,9 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('Delete-Intship/{Int_id}','Student\StudentController@Delete_Intership');
     Route::get('Delete-Project/{proj_id}','Student\StudentController@Delete_project');
     Route::get('Delete_Certificate/{certi_id}','Student\StudentController@Delete_Certificate');
-    Route::get('E-Learn','Student\StudentController@E_Learn');
+    Route::get('E-Learn/{section_id}','Student\StudentController@E_Learn');
+    Route::get('learing_video','Student\StudentController@learing_video_section');
+
     
     Route::get('Test-Result', 'Student\StudentController@Test_Result');
     Route::get('Start-Test-Demo/{test_id}', 'Student\StudentController@Start_Test');
@@ -61,6 +63,8 @@ Route::middleware(['auth','User'])->group(function() {
     Route::post('Academics-Info', 'Student\StudentController@submit_AcademicsInfo');
     Route::post('Training-Info', 'Student\StudentController@submit_TrainingInfo');
     Route::post('user-submit-test', 'Student\StudentController@Submit_test');
+    Route::post('get-video-link', 'Student\StudentController@get_video_link');
+    
 
 });
 

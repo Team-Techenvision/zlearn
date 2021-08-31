@@ -18,12 +18,12 @@
                     </div> 
 
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Subject</label>
+                        <label class="col-sm-3 col-form-label">Section</label>
                         <div class="col-sm-9">                                 
-                            <select class="form-control" name="subject_id" required>                                      
-                                <option value="">Select Subject</option>
-                                @foreach($subjects as $r)                                     
-                                    <option value="{{$r->id}}" @if($r->id == $material->subject_id)selected @endif>{{$r->subject_name}}</option> 
+                            <select class="form-control" name="section_id" required>                                      
+                                <option value="">Select Section</option>
+                                @foreach($sections as $r)                                     
+                                    <option value="{{$r->id}}" @if($r->id == $material->section_id)selected @endif>{{$r->test_section_name}}</option> 
                                 @endforeach                                 
                             </select>
                         </div>
