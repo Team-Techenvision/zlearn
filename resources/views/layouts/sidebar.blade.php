@@ -53,9 +53,9 @@
                         <li><a href="{{url('view-test-name')}}">View Test Name</a></li>                        
                         <li><a href="{{url('view-question-level')}}">View Level</a></li>                        
                         <li><a href="{{url('view-test-section')}}">View Test Section</a></li>                        
-                        <li><a href="{{url('view-program-name')}}">View Program Name</a></li>                        
+                        <li><a href="{{url('view-program-name')}}">View Program Name</a></li> 
+                        <li><a href="{{url('view-test-case')}}">View Test Case</a></li>                        
 
-                        
                     </ul>
                 </li>
 
@@ -77,7 +77,8 @@
                     <ul class="sub-menu" aria-expanded="false">                        
                         <li><a href="{{url('view-test')}}"> View Test</a></li>   
                         <li><a href="{{url('manage-test-question')}}"> Manage Test Question</a></li>
-                        <li><a href="{{url('view-test-question')}}"> View Test Question</a></li>                      
+                        <li><a href="{{url('view-test-question')}}"> View Test Question</a></li>  
+                        <li><a href="{{url('view-test-result')}}"> Test Result</a></li>                     
                     </ul>
                 </li>
 

@@ -153,8 +153,11 @@
                     {{-- {{$list->id}} - -}}
                     <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2">{{$i++}}</span>
                     @endforeach --}}
+                    <div id="myDIV"></div>
                     <div class=" text-left" style="position: relative;margin-top: 10%;">
                         <a href="{{ url('studentdashboard')}}" class="btn btn-outline-danger btn-lx" style="bottom: 25px;">Finish Test</a>
+                        <button  class="btn btn-outline-danger btn-lx" type="button" id="submit_programm" style="bottom: 25px;">submit Program</button>
+
                     </div>
                     
                 {{-- </div>  --}}
@@ -360,26 +363,58 @@
 
 <script>
     
-    let hr = 0;
-    let min = 30;
-     set_timer($('.block'), [0, hr,min, 0], 
-         //set_timer($('.block'), [0, 0,1, 0], 
-          function(block) {
-            block.html('<h1>time is over</h1>');
-            window.clearTimeout();
-            sessionStorage.removeItem("timer_start_");
-             $(location).attr('href',"{{ url('studentdashboard')}}");
-        });
+    // let hr = 0;
+    // let min = 30;
+    //  set_timer($('.block'), [0, hr,min, 0], 
+    //      //set_timer($('.block'), [0, 0,1, 0], 
+    //       function(block) {
+    //         block.html('<h1>time is over</h1>');
+    //         window.clearTimeout();
+    //         sessionStorage.removeItem("timer_start_");
+    //          $(location).attr('href',"{{ url('studentdashboard')}}");
+    //     });
     </script> 
 
     <script>
-        // $(document).ready(function()
-        // {
-        //     $('.preloader').css("display","none");
-        //     $('.MuiPaper-root').css("display","none");
-        //     $('#left-component').css("width","0px");
-        // });
+        $(document).ready(function()
+        {
+            $('#submit_programm').click(function(){
+               
+                    window.onmessage = function (e) {
+                    if (e.data && e.data.language) {
+                        console.log(e.data); // store e.data on your database/ handle it
+                        document.getElementById("myDIV").innerHTML = (e.data);
+                        var receivedData = e.data;
+                        arr.push(receivedData);
+                        console.log(arr);
+                        
+                        $.ajax({
+                            url: "{{ url('save-student-program')}}",
+                            method: 'post',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                'programm' : programm
+                                },
+                            success: function(data)
+                            {
+                            
+                            }
+                            });
+                    }
+                };
+            });
+        });
     </script>
+
+<script>
+    // window.onmessage = function (e) {
+    //     if (e.data && e.data.language) {
+    //         console.log(e.data) // store e.data on your database/ handle it
+    //     }
+    // };
+</script>
+
+
         
     </body>
 

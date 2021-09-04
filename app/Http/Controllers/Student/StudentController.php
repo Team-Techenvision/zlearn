@@ -1032,4 +1032,10 @@ class StudentController extends Controller
         return view('Students/Webviews/demo1_compiler');
     }
 
+    public function save_student_program(Request $req){
+        return $req->programm;
+        
+        
+    }
+
 }

@@ -64,7 +64,8 @@ Route::middleware(['auth','User'])->group(function() {
     Route::post('Training-Info', 'Student\StudentController@submit_TrainingInfo');
     Route::post('user-submit-test', 'Student\StudentController@Submit_test');
     Route::post('get-video-link', 'Student\StudentController@get_video_link');
-    
+    Route::get('Compiler','Student\StudentController@View_Compiler');
+    Route::post('save-student-program', 'Student\StudentController@save_student_program');
 
 });
 
@@ -166,8 +167,9 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('importExportView', 'AdminController@importExportView');
     Route::get('export', 'AdminController@export')->name('export');
     Route::get('questionexport', 'AdminController@questionexport')->name('questionexport');
-    Route::get('export_test_report/{id}', 'AdminController@export_test_report')->name('export_test_report');
-
+    Route::post('export_test_report', 'AdminController@export_test_report')->name('export_test_report');
+    Route::get('view-test-result', 'AdminController@view_test_result');
+    // Route::post('view-test-question', 'QuestionController@view_test_question1');
 
 
     // Question pages  Start

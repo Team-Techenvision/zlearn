@@ -65,17 +65,30 @@ class AdminController extends Controller
         return Excel::download(new UsersExport($student), 'users.xlsx');
     }
 
-    public function export_test_report($test_id) 
+    public function view_test_result()
     {
-        $test_result = Test::where('tests.id', $test_id)
-                        ->Join('user_tests', 'user_tests.test_id', '=', 'tests.id')
-                        ->Join('users', 'users.id', '=', 'user_tests.user_id')
-                        // ->leftJoin('colleges', 'colleges.id', '=', 'ed.collage_id')
-                        // ->leftJoin('branches', 'branches.id', '=', 'ed.branch_id')
-                        // ->leftJoin('semisters', 'semisters.id', '=', 'user_details.semister')
-                        // ->select('users.*')
-                        ->get();
+        $data['flag'] = 35; 
+        $data['page_title'] = 'View Result'; 
+        $data['tests'] = Test::where('status',1)->get();               
+        return view('Admin/webviews/manage_admin_user',$data);
+    }
+
+    public function export_test_report(Request $request) 
+    {
+        // dd($request);
+        $test_id = $request->test_id;
+        // $test_result = Test::where('tests.id', $test_id)
+        //                 ->Join('user_tests', 'user_tests.test_id', '=', 'tests.id')
+        //                 ->Join('users', 'users.id', '=', 'user_tests.user_id')
+        //                 // ->leftJoin('colleges', 'colleges.id', '=', 'ed.collage_id')
+        //                 // ->leftJoin('branches', 'branches.id', '=', 'ed.branch_id')
+        //                 // ->leftJoin('semisters', 'semisters.id', '=', 'user_details.semister')
+        //                 // ->select('users.*')
+        //                 ->get();
                         // dd($test_result);
+        // $test_result = DB::select("SELECT tests.test_name,colleges.college_name,users.name,branches.branch_name,semisters.semister_name,test_results.total_score,tests.total_marks FROM test_results INNER JOIN tests ON(tests.id = test_results.test_id)INNER JOIN users ON(users.id = test_results.user_id)INNER JOIN education__details ed ON (ed.user_id = users.id)INNER JOIN colleges ON (colleges.id = ed.collage_id)INNER JOIN branches ON(branches.id=ed.branch_id)INNER JOIN user_details ud ON (ud.user_id=users.id)INNER JOIN semisters ON(semisters.id = ud.semister) WHERE ('tests.id' =$test_id)");
+        $test_result = DB::select("SELECT tests.test_name,colleges.college_name,users.name,branches.branch_name,semisters.semister_name,test_results.total_score,tests.total_marks FROM test_results INNER JOIN tests ON(tests.id = test_results.test_id)INNER JOIN users ON(users.id = test_results.user_id)INNER JOIN education__details ed ON (ed.user_id = users.id)INNER JOIN colleges ON (colleges.id = ed.collage_id)INNER JOIN branches ON(branches.id=ed.branch_id)INNER JOIN user_details ud ON (ud.user_id=users.id)INNER JOIN semisters ON(semisters.id = ud.semister) WHERE (test_results.test_id=$test_id)");
+    //    dd($test_result);
         return Excel::download(new TestReportExport($test_result), 'test_report.xlsx');
     }
 
