@@ -122,8 +122,8 @@
                                 @endphp --}}
                         {{-- <div class="row col-3 ">
                             <span class="badge badge-primary w-100">{{$section_name}}</span>
-                        </div> --}}
-                        <div class="col-12 m-auto pb-5">
+                        </div> --}} 
+                        <div class="col-12 m-auto" id="Q_div">
                             {{-- @if($question->question) --}}
                                 <label  class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></span><span id="question">  </span></label>
                             {{-- @endif
@@ -163,6 +163,8 @@
             </div>
             <div class="col-md-3">
                 <div class="col-md-10 m-auto pt-5" id="num_list">
+                    
+
                     <div class="col-12 Q_pagenate">
                     {{-- < ?php $i=1; ?>
                     @foreach($count_Que as $list)
@@ -171,12 +173,15 @@
                     
                     {{-- <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2">{{$i++}}</span> 
                     <span data="{{$i}}" class="col-2 @if(isset($list->Select_option)) bg-info @else bg-secondary @endif text-white Quest_No mb-2">{{$i++}}</span>
-                    @endforeach
-                    </div> --}}
+                    @endforeach--}}
+                    </div> 
+                    <div class="col-12 Test_caseIO">
+
+                    </div> 
                 </div>
                 <div class="col-12">
                     <div class=" text-center pb-4" style="">
-                        {{-- <a href="{{ url('Test-Result')}}" class="btn btn-outline-danger btn-lx" style="bottom: 25px;">Finish Test</a> --}}
+                        <button class="btn btn-outline-danger btn-lx submit_test_case" style="bottom: 25px;">Submit Programm</button> <br>
                         <span class="btn btn-outline-danger btn-lx" id="test_finish" style="">Finish Test </span>
                     </div>
                     
@@ -254,9 +259,14 @@
              {
                  width: 80vw;
              }
-             .Q_pagenate
+             .Q_pagenate 
              {
-                padding-bottom: 225px;
+                padding-bottom: 25px;
+             }
+
+             .Test_caseIO
+             {
+                padding-bottom: 50px;
              }
 
              .avatar .logo-small , .dropdown-menu
@@ -285,9 +295,8 @@
             $(document).ready(function()
             {
                 $('.sidebar, .alert').hide();
-               // alert($("#section_id").prop("selectedIndex"));
-                //$("#section_id").prop("selectedIndex", 0).change(); 
-                //$("#section_id").val($("#section_id option:first").val()).change();
+                $('#Q_div').css("padding-bottom","3rem");
+                
                 var current_section_id = $( "#current_section_id" ).val();
                 // alert(current_section_id);
                 
@@ -300,7 +309,7 @@
                 $('#submit_testQ').click(function()
                 {
                     $.ajax({
-                        url: "{{ url('user-submit-test')}}",
+                        url: "{{url('user-submit-test')}}",
                         method: 'post',
                         data: $('#test_form').serialize(),
                         success: function(response)
@@ -330,7 +339,9 @@
                                 {
                                     // alert("else part If");
                                     $("#section_id").prop("selectedIndex", selectedIndex).change();
-                                    localStorage.clear();
+                                    // localStorage.clear();
+                                    localStorage.removeItem('section_minute');
+                                    localStorage.removeItem('section_second');
                                 }
                                 else
                                 {
@@ -366,6 +377,7 @@
                 $('#section_id').change(function()
                 {
                     var timeMM = "";
+                    var ddl_section = $(this).val();
                     //alert(timeMM);
                     //alert($(this).val());
                      
@@ -425,7 +437,10 @@
                                 //     alert(section_second);
                                 
                                 if(isNaN(section_minute) || isNaN(section_second)){
-                                    localStorage.clear();
+                                    // localStorage.clear();
+                                    localStorage.removeItem('section_minute');
+                                    localStorage.removeItem('section_second');
+
                                     section_timer(timeMM, 0);
                                     // alert(section_minute);
                                 }else{
@@ -440,7 +455,15 @@
                                 }
                                 // timer section wiese ends 
 
-                            Q_option();
+                            if(ddl_section != 7)
+                            {
+                               // alert(ddl_section);
+                                Q_option();
+                            }
+                            else
+                            {
+                                compiler();
+                            }
                         }
                         else
                         {
@@ -451,10 +474,44 @@
                 });
             });
 
+            // =============================
+            function compiler()
+            {
+                $('#Q_div').css("padding-bottom","1rem");
+                $('#submit_testQ').hide();
+                $('#all_options').html('<div class="col-md-12"><iframe frameBorder="0" height="450px" src="https://onecompiler.com/embed/python?codeChangeEvent=true" width="100%"></iframe><br></div>');                    
+                $('.Test_caseIO').html("");
+                $.ajax({
+                    type: "POST",          
+                    url: "{{ url('QTest-Case') }}",
+                    dataType: "json",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'q_id': $('#question_id').val()                              
+                        },
+                    success : function(response)
+                    { 
+                        console.log(response);
+                        var TC_len =  response['test_case'].length;
+                        console.log(TC_len);
+                        localStorage.setItem('test_case_count',TC_len);
+                        var j = 1;
+                        for(var i = 0;i < TC_len;i++)
+                        {
+                            $('.Test_caseIO').append('<span class="d-flex row"><div class="col-12"><div class="alert alert-success text-sucess_'+ j +'" role="alert" style="display:none;">Test Case Successfull</div><div class="alert alert-danger text-false_'+ j +'" role="alert" style="display:none;">Test False</div></div><span>Test Case '+ j +' :- </span></span><br/><span class="d-flex"><h5>Input :- '+ response['test_case'][i].input_test_case +'</h5></span><span class="d-flex"><h5>Output :- '+ response['test_case'][i].output_test_case +'</h5></span><br/><input type="hidden" name="test_case_input" class="test_case_input_'+ j +'" id="test_case_input_'+ j +'" value="'+ response['test_case'][i].input_test_case +'"><br/><input type="hidden" name="expected_output" class="expected_output_'+ j +'" id="expected_output_'+ j +'" value="'+ response['test_case'][i].output_test_case +'">');
+                            j++;
+                        }
+                    }
+                });
+
+            }
+            // ==============================
+
                 function Q_option()
                 {
                      $("div").remove(".option");
-
+                     $('#submit_testQ').show();
+                     $('.Test_caseIO').html(""); 
                     $.ajax({
                         type: "POST",          
                         url: "{{ url('question-option') }}",
@@ -568,6 +625,7 @@
         function fetch_data(page)
         { 
             var section = $('#section_id').val();
+            var ddl_section = $('#section_id').val();
              
         $.ajax({
             url:"/pagination/fetch_data/"+ section +"?page="+page,
@@ -576,11 +634,27 @@
                 console.log(response['question']);                       
                 //console.log(response['links']);
                 console.log("HHHHHH = "+ response['question']['data']['0']['question']);
-                $('#question').html(response['question']['data']['0']['question']);
+                if(response['question']['data']['0']['question'])
+                {
+                    $('#question').html(response['question']['data']['0']['question']);
+                }
+                if(response['question']['data']['0']['question_image'])
+                {
+                    $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
+                }
                 $('#question_id').val(response['question']['data']['0']['id']);
                 $('.Q_pagenate').html(response['links']);
                 $('#ques_no').text($('.pagination .active span').text());
-                Q_option();
+
+                if(ddl_section != 7)
+                {
+                    // alert(ddl_section);
+                    Q_option();
+                }
+                else
+                {
+                    compiler();
+                }
             }
             });
         }
@@ -590,6 +664,7 @@
                 function ddl_section()
                 { 
                     var timeMM ="";
+                    var ddl_section = $('#section_id').val();
                    // alert(timeMM);
                      //clearInterval();
                     //    }
@@ -635,7 +710,9 @@
                                 //     alert(section_second);
                                 
                                 if(isNaN(section_minute) || isNaN(section_second)){
-                                    localStorage.clear();
+                                    // localStorage.clear();
+                                    localStorage.removeItem('section_minute');
+                                    localStorage.removeItem('section_second');
                                     section_timer(timeMM, 0);
                                     // alert(section_minute);
                                 }else{
@@ -651,7 +728,15 @@
                                 
                                     // timer section wiese Ends 
 
-                                Q_option();
+                                if(ddl_section != 7)
+                                {
+                                    // alert(ddl_section);
+                                    Q_option();
+                                }
+                                else
+                                {
+                                    compiler();
+                                }
                             }
                             else
                             {
@@ -716,7 +801,9 @@
                     {
                         // alert("else part If");
                         $("#section_id").prop("selectedIndex", selectedIndex).change();
-                        localStorage.clear();
+                        // localStorage.clear();
+                        localStorage.removeItem('section_minute');
+                        localStorage.removeItem('section_second');
                     }
                     else
                     {
@@ -734,6 +821,92 @@
         </script>
         <!-- ======================================= -->
         
+
+        <script>
+            window.onmessage = function (e) 
+            {
+                if (e.data && e.data.language) 
+                {
+                   
+                    (e.data.stdin = "2 4");
+                console.log(e.data) // store e.data on your database/ handle it
+                // alert('hi');
+                // var code = JSON.stringify(e.data);            
+                const myJSON = JSON.stringify(e.data);  
+                localStorage.setItem('compiler',myJSON);
+                // localStorage.setItem('mycode',code);
+                
+                }
+            };
+            </script>
+            
+            
+            <script>
+            $(document).ready(function()
+            {
+               
+                $(".alert-success").hide();
+                $(".alert-danger").hide();
+                // $('.submit_programm').click(function(e){
+             $(document).on('click', '.submit_test_case', function(e) {
+
+                var test_case_count = localStorage.getItem('test_case_count');
+                
+                var compiler = localStorage.getItem('compiler');
+                        for(let i = 1 ;i <= test_case_count; i++)
+                        {
+                           let expected_output = $('#expected_output_'+i).val();
+                // var expected_output = $(this).val();
+                console.log(test_case_count);
+                 
+                        $.ajax({
+                        url: "{{ url('save-student-program')}}",
+                        method: 'post',
+                        data: {
+                        "_token": "{{ csrf_token() }}",
+                        'programm' : compiler
+                        },
+                        success: function(data)
+                        {
+                        var test_case_pass = 0;
+                        console.log(data);
+                        var result = JSON.parse(data);                        
+                        console.log(result.stdout);
+                        console.log(expected_output);
+                        
+                        if(result.stdout == expected_output)
+                        {
+                            $(".text-sucess_"+i).show();
+                            $(".text-false_"+i).hide();
+                            // save_result(expected_output);
+                            // alert(expected_output);
+                           
+                            // alert(i);
+                            // alert("sucessfull");
+                            test_case_pass = test_case_pass+1;
+                            localStorage.setItem('test_case_pass',test_case_pass);
+                            // alert(test_case_pass);
+                        }
+                        else
+                        {
+                            $(".text-sucess_"+i).hide();
+                            $(".text-false_"+i).show();
+                            // alert(expected_output);
+                            // alert(expected_output);
+                            // alert("Fail");
+                        }
+                        
+                        }
+                        
+                        });
+                        
+                        
+                }
+              
+                
+                });
+            });
+            </script>
      
     </body>
 

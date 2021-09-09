@@ -46,6 +46,8 @@
             @include('Admin.components/question/admin_edit_answer')
         @elseif($flag == 14) 
             @include('Admin.components/question/admin_edit_test_two')
+        @elseif($flag == 15) 
+            @include('Admin.components/question/add_test_case')
     @endif
     </div>
                     <!-- end row -->
@@ -61,5 +63,24 @@
 
     <!-- Datatable init js -->
     <script src="{{ URL::asset('/js/pages/datatables.init.js')}}"></script>
+
+    <script>
+        $(document).ready(function()
+        {
+            $("#addCF").click(function()
+            {
+                //alert("!!!!");
+                 $("#customFields").append('<tr><td style"text-align-right"><button class="remCF btn btn-danger pr-10" type="button" >Remove</button></td></tr><tr><td width="30%"> <label for="">Input Test Case</label></td><td width="70%"><input type="text" class="form-control" name="input_test_case[]" placeholder="Enter Input " /></td></tr><tr><td width="30%"><label for="">Output Test Case</label></td><td width="70%"><input type="text" class="form-control" name="output_test_case[]" placeholder="Enter Output" /></td></tr>');
+            });
+    
+             $("#customFields").on('click', '.remCF', function()
+            {
+                var closestRow = $(this).closest('tr');
+    closestRow.add(closestRow.prev()).add(closestRow.next()).remove();
+            });
+    
+                 
+        });
+    </script>
 
 @endsection

@@ -143,6 +143,12 @@
                 });
             });
         </script>    
+          <script>
+            $(document).ready(function()
+            {
+                localStorage.clear();
+            });
+        </script>
     </body>
 
 </html>

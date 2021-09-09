@@ -21,9 +21,9 @@
                     @foreach($question as $row)
                     <tr>
                         <td>{{$i++}}</td>
-                        <td>{{$row->question}}</td>                            
+                        <td style="width:150px; overflow:auto!important;">{{$row->question}}</td>                            
                         <td>@if($row->status == 1) Active @else De-Active @endif</td>
-                        <td><a href="{{url('edit-question/'.$row->id)}}" class="btn btn-info mr-2">Edit</a> <a href="{{url('edit-answer/'.$row->id)}}" class="btn btn-warning mr-2">Answer</a> <a href="{{url('delete-question/'.$row->id)}}" class="btn btn-danger">Delete</a></td>                                               
+                        <td><a href="{{url('edit-question/'.$row->id)}}" class="btn btn-info mr-2">Edit</a>@if($row->test_section == 7) <a href="{{url('add-test-case/'.$row->id)}}" class="btn btn-warning mr-2">Test Case</a> @else <a href="{{url('edit-answer/'.$row->id)}}" class="btn btn-warning mr-2">Answer</a>  @endif <a href="{{url('delete-question/'.$row->id)}}" class="btn btn-danger">Delete</a></td>                                               
                     </tr>
                     @endforeach                   
                 </tbody>

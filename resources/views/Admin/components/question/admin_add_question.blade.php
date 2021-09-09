@@ -86,7 +86,7 @@
                         <label class="col-md-3 col-form-label">Choice Count</label>
                         <div class="col-md-9">
                             <select class="form-control" name="choice_count">
-                                <option>Select Choice</option>
+                                <option value="0">Select Choice</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>

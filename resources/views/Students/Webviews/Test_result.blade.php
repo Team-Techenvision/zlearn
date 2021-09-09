@@ -180,7 +180,8 @@
         <script>
             $(document).ready(function()
             {
-                localStorage.clear();
+                localStorage.removeItem('section_minute');
+                localStorage.removeItem('section_second');
             });
         </script>
     </body>

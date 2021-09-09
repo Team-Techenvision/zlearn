@@ -26,6 +26,7 @@ Use App\Test_branch;
 Use App\Test_tb_section;
 Use App\Test_Section;
 Use App\Test_semester;
+Use App\Test_case;
 
 
 
@@ -179,8 +180,12 @@ class QuestionController extends Controller
             }  
             
             }
+            if($req->test_section == 7){
+                return redirect('view-question');
+            }else{
+                return redirect('add-answer/'.$question_id);
+            }
        
-        return redirect('add-answer/'.$question_id);
         
         }
     }
@@ -250,6 +255,61 @@ class QuestionController extends Controller
         return view('Admin/webviews/manage_admin_question',$data);
     }
 
+    public function add_test_case($id)
+    {
+        $data['flag'] = 15; 
+        $data['page_title'] = 'Add Test Case';  
+        $data['question'] = Question::where('id',$id)->first(); 
+        $data['answer'] = Answer::where('question_id',$id)->get(); 
+        // dd($data['answer']);
+        return view('Admin/webviews/manage_admin_question',$data);
+    }
+    public function submit_test_case(Request $req)
+    {
+    //    dd($req);
+        $this->validate($req,[
+            'question_id'=>'required',         
+         ]);
+
+
+         if($req->answer_id) { 
+            $i=0;
+            foreach($req->answer_id as $row)
+                {
+                    Test_case::where('id',$req->answer_id[$i])->update([
+                    'answer' => $req->answer[$i],
+                ]);
+                $i++;
+            }
+            toastr()->success('Question Updated Successfully!');
+            return redirect('view-question');
+         }else{
+            $j=0;
+            foreach($req->input_test_case as $row)
+            {
+                $data = new Test_case;
+                $data->question_id=$req->question_id;  
+                $data->marks_test_case=$req->marks_test_case;            
+                $data->status=$req->status;
+                $data->input_test_case=$req->input_test_case[$j];
+                $data->output_test_case=$req->output_test_case[$j];
+                $result = $data->save();
+                $j++;
+            }
+            
+            if($result)
+            {
+                toastr()->success('Test Cases Successfully added!');
+            }
+            else
+            {
+                toastr()->error('Test Cases Not Added!!');
+            }         
+        return redirect('view-question');
+
+        }
+    }
+
     public function edit_answer($id)
     {
         $data['flag'] = 13; 
@@ -259,6 +319,8 @@ class QuestionController extends Controller
         // dd($data['answer']);
         return view('Admin/webviews/manage_admin_question',$data);
     }
+
+    
 
     public function submit_answer(Request $req)
     {

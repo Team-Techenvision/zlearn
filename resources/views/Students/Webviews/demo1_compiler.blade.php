@@ -104,8 +104,32 @@
                         {{-- <iframe src="https://onecompiler.com/" class="col-12 w-100" style="height:500px;" title="W3Schools Free Online Web Tutorials"  allowfullscreen>
                                 
                         </iframe> --}}
-                        <iframe frameBorder="0" height="450px"  src="https://onecompiler.com/embed/"  width="100%" >
-                        </iframe>
+
+                        {{-- <iframe
+                        frameBorder="0"
+                        height="450px"  src="https://onecompiler.com/embed/" 
+                        width="100%"
+                        ></iframe> --}}
+{{-- 
+                       <iframe
+                        frameBorder="0"
+                        height="450px"  src=" https://editor-demo.w3spaces.com/" 
+                        width="100%"
+                        ></iframe> --}}
+
+                        <iframe
+                            frameBorder="0"
+                            height="450px"  
+                            src="https://onecompiler.com/embed/python?codeChangeEvent=true" 
+                            width="100%"
+                            ></iframe>
+                         {{-- <iframe
+                            frameBorder="0"
+                            height="450px"  src="https://onecompiler.herokuapp.com/" 
+                            width="100%"
+                            ></iframe>  --}}
+
+                       
 
                         
                 </div>
@@ -153,10 +177,30 @@
                     {{-- {{$list->id}} - -}}
                     <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2">{{$i++}}</span>
                     @endforeach --}}
-                    <div id="myDIV"></div>
+                    <div id="myDIV">                        
+                        <div class="alert alert-success text-sucess" role="alert">
+                            Test Case Successfull
+                          </div>
+                      <input type="hidden" name="expected_output" value="">
+                        <div class="alert alert-danger text-false" role="alert">
+                            Test False
+                          </div>
+                        <?php $i=1; ?>
+                        <span class="d-flex row"><h5>Q. &nbsp; {{$Question->question}}</h5></span>
+                        <br/>
+                        @foreach($test_case as $list)
+
+                        <span class="d-flex row"><span>Test Case {{$i++}} :- </span></span>
+                        <br/>
+                        <span class="d-flex"><h5>Input :- {{$list->input_test_case}}</h5></span>
+                        <span class="d-flex"><h5>Output :- {{$list->output_test_case}}</h5></span>
+                        <br/>
+                        <button  class="btn btn-outline-danger btn-lx submit_programm" type="button" id="" style="bottom: 25px;" value="{{$list->output_test_case}}">submit Program</button>
+                        @endforeach
+                    </div>
                     <div class=" text-left" style="position: relative;margin-top: 10%;">
                         <a href="{{ url('studentdashboard')}}" class="btn btn-outline-danger btn-lx" style="bottom: 25px;">Finish Test</a>
-                        <button  class="btn btn-outline-danger btn-lx" type="button" id="submit_programm" style="bottom: 25px;">submit Program</button>
+                        {{-- <button  class="btn btn-outline-danger btn-lx" type="button" id="submit_programm3" style="bottom: 25px;">submit Program</button> --}}
 
                     </div>
                     
@@ -336,7 +380,8 @@
         <script>
             $(document).ready(function()
             {
-
+            
+               
                 $('.Quest_No').click(function()
                 {
                     let cur_page = $(this).attr('data'); 
@@ -370,49 +415,93 @@
     //       function(block) {
     //         block.html('<h1>time is over</h1>');
     //         window.clearTimeout();
+
     //         sessionStorage.removeItem("timer_start_");
     //          $(location).attr('href',"{{ url('studentdashboard')}}");
     //     });
     </script> 
 
+<script>
+    window.onmessage = function (e) {
+        if (e.data && e.data.language) {
+            console.log(e.data) // store e.data on your database/ handle it
+            // alert('hi');
+            // var code = JSON.stringify(e.data); 
+            const myJSON = JSON.stringify(e.data);
+            localStorage.setItem('compiler',myJSON);
+            // localStorage.setItem('mycode',code);
+
+        }
+    };
+</script>
+
+
     <script>
         $(document).ready(function()
         {
-            $('#submit_programm').click(function(){
-               
-                    window.onmessage = function (e) {
-                    if (e.data && e.data.language) {
-                        console.log(e.data); // store e.data on your database/ handle it
-                        document.getElementById("myDIV").innerHTML = (e.data);
-                        var receivedData = e.data;
-                        arr.push(receivedData);
-                        console.log(arr);
-                        
+            $(".text-sucess").hide();
+            $(".text-false").hide();
+            $('.submit_programm').click(function(e){
+                var expected_output =  $(this).val();
+                var compiler = localStorage.getItem('compiler');
+                    //    alert(compiler);
                         $.ajax({
                             url: "{{ url('save-student-program')}}",
                             method: 'post',
                             data: {
                                 "_token": "{{ csrf_token() }}",
-                                'programm' : programm
+                                'programm' : compiler
                                 },
                             success: function(data)
                             {
-                            
+                                console.log(data);
+                                var result = JSON.parse(data);
+                                console.log(result.stdout);
+                               if(result.stdout == expected_output){
+                                $(".text-sucess").show();
+                                $(".text-false").hide();
+                                save_result(expected_output);
+                               }else{
+                                $(".text-sucess").hide();
+                                $(".text-false").show();
+                               }
+                               
                             }
                             });
-                    }
-                };
+                    
+                
             });
         });
     </script>
 
+
 <script>
-    // window.onmessage = function (e) {
-    //     if (e.data && e.data.language) {
-    //         console.log(e.data) // store e.data on your database/ handle it
-    //     }
-    // };
+    function save_result(expected_output)
+        { 
+            alert(expected_output);
+            // var section = $('#section_id').val();
+             
+        $.ajax({
+            url:"/pagination/fetch_data/"+ section +"?page="+page,
+            success:function(response)
+            {
+                console.log(response['question']);                       
+                //console.log(response['links']);
+                console.log("HHHHHH = "+ response['question']['data']['0']['question']);
+                $('#question').html(response['question']['data']['0']['question']);
+                if(response['question']['data']['0']['question_image'])
+                {
+                    $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
+                }
+                $('#question_id').val(response['question']['data']['0']['id']);
+                $('.Q_pagenate').html(response['links']);
+                $('#ques_no').text($('.pagination .active span').text());
+                Q_option();
+            }
+            });
+        }
 </script>
+
 
 
         

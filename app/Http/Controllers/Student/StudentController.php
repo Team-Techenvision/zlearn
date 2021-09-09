@@ -25,7 +25,8 @@ use App\branch;
 use App\Test_question;
 use App\Test_Section;
 use App\Test_semester;
-// use App\test_result;
+use App\test_result;
+use App\Test_case;
 use Session;
 
 use DB;
@@ -585,15 +586,29 @@ class StudentController extends Controller
         $u_id = Auth::User()->id;
         $Test_ID = $test_id;
         session()->forget('Test_Id');
+        // ===========================================
+        $type_name_id = Test::where('id',$Test_ID)->first();
+
+        if($type_name_id->test_name_id == 4)
+        {
+           // dd("true");
+            DB::table('save__answers')->where('user_id', $u_id)->where('test_id',$Test_ID)->delete();
+        }
+        // ===========================================
         $user_test = UserTest::where('Test_status',1)->where('test_id',$Test_ID)->where('user_id',$u_id)->first();
         if(!$user_test)
         {
-
-            $data = new UserTest;
-            $data->user_id=$u_id;            
-            $data->test_id=$Test_ID;            
-            $result = $data->save();
-
+            // ============================
+            if($type_name_id->test_name_id != 4)
+            { 
+            //    ================================ 
+                $data = new UserTest;
+                $data->user_id=$u_id;            
+                $data->test_id=$Test_ID;            
+                $result = $data->save();
+                // ==================================
+            }   
+            // =========================== 
            // $test_question = Question::get();
              
             $test_question = DB::table('test_question')
@@ -714,11 +729,14 @@ class StudentController extends Controller
             ->where('test_tb_section.test_id',$test_id)
             ->select('test_section.id as section_id','test_section.test_section_name')
             ->get();
-            // dd($data['section'][0]->section_id);
-            if (Session::has('current_session')){
 
-            }else{
-            Session::put('current_session', $data['section'][0]->section_id);
+            if (Session::has('current_session'))
+            {
+
+            }
+            else
+            {
+                Session::put('current_session', $data['section'][0]->section_id);
             }
             // $data['count_Que'] = DB::table('test_question')
             // ->join('questions', 'questions.id', '=', 'test_question.question_id')           
@@ -832,38 +850,53 @@ class StudentController extends Controller
         $W_total1 = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereColumn('Select_option','!=','correct_answer')->get();         
         //dd($data['W_total']);
         // $data['Test_time']=Test::where('id',$t_id)->first();
-
+          // ===================================================
+                $test_type = "";
+                $type_name_id = Test::where('id',$test_id)->first();
+                if($type_name_id->test_name_id == 4)
+                {
+                        $test_type = 0;
+                }
+                else
+                {
+                    $test_type = 1;
+                }
         // ===================================================
-        // $test_result1 = test_result::where('test_id',$test_id)->where('user_id',$u_id)->first();
-        // if(!$test_result1)
-        // {
-        //     $Test_time1 =Test::where('id',$test_id)->select('test_name','mark_per_question')->first();
-        //    // dd( $Test_time1 );
-        //     $Total_Q1 = count($Q_total1);
-        //     $Compl_Q1 = count($Compl_total1);
-        //     $Un_Comp_Q1 = count($U_total1);
-        //     $Correct_Ans1 = count($C_total1);
-        //     $Wrong_Ans1 = count($W_total1);
-        //     if( $Test_time1 )
-        //     {
-        //         $Score = $Correct_Ans1 * $Test_time1->mark_per_question;
-        //     }
-        //     else
-        //     {
-        //         $Score = $Correct_Ans1 * 0;
-        //     }          
+        $test_result1 = test_result::where('test_id',$test_id)->where('user_id',$u_id)->where('test_type',1)->first();
+        // ==================================================
+        //$test_result1 = test_result::where('test_id',$test_id)->where('user_id',$u_id)->first();
 
-        //     $data = new test_result;
-        //     $data->user_id=$u_id;                             
-        //     $data->test_id=$test_id;
-        //     $data->total_question=$Total_Q1; 
-        //     $data->completed=$Compl_Q1; 
-        //     $data->un_answered=$Un_Comp_Q1; 
-        //     $data->correct=$Correct_Ans1;
-        //     $data->wrong=$Wrong_Ans1;
-        //     $data->total_score=$Score;           
-        //     $result = $data->save();
-        // }
+        if(!$test_result1)
+        {
+        
+            $Test_time1 =Test::where('id',$test_id)->select('test_name','mark_per_question')->first();
+           // dd( $Test_time1 );
+            $Total_Q1 = count($Q_total1);
+            $Compl_Q1 = count($Compl_total1);
+            $Un_Comp_Q1 = count($U_total1);
+            $Correct_Ans1 = count($C_total1);
+            $Wrong_Ans1 = count($W_total1);
+            if( $Test_time1 )
+            {
+                $Score = $Correct_Ans1 * $Test_time1->mark_per_question;
+            }
+            else
+            {
+                $Score = $Correct_Ans1 * 0;
+            }          
+
+            $data = new test_result;
+            $data->user_id=$u_id;                             
+            $data->test_id=$test_id;
+            $data->total_question=$Total_Q1; 
+            $data->completed=$Compl_Q1; 
+            $data->un_answered=$Un_Comp_Q1; 
+            $data->correct=$Correct_Ans1;
+            $data->wrong=$Wrong_Ans1;
+            $data->total_score=$Score;
+            $data->test_type=$test_type;             
+            $result = $data->save();
+        }
 
         $data['page_title'] = 'Test Result';
         $data['Test_time']=Test::where('id',$test_id)->select('test_name','mark_per_question')->first();
@@ -950,8 +983,6 @@ class StudentController extends Controller
         $data['material'] = DB::table('material')->where('id',$req->material_id)->first();
     return $data;
     }
-    
-
 
 
     // ====================================================
@@ -969,9 +1000,13 @@ class StudentController extends Controller
     {
         $u_id = Auth::User()->id;
         $test_id = Session::get('Test_Id');
+        //$section_id = $req->section_id;
+
         $section_id = $req->section_id;
         // return $section_id;
         Session::put('current_session', $section_id);
+
+
          $Question = DB::table('test_question')
             ->join('questions', 'questions.id', '=', 'test_question.question_id')
             ->join('test_section', 'test_section.id', '=', 'questions.test_section')
@@ -1027,15 +1062,126 @@ class StudentController extends Controller
     }
 // ============================================================
 
+    // public function View_Compiler()
+    // {
+    //     return view('Students/Webviews/demo1_compiler');
+    // }
+// ==============================================================
+    public function All_Result()
+    {
+        $u_id = Auth::User()->id;
+        $data['page_title'] = 'All Test Result';
+        $data['Test_Result'] = DB::table('test_results')
+        ->join('tests', 'tests.id', '=', 'test_results.test_id')
+        ->select('test_results.id','tests.test_name')
+        ->where('test_results.user_id',$u_id)
+        ->get();
+        // dd($data['Test_Result']);
+        return view('Students/Webviews/All_Testresult',$data); 
+
+    }
+    
+    // ================================================================
+    public function get_result(Request $req)
+    {
+        # code...
+        //$Result1 = $req->result_ID;
+       // $student = test_result::where('id',$req->result_ID)->get();
+        $student = DB::table('test_results')
+         ->join('tests', 'tests.id', '=', 'test_results.test_id')
+         ->select('test_results.*','tests.test_name')
+         ->where('test_results.id',$req->result_ID)
+         ->get();
+        return response()->json($data = [
+            'status' => 200,
+            'msg' => 'success',
+            'student_result' => $student,            
+        ]);
+    }
+   
+
+
+    // ==================================================
+
+
+    
     public function View_Compiler()
     {
-        return view('Students/Webviews/demo1_compiler');
+        $data['Question'] = Question::where('id',1299)->first();
+        $data['test_case'] = Test_case::where('question_id',1299)->get();
+        return view('Students/Webviews/demo1_compiler',$data);
     }
 
     public function save_student_program(Request $req){
-        return $req->programm;
+        //    return $req->programm;           
+           
+                    $curl = curl_init();
+    
+                    curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://onecompiler.com/api/v1/run?access_token=DP2R97GPfK7Hd3dYsNCaZ546C9PufwVGsPdc2FMRKWgqQdPBZh3gvSjaNGGGZayxm6UtS99yXYK5sF4DKeueaG8s8HW6BGmHrA2QVpAns4UfHqbGAVhZaKnaShP2xZtB',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS =>$req->programm,
+                    CURLOPT_HTTPHEADER => array(
+                        'Content-Type: application/json'
+                    ),
+                    ));
+    
+                    $response = curl_exec($curl);
+    
+                    curl_close($curl);
+                    return $response;
+    
+          
+        }
+
+ 
+    // public function save_student_program(Request $req){
+    //     //    return $req;
+           
+    //                 $curl = curl_init();
+    
+    //                 curl_setopt_array($curl, array(
+    //                 CURLOPT_URL => 'https://onecompiler.herokuapp.com/api/v1/run',
+    //                 CURLOPT_RETURNTRANSFER => true,
+    //                 CURLOPT_ENCODING => '',
+    //                 CURLOPT_MAXREDIRS => 10,
+    //                 CURLOPT_TIMEOUT => 0,
+    //                 CURLOPT_FOLLOWLOCATION => true,
+    //                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //                 CURLOPT_CUSTOMREQUEST => 'POST',
+    //                 CURLOPT_POSTFIELDS =>$req->programm,
+    //                 CURLOPT_HTTPHEADER => array(
+    //                     'Content-Type: application/json'
+    //                 ),
+    //                 ));
+    
+    //                 $response = curl_exec($curl);
+    
+    //                 curl_close($curl);
+    //                 return $response;
+    
+          
+    //     }
+
+
         
-        
-    }
+        // ======================================================
+
+        public function QTest_Case(Request $req)
+        {
+            
+            $test_case = Test_case::where('question_id',$req->q_id)->get(); 
+            return response()->json($data = [
+                'status' => 200,
+                'msg' => 'success',
+                'test_case' => $test_case,            
+            ]);
+        }
 
 }

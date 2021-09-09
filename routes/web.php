@@ -44,8 +44,13 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('Delete_Certificate/{certi_id}','Student\StudentController@Delete_Certificate');
     Route::get('E-Learn/{section_id}','Student\StudentController@E_Learn');
     Route::get('learing_video','Student\StudentController@learing_video_section');
+    Route::get('pagination/fetch_data/{section_id}', 'Student\StudentController@fetch_section_question');
+    Route::get('All-Result', 'Student\StudentController@All_Result');
+// ===========================================================
+    // Route::get('demo12', 'Student\StudentController@demo12');
+    // ============================================================
+    Route::get('Compiler','Student\StudentController@View_Compiler');
 
-    
     Route::get('Test-Result', 'Student\StudentController@Test_Result');
     Route::get('Start-Test-Demo/{test_id}', 'Student\StudentController@Start_Test');
     Route::post('Test-Instraction', 'Student\StudentController@Test_Instraction');
@@ -53,8 +58,10 @@ Route::middleware(['auth','User'])->group(function() {
 
     Route::post('question-option', 'Student\StudentController@question_option');
     Route::post('QuestionOn-Section', 'Student\StudentController@QuestionOnSection');
+    Route::post('get-result', 'Student\StudentController@get_result');
+   // Route::get('pagination/fetch_data', 'Student\StudentController@fetch_section_question');
 
-    Route::get('pagination/fetch_data/{section_id}', 'Student\StudentController@fetch_section_question');
+    Route::post('QTest-Case','Student\StudentController@QTest_Case');
 
     // Route::post('Start-Test', 'Student\StudentController@Start_Test');
     
@@ -63,8 +70,9 @@ Route::middleware(['auth','User'])->group(function() {
     Route::post('Academics-Info', 'Student\StudentController@submit_AcademicsInfo');
     Route::post('Training-Info', 'Student\StudentController@submit_TrainingInfo');
     Route::post('user-submit-test', 'Student\StudentController@Submit_test');
+
     Route::post('get-video-link', 'Student\StudentController@get_video_link');
-    Route::get('Compiler','Student\StudentController@View_Compiler');
+
     Route::post('save-student-program', 'Student\StudentController@save_student_program');
 
 });
@@ -163,13 +171,12 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('delete-test-type/{id}', 'AdminController@delete_test_type');
 
     Route::post('importuser', 'AdminController@import')->name('importuser');
-
     Route::get('importExportView', 'AdminController@importExportView');
     Route::get('export', 'AdminController@export')->name('export');
     Route::get('questionexport', 'AdminController@questionexport')->name('questionexport');
     Route::post('export_test_report', 'AdminController@export_test_report')->name('export_test_report');
     Route::get('view-test-result', 'AdminController@view_test_result');
-    // Route::post('view-test-question', 'QuestionController@view_test_question1');
+
 
 
     // Question pages  Start
@@ -190,6 +197,9 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 
     Route::get('edit-answer/{id}', 'QuestionController@edit_answer');
 
+    Route::get('add-test-case/{id}', 'QuestionController@add_test_case');
+    Route::post('submit-test-case', 'QuestionController@submit_test_case');
+
     Route::get('view-test', 'QuestionController@test_list');
     Route::get('add-test', 'QuestionController@add_test');
     Route::post('submit-test', 'QuestionController@submit_test');
@@ -200,8 +210,6 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 
     Route::get('edit-test-two/{id}', 'QuestionController@edit_test_two');
     Route::post('submit-test-two-edit', 'QuestionController@submit_test_two_edit');
-
-    
 
     Route::post('get_chapter', 'QuestionController@get_chapter');
 
@@ -229,13 +237,11 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 
     Route::get('view-program-name', 'AdminController@view_program_name');
 
-
     Route::get('view-material', 'MaterialController@view_material');
     Route::get('add-material', 'MaterialController@add_material');
     Route::post('submit-material', 'MaterialController@submit_material');
     Route::get('edit-material/{id}', 'MaterialController@edit_material');
     Route::get('delete-material/{id}', 'MaterialController@delete_material');
-
 
     Route::get('{any}', 'QovexController@index');
  

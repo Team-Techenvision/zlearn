@@ -103,7 +103,7 @@
                         <label class="col-md-3 col-form-label">Choice Count</label>
                         <div class="col-md-9">
                             <select class="form-control" name="choice_count"  disabled="true">
-                                <option>Select Choice</option>
+                                <option value="0" @if($question->choice_count == "2")selected @endif >Select Choice</option>
                                 <option value="2" @if($question->choice_count == "2")selected @endif>2</option>
                                 <option value="3" @if($question->choice_count == "3")selected @endif>3</option>
                                 <option value="4" @if($question->choice_count == "4")selected @endif>4</option>
