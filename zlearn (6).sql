@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 09, 2021 at 02:38 PM
+-- Generation Time: Sep 11, 2021 at 02:38 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -714,21 +714,16 @@ INSERT INTO `save__answers` (`id`, `user_id`, `test_id`, `question_id`, `Select_
 (30, 3, 3, 7, NULL, 4, 1, '2021-09-08 10:33:49', '2021-09-08 10:33:49'),
 (31, 3, 3, 8, NULL, 3, 1, '2021-09-08 10:33:49', '2021-09-08 10:33:49'),
 (32, 3, 3, 18, NULL, 1, 1, '2021-09-08 10:33:49', '2021-09-08 10:33:49'),
-(91, 3, 16, 4, NULL, 1, 1, '2021-09-09 11:29:12', '2021-09-09 11:29:12'),
-(92, 3, 16, 5, NULL, 1, 1, '2021-09-09 11:29:12', '2021-09-09 11:29:12'),
-(93, 3, 16, 6, NULL, 3, 1, '2021-09-09 11:29:12', '2021-09-09 11:29:12'),
-(94, 3, 16, 7, NULL, 4, 1, '2021-09-09 11:29:12', '2021-09-09 11:29:12'),
-(95, 3, 16, 17, NULL, NULL, 1, '2021-09-09 11:29:12', '2021-09-09 11:29:12'),
-(96, 3, 16, 4, NULL, 1, 1, '2021-09-09 12:17:36', '2021-09-09 12:17:36'),
-(97, 3, 16, 5, NULL, 1, 1, '2021-09-09 12:17:36', '2021-09-09 12:17:36'),
-(98, 3, 16, 6, NULL, 3, 1, '2021-09-09 12:17:36', '2021-09-09 12:17:36'),
-(99, 3, 16, 7, NULL, 4, 1, '2021-09-09 12:17:36', '2021-09-09 12:17:36'),
-(100, 3, 16, 17, NULL, NULL, 1, '2021-09-09 12:17:36', '2021-09-09 12:17:36'),
-(101, 3, 16, 4, NULL, 1, 1, '2021-09-09 12:20:01', '2021-09-09 12:20:01'),
-(102, 3, 16, 5, NULL, 1, 1, '2021-09-09 12:20:01', '2021-09-09 12:20:01'),
-(103, 3, 16, 6, NULL, 3, 1, '2021-09-09 12:20:01', '2021-09-09 12:20:01'),
-(104, 3, 16, 7, NULL, 4, 1, '2021-09-09 12:20:01', '2021-09-09 12:20:01'),
-(105, 3, 16, 17, NULL, NULL, 1, '2021-09-09 12:20:01', '2021-09-09 12:20:01');
+(146, 3, 16, 4, NULL, 1, 1, '2021-09-11 11:13:53', '2021-09-11 11:13:53'),
+(147, 3, 16, 5, NULL, 1, 1, '2021-09-11 11:13:53', '2021-09-11 11:13:53'),
+(148, 3, 16, 6, NULL, 3, 1, '2021-09-11 11:13:53', '2021-09-11 11:13:53'),
+(149, 3, 16, 7, NULL, 4, 1, '2021-09-11 11:13:53', '2021-09-11 11:13:53'),
+(150, 3, 16, 17, NULL, NULL, 1, '2021-09-11 11:13:53', '2021-09-11 11:13:53'),
+(151, 3, 16, 4, NULL, 1, 1, '2021-09-11 12:16:12', '2021-09-11 12:16:12'),
+(152, 3, 16, 5, NULL, 1, 1, '2021-09-11 12:16:12', '2021-09-11 12:16:12'),
+(153, 3, 16, 6, NULL, 3, 1, '2021-09-11 12:16:12', '2021-09-11 12:16:12'),
+(154, 3, 16, 7, NULL, 4, 1, '2021-09-11 12:16:12', '2021-09-11 12:16:12'),
+(155, 3, 16, 17, NULL, NULL, 1, '2021-09-11 12:16:12', '2021-09-11 12:16:12');
 
 -- --------------------------------------------------------
 
@@ -831,6 +826,32 @@ CREATE TABLE `technical_skills` (
 
 INSERT INTO `technical_skills` (`id`, `user_id`, `tech_skill`, `linkedin_link`, `achievement`, `hobbies`, `career_object`, `status`, `created_at`, `updated_at`) VALUES
 (1, 3, 'demo', 'demo', 'demo', 'demo', 'demo', 1, '2021-08-19 07:11:58', '2021-08-19 07:11:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `testcase_result`
+--
+
+CREATE TABLE `testcase_result` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `test_id` bigint(20) NOT NULL,
+  `section_id` bigint(20) NOT NULL,
+  `Question_id` bigint(20) NOT NULL,
+  `correct_testCase` bigint(11) NOT NULL DEFAULT 0,
+  `total_testCase` int(11) NOT NULL,
+  `mark_testcase` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `testcase_result`
+--
+
+INSERT INTO `testcase_result` (`id`, `user_id`, `test_id`, `section_id`, `Question_id`, `correct_testCase`, `total_testCase`, `mark_testcase`, `created_at`, `updated_at`) VALUES
+(1, 3, 16, 7, 17, 0, 3, 6, '2021-09-11 10:00:19', '2021-09-10 22:22:40');
 
 -- --------------------------------------------------------
 
@@ -939,9 +960,9 @@ CREATE TABLE `test_case` (
 --
 
 INSERT INTO `test_case` (`id`, `question_id`, `input_test_case`, `output_test_case`, `marks_test_case`, `status`, `created_at`, `updated_at`) VALUES
-(1, 17, '2.3 1.7', '4', NULL, 1, '2021-09-07 08:32:56', '2021-09-07 08:32:56'),
-(2, 17, '2.37  5.7', '8', NULL, 1, '2021-09-07 08:33:21', '2021-09-07 08:33:21'),
-(3, 17, '2.1 8.1', '10', 2, 1, '2021-09-08 06:32:16', '2021-09-08 06:32:16');
+(1, 17, '5 9', '45', 2, 1, '2021-09-07 08:32:56', '2021-09-07 08:32:56'),
+(2, 17, '2 5 ', '7', 2, 1, '2021-09-07 08:33:21', '2021-09-07 08:33:21'),
+(3, 17, '2 3', '6', 2, 1, '2021-09-08 06:32:16', '2021-09-08 06:32:16');
 
 -- --------------------------------------------------------
 
@@ -1428,7 +1449,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `l_name`, `email`, `phone`, `email_verified_at`, `password`, `remember_token`, `user_type`, `gender`, `standers`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'admin', NULL, 'admin@gmail.com', NULL, NULL, '$2y$10$.SPPmQbIh.L2L.eig6UIfOqp3NM5YDr2C9M7uOLQ9Hdb.thjdPl/2', 'XSwBJsE5FlXfQuT6YOjd3c2Do8wAnh4hTs3mC3Jkx5O9WohnEpCAzI68rsRp', 1, NULL, NULL, 1, '2021-07-04 05:23:21', '2021-07-04 05:23:21'),
-(3, 'Dhananjay', 'Sawant', 'student@gmail.com', '9876543210', NULL, '$2y$10$w24PG7/VcghhKFZfHszFR.N4lRuVPtw9hmA3KSTl0i4nYNu7JcG8a', 'IFcYW10jl7Gv8BWq02z7selhYRdOcL6kQKFhi9Cjb6DCEFnJcV6pJQvCFX28', 2, '1', 'UG', 1, '2021-07-08 04:33:21', '2021-08-19 02:34:58'),
+(3, 'Dhananjay', 'Sawant', 'student@gmail.com', '9876543210', NULL, '$2y$10$w24PG7/VcghhKFZfHszFR.N4lRuVPtw9hmA3KSTl0i4nYNu7JcG8a', 'HLMK9BiXH1XetlyEJ6fwmj0HOuqXZi1CSiko5dwaRX6urtwntRtOOYAZqteK', 2, '1', 'UG', 1, '2021-07-08 04:33:21', '2021-08-19 02:34:58'),
 (4, 'rahul', NULL, 'student1@gmail.com', NULL, NULL, '$2y$10$nH0Ba7P/gZIZqOW6dLC8SOVnhQ5p0Nv0LQqqpNRwEqL.Drjr1M64C', NULL, 2, NULL, NULL, 1, '2021-07-31 04:18:00', '2021-08-19 04:53:10'),
 (5, 'demo', NULL, 'demo@gmail.com', NULL, NULL, '$2y$10$pi8/wl09oeckbrfLY4xnCeUMZPDpin7aiZwBHhp2XxSpS4UvK3dwW', 'Qug8JTHTyrRDvY8Y5h0G8JNlIxLgNZA3RDqqRSxtDnMk52EoJWDZMwqYAuDv', 2, NULL, NULL, 1, '2021-07-31 05:11:47', '2021-07-31 05:11:47'),
 (8, 'nikhil', NULL, 'dhananjaydemo@gmail.com', NULL, NULL, '$2y$10$12v5W./XTBt0dgtDSozdhOE369PJN5coKEJwIJeNAGIQOeRKftb1.', NULL, 2, NULL, NULL, 1, '2021-08-04 02:38:05', '2021-08-04 02:38:05'),
@@ -1961,7 +1982,8 @@ CREATE TABLE `user_tests` (
 --
 
 INSERT INTO `user_tests` (`id`, `user_id`, `test_id`, `Test_status`, `created_at`, `updated_at`) VALUES
-(17, 3, 3, 1, '2021-09-08 10:33:49', '2021-09-08 10:33:49');
+(17, 3, 3, 1, '2021-09-08 10:33:49', '2021-09-08 10:33:49'),
+(42, 3, 16, 1, '2021-09-11 12:16:12', '2021-09-11 12:16:12');
 
 --
 -- Indexes for dumped tables
@@ -2127,6 +2149,12 @@ ALTER TABLE `subjects`
 -- Indexes for table `technical_skills`
 --
 ALTER TABLE `technical_skills`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `testcase_result`
+--
+ALTER TABLE `testcase_result`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -2372,7 +2400,7 @@ ALTER TABLE `question_pattern`
 -- AUTO_INCREMENT for table `save__answers`
 --
 ALTER TABLE `save__answers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
 -- AUTO_INCREMENT for table `semisters`
@@ -2397,6 +2425,12 @@ ALTER TABLE `subjects`
 --
 ALTER TABLE `technical_skills`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `testcase_result`
+--
+ALTER TABLE `testcase_result`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tests`
@@ -2504,7 +2538,7 @@ ALTER TABLE `user_profile`
 -- AUTO_INCREMENT for table `user_tests`
 --
 ALTER TABLE `user_tests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
