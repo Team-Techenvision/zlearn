@@ -181,7 +181,7 @@
                         <div class="alert alert-success text-sucess" role="alert">
                             Test Case Successfull
                           </div>
-                      <input type="hidden" name="expected_output" value="">
+                      
                         <div class="alert alert-danger text-false" role="alert">
                             Test False
                           </div>

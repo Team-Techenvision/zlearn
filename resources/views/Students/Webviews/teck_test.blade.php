@@ -294,6 +294,7 @@
         <script>
             $(document).ready(function()
             {
+                 $('.submit_test_case').hide();
                 $('.sidebar, .alert').hide();
                 $('#Q_div').css("padding-bottom","3rem");
                 
@@ -479,6 +480,7 @@
             {
                 $('#Q_div').css("padding-bottom","1rem");
                 $('#submit_testQ').hide();
+                $('.submit_test_case').show();
                 $('#all_options').html('<div class="col-md-12"><iframe frameBorder="0" height="450px" src="https://onecompiler.com/embed/python?codeChangeEvent=true" width="100%"></iframe><br></div>');                    
                 $('.Test_caseIO').html("");
                 $.ajax({
@@ -722,7 +724,6 @@
                                    
                                 }else{
                                     section_timer(section_minute, section_second);
-                                  
                                 }
                                 }
                                 
@@ -827,8 +828,12 @@
             {
                 if (e.data && e.data.language) 
                 {
-                   
-                    (e.data.stdin = "2 4");
+                    var test_case_count = localStorage.getItem('test_case_count');
+                    for(let i = 1 ;i <= test_case_count; i++)
+                        {
+                    let test_case_input = $('#test_case_input_'+i).val();
+                    (e.data.stdin = test_case_input);
+                        }
                 console.log(e.data) // store e.data on your database/ handle it
                 // alert('hi');
                 // var code = JSON.stringify(e.data);            
@@ -847,69 +852,125 @@
                
                 $(".alert-success").hide();
                 $(".alert-danger").hide();
+                
                 // $('.submit_programm').click(function(e){
              $(document).on('click', '.submit_test_case', function(e) {
 
                 var test_case_count = localStorage.getItem('test_case_count');
                 
-                var compiler = localStorage.getItem('compiler');
+                // var compiler = localStorage.getItem('compiler');
+                    // console.log(compiler);
+                    var test_case_pass = 0;
                         for(let i = 1 ;i <= test_case_count; i++)
                         {
                            let expected_output = $('#expected_output_'+i).val();
-                // var expected_output = $(this).val();
-                console.log(test_case_count);
-                 
+                           let test_case_input = $('#test_case_input_'+i).val();
+                           var compiler = localStorage.getItem('compiler');
+                           var new_data = JSON.parse(compiler);
+                           new_data.stdin = test_case_input;
+                           var new_compiler = JSON.stringify(new_data);
+                            // var expected_output = $(this).val();
+                            console.log(test_case_count);
+                            console.log(compiler);  
+                            console.log(test_case_input);  
+                            console.log(new_compiler);  
+                
                         $.ajax({
                         url: "{{ url('save-student-program')}}",
                         method: 'post',
                         data: {
                         "_token": "{{ csrf_token() }}",
-                        'programm' : compiler
+                        'programm' : new_compiler,
+                        'input' : test_case_input
                         },
                         success: function(data)
                         {
-                        var test_case_pass = 0;
-                        console.log(data);
-                        var result = JSON.parse(data);                        
-                        console.log(result.stdout);
-                        console.log(expected_output);
+
+                                console.log(data);
+                                var result = JSON.parse(data);                        
+                                console.log(result.stdout);
+                                console.log(expected_output);
                         
-                        if(result.stdout == expected_output)
-                        {
-                            $(".text-sucess_"+i).show();
-                            $(".text-false_"+i).hide();
-                            // save_result(expected_output);
-                            // alert(expected_output);
-                           
-                            // alert(i);
-                            // alert("sucessfull");
-                            test_case_pass = test_case_pass+1;
-                            localStorage.setItem('test_case_pass',test_case_pass);
-                            // alert(test_case_pass);
-                        }
-                        else
-                        {
-                            $(".text-sucess_"+i).hide();
-                            $(".text-false_"+i).show();
-                            // alert(expected_output);
-                            // alert(expected_output);
-                            // alert("Fail");
-                        }
+                                if(result.stdout == expected_output)
+                                {
+                                    $(".text-sucess_"+i).show();
+                                    $(".text-false_"+i).hide();
+                                    // save_result(expected_output);
+                                    // alert(expected_output);
+                                
+                                    // alert(i);
+                                    // alert("sucessfull");
+                                    test_case_pass = test_case_pass+1;
+                                    localStorage.setItem('test_case_pass',test_case_pass);
+                                    // alert(test_case_pass);
+                                    save_result();
+
+                                }
+                                else
+                                {
+                                    $(".text-sucess_"+i).hide();
+                                    $(".text-false_"+i).show();
+                                    // alert(expected_output);
+                                    // alert(expected_output);
+                                    // alert("Fail");
+                                    if(test_case_pass == 0){
+                                        test_case_pass = 0;               
+
+                                    }else{
+                                        test_case_pass = test_case_pass - 1;                                
+                                    }
+                                    localStorage.setItem('test_case_pass',test_case_pass);
+                                    save_result();
+                                }
+
+                               
                         
                         }
-                        
+                       
                         });
                         
                         
                 }
-              
+
+                
+                
                 
                 });
+
+                function save_result()
+                {
+                var test_case_pass_update = localStorage.getItem('test_case_pass');
+                                    var test_case_count = localStorage.getItem('test_case_count');
+                                    var section = $('#section_id').val();
+                                    // alert(test_case_pass_update);
+
+                                    $.ajax({
+                                    url: "{{ url('testCase-Result')}}",
+                                    method: 'post',
+                                    data: {
+                                    "_token": "{{ csrf_token() }}",
+                                    'test_case_pass' : test_case_pass_update,
+                                    'test_case_count' : test_case_count,
+                                    'section_id' : section,
+                                    'q_id': $('#question_id').val()
+                                    },
+                                    success: function(response,status)
+                                    {
+                                        console.log(response);
+                                        // console.log(response['data']['test_case']);
+                                    }
+                                });
+                }
+               
             });
             </script>
+
+           
      
     </body>
 
 </html>
+
+
 
  

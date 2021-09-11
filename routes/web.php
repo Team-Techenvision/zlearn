@@ -74,6 +74,8 @@ Route::middleware(['auth','User'])->group(function() {
     Route::post('get-video-link', 'Student\StudentController@get_video_link');
 
     Route::post('save-student-program', 'Student\StudentController@save_student_program');
+    Route::post('testCase-Result', 'Student\StudentController@testCase_Result');
+
 
 });
 

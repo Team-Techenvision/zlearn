@@ -28,6 +28,7 @@ use App\Test_semester;
 use App\test_result;
 use App\Test_case;
 use Session;
+use App\testcase_result;
 
 use DB;
 
@@ -1113,8 +1114,10 @@ class StudentController extends Controller
     }
 
     public function save_student_program(Request $req){
-        //    return $req->programm;           
-           
+        //    return $req->req; 
+        // $programm = $req->programm;
+        // $stdin = $req->test_case_input; 
+    
                     $curl = curl_init();
     
                     curl_setopt_array($curl, array(
@@ -1182,6 +1185,63 @@ class StudentController extends Controller
                 'msg' => 'success',
                 'test_case' => $test_case,            
             ]);
+        }
+
+        public function testCase_Result(Request $req)
+        {
+           
+            //$req->test_case_count
+            //$req->test_case_pass
+            //$req->section_id
+            //$req->q_id
+            $test_CaseResult = "";
+            $u_id = Auth::User()->id;
+            $test_id = Session::get('Test_Id');
+            $testcase_result = testcase_result::where('user_id',$u_id)->where('test_id',$test_id)->where('Question_id',$req->q_id)->first(); 
+            $MTest_case = Test_case::where('question_id',$req->q_id)->pluck('marks_test_case')->first();
+            $marks_testCase = $req->test_case_pass * $MTest_case;
+            
+            if($testcase_result)
+            {
+                // return $req->test_case_pass;
+                //$test_CaseResult = 0;
+                $test_CaseResult_update = DB::table('testcase_result')
+                                        ->where('user_id', $u_id)
+                                        ->where('test_id',$test_id)
+                                        ->where('section_id',$req->section_id)
+                                        ->where('Question_id',$req->q_id)
+                                        ->update([ 
+                                            'correct_testCase' => $req->test_case_pass,
+                                            // 'total_testCase' => $req->test_case_count,
+                                            // 'mark_testcase' =>$marks_testCase
+                                        ]);
+            
+            }
+            else
+            {
+                //$test_CaseResult = 1;
+                 
+                $data = new testcase_result;
+                $data->user_id=$u_id;            
+                $data->test_id=$test_id;
+                $data->section_id=$req->section_id;
+                $data->Question_id=$req->q_id; 
+                $data->correct_testCase=$req->test_case_pass; 
+                $data->total_testCase=$req->test_case_count; 
+                $data->mark_testcase=$marks_testCase;
+                $test_CaseResult_new = $data->save();
+
+                if($test_CaseResult_new)
+                {
+                    $update = DB::table('save__answers')->where('user_id', $u_id)->where('test_id',$req->test_id)->where('question_id',$req->q_id)->update(['Select_option' => 99,'updated_at' => date("Y-m-d h:i:s")]);
+                }
+            }
+            return response()->json($data = [
+                'status' => 200,
+                'msg' => 'success',
+                'test_case' => $test_CaseResult,                            
+            ]);
+
         }
 
 }
