@@ -5,6 +5,7 @@
 
     <!-- DataTables -->
     <link href="{{ URL::asset('/libs/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{URL::asset('/libs/summernote/summernote.min.css')}}" rel="stylesheet" type="text/css" />
 
 @endsection
 
@@ -60,6 +61,12 @@
     <script src="{{ URL::asset('/libs/datatables/datatables.min.js')}}"></script>
     <script src="{{ URL::asset('/libs/jszip/jszip.min.js')}}"></script>
     <script src="{{ URL::asset('/libs/pdfmake/pdfmake.min.js')}}"></script>
+    <!--tinymce js-->
+<script src="{{URL::asset('/libs/tinymce/tinymce.min.js')}}"></script>
+<!-- Summernote js -->
+<script src="{{URL::asset('/libs/summernote/summernote.min.js')}}"></script>
+<!-- init js -->
+<script src="{{URL::asset('/js/pages/form-editor.init.js')}}"></script>
 
     <!-- Datatable init js -->
     <script src="{{ URL::asset('/js/pages/datatables.init.js')}}"></script>
@@ -82,5 +89,11 @@
                  
         });
     </script>
+
+<script>
+    $(document).ready(function() {
+    $('#example2').DataTable();
+} );
+</script>
 
 @endsection

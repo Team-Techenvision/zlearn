@@ -73,7 +73,7 @@
                         <div class="col-sm-9">
                             <div class="form-group">                            
                                 <div>
-                                    <textarea  class="form-control" rows="3" name="question" placeholder="Enter Question">{{ $question->question }} </textarea>
+                                    <textarea id="elm1"  class="form-control" rows="3" name="question" placeholder="Enter Question">{!! $question->question !!} </textarea>
                                 </div>
                             </div>
                         </div>

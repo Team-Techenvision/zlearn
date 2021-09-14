@@ -52,7 +52,7 @@
                         <td><input type="checkbox" name="question_id[]" value="{{$row->id}}" ></td>
                         @php $test_section_name = DB::table('test_section')->where('id',$row->test_section)->pluck('test_section_name')->first(); @endphp
                         <td>{{{$test_section_name}}}</td>
-                        <td>{{$row->question}}</td>   
+                        <td>{!!$row->question!!}</td>   
 
                         {{-- <td>{{$row->question_level_name}}</td>                                                                           --}}
                     </tr>

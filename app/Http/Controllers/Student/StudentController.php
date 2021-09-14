@@ -27,8 +27,8 @@ use App\Test_Section;
 use App\Test_semester;
 use App\test_result;
 use App\Test_case;
-use Session;
 use App\testcase_result;
+use Session;
 
 use DB;
 
@@ -841,6 +841,7 @@ class StudentController extends Controller
        // $data['page_title'] = 'Test Result';
         $test_id = Session::get('Test_Id');
         $u_id = Auth::User()->id;
+        $codeing_score = 0;
         //$data['Test_time']=Test::where('id',$test_id)->select('test_name','mark_per_question')->first();
         //dd($test_id);
         $user = User::where('id',$u_id)->first();
@@ -850,10 +851,24 @@ class StudentController extends Controller
         $C_total1 = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereColumn('Select_option','correct_answer')->get();
         $W_total1 = Save_Answer::where('user_id',$u_id)->where('test_id',$test_id)->whereColumn('Select_option','!=','correct_answer')->get();         
         //dd($data['W_total']);
+
+        $Coding_Question = testcase_result::where('user_id',$u_id)->where('test_id',$test_id)->get();
+        $Coding_Question_no = count($Coding_Question);
+
+        $Coding_score = testcase_result::where('user_id',$u_id)
+                                        ->where('test_id',$test_id)
+                                        ->select(DB::raw('SUM(mark_testcase) AS Coding_Score'))
+                                        ->first();
+
+        if($Coding_score)
+        {
+            $codeing_score =  $Coding_score->Coding_Score;
+        }
         // $data['Test_time']=Test::where('id',$t_id)->first();
           // ===================================================
                 $test_type = "";
                 $type_name_id = Test::where('id',$test_id)->first();
+                 
                 if($type_name_id->test_name_id == 4)
                 {
                         $test_type = 0;
@@ -886,12 +901,14 @@ class StudentController extends Controller
                 $Score = $Correct_Ans1 * 0;
             }          
 
+            $Score = $Score + $codeing_score;
+
             $data = new test_result;
             $data->user_id=$u_id;                             
             $data->test_id=$test_id;
             $data->total_question=$Total_Q1; 
             $data->completed=$Compl_Q1; 
-            $data->un_answered=$Un_Comp_Q1; 
+            $data->un_answered=$Un_Comp_Q1 - $Coding_Question_no; 
             $data->correct=$Correct_Ans1;
             $data->wrong=$Wrong_Ans1;
             $data->total_score=$Score;
@@ -899,6 +916,8 @@ class StudentController extends Controller
             $result = $data->save();
         }
 
+        $data['C_Score'] = $codeing_score;
+        $data['no_CQuestion'] = $Coding_Question_no;
         $data['page_title'] = 'Test Result';
         $data['Test_time']=Test::where('id',$test_id)->select('test_name','mark_per_question')->first();
         //dd($test_id);
@@ -1113,7 +1132,7 @@ class StudentController extends Controller
         return view('Students/Webviews/demo1_compiler',$data);
     }
 
-    public function save_student_program(Request $req){
+   public function save_student_program(Request $req){
         //    return $req->req; 
         // $programm = $req->programm;
         // $stdin = $req->test_case_input; 
@@ -1194,7 +1213,7 @@ class StudentController extends Controller
             //$req->test_case_pass
             //$req->section_id
             //$req->q_id
-            $test_CaseResult = "";
+            $test_CaseResult_update = "";
             $u_id = Auth::User()->id;
             $test_id = Session::get('Test_Id');
             $testcase_result = testcase_result::where('user_id',$u_id)->where('test_id',$test_id)->where('Question_id',$req->q_id)->first(); 
@@ -1211,9 +1230,9 @@ class StudentController extends Controller
                                         ->where('section_id',$req->section_id)
                                         ->where('Question_id',$req->q_id)
                                         ->update([ 
-                                            'correct_testCase' => $req->test_case_pass,
+                                            'correct_testCase' => $req->test_case_pass,                                            
+                                            'mark_testcase' =>$marks_testCase
                                             // 'total_testCase' => $req->test_case_count,
-                                            // 'mark_testcase' =>$marks_testCase
                                         ]);
             
             }
@@ -1229,9 +1248,9 @@ class StudentController extends Controller
                 $data->correct_testCase=$req->test_case_pass; 
                 $data->total_testCase=$req->test_case_count; 
                 $data->mark_testcase=$marks_testCase;
-                $test_CaseResult_new = $data->save();
+                $test_CaseResult_update = $data->save();
 
-                if($test_CaseResult_new)
+                if($test_CaseResult_update)
                 {
                     $update = DB::table('save__answers')->where('user_id', $u_id)->where('test_id',$req->test_id)->where('question_id',$req->q_id)->update(['Select_option' => 99,'updated_at' => date("Y-m-d h:i:s")]);
                 }
@@ -1239,9 +1258,8 @@ class StudentController extends Controller
             return response()->json($data = [
                 'status' => 200,
                 'msg' => 'success',
-                'test_case' => $test_CaseResult,                            
+                'test_case' => $test_CaseResult_update,                            
             ]);
 
         }
-
 }

@@ -82,7 +82,7 @@
 
     <div class="row" id="Q_paper" style="">
         <div class="row text-right col-12">                
-            <div class="btn12 col-12 text-right m-auto"><span>Time: &nbsp;</span><span class="block"></span></div>
+            <div class="btn12 col-12 text-right m-auto">Submitted Count: <span id="p_submit_count">0 </span> <span>Time: &nbsp;</span><span class="block"></span></div>
         </div>        
     </div>
         <div class="row">                
@@ -97,7 +97,7 @@
                             @endforeach                                 
                         </select>
                     </div>
-                   
+
                 </div> 
             </div>
         </div>
@@ -494,13 +494,14 @@
                     success : function(response)
                     { 
                         console.log(response);
+                        localStorage.removeItem('p_submit_count');
                         var TC_len =  response['test_case'].length;
                         console.log(TC_len);
                         localStorage.setItem('test_case_count',TC_len);
                         var j = 1;
                         for(var i = 0;i < TC_len;i++)
                         {
-                            $('.Test_caseIO').append('<span class="d-flex row"><div class="col-12"><div class="alert alert-success text-sucess_'+ j +'" role="alert" style="display:none;">Test Case Successfull</div><div class="alert alert-danger text-false_'+ j +'" role="alert" style="display:none;">Test False</div></div><span>Test Case '+ j +' :- </span></span><br/><span class="d-flex"><h5>Input :- '+ response['test_case'][i].input_test_case +'</h5></span><span class="d-flex"><h5>Output :- '+ response['test_case'][i].output_test_case +'</h5></span><br/><input type="hidden" name="test_case_input" class="test_case_input_'+ j +'" id="test_case_input_'+ j +'" value="'+ response['test_case'][i].input_test_case +'"><br/><input type="hidden" name="expected_output" class="expected_output_'+ j +'" id="expected_output_'+ j +'" value="'+ response['test_case'][i].output_test_case +'">');
+                            $('.Test_caseIO').append('<span class="d-flex row"><div class="col-12"><div class="alert alert-success text-sucess_'+ j +'" role="alert" style="display:none;">Test Case Successfull</div><div class="alert alert-danger text-false_'+ j +'" role="alert" style="display:none;">Test False</div></div><span>Test Case '+ j +' :- </span></span><br/><span class="d-flex"><h5>Input :- '+ response['test_case'][i].input_test_case +'</h5></span><span class="d-flex"><h5>Output :- '+ response['test_case'][i].output_test_case +'</h5></span><h5>Program Output :- <span class="program_output_'+ j +'"></span></h5><br/><input type="hidden" name="test_case_input" class="test_case_input_'+ j +'" id="test_case_input_'+ j +'" value="'+ response['test_case'][i].input_test_case +'"><br/><input type="hidden" name="expected_output" class="expected_output_'+ j +'" id="expected_output_'+ j +'" value="'+ response['test_case'][i].output_test_case +'">');
                             j++;
                         }
                     }
@@ -852,9 +853,17 @@
                
                 $(".alert-success").hide();
                 $(".alert-danger").hide();
-                
+                let p = 0; 
                 // $('.submit_programm').click(function(e){
              $(document).on('click', '.submit_test_case', function(e) {
+                 
+                 p = p+1;
+
+                 localStorage.setItem('p_submit_count',p);
+                 var p_submit_count1 = localStorage.getItem('p_submit_count');
+                //  alert(p_submit_count);
+                 $('#p_submit_count').html(p_submit_count1);
+
 
                 var test_case_count = localStorage.getItem('test_case_count');
                 
@@ -889,7 +898,7 @@
                                 console.log(data);
                                 var result = JSON.parse(data);                        
                                 console.log(result.stdout);
-                                console.log(expected_output);
+                                // console.log(expected_output);
                         
                                 if(result.stdout == expected_output)
                                 {
@@ -897,7 +906,7 @@
                                     $(".text-false_"+i).hide();
                                     // save_result(expected_output);
                                     // alert(expected_output);
-                                
+                                    $('.program_output_'+i).html(result.stdout);
                                     // alert(i);
                                     // alert("sucessfull");
                                     test_case_pass = test_case_pass+1;
@@ -910,6 +919,8 @@
                                 {
                                     $(".text-sucess_"+i).hide();
                                     $(".text-false_"+i).show();
+                                    // console.log(result.stdout);
+                                    $('.program_output_'+i).html(result.stdout);
                                     // alert(expected_output);
                                     // alert(expected_output);
                                     // alert("Fail");
@@ -965,6 +976,7 @@
             });
             </script>
 
+           
            
      
     </body>

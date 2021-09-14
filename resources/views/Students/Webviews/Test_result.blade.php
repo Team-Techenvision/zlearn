@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-md-2 p-2 border">
                     <div class="col-12">Unanswered</div>
-                    <div class="col-12 h4 p-2"><?= count($U_total);?></div>                    
+                    <div class="col-12 h4 p-2"><?= count($U_total) - $no_CQuestion;?></div>                    
                 </div>
                 <div class="col-md-2 p-2 border">
                     <div class="col-12">Correct</div>
@@ -102,7 +102,7 @@
                 </div>
                 <div class="col-md-2 p-2 border">
                     <div class="col-12"> Total Score</div>
-                    <div class="col-12 h4 p-2"><?= count($C_total) * $Test_time->mark_per_question ;?></div>                   
+                    <div class="col-12 h4 p-2"><?= (count($C_total) * $Test_time->mark_per_question) + $C_Score ;?></div>                   
                 </div>
 
                 <div class="col-12 mt-3">
@@ -176,7 +176,10 @@
         <!-- // END Drawer Layout -->
 
         @include('Students.Common.student_footer')
-        
+
+
+
+
         <script>
             $(document).ready(function()
             {
@@ -184,6 +187,13 @@
                 localStorage.removeItem('section_second');
             });
         </script>
+        
+       <!--  <script>
+            $(document).ready(function()
+            {
+                localStorage.clear();
+            });
+        </script> -->
     </body>
 
 </html>
