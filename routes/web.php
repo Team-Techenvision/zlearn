@@ -209,6 +209,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::post('submit-test-two', 'QuestionController@submit_test_two');
     Route::get('edit-test/{id}', 'QuestionController@edit_test');
     Route::get('delete-test/{id}/{status}', 'QuestionController@delete_test');
+    Route::get('delete-this-test/{id}', 'QuestionController@delete_this_test');
 
     Route::get('edit-test-two/{id}', 'QuestionController@edit_test_two');
     Route::post('submit-test-two-edit', 'QuestionController@submit_test_two_edit');

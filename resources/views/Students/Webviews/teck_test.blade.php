@@ -7,6 +7,12 @@
       <meta name="csrf-token" content="{{ csrf_token() }}" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.css">
+      <style>
+          textarea {
+    border: none;
+    outline: none;
+}
+      </style>
     </head>
 
     <body class="layout-app ">
@@ -82,7 +88,7 @@
 
     <div class="row" id="Q_paper" style="">
         <div class="row text-right col-12">                
-            <div class="btn12 col-12 text-right m-auto">Submitted Count: <span id="p_submit_count">0 </span> <span>Time: &nbsp;</span><span class="block"></span></div>
+            <div class="btn12 col-12 text-right m-auto"> <span id="show_count" style="display:none"> Submitted Count: <span id="p_submit_count">0 </span></span> <span>Time: &nbsp;</span><span class="block"></span></div>
         </div>        
     </div>
         <div class="row">                
@@ -98,20 +104,31 @@
                         </select>
                     </div>
 
+                    <div class="col-9 Q_pagenate">
+                        {{-- < ?php $i=1; ?>
+                        @foreach($count_Que as $list)
+                        {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
+                        {{-- {{$list->id}} --}}
+                        
+                        {{-- <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2">{{$i++}}</span> 
+                        <span data="{{$i}}" class="col-2 @if(isset($list->Select_option)) bg-info @else bg-secondary @endif text-white Quest_No mb-2">{{$i++}}</span>
+                        @endforeach--}}
+                        </div>
+
                 </div> 
             </div>
         </div>
 
         <div class="row">         
-            <div class="page-section1 col-md-9 " >            
-                <div class="row bg-white p-3 shadow m-2">
+            <div class="page-section1 col-md-10" >            
+                <div class="row bg-white p-0 shadow m-0">
                     <!-- <div class="col-12 m-auto text-center">
                         <span class="border pagenation_row">{ { $Question->links() } }</span>
                     </div> -->
                      {{-- <div class="example stopwatch d-flex" data-timer="60"></div> --}}
                      
                     {{-- <form class="form-group row col-12" id="test_form" action="{{url('user-submit-test')}}" method="POST"> --}}
-                        <form class="form-group row col-12" id="test_form" action="javascript:void(0)" method="POST">
+                        <form class="form-group row col-md-12 pr-0" id="test_form" action="javascript:void(0)" method="POST">
                         @csrf
 
                         
@@ -125,7 +142,7 @@
                         </div> --}} 
                         <div class="col-12 m-auto" id="Q_div">
                             {{-- @if($question->question) --}}
-                                <label  class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></span><span id="question">  </span></label>
+                                <label  class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></label></span><textarea id="question" class="form-control rounded-0"  rows="5" >  </textarea>
                             {{-- @endif
                             @if($question->question_image)
                                 <img src="{{url($question->question_image)}}" class="img-thumbnail">
@@ -133,11 +150,12 @@
                             <div class="col-12 m-auto" id="Que_img">
                                 
                             </div>
+                            <input type="hidden" name="test_id" id="test_id" value="{{$Test_time->id}}" >
+                            <input type="hidden" name="question_id" id="question_id" value="">
+                            <input type="hidden" name="current_section_id" id="current_section_id" value="{{ Session::get('current_session') }}">
+                            <input type="hidden" value="" id="total_Q">
                         </div>
-                        <input type="hidden" name="test_id" id="test_id" value="{{$Test_time->id}}" >
-                        <input type="hidden" name="question_id" id="question_id" value="">
-                        <input type="hidden" name="current_section_id" id="current_section_id" value="{{ Session::get('current_session') }}">
-                        <input type="hidden" value="" id="total_Q">
+                        
                     <!-- < ?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
                         $i=1;
                     foreach ($Q_option as  $value) 
@@ -161,11 +179,11 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="col-md-10 m-auto pt-5" id="num_list">
                     
 
-                    <div class="col-12 Q_pagenate">
+                    {{-- <div class="col-12 Q_pagenate">
                     {{-- < ?php $i=1; ?>
                     @foreach($count_Que as $list)
                     {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
@@ -173,20 +191,24 @@
                     
                     {{-- <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2">{{$i++}}</span> 
                     <span data="{{$i}}" class="col-2 @if(isset($list->Select_option)) bg-info @else bg-secondary @endif text-white Quest_No mb-2">{{$i++}}</span>
-                    @endforeach--}}
-                    </div> 
-                    <div class="col-12 Test_caseIO">
+                    @endforeach--}
+                    </div> --}}
 
-                    </div> 
-                </div>
-                <div class="col-12">
-                    <div class=" text-center pb-4" style="">
-                        <button class="btn btn-outline-danger btn-lx submit_test_case" style="bottom: 25px;">Submit Programm</button> <br>
-                        <span class="btn btn-outline-danger btn-lx" id="test_finish" style="">Finish Test </span>
+                    <div class="col-12">
+                        <div class=" text-center pb-4" style="">
+                            <button class="btn btn-outline-danger btn-sm submit_test_case mb-4" style="bottom: 25px;">Submit Programm</button> <br>
+                            <span class="btn btn-outline-danger btn-sm" id="test_finish" style="">Finish Test </span>
+                        </div>                        
                     </div>
-                    
+
+                   
                 </div>
+                
             </div>
+
+            <div class="col-md-8 m-auto Test_caseIO " style="display: none; padding-top: 15px;">
+
+            </div> 
         </div>  
     </div>
 
@@ -409,10 +431,20 @@
                         if(response['question']['total']) 
                         {
                             $('#total_Q').val(response['question']['total']);
-                            // console.log(response['links']);
+                            console.log(response['question']['data']['0']['test_section']);
                             if(response['question']['data']['0']['question'])
                             {
-                                $('#question').html(response['question']['data']['0']['question']);
+                                if(response['question']['data']['0']['textarea_type'] == 1){
+                                   
+                                    var str = (response['question']['data']['0']['question']);
+                                    // console.log($(str).text()); 
+                                     $('textarea#question').val($(str).text());
+
+                                }else{
+                                    $('textarea#question').html(response['question']['data']['0']['question']); 
+                                }
+                                
+                                                        
                             }
                             if(response['question']['data']['0']['question_image'])
                             {
@@ -456,7 +488,7 @@
                                 }
                                 // timer section wiese ends 
 
-                            if(ddl_section != 7)
+                            if(ddl_section != 6)
                             {
                                // alert(ddl_section);
                                 Q_option();
@@ -478,10 +510,20 @@
             // =============================
             function compiler()
             {
+                // $('#div_1').attr("class","col-md-3")
+                // $('#div_2').attr('class','page-section1 col-md-6');
+                // $('#div_3').attr('class','col-md-3');
+                $('#Q_div').attr('class','col-md-4 p-0');
+                $('#all_options').attr('class','col-md-8 border p-0 m-auto');
+                $('textarea#question').attr('rows', "12");
+               
+               
+                $('#show_count').show();
+
                 $('#Q_div').css("padding-bottom","1rem");
                 $('#submit_testQ').hide();
                 $('.submit_test_case').show();
-                $('#all_options').html('<div class="col-md-12"><iframe frameBorder="0" height="450px" src="https://onecompiler.com/embed/python?codeChangeEvent=true" width="100%"></iframe><br></div>');                    
+                $('#all_options').html('<div class="col-md-12 p-0"><iframe frameBorder="0" height="450px" src="https://onecompiler.com/embed/python?codeChangeEvent=true" width="100%"></iframe><br></div>');                    
                 $('.Test_caseIO').html("");
                 $.ajax({
                     type: "POST",          
@@ -501,9 +543,13 @@
                         var j = 1;
                         for(var i = 0;i < TC_len;i++)
                         {
-                            $('.Test_caseIO').append('<span class="d-flex row"><div class="col-12"><div class="alert alert-success text-sucess_'+ j +'" role="alert" style="display:none;">Test Case Successfull</div><div class="alert alert-danger text-false_'+ j +'" role="alert" style="display:none;">Test False</div></div><span>Test Case '+ j +' :- </span></span><br/><span class="d-flex"><h5>Input :- '+ response['test_case'][i].input_test_case +'</h5></span><span class="d-flex"><h5>Output :- '+ response['test_case'][i].output_test_case +'</h5></span><h5>Program Output :- <span class="program_output_'+ j +'"></span></h5><br/><input type="hidden" name="test_case_input" class="test_case_input_'+ j +'" id="test_case_input_'+ j +'" value="'+ response['test_case'][i].input_test_case +'"><br/><input type="hidden" name="expected_output" class="expected_output_'+ j +'" id="expected_output_'+ j +'" value="'+ response['test_case'][i].output_test_case +'">');
+                            // $('.Test_caseIO').append('<span class="d-flex row"><div class="col-12"><div class="alert alert-success text-sucess_'+ j +'" role="alert" style="display:none;">Test Case Successfull</div><div class="alert alert-danger text-false_'+ j +'" role="alert" style="display:none;">Test False</div></div><span>Test Case '+ j +' :- </span></span><br/><span class="d-flex"><h5>Input :- '+ response['test_case'][i].input_test_case +'</h5></span><span class="d-flex"><h5>Output :- '+ response['test_case'][i].output_test_case +'</h5></span><h5>Program Output :- <span class="program_output_'+ j +'"></span></h5><br/><input type="hidden" name="test_case_input" class="test_case_input_'+ j +'" id="test_case_input_'+ j +'" value="'+ response['test_case'][i].input_test_case +'"><br/><input type="hidden" name="expected_output" class="expected_output_'+ j +'" id="expected_output_'+ j +'" value="'+ response['test_case'][i].output_test_case +'">');
+                            $('.Test_caseIO').append('<table class="table"><tr class="text-left "><td class="text-left">Test Case '+ j +' :- </td><td class="text-left">Input :- '+ response['test_case'][i].input_test_case +'</td><td class="text-left">Program Output :- <span class="program_output_'+ j +'"></span></td><td class="text-left">Output :- '+ response['test_case'][i].output_test_case +'</td><td class="text-left"><div class="alert alert-success text-sucess_'+ j +'" role="alert" style="display:none;">Test Case Successfull</div><div class="alert alert-danger text-false_'+ j +'" role="alert" style="display:none;">Test False</div></td></tr></table>');
                             j++;
                         }
+                        $('.Test_caseIO').attr('padding', "5px");
+                        
+
                     }
                 });
 
@@ -639,7 +685,15 @@
                 console.log("HHHHHH = "+ response['question']['data']['0']['question']);
                 if(response['question']['data']['0']['question'])
                 {
-                    $('#question').html(response['question']['data']['0']['question']);
+                    if(response['question']['data']['0']['textarea_type'] == 1){
+                                   
+                                   var str = (response['question']['data']['0']['question']);
+                                   // console.log($(str).text()); 
+                                    $('textarea#question').val($(str).text());
+
+                               }else{
+                                   $('textarea#question').html(response['question']['data']['0']['question']); 
+                               }
                 }
                 if(response['question']['data']['0']['question_image'])
                 {
@@ -649,7 +703,7 @@
                 $('.Q_pagenate').html(response['links']);
                 $('#ques_no').text($('.pagination .active span').text());
 
-                if(ddl_section != 7)
+                if(ddl_section != 6)
                 {
                     // alert(ddl_section);
                     Q_option();
@@ -690,7 +744,15 @@
                                 // console.log(response['links']);
                                 if(response['question']['data']['0']['question'])
                                 {
-                                    $('#question').html(response['question']['data']['0']['question']);
+                                    if(response['question']['data']['0']['textarea_type'] == 1){
+                                   
+                                   var str = (response['question']['data']['0']['question']);
+                                   // console.log($(str).text()); 
+                                    $('textarea#question').val($(str).text());
+
+                               }else{
+                                   $('textarea#question').html(response['question']['data']['0']['question']); 
+                               }
                                 }
                                 if(response['question']['data']['0']['question_image'])
                                 {
@@ -730,7 +792,7 @@
                                 
                                     // timer section wiese Ends 
 
-                                if(ddl_section != 7)
+                                if(ddl_section != 6)
                                 {
                                     // alert(ddl_section);
                                     Q_option();
@@ -894,7 +956,7 @@
                         },
                         success: function(data)
                         {
-
+                            $('.Test_caseIO').show();
                                 console.log(data);
                                 var result = JSON.parse(data);                        
                                 console.log(result.stdout);

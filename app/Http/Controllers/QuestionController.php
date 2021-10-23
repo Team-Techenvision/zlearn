@@ -661,6 +661,12 @@ class QuestionController extends Controller
         return redirect('view-test');
     }
 
+    public function delete_this_test($id){ 
+        Test::where('id',$id)->delete();
+        toastr()->error('Test Deleted !');
+        return redirect('view-test');
+    }
+
     public function edit_test($id){
         $data['flag'] = 7; 
         $data['page_title'] = 'Edit Test'; 

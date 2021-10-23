@@ -555,10 +555,10 @@ class StudentController extends Controller
         ->where("test_semester.semester_id",$user_semester->semister)
         ->where("tests.status",1)
         ->where("ed_D.user_id",$u_id)
-        ->get();
-        // ->toSql();
+        ->toSql();
+       
 
-       // dd($data['Test_time']);         
+       dd($data['Test_time']);         
         return view('Students/Webviews/all_test',$data);       
 
     }

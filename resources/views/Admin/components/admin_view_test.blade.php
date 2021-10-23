@@ -28,7 +28,9 @@
                         @endphp
                         <td>
                             <a href="{{url('edit-test/'.$row->id)}}" class="btn btn-info mr-2">Edit</a>
-                             @if($row->status == 1) <a href="{{url('delete-test/'.$row->id.'/'.$deactive)}}" class="btn btn-danger">Deactive</a>@else <a href="{{url('delete-test/'.$row->id.'/'.$active)}}" class="btn btn-info">Active</a>@endif </td>                                               
+                             @if($row->status == 1) <a href="{{url('delete-test/'.$row->id.'/'.$deactive)}}" class="btn btn-danger">Deactive</a>@else <a href="{{url('delete-test/'.$row->id.'/'.$active)}}" class="btn btn-info">Active</a>@endif
+                             <a href="{{url('delete-this-test/'.$row->id)}}" class="btn btn-info mr-2">Delete</a>   
+                            </td>                                               
                     </tr>
                     @endforeach
                    
