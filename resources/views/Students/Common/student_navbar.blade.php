@@ -30,11 +30,10 @@
                     <!-- // END Navbar Brand -->
         
                     <span class="d-none d-md-flex align-items-center mr-16pt">
-        
-                       
+         
                         <span class="avatar avatar-sm mr-12pt">
         
-                            <img class="p-1 logo-small" src="{{asset('images/zlearnlogo.jpg')}}" alt="">
+                            {{-- <img class="p-1 logo-small" src="{{asset('images/zlearnlogo.jpg')}}" alt=""> --}}
                             {{-- <span class="avatar-title rounded navbar-avatar">
                                
                                 <i class="material-icons">opacity</i>
@@ -57,7 +56,7 @@
         
                                 <span class="avatar avatar-sm mr-8pt2">
         
-                                    <span class="avatar-title rounded-circle bg-primary"><i class="material-icons">account_box</i></span>
+                                    <span class="avatar-title rounded-circle bg-timesheet-color-primary"><i class="material-icons">account_box</i></span>
         
                                 </span>
         

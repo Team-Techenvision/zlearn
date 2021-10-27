@@ -110,22 +110,17 @@
                         height="450px"  src="https://onecompiler.com/embed/" 
                         width="100%"
                         ></iframe> --}}
-{{-- 
+
                        <iframe
                         frameBorder="0"
-                        height="450px"  src=" https://editor-demo.w3spaces.com/" 
+                        height="450px"  src="https://editor-demo.w3spaces.com/" 
                         width="100%"
-                        ></iframe> --}}
+                        ></iframe>
 
-                        <iframe
-                            frameBorder="0"
-                            height="450px"  
-                            src="https://onecompiler.com/embed/python?codeChangeEvent=true" 
-                            width="100%"
-                            ></iframe>
+                       
                          {{-- <iframe
                             frameBorder="0"
-                            height="450px"  src="https://onecompiler.herokuapp.com/" 
+                            height="450px"  src="https://onecompiler.herokuapp.com/embed" 
                             width="100%"
                             ></iframe>  --}}
 
@@ -454,13 +449,12 @@
                                 },
                             success: function(data)
                             {
-                                console.log(data);
-                                var result = JSON.parse(data);
+                                // console.log(data);
+                               var result = JSON.parse(data);
                                 console.log(result.stdout);
                                if(result.stdout == expected_output){
                                 $(".text-sucess").show();
                                 $(".text-false").hide();
-                                save_result(expected_output);
                                }else{
                                 $(".text-sucess").hide();
                                 $(".text-false").show();
@@ -474,33 +468,6 @@
         });
     </script>
 
-
-<script>
-    function save_result(expected_output)
-        { 
-            alert(expected_output);
-            // var section = $('#section_id').val();
-             
-        $.ajax({
-            url:"/pagination/fetch_data/"+ section +"?page="+page,
-            success:function(response)
-            {
-                console.log(response['question']);                       
-                //console.log(response['links']);
-                console.log("HHHHHH = "+ response['question']['data']['0']['question']);
-                $('#question').html(response['question']['data']['0']['question']);
-                if(response['question']['data']['0']['question_image'])
-                {
-                    $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
-                }
-                $('#question_id').val(response['question']['data']['0']['id']);
-                $('.Q_pagenate').html(response['links']);
-                $('#ques_no').text($('.pagination .active span').text());
-                Q_option();
-            }
-            });
-        }
-</script>
 
 
 

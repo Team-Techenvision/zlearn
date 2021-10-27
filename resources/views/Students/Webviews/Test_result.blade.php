@@ -120,11 +120,11 @@
                                 <label class="h5"><span class="h3 mr-2">Q. {{$j++}}</span> {{$Question->question}}</label>
                             @endif
                         </div>
-                        <div class="col-md-12 row">
-                            @if($Question->question_image)
-                                <img src="{{url($Question->question_image)}}" class="img-thumbnail">
-                            @endif
-                        </div>
+                        @if($Question->question_image)
+                            <div class="col-md-12 row mb-3" style="height:350px;overflow:auto;">                            
+                                <img src="{{url($Question->question_image)}}" class="img-thumbnail">                           
+                            </div>
+                        @endif
                         <?php  $Q_option = DB::table('answers')->where('question_id',$Question->id)->get(); 
                             $i=1;
                         foreach ($Q_option as  $value) 

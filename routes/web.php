@@ -76,6 +76,10 @@ Route::middleware(['auth','User'])->group(function() {
     Route::post('save-student-program', 'Student\StudentController@save_student_program');
     Route::post('testCase-Result', 'Student\StudentController@testCase_Result');
 
+    Route::get('Delete-UG_Details/{id}','Student\StudentController@Delete_UG_Details');
+
+    Route::get('Delete-PG_Details/{id}','Student\StudentController@Delete_PG_Details');
+
 
 });
 

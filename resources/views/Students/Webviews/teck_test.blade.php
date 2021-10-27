@@ -45,40 +45,7 @@
         
                 <!-- // END Navbar -->
         
-                <!-- // END Header -->
-
-                {{-- <div class="pt-32">
-                    <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
-                        <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
-
-                            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                                <!--<h2 class="mb-0">Dashboard</h2>-->
-
-                                <ol class="breadcrumb p-0 m-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-
-                                    <li class="breadcrumb-item active">
-                                        &nbsp;{{$Test_time->test_name}}
-                                        {{-- <!-- Dashboard{{$page_title}}  --> --}}
-                                       {{-- <!--  {{$Question->question_title}} --> - -}}
-
-                                    </li>
-
-                                </ol>
-
-                            </div>
-                        </div>
-
-                        <!-- <div class="row"
-                             role="tablist">
-                            <div class="col-auto">
-                                <a href="student-my-courses.html"
-                                   class="btn btn-outline-secondary">My Courses</a>
-                            </div>
-                        </div> -->
-
-                    </div>
-                </div> --}}
+                <!-- // END Header -->                
 
                 <!-- BEFORE Page Content -->
 
@@ -88,88 +55,56 @@
 
     <div class="row" id="Q_paper" style="">
         <div class="row text-right col-12">                
-            <div class="btn12 col-12 text-right m-auto"> <span id="show_count" style="display:none"> Submitted Count: <span id="p_submit_count">0 </span></span> <span>Time: &nbsp;</span><span class="block"></span></div>
+            <div class="btn12 col-12 text-right m-auto"> 
+                <span id="show_count" style="display:none"> Submitted Count: <span id="p_submit_count">0 </span></span> <span>Time: &nbsp;</span><span class="block"></span></div>
         </div>        
     </div>
         <div class="row">                
-            <div class=" col-12 ">
-                <div class="row">
-               
-                    <div class="col-3">
-                        {{-- <button type="button" class="btn btn-sm btn-primary" id="section_{{$row->section_id}}">{{$row->test_section_name}}</button> --}}
-                        <select class="form-control col-md-8" name="section_name" id="section_id" disabled="true">                                     
+            <div class=" col-12">
+                <div class="row">               
+                    <div class="col-md-2 m-auto">                         
+                        <select class="form-control col-md-12" name="section_name" id="section_id" disabled="true">                                     
                             @foreach($section as $r)                                     
                                 <option value="{{$r->section_id}}" @if($r->section_id == Session::get('current_session'))selected @endif>{{$r->test_section_name}}</option> 
                             @endforeach                                 
                         </select>
                     </div>
-
-                    <div class="col-9 Q_pagenate">
-                        {{-- < ?php $i=1; ?>
-                        @foreach($count_Que as $list)
-                        {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
-                        {{-- {{$list->id}} --}}
-                        
-                        {{-- <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2">{{$i++}}</span> 
-                        <span data="{{$i}}" class="col-2 @if(isset($list->Select_option)) bg-info @else bg-secondary @endif text-white Quest_No mb-2">{{$i++}}</span>
-                        @endforeach--}}
-                        </div>
-
+                    <div class="col-md-7 Q_pagenate m-auto p-3">
+                         
+                    </div>
+                    <div class="col-md-3 m-auto">
+                        <div class="d-flex justify-content-around m-auto" style="">
+                            <button class="btn btn-outline-danger btn-sm submit_test_case mb-4 mt-1" style="bottom: 25px;">Submit Programm</button> 
+                            <span class="btn btn-outline-danger btn-sm mb-4 mt-1" id="test_finish" style="">Finish Test </span>
+                        </div>                        
+                    </div>
                 </div> 
             </div>
         </div>
 
         <div class="row">         
-            <div class="page-section1 col-md-10" >            
-                <div class="row bg-white p-0 shadow m-0">
-                    <!-- <div class="col-12 m-auto text-center">
-                        <span class="border pagenation_row">{ { $Question->links() } }</span>
-                    </div> -->
-                     {{-- <div class="example stopwatch d-flex" data-timer="60"></div> --}}
-                     
-                    {{-- <form class="form-group row col-12" id="test_form" action="{{url('user-submit-test')}}" method="POST"> --}}
-                        <form class="form-group row col-md-12 pr-0" id="test_form" action="javascript:void(0)" method="POST">
-                        @csrf
+            <div class="page-section1 col-md-12" >            
+                <div class="row bg-white p-3 pt-5 shadow m-2" style="border-radius: 3.25rem!important;">
+
+                        <form class="form-group row col-12 p-0 m-auto" id="test_form" action="javascript:void(0)" method="POST">
+                        @csrf                    
 
                         
-
-                        {{-- @foreach ($Question as $question)                         --}}
+                        <div class="col-md-8 m-auto" id="Q_div">
+                             
+                                <label  class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></label></span>
+                                <textarea id="question" class="form-control rounded-0"  rows="5" >  </textarea>
                             
-                        {{-- @php     $section_name= DB::table("test_section")->where("test_section.id",$question->test_section)->pluck('test_section_name')->first();
-                                @endphp --}}
-                        {{-- <div class="row col-3 ">
-                            <span class="badge badge-primary w-100">{{$section_name}}</span>
-                        </div> --}} 
-                        <div class="col-12 m-auto" id="Q_div">
-                            {{-- @if($question->question) --}}
-                                <label  class="h5"><span class="h3 mr-2">Q.<span id="ques_no"></span></label></span><textarea id="question" class="form-control rounded-0"  rows="5" >  </textarea>
-                            {{-- @endif
-                            @if($question->question_image)
-                                <img src="{{url($question->question_image)}}" class="img-thumbnail">
-                            @endif --}}
-                            <div class="col-12 m-auto" id="Que_img">
+                            <div class="col-md-12 mt-2" id="Que_img">
                                 
                             </div>
                             <input type="hidden" name="test_id" id="test_id" value="{{$Test_time->id}}" >
                             <input type="hidden" name="question_id" id="question_id" value="">
                             <input type="hidden" name="current_section_id" id="current_section_id" value="{{ Session::get('current_session') }}">
                             <input type="hidden" value="" id="total_Q">
-                        </div>
-                        
-                    <!-- < ?php  $Q_option = DB::table('answers')->where('question_id',$question->id)->get(); 
-                        $i=1;
-                    foreach ($Q_option as  $value) 
-                    { ?>
-                       <div class="col-md-6 h5">
-                          <input type="radio"  name="option" value="{ {$i++} }">
-                            <label>{ {$value->answer} }</label><br>
-                       </div>
-
-                   < ?php }
-                    //  dd($Question);
-                    ?>-->
-                     {{-- @endforeach  --}}
-                     <div class="col-12 row" id="all_options">
+                        </div>                        
+                     
+                     <div class="col-md-4 row m-auto" id="all_options">
                          
                      </div>
                    
@@ -179,27 +114,12 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-2">
-                <div class="col-md-10 m-auto pt-5" id="num_list">
-                    
+            <div class="col-md-2 d-none">
+                <div class="col-md-10 m-auto pt-5" id="num_list">                 
 
-                    {{-- <div class="col-12 Q_pagenate">
-                    {{-- < ?php $i=1; ?>
-                    @foreach($count_Que as $list)
-                    {{-- <span class="col-3 rounded rounded-circle bg-info p-4">{{$list->id}}</span> --}}
-                    {{-- {{$list->id}} --}}
-                    
-                    {{-- <span data="{{$i}}" class="col-2 bg-primary text-white Quest_No mb-2">{{$i++}}</span> 
-                    <span data="{{$i}}" class="col-2 @if(isset($list->Select_option)) bg-info @else bg-secondary @endif text-white Quest_No mb-2">{{$i++}}</span>
-                    @endforeach--}
-                    </div> --}}
+                     
 
-                    <div class="col-12">
-                        <div class=" text-center pb-4" style="">
-                            <button class="btn btn-outline-danger btn-sm submit_test_case mb-4" style="bottom: 25px;">Submit Programm</button> <br>
-                            <span class="btn btn-outline-danger btn-sm" id="test_finish" style="">Finish Test </span>
-                        </div>                        
-                    </div>
+                    
 
                    
                 </div>
@@ -242,7 +162,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.min.js"></script>
- 
+        
   <script src="{{asset('Student/vendor/timer.js')}}"></script> 
         <style>
             .pagenation_row ul li{
@@ -281,9 +201,17 @@
              {
                  width: 80vw;
              }
-             .Q_pagenate 
+             /* .Q_pagenate 
              {
                 padding-bottom: 25px;
+             } */
+             .Q_pagenate .page-item span
+             {
+                border-radius: 20px;
+             }
+             .Q_pagenate .page-item 
+             {
+                padding: 5px;
              }
 
              .Test_caseIO
@@ -306,11 +234,28 @@
                 .page-section1
                 {
                     width: 100vw;
+                    padding: 1px!important;
+
+                }
+                .page-section1 form 
+                {
+                    padding: 0px!important;
+                }
+                #all_options
+                {
+                    padding-top: 20px!important;
+                    height:100%!important;
+
                 }
                 .Q_pagenate
                 {
-                    padding-bottom: 75px;
+                    overflow: auto;
                 }
+
+                /* .Q_pagenate
+                {
+                    padding-bottom: 75px;
+                } */
              }
         </style>
         <script>
@@ -319,7 +264,8 @@
                  $('.submit_test_case').hide();
                 $('.sidebar, .alert').hide();
                 $('#Q_div').css("padding-bottom","3rem");
-                
+                $('textarea#question').attr('readonly', "true");
+                $('#all_options').css('height','250px');
                 var current_section_id = $( "#current_section_id" ).val();
                 // alert(current_section_id);
                 
@@ -448,7 +394,12 @@
                             }
                             if(response['question']['data']['0']['question_image'])
                             {
+                                $('#Que_img').css({'height':'300px','overflow':'auto'});
                                 $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
+                            }
+                            else
+                            {
+                                $('#Que_img').css('height','0px');
                             }
                             $('#question_id').val(response['question']['data']['0']['id']);
                             $('.Q_pagenate').html(response['links']);
@@ -515,6 +466,7 @@
                 // $('#div_3').attr('class','col-md-3');
                 $('#Q_div').attr('class','col-md-4 p-0');
                 $('#all_options').attr('class','col-md-8 border p-0 m-auto');
+                $('#all_options').css('height','100%');
                 $('textarea#question').attr('rows', "12");
                
                
@@ -612,7 +564,7 @@
                              for(var i = 0;i < demo;i++)
                             {
 
-                                $('#all_options').append('<div class="col-md-6 h5 option">'+test124[i]+'<br></div>');
+                                $('#all_options').append('<div class="col-md-12 h5 option d-flex">'+test124[i]+'<br></div>');
                                 //  if (response['select_op']['Select_option'] == j) 
                                 // {
                                 //     $('#all_options').append('<div class="col-md-6 h5 option"><input type="radio" class="mr-2" name="option"value="'+ s +'" checked ><label>'+ response['data'][i].answer + '</label><br></div>');
@@ -697,7 +649,12 @@
                 }
                 if(response['question']['data']['0']['question_image'])
                 {
+                    $('#Que_img').css({'height':'300px','overflow':'auto'});
                     $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
+                }
+                else
+                {
+                    $('#Que_img').css('height','0px');
                 }
                 $('#question_id').val(response['question']['data']['0']['id']);
                 $('.Q_pagenate').html(response['links']);
@@ -756,7 +713,12 @@
                                 }
                                 if(response['question']['data']['0']['question_image'])
                                 {
+                                    $('#Que_img').css({'height':'300px','overflow':'auto'});
                                     $('#Que_img').html('<img src="'+ response['question']['data']['0']['question_image'] + '" class="img-thumbnail">');
+                                }
+                                else
+                                {
+                                    $('#Que_img').css('height','0px');
                                 }
                                 $('#question_id').val(response['question']['data']['0']['id']);
                                 $('.Q_pagenate').html(response['links']);

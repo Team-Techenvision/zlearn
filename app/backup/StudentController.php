@@ -28,8 +28,6 @@ use App\Test_semester;
 use App\test_result;
 use App\Test_case;
 use App\testcase_result;
-use App\UG_Details;
-use App\PG_Details;
 use Session;
 
 use DB;
@@ -63,7 +61,7 @@ class StudentController extends Controller
         $data['Semister'] = Semister::where('status',1)->orderBy('semister_name','asc')->get();
         $data['branch'] = branch::where('status',1)->orderBy('branch_name','asc')->get();
         $data['blood_group'] = DB::table('blood_group')->where('status',1)->orderBy('id','asc')->get();  
-        // dd($data['Education']);  
+        //dd($data['Education']['collage_id']);  
     	return view('Students/Webviews/student_add_resume',$data);
 
     }
@@ -205,11 +203,9 @@ class StudentController extends Controller
         $data['user'] = User::where('id',$u_id)->first(); 
         $data['UserDetails'] = UserDetails::where('user_id',$u_id)->first();        
         $data['Academics'] = Academics_detail::where('user_id',$u_id)->first();
-        $data['UG_Details'] = UG_Details::where('user_id',$u_id)->get();
-        $data['PG_Details'] = PG_Details::where('user_id',$u_id)->get();
         $data['Semister'] = Semister::where('status',1)->orderBy('semister_name','asc')->get();
         $data['graduation_sem'] = DB::table("graduation_sem")->where('status',1)->orderBy('sem_id','asc')->get();
-        // dd($data['UG_Details']); 
+        //dd($data['Academics']); 
     	return view('Students/Webviews/student_add_academics',$data);
 
     }
@@ -223,29 +219,29 @@ class StudentController extends Controller
         $data['Certification'] = Certification::where('user_id',$u_id)->get();
         $data['Interships'] = Interships::where('user_id',$u_id)->get();
         $data['Technical_skill'] = Technical_skill::where('user_id',$u_id)->first(); 
-    //    dd($data);     
+       // dd($data);     
     	return view('Students/Webviews/training_details',$data);
     }
 
     public function submit_AcademicsInfo(Request $req)
     {
-    //    dd($req);
+       // dd($req);
 
         $this->validate($req,[
             'sslc_per'=>'required',
             'year_sslc'=>'required',
             'puc_per'=>'required',        
-            'year_puc'=>'required'          
+            'year_puc'=>'required'
+                       
          ]);
-        //  dd($req);
          $u_id = Auth::User()->id;
          $user_result = Academics_detail::where('user_id',$u_id)->first();
          if($user_result)
          {
             $result = DB::table('academics_details')->where('user_id', $u_id)->update(['sslc_perce' => $req->sslc_per, 'sslc_year'=> $req->year_sslc,
             'puc_perce' => $req->puc_per, 'puc_year' => $req->year_puc,'diploma_perce'=> $req->diploma_per,
-            'diploma_year' => $req->year_diploma, 'year_of_pass_ug' => $req->year_of_pass_ug,'avg_percentage_ug'=> $req->avg_percentage_ug,
-            'year_of_pass_pg' => $req->year_of_pass_pg, 'avg_percentage_pg' => $req->avg_percentage_pg,'avg_cgpa'=> $req->avg_cgpa,
+            'diploma_year' => $req->year_diploma, 'ddl_graduation' => $req->ddl_graduation,'other_graduation'=> $req->write_graduation,
+            'ddl_pg' => $req->ddl_pg, 'other_pg' => $req->write_pg,'avg_cgpa'=> $req->avg_cgpa,
             'year_graduation' => $req->year_graduated, 'curr_backlog' => $req->current_backLog,'num_year_backlog'=> $req->no_yer_backs,
             'gap' => $req->acd_gaps, 'gap_explan' => $req->explain_gaps]); 
          }
@@ -259,10 +255,10 @@ class StudentController extends Controller
             $data->puc_year=$req->year_puc; 
             $data->diploma_perce=$req->diploma_per;
             $data->diploma_year=$req->year_diploma;
-            $data->year_of_pass_ug=$req->year_of_pass_ug;
-            $data->avg_percentage_ug=$req->avg_percentage_ug;
-            $data->year_of_pass_pg=$req->year_of_pass_pg;
-            $data->avg_percentage_pg=$req->avg_percentage_pg;
+            $data->ddl_graduation=$req->ddl_graduation;
+            $data->other_graduation=$req->write_graduation;
+            $data->ddl_pg=$req->ddl_pg;
+            $data->other_pg=$req->write_pg;
             $data->avg_cgpa=$req->avg_cgpa;
             $data->year_graduation=$req->year_graduated;
             $data->curr_backlog=$req->current_backLog;
@@ -271,42 +267,6 @@ class StudentController extends Controller
             $data->gap_explan=$req->explain_gaps;            
             $result = $data->save();
          }
-
-         if($req->semester_id_ug)
-        {
-            $i = 0;
-            foreach($req->semester_id_ug as $row)
-            {
-                if($row != null)
-                {    
-                    $data = new UG_Details;
-                    $data->user_id=$u_id;            
-                    $data->semester_id_ug=$row;
-                    $data->percentage_ug=$req->percentage_ug[$i]; 
-                    $data->status='1';
-                    $result = $data->save();
-                }
-                $i++;
-            }
-        } 
-
-        if($req->semester_id_pg)
-        {
-            $j = 0;
-            foreach($req->semester_id_pg as $row)
-            {
-                if($row != null)
-                {    
-                    $data = new PG_Details;
-                    $data->user_id=$u_id;            
-                    $data->semester_id_pg=$row;
-                    $data->percentage_pg=$req->percentage_pg[$j]; 
-                    $data->status='1';
-                    $result = $data->save();
-                }
-                $j++;
-            }
-        } 
          if($result)
          {              
               $u_id = Auth::User()->id;
@@ -344,7 +304,7 @@ class StudentController extends Controller
          $user_result = Technical_skill::where('user_id',$u_id)->first();
          if($user_result)
          {
-            $result = DB::table('technical_skills')->where('user_id', $u_id)->update([ 'tech_skill' => $req->tech_skill, 'linkedin_link'=> $req->linkedin_link,'achievement' => $req->achievement,'known_language' => $req->known_language, 'extracurricular'=> $req->extracurricular,'skil_sets' => $req->skil_sets, 'hobbies' => $req->hobbies,'career_object'=> $req->career_object]);
+            $result = DB::table('technical_skills')->where('user_id', $u_id)->update([ 'tech_skill' => $req->tech_skill, 'linkedin_link'=> $req->linkedin_link,'achievement' => $req->achievement, 'hobbies' => $req->hobbies,'career_object'=> $req->career_object]);
          }
          else
          {
@@ -352,10 +312,7 @@ class StudentController extends Controller
             $data->user_id=$u_id;            
             $data->tech_skill=$req->tech_skill;
             $data->linkedin_link=$req->linkedin_link; 
-            $data->achievement=$req->achievement;
-            $data->known_language=$req->known_language;
-            $data->extracurricular=$req->extracurricular; 
-            $data->skil_sets=$req->skil_sets; 
+            $data->achievement=$req->achievement; 
             $data->hobbies=$req->hobbies; 
             $data->career_object=$req->career_object;
             $result = $data->save();
@@ -1028,22 +985,6 @@ class StudentController extends Controller
             }
 
         }
-        return back();
-    }
-
-    public function Delete_UG_Details($id)
-    {
-        // dd($id);
-        $UG_deleted = UG_Details::where('id',$id)->delete();
-        toastr()->error('Information Deleted!!');  
-        return back();
-    }
-
-    public function Delete_PG_Details($id)
-    {
-        // dd($id);
-        $PG_deleted = PG_Details::where('id',$id)->delete();
-        toastr()->error('Information Deleted!!');
         return back();
     }
 

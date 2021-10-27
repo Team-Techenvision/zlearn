@@ -45,6 +45,16 @@
   <!-- Tables -->
   <script src="{{asset('Student/js/toggle-check-all.js')}}"></script>
   <script src="{{asset('Student/js/check-selected-row.js')}}"></script>
+
   @toastr_js
   @toastr_render
- 
+
+  <script>
+    $(document).ready(function()
+    {
+      $('.alert_message').click(function()
+      {
+          alert("Please Complete your Profile to Access the Test!!!");
+      });
+    });
+  </script>

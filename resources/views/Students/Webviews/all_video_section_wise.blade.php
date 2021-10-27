@@ -60,13 +60,13 @@
                             </div>
                         </div>
 
-                        <div class="row"
+                        {{-- <div class="row"
                              role="tablist">
                             <div class="col-auto">
                                 <a href="#"
                                    class="btn btn-outline-secondary">My Courses</a>
                             </div>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>
@@ -90,8 +90,9 @@
                                 {{-- <p class="card-text" style="height: 90px;overflow-y: scroll;">{{$list->description}}</p> --}}
                                 
                               </div>
-                        </div>  
-                        <button class="btn btn-primary">Take Test</button>               
+                        </div>
+                        <a href="{{url('View-All-Test')}}" class="btn btn-primary">Take Test</a>   
+                        {{-- <button class="btn btn-primary">Take Test</button>                --}}
                     </div>                    
                 @endforeach     
             </div>

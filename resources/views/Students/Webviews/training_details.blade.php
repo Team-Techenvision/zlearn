@@ -51,35 +51,35 @@
                         
                     </div>
                 </div> --}}
-                {{-- ==================================== --}}
-                <div class="py-32pt navbar-submenu">
+                  {{-- ==================================== --}}
+                  <div class="py-32pt navbar-submenu">
                     <div class="container page__container">
                         <div class="progression-bar progression-bar--active-accent">
                             <a href="JavaScript:Void(0);"
-                               class="progression-bar__item progression-bar__item--complete">
+                               class="progression-bar__item progression-bar__item--complete text-white">
                                 <span class="progression-bar__item-content">
                                     <i class="material-icons progression-bar__item-icon bg-success">done</i>
-                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase">BASIC INFO</span>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">BASIC INFO</span>
                                 </span>
                             </a>
                             <a href="JavaScript:Void(0);"
-                               class="progression-bar__item progression-bar__item--complete">
+                               class="progression-bar__item progression-bar__item--complete text-white">
                                 <span class="progression-bar__item-content">
-                                    <i class="material-icons progression-bar__item-icon bg-primary bg-success"> done</i>
-                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase">ACADEMICS INFO</span>
+                                    <i class="material-icons progression-bar__item-icon  bg-success"> done</i>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">ACADEMICS INFO</span>
                                 </span>
                             </a>
-                            <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete text-danger">
+                            <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete text-white">
                              <span class="progression-bar__item-content">
-                                 <i class="material-icons progression-bar__item-icon bg-primary bg-success"></i>
-                                 <span class="progression-bar__item-text h5 mb-0 text-uppercase">TRAINING INFO</span>
+                                 <i class="material-icons progression-bar__item-icon bg-primary bg-success">done</i>
+                                 <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">TRAINING INFO</span>
                              </span>
                          </a>
                             <a href="JavaScript:Void(0);"
-                               class="progression-bar__item progression-bar__item--complete progression-bar__item--active">
+                               class="progression-bar__item progression-bar__item--complete ">
                                 <span class="progression-bar__item-content">
-                                    <i class="material-icons progression-bar__item-icon"></i>
-                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase">RESUME</span>
+                                    <i class="material-icons progression-bar__item-icon bg-timesheet-color-primary"></i>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">RESUME</span>
                                 </span>
                             </a>
                             
@@ -266,10 +266,14 @@
                                     <label class="form-label" for="">LINKEDIN PROFILE:</label>
                                     <input type="text" class="form-control" id="" placeholder="Enter Linkedin Profile Link" value="@if($Technical_skill){{$Technical_skill->linkedin_link}}@endif" name="linkedin_link">
                                 </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label class="form-label text-uppercase" for="">Languages Known :</label>
+                                    <input type="text" class="form-control" id="" placeholder="Java, Python, C, C++ " value="@if($Technical_skill){{$Technical_skill->known_language}}@endif" name="known_language">
+                                </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label text-uppercase" for="">ACHIEVEMENTS:</label>
+                                    <label class="form-label text-uppercase" for="">ACHIEVEMENTS ( Academic / Technical ):</label>
                                     <input type="text" class="form-control" id="" placeholder="Enter Achievements If Any" value="@if($Technical_skill){{$Technical_skill->achievement}}@endif" name="achievement">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
@@ -278,10 +282,23 @@
                                 </div>
                             </div>
 
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label class="form-label text-uppercase" for="">Extracurricular Activities:</label>
+                                    <input type="text" class="form-control" id="" placeholder="Participated In Sport / Competition" value="@if($Technical_skill){{$Technical_skill->extracurricular}}@endif" name="extracurricular">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label class="form-label text-uppercase" for="">Skills Set :</label>
+                                    <input type="text" class="form-control" id="" placeholder="Leadership Skills, Communication Skills, Creativity " value="@if($Technical_skill){{$Technical_skill->skil_sets}}@endif" name="skil_sets">
+                                </div>
+                            </div>
+
+                            
+
                             <div class="form-row">                                 
                                 <div class="col-12 col-md-12 mb-3">
                                     <label class="form-label" for="">CAREER OBJECTIVE:</label>
-                                    <textarea class="form-control" id="" placeholder="Enter Career Objective" name="career_object" required="">@if($Technical_skill){{$Technical_skill->career_object}}@endif</textarea>
+                                    <textarea class="form-control" id="" placeholder="Enter Career Objective" name="career_object" >@if($Technical_skill){{$Technical_skill->career_object}}@endif</textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -351,7 +368,7 @@
 
                 $('#certificate').click(function()
                 {
-                    $("#certificate_section").append('<div class="form-row border col-12 pt-2 pb-2"><div class="col-12"><a href="javascript:void(0);" id="remCF1" class="remCF2 btn btn-danger float-right">Remove</a></div><div class="col-12 col-md-6 mb-3"> <label class="form-label" for="">CERTIFICATIONS</label><input type="text" class="form-control" name="certificate[]" id="" placeholder="Enter Any Certifications" required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">UPLOAD CERTIFICATIONS</label><input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" ></div></div>');
+                    $("#certificate_section").append('<div class="form-row border col-12 pt-2 pb-2"><div class="col-12"><a href="javascript:void(0);" id="remCF1" class="remCF2 btn btn-danger float-right">Remove</a></div><div class="col-12 col-md-6 mb-3"> <label class="form-label" for="">CERTIFICATIONS</label><input type="text" class="form-control" name="certificate[]" id="" placeholder="MS-OFFICE, C, C++, JAVA etc " required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">UPLOAD CERTIFICATIONS</label><input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" ></div></div>');
                 });
 
                 $('#certificate_section').on('click','.remCF2',function() 

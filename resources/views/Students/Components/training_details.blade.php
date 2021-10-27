@@ -116,7 +116,7 @@
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3" id="certificate" title="Add More">+</a>                                     
                                     </div>
                                 </div>
-                                @if(count($Certification) > 0)
+                                @if($Certification)
                                     @foreach ($Certification as $item)
                                     <div class="col-12  form-group p-1 h6">
                                         CERTIFICATIONS :- {{$item->Certification_name}}
@@ -131,11 +131,11 @@
                                     <div class="form-row">
                                         <div class="col-12 col-md-6 mb-3">
                                             <label class="form-label" for="">CERTIFICATIONS</label>
-                                            <input type="text" class="form-control" name="certificate[]" id="" placeholder="Enter Any Certifications" >
+                                            <input type="text" class="form-control" name="certificate[]" id="" placeholder="Enter Any Certifications" required="">
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
                                             <label class="form-label" for="">UPLOAD CERTIFICATIONS</label>
-                                            <input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" >
+                                            <input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" required="">
                                         </div>
                                     </div>
                                 @endif
@@ -147,7 +147,7 @@
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3" title="Add More" id="add_project" >+</a>
                                     </div>
                                 </div>
-                                @if(count($Academic_project) > 0)
+                                @if($Academic_project)
                                     <div class="form-row">
                                         @foreach ($Academic_project as $item)
                                             <div class="col-md-12  form-group p-1 h6">
@@ -170,7 +170,7 @@
                                     <div class="form-row">   
                                         <div class="col-12 col-md-6 mb-3">
                                             <label class="form-label text-uppercase" for="">Project Name:</label>
-                                            <input type="text" class="form-control" id="" placeholder="Enter Project Name" name="project_name[]" >
+                                            <input type="text" class="form-control" id="" placeholder="Enter Project Name" name="project_name[]" required="">
                                         </div>
                                         <div class="col-12 col-md-6 mb-3">
                                             <label class="form-label text-uppercase" for="">Team/single:</label>
@@ -181,7 +181,7 @@
                                     <div class="form-row">
                                         <div class="col-12 col-md-12 mb-3">
                                             <label class="form-label text-uppercase" for="">Project details:</label>                                     
-                                            <textarea class="form-control" name="project_detail[]" placeholder="Enter Project Details" ></textarea>
+                                            <textarea class="form-control" name="project_detail[]" placeholder="Enter Project Details" required=""></textarea>
                                         </div>                                
                                     </div>
                                 @endif    
@@ -193,7 +193,7 @@
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3" id="enter_ship" title="Add More">+</a>                                     
                                     </div>
                                 </div>
-                                @if(count($Interships) > 0)
+                                @if($Interships)
                                     <div class="form-row">
                                         @foreach ($Interships as $item)
                                         <div class="col-md-12  form-group p-1 h6">
@@ -251,7 +251,7 @@
                             <div class="form-row">                                 
                                 <div class="col-12 col-md-12 mb-3">
                                     <label class="form-label" for="">CAREER OBJECTIVE:</label>
-                                    <textarea class="form-control" id="" placeholder="Enter Career Objective" name="career_object" required="">@if($Technical_skill){{$Technical_skill->career_object}}@endif</textarea>
+                                    <textarea class="form-control" id="" placeholder="Enter Career Objective" name="career_object">@if($Technical_skill){{$Technical_skill->career_object}}@endif</textarea>
                                 </div>
                             </div>
                             <div class="form-group row">

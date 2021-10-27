@@ -39,18 +39,34 @@
         href="{{asset('Student/css/preloader.css')}}"
         rel="stylesheet">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
-        crossorigin="anonymous" />
-
   <!-- App CSS -->
   <link type="text/css"
         href="{{asset('Student/css/app.css')}}"
         rel="stylesheet">
 
-        <!-- Custom  CSS -->
-  <link type="text/css"
-  href="{{asset('Student/css/custom.css')}}"
-  rel="stylesheet">
+   <!-- Custom  CSS -->
+ <link type="text/css"
+ href="{{asset('Student/css/custom.css')}}"
+ rel="stylesheet">
 
+ <style>
+          .text-blue1{
+                    color: #194968!important;
+                }
+            .text-orange{
+                  color: #fb6c04!important;
+            }
+            .bg-timesheet-color-secondary{
+                  background-color: #194968!important;
+            }
+            .bg-timesheet-color-primary{
+                 background-color: #303956!important;
+            }
+            .progression-bar__item {
+                  flex-direction:initial;
+            }
+            
+ </style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
 

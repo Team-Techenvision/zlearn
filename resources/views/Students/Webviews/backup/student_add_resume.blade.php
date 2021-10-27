@@ -152,7 +152,7 @@
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">DATE OF BIRTH:</label>
-                                <input id="" type="date" class="form-control col-md-9" name="bod_date" value="@if($UserDetails){{$UserDetails->dob}}@endif" required="">
+                                <input id="bod_date" type="text" class="form-control col-md-9" name="bod_date" value="@if($UserDetails){{$UserDetails->dob}}@endif" required="">
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2">YOUR EMAIL:</label>
@@ -166,29 +166,15 @@
                                 <label class="form-label col-md-3 p-2">CAMPUS:</label>
                                 <input id="" type="text" class="form-control col-md-9" placeholder="Enter Campus Name" name="campus" value="@if($Education){{$Education->compus}}@endif" >
                             </div> -->
-
-                            @if($Education)
-
-                                @php
-                                    $college_name= DB::table('colleges')->where('id', $Education->collage_id)->pluck('college_name')->first();
-                                @endphp
-                                
-                            <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">College:</label>
-                                <input type="text" class="form-control col-md-9" id="" name="selected_collage" value="{{$college_name}}" readonly>
-                                <input type="hidden" name="collage" value="{{$Education->collage_id}}" >
-                            </div>
-                            @else
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 p-2 text-uppercase">College:</label>
-                                <select id="" name="collage" class="form-control custom-select col-md-9" >
+                                <select id="" name="collage" class="form-control custom-select col-md-9" @if($Education->collage_id == "Null") required="" @else readonly @endif >
                                     <option value="" selected>Select College</option>
                                     @foreach($College as $list)
                                     <option value="{{$list->id}}" @if($Education) @if($Education->collage_id == $list->id)selected @endif @endif>{{$list->college_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            @endif
                             <div class="form-group row ">
                                 <label class="form-label col-md-3 col-4 p-2">EDUCATION:</label>
                                 <div class="custom-control custom-radio co-md-9 col-8 p-2">
@@ -202,20 +188,8 @@
                                     </span>
                                 </div>                                
                             </div>
-
-                            @if($Education)
-                                @php
-                                    $course_name= DB::table('courses')->where('id', $Education->degree)->pluck('course_name')->first();
-                                @endphp
-                                
-                            <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">Course:</label>
-                                <input type="text" class="form-control col-md-9" id="" name="selected_course" value="{{$course_name}}" readonly>
-                                <input type="hidden" name="degree" value="{{$Education->degree}}">
-                            </div>
-                            @else
-                            <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2 text-uppercase">Course:</label>
+                             <div class="form-group row ">
+                                <label class="form-label col-md-3 p-2 text-uppercase">course:</label>
                                 <select id="" name="degree" class="form-control custom-select col-md-9" required="">
                                     <option value="" selected>Select Course</option>
                                     @foreach($course as $list)
@@ -223,21 +197,8 @@
                                     @endforeach                                      
                                 </select>                               
                             </div>
-                        @endif
-
-                        @if($Education)
-                            
-                                @php
-                                $branch_name= DB::table('branches')->where('id', $Education->branch_id)->pluck('branch_name')->first();
-                            @endphp
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">Branch:</label>
-                                <input type="text" class="form-control col-md-9" id="" name="selected_branch" value="{{$branch_name}}" readonly>
-                                <input type="hidden" name="branch" value="{{$Education->branch_id}}">
-                            </div>
-                            @else
-                            <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2 text-uppercase">Branch:</label>
+                                <label class="form-label col-md-3 p-2 text-uppercase">branch:</label>
                                 <select id="" name="branch" class="form-control custom-select col-md-9" required="">
                                     <option value="" selected>Select Branch</option>
                                     @foreach($branch as $list)
@@ -245,7 +206,7 @@
                                     @endforeach                                      
                                 </select>                               
                             </div>
-                            @endif
+
                             <div class="form-group row">
                                 <label class="form-label col-md-3 p-2">SEMESTER:</label>
                                 <select id="" name="semester" class="form-control custom-select col-md-9" required="">

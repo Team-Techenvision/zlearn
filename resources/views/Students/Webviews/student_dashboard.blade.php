@@ -6,7 +6,7 @@
       @include('Students.Common.student_head')
     </head>
 
-    <body class="layout-app ">
+    <body class="layout-app " style="background:#b2afaf66!important;">
 
         <div class="preloader">
             <div class="sk-chase">
@@ -38,20 +38,13 @@
         
                 <!-- // END Header -->
 
-                <div class="pt-32pt">
-                    <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+                <div class="">
+                    <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left " style="padding-left:0px!important;padding-right:0px!important;">
                         <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
 
                             <div class="mb-24pt mb-sm-0 mr-sm-24pt">
                                 <h2 class="mb-0">Dashboard</h2>
-
-                                <!-- <ol class="breadcrumb p-0 m-0">
-                                    <li class="breadcrumb-item"><a href="JavaScript:Void(0);">Home</a></li>
-
-                                    <li class="breadcrumb-item active">
-                                        Dashboard
-                                    </li>
-                                </ol> -->
+ 
 
                             </div>
                         </div>
@@ -67,32 +60,78 @@
 
                 <!-- Page Content -->
 
-    <div class="container page__container">
-        <div class="page-section">
-            <div class="row">
-            {{-- <div class="col-sm-6">
-                <a href="{{url('studentdashboard')}}">
-                    <div class="card text-center">
-                      <div class="card-body text-center">
-                        <span  class="h1 text-info"><i class="fa fa-th-large" aria-hidden="true"></i></span>
-                        <p class="h3">Dashboard</p>
-                        <hr class="style1 w-75 m-auto bg-info">                   
-                      </div>
-                    </div>
-                </a>
-              </div>  --}}
-              <div class="col-md-6">
+    <div class="container page__container " style="padding-left:0px!important;padding-right:0px!important;">
+        <div class="page-section pt-0">
+            <div class="row">           
+              <div class="col-md-12 mb-2">
                 @php 
                   $user = Auth::user();
                 @endphp
-                <div class="alert alert-success" role="alert">
-                <h6> Welcome Back, <strong class="text-info ">@php echo $user->name; @endphp </strong>, how do you like to upskill today? </h6>  
+                <div class="" role="alert">
+                  <h5 class="pb-0"> Welcome Back, <strong class="text-orange">@php echo $user->name; @endphp </strong>, how do you like to upskill today? </h5>  
+                </div>
+                <div class="progress mb-3" style="height: 8px;">
+                  <div class="progress-bar" role="progressbar" style="width: 100%;background: #c2c4be;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                    
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6 text-center mb-3">
-                <img class="" src="{{asset('images/dashboard_scrore.png')}}" alt="">
+              <div class="row col-12 text-center p-0 m-auto">
+                <div class="col-md-10 row m-auto">
+                    <div class="col-12 row pt-4 pb-4 border shadow" style="border-radius: 1.25rem!important;background:#f3f3f3!important;">
+                      <div class="col-12 text-center pb-3"> 
+                          <span class="h4">Performance Analysis (Sectionwise)</span>
+                      </div>
+                      <div class="col-3 text-center mb-3">
+                          <img  src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail">
+                      </div>
+                      <div class="col-3 text-center mb-3">
+                        <img  src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail">
+                      </div>
+                      <div class="col-3 text-center mb-3">
+                        <img  src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail">
+                      </div>
+                      <div class="col-3 text-center mb-3">
+                        <img src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail">
+                      </div>               
+                    </div>
+                    <!-- ====================================== -->
+                    <div class="col-12 row pt-2 pb-2 border shadow mt-2 mb-2" style="border-radius: 1.25rem!important;background:#f3f3f3!important;">
+                      <div class="col-12 m-auto text-center p-0">
+                        <span class="col-12 text-center pl-0 pr-0 pb-0 pt-2"><h3>Chapter Completion</h3></span>                        
+                      </div>
+                      <div class="col-12 m-auto p-0">
+                         <!--  <canvas id="horizontalBar"></canvas> -->
+
+                         <div id="chart" class="w-100" style=""></div>
+
+                          
+                          
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2 row m-auto"style="border-radius: 1.25rem!important;background:#f3f3f3!important;">
+                      <div class="col-12 m-auto">
+                        <div class="col-12 m-auto text-center p-0">
+                          <span class="col-12 text-center"><h3>ZSCORE</h3></span>
+                          
+                        </div>
+                        <div class="col-12 m-auto text-center p-0">
+                          <canvas id="doughnutChart"></canvas>
+                          <!-- <div id="pie_chart"></div> -->
+                      </div>
+                      <div class="col-12 m-auto text-center p-0 pb-2">
+                        <span class="col-12 text-center p-0"><h3>29%</h3></span>
+                        <span class="col-12 d-flex text-center p-0"><span class="m-auto">Academic Scores - 10%/30% </span></span>
+                        <span class="col-12 d-flex text-center p-0"><span class="m-auto">Test – 10%/30%</span></span>
+                        <span class="col-12 d-flex text-center p-0"><span class="m-auto">Internship – 9%/40%</span></span>
+                      </div>
+                    </div>
+                  </div>
               </div>
-              <div class="col-sm-6">
+              
+              
+              {{-- <div class="col-sm-6">
                 <a href="{{url('resume-page-one')}}">
                     <div class="card text-center">
                       <div class="card-body text-center">
@@ -102,8 +141,8 @@
                       </div>
                     </div>
                 </a>
-              </div>
-              <div class="col-sm-6">
+              </div> --}}
+              {{-- <div class="col-sm-6">
                 <a href="{{url('E-Learn')}}">
                     <div class="card text-center">
                       <div class="card-body text-center">
@@ -113,8 +152,8 @@
                       </div>
                     </div>
                 </a>
-              </div>
-              <div class="col-sm-6">
+              </div> --}}
+              {{-- <div class="col-sm-6">
                 <a href="JavaScript:Void(0);">
                     <div class="card text-center">
                       <div class="card-body text-center">
@@ -124,9 +163,9 @@
                       </div>
                     </div>
                 </a>
-              </div>
+              </div> --}}
               
-              <div class="col-sm-6">
+              {{-- <div class="col-sm-6">
                 <a href="{{url('View-All-Test')}}">
                     <div class="card text-center">
                       <div class="card-body text-center">
@@ -136,7 +175,7 @@
                       </div>
                     </div>
                 </a>
-              </div>              
+              </div>               --}}
             </div>
 
         </div>
@@ -166,7 +205,136 @@
         <!-- // END Drawer Layout -->
 
         @include('Students.Common.student_footer')
-        
+
+        <script src="{{asset('Student/js/chart_br.js')}}"></script> 
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> 
+       <style type="text/css">
+         .apexcharts-menu-icon
+         {
+            display: none!important;
+         }
+         @media screen and (max-width: 600px) 
+         {
+           .page-section
+           {
+             padding-left: 10px!important;
+             
+           }
+         }
+       </style>
+      <script type="text/javascript">
+       $(document).ready(function()
+       {
+          var options = {
+          series: [{
+          name: 'Completed Chapters',          
+          data: [44, 55, 41, 37],
+          color:'#393a3e'
+        },{
+          name: 'Total Chapters',
+          data: [25, 12, 19, 32],
+          color:'#ef6548'
+        }],
+          chart: {
+          type: 'bar',
+          height: 200,
+          stacked: true,
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+          },
+        },
+        stroke: {
+          width: 1,
+          colors: ['#fff']
+        },
+        // title: {
+        //   text: 'Fiction Books Sales'
+        // },
+        xaxis: {
+          categories: ["Technical", "Verbal", "Logical", "Quantitative"],
+          labels: {
+            formatter: function (val) {
+              return val 
+            }
+          }
+        },
+        yaxis: {
+          title: {
+            text: undefined
+          },
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val
+            }
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        legend: {
+          position: 'top',
+          horizontalAlign: 'left',
+          offsetX: 10
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+      
+    });
+      </script>
+      <script>
+        $(document).ready(function()
+          {
+            var options = {
+          series: [44, 55, 41],
+          chart: {
+          width: 300,
+          type: 'donut',
+        },
+        plotOptions: {
+          pie: {
+            startAngle: -90,
+            endAngle: 270
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        // fill: {
+        //   type: 'gradient',
+        // },
+        // legend: {
+        //   formatter: function(val, opts) {
+        //     return val + " - " + opts.w.globals.series[opts.seriesIndex]
+        //   }
+        // },
+        title: {
+          text: 'ZSCORE'
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 0
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#pie_chart"), options);
+        chart.render();
+      
+          });
+      </script>
     </body>
 
 </html>

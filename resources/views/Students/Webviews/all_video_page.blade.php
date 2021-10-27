@@ -59,13 +59,13 @@
                             </div>
                         </div>
 
-                        <div class="row"
+                        {{-- <div class="row"
                              role="tablist">
                             <div class="col-auto">
                                 <a href="#"
                                    class="btn btn-outline-secondary">My Courses</a>
                             </div>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>
