@@ -48,6 +48,174 @@ class StudentController extends Controller
         {              
             session()->forget('Test_Id');
         }
+
+        $u_id = Auth::User()->id;
+
+        /****
+         * Coading Section Start 
+         * 
+         * */
+       
+        $coading_count = DB::table('save__answers')->join('questions','questions.id','=','save__answers.question_id')->where('save__answers.user_id', $u_id)->where('questions.test_section',7)->count();
+        $coadingcorrect_count = DB::table('save__answers')->join('questions','questions.id','=','save__answers.question_id')->where('save__answers.user_id', $u_id)->where('questions.test_section',7)->whereColumn('save__answers.Select_option','=','save__answers.correct_answer')->count();
+        // dd($coading_count);
+        // dd($coadingcorrect_count->count());
+
+        $new_count_coding_section = round(($coadingcorrect_count / $coading_count) * 100);
+        if($new_count_coding_section > 0 && $new_count_coding_section <= 25 )
+        {
+            $data['coding_arrow'] = 'rischio1';
+            $data['coading_text'] =  'Poor';
+        }elseif($new_count_coding_section > 25 && $new_count_coding_section <= 50 )
+        {
+            $data['coding_arrow'] = 'rischio2';
+            $data['coading_text'] =  'Average';
+        }
+        elseif($new_count_coding_section > 50 && $new_count_coding_section <= 75 )
+        {
+            $data['coding_arrow'] = 'rischio3';
+            $data['coading_text'] =  'Good';
+        }
+        elseif($new_count_coding_section > 75 && $new_count_coding_section <= 100 )
+        {
+            $data['coding_arrow'] = 'rischio4';
+            $data['coading_text'] =  'Excellent';
+        }else{
+            $data['coding_arrow'] = '';
+            $data['coading_text'] =  'Not Found';
+        }
+        /****
+         * Coading Section Ends 
+         * 
+         * */
+
+         /****
+         * Quantitative Section Start 
+         * 
+         * */
+       
+        $quantitative_count = DB::table('save__answers')->join('questions','questions.id','=','save__answers.question_id')->where('save__answers.user_id', $u_id)->where('questions.test_section',1)->count();
+        $quantitativecorrect_count = DB::table('save__answers')->join('questions','questions.id','=','save__answers.question_id')->where('save__answers.user_id', $u_id)->where('questions.test_section',1)->whereColumn('save__answers.Select_option','=','save__answers.correct_answer')->count();
+        // dd($coading_count);
+        // dd($coadingcorrect_count->count());
+        if($quantitative_count !=0 && $quantitativecorrect_count != 0){
+        $new_count_quantitative_section = round(($quantitativecorrect_count / $quantitative_count) * 100);
+        if($new_count_quantitative_section > 0 && $new_count_quantitative_section <= 25 )
+        {
+            $data['quantitative_arrow'] = 'rischio1';
+            $data['quantitative_text'] =  'Poor';
+        }elseif($new_count_quantitative_section > 25 && $new_count_quantitative_section <= 50 )
+        {
+            $data['quantitative_arrow'] = 'rischio2';
+            $data['quantitative_text'] =  'Average';
+        }
+        elseif($new_count_quantitative_section > 50 && $new_count_quantitative_section <= 75 )
+        {
+            $data['quantitative_arrow'] = 'rischio3';
+            $data['quantitative_text'] =  'Good';
+        }
+        elseif($new_count_quantitative_section > 75 && $new_count_quantitative_section <= 100 )
+        {
+            $data['quantitative_arrow'] = 'rischio4';
+            $data['quantitative_text'] =  'Excellent';
+        }else{
+            $data['quantitative_arrow'] = '';
+            $data['quantitative_text'] =  'Not Found';
+        }
+        }else{
+            $data['quantitative_arrow'] = '';
+            $data['quantitative_text'] =  'Not Found';
+        }
+        /****
+         * Quantitative Section Ends 
+         * 
+         * */
+
+         /****
+         * Verbal Ability Section Start 
+         * 
+         * */
+       
+        $verbal_count = DB::table('save__answers')->join('questions','questions.id','=','save__answers.question_id')->where('save__answers.user_id', $u_id)->where('questions.test_section',2)->count();
+        $verbalcorrect_count = DB::table('save__answers')->join('questions','questions.id','=','save__answers.question_id')->where('save__answers.user_id', $u_id)->where('questions.test_section',2)->whereColumn('save__answers.Select_option','=','save__answers.correct_answer')->count();
+        // dd($coading_count);
+        // dd($coadingcorrect_count->count());
+        if($verbal_count !=0 && $verbalcorrect_count != 0){
+        $new_count_verbal_section = round(($verbalcorrect_count / $verbal_count) * 100);
+        if($new_count_verbal_section > 0 && $new_count_verbal_section <= 25 )
+        {
+            $data['verbal_arrow'] = 'rischio1';
+            $data['verbal_text'] =  'Poor';
+        }elseif($new_count_verbal_section > 25 && $new_count_verbal_section <= 50 )
+        {
+            $data['verbal_arrow'] = 'rischio2';
+            $data['verbal_text'] =  'Average';
+        }
+        elseif($new_count_verbal_section > 50 && $new_count_verbal_section <= 75 )
+        {
+            $data['verbal_arrow'] = 'rischio3';
+            $data['verbal_text'] =  'Good';
+        }
+        elseif($new_count_verbal_section > 75 && $new_count_verbal_section <= 100 )
+        {
+            $data['verbal_arrow'] = 'rischio4';
+            $data['verbal_text'] =  'Excellent';
+        }else{
+            $data['verbal_arrow'] = '';
+            $data['verbal_text'] =  'Not Found';
+        }
+        }else{
+            $data['verbal_arrow'] = '';
+            $data['verbal_text'] =  'Not Found';
+        }
+        /****
+         * Verbal Ability Section Ends 
+         * 
+         * */
+
+        /****
+         * Reasoning Ability Section Start 
+         * 
+         * */
+       
+        $reasoning_count = DB::table('save__answers')->join('questions','questions.id','=','save__answers.question_id')->where('save__answers.user_id', $u_id)->where('questions.test_section',3)->count();
+        $reasoningcorrect_count = DB::table('save__answers')->join('questions','questions.id','=','save__answers.question_id')->where('save__answers.user_id', $u_id)->where('questions.test_section',3)->whereColumn('save__answers.Select_option','=','save__answers.correct_answer')->count();
+        // dd($coading_count);
+        // dd($coadingcorrect_count->count());
+        if($reasoning_count !=0 && $reasoningcorrect_count != 0){
+        $new_count_reasoning_section = round(($reasoningcorrect_count / $reasoning_count) * 100);
+        if($new_count_reasoning_section > 0 && $new_count_reasoning_section <= 25 )
+        {
+            $data['reasoning_arrow'] = 'rischio1';
+            $data['reasoning_text'] =  'Poor';
+        }elseif($new_count_reasoning_section > 25 && $new_count_reasoning_section <= 50 )
+        {
+            $data['reasoning_arrow'] = 'rischio2';
+            $data['reasoning_text'] =  'Average';
+        }
+        elseif($new_count_reasoning_section > 50 && $new_count_reasoning_section <= 75 )
+        {
+            $data['reasoning_arrow'] = 'rischio3';
+            $data['reasoning_text'] =  'Good';
+        }
+        elseif($new_count_reasoning_section > 75 && $new_count_reasoning_section <= 100 )
+        {
+            $data['reasoning_arrow'] = 'rischio4';
+            $data['reasoning_text'] =  'Excellent';
+        }else{
+            $data['reasoning_arrow'] = '';
+            $data['reasoning_text'] =  'Not Found';
+        }
+        }else{
+            $data['reasoning_arrow'] = '';
+            $data['reasoning_text'] =  'Not Found';
+        }
+        /****
+         * Ressoning Ability Section Ends 
+         * 
+         * */
+        
+        // dd($new_count_coding_section);
     	return view('Students/Webviews/student_dashboard',$data);
     }
 
@@ -1322,5 +1490,22 @@ class StudentController extends Controller
                 'test_case' => $test_CaseResult_update,                            
             ]);
 
+        }
+
+        public function profile_pic_submit(Request $req){
+
+            $u_id = Auth::User()->id;
+
+            if($req->hasFile('profile_picture')) {
+                $file = $req->file('profile_picture');
+                $filename = 'profile_pic'.time().'.'.$req->profile_picture->extension();
+                $destinationPath = public_path('Student/images/profile_pic');
+                $file->move($destinationPath, $filename);
+                $image = 'Student/images/profile_pic/'.$filename;
+                $result = DB::table('user_details')->where('user_id', $u_id)->update(['image'=>$image]);
+            }
+            
+            toastr()->success('Image Uploded Successfully!');
+            return back();
         }
 }

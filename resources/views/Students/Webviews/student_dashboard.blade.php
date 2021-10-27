@@ -82,18 +82,80 @@
                       <div class="col-12 text-center pb-3"> 
                           <span class="h4">Performance Analysis (Sectionwise)</span>
                       </div>
-                      <div class="col-3 text-center mb-3">
-                          <img  src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail">
+                      
+                      <div class="col-12 col-md-4 text-center mb-3">
+                        {{-- <img  src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail"> --}}
+                        <div class="gauge-wrapper">
+                          <div class="gauge four <?php echo $quantitative_arrow; ?>">
+                            <div class="slice-colors">
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                            </div>
+                            <div class="needle"></div>
+                            <div class="gauge-center">
+                              <div class="label">Quantitative Ability</div>
+                              <div class="number">@php echo $quantitative_text; @endphp</div>
+                            </div>    
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-3 text-center mb-3">
-                        <img  src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail">
+                      <div class="col-12 col-md-4 text-center mb-3">
+                        {{-- <img  src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail"> --}}
+                        <div class="gauge-wrapper">
+                          <div class="gauge four <?php echo $verbal_arrow; ?>">
+                            <div class="slice-colors">
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                            </div>
+                            <div class="needle"></div>
+                            <div class="gauge-center">
+                              <div class="label">Verbal Ability</div>
+                              <div class="number">@php echo $verbal_text; @endphp</div>
+                            </div>    
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-3 text-center mb-3">
-                        <img  src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail">
-                      </div>
-                      <div class="col-3 text-center mb-3">
-                        <img src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail">
-                      </div>               
+
+                      <div class="col-12 col-md-4 text-center mb-3">
+                        {{-- <img  src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail"> --}}
+                        <div class="gauge-wrapper">
+                          <div class="gauge four <?php echo $reasoning_arrow; ?>">
+                            <div class="slice-colors">
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                            </div>
+                            <div class="needle"></div>
+                            <div class="gauge-center">
+                              <div class="label">Coading</div>
+                              <div class="number">@php echo $reasoning_text; @endphp</div>
+                            </div>    
+                          </div>
+                        </div>
+                    </div>
+                      {{-- <div class="col-3 text-center mb-3">
+                        {{-- <img src="{{asset('images/dashboard_scrore.png')}}" alt="" class="img-thumbnail"> --
+                        <div class="gauge-wrapper">
+                          <div class="gauge four rischio3">
+                            <div class="slice-colors">
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                              <div class="st slice-item"></div>
+                            </div>
+                            <div class="needle"></div>
+                            <div class="gauge-center">
+                              <div class="label">RISK</div>
+                              <div class="number">HIGH</div>
+                            </div>    
+                          </div>
+                        </div>
+                      </div>                --}}
                     </div>
                     <!-- ====================================== -->
                     <div class="col-12 row pt-2 pb-2 border shadow mt-2 mb-2" style="border-radius: 1.25rem!important;background:#f3f3f3!important;">

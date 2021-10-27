@@ -65,6 +65,10 @@
             .progression-bar__item {
                   flex-direction:initial;
             }
+            .profile_picture{
+                  width: 120px !important;
+                  height: 120px !important;
+            }
             
  </style>
 

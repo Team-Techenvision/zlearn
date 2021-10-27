@@ -58,3 +58,12 @@
       });
     });
   </script>
+
+  <script>
+    $('#profile_picture').change(function() { 
+    // select the form and submit
+    $('#profile-pic').submit(); 
+});
+  </script>
+
+profile_picture

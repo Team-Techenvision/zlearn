@@ -9,19 +9,24 @@
 
                         <!-- Sidebar Content -->
 
-                       
+                        @php
+                            $profile_pic = DB::table('user_details')->where('user_id', Auth::User()->id)->pluck('image')->first();
+                        @endphp
 
-                        <a href="{{url('studentdashboard')}}"
+                        <form id="profile-pic" action="{{url('profile-pic-submit')}}" method="post"  enctype="multipart/form-data" >
+                            @csrf
+                        <a href="javascript:void(0)"
                            class="sidebar-brand ">
                             <!-- <img class="sidebar-brand-icon" src="../../public/images/illustration/student/128/white.svg" alt="Luma"> -->
 
                             <span class="avatar avatar-xl sidebar-brand-icon h-auto">
 
-                                <span class="avatar-title rounded-circle bg-primary"><img src="{{asset('Student/images/illustration/student/128/white.svg')}}"
+                                <span class="avatar-title "><img class="rounded-circle profile_picture" src="@if($profile_pic){{asset($profile_pic)}}@else{{asset('Student/images/profile_pic/profile1.png')}}@endif"
                                          class="img-fluid p-2"
                                          alt="logo" /></span>
 
                             </span>
+
 
                             <span class="text-wite">@php 
                                 $user = Auth::user();
@@ -30,6 +35,8 @@
                               </span>
                         </a>
 
+                            <input type="file" class="text-center pb-3 pl-3" name="profile_picture" id="profile_picture">
+                        </form>
                         <div class="sidebar-heading text-wite">Student</div>
                         <ul class="sidebar-menu">
 
