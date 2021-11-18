@@ -3,6 +3,11 @@
 
 <head>
     @include('Students.Common.student_head')
+    <style>
+        .text-danger{
+            margin-left: -15px;
+        }
+    </style>
 </head>
 
 <body class="layout-app ">
@@ -72,7 +77,7 @@
                         <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete">
                             <span class="progression-bar__item-content">
                                 <i class="material-icons progression-bar__item-icon bg-timesheet-color-primary"> </i>
-                                <span class="progression-bar__item-text h5 mb-0 text-uppercase">TRAINING INFO</span>
+                                <span class="progression-bar__item-text h5 mb-0 text-uppercase">SKILLS INFO</span>
                             </span>
                         </a>
                         <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete ">
@@ -133,112 +138,196 @@
                             </div> -->
                         <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">SSLC / 10 <sup>th</sup> PERCENTAGE(%)</label>
-                                <input type="text" class="form-control" name="sslc_per" id=""
+                                <label class="form-label" for=""> <span class="text-danger">*</span> SSLC / 10 <sup>th</sup> Percentage(%)</label>
+                                <input type="number" class="form-control" name="sslc_per" id=""
                                     value="@if ($Academics){{ $Academics->sslc_perce }}@endif" placeholder="Enter Your SSLC Percentage"
-                                    required="">
+                                    required="" >
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">YEAR OF PASS</label>
-                                <input type="text" class="form-control" id="" placeholder="Enter Year Of Pass (YYYY)"
-                                    value="@if ($Academics){{ $Academics->sslc_year }}@endif" name="year_sslc" required="">
+                                <label class="form-label" for=""> <span class="text-danger">*</span> Year Of Pass</label>
+                                <input type="number" class="form-control" id="" placeholder="Enter Year Of Pass (YYYY)"
+                                    value="@if ($Academics){{ $Academics->sslc_year }}@endif" name="year_sslc" required="" max="9999">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">PUC / 12 <sup>th</sup> PERCENTAGE(%) If Any</label>
+                                <label class="form-label" for=""> <span class="text-danger">*</span> PUC / 12 <sup>th</sup> Percentage(%) If Applicable</label>
                                 <input type="text" class="form-control" name="puc_per" id=""
                                     value="@if ($Academics){{ $Academics->puc_perce }}@endif" placeholder="Enter PUC / 12th Percentage"
                                     required="">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">YEAR OF PASS</label>
-                                <input type="text" class="form-control" id="" placeholder="Enter Year Of Pass (YYYY)"
-                                    value="@if ($Academics){{ $Academics->puc_year }}@endif" name="year_puc" required="">
+                                <label class="form-label" for=""> <span class="text-danger">*</span> Year Of Pass</label>
+                                <input type="number" class="form-control" id="" placeholder="Enter Year Of Pass (YYYY)"
+                                    value="@if ($Academics){{ $Academics->puc_year }}@endif" name="year_puc" required="" max="9999">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">DIPLOMA PERCENTAGE(%) If Any </label>
+                                <label class="form-label" for="">Diploma Percentage(%) If Applicable </label>
                                 <input type="text" class="form-control" name="diploma_per" id=""
                                     value="@if ($Academics){{ $Academics->diploma_perce }}@endif" placeholder="Enter Diploma Percentage">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">YEAR OF PASS</label>
-                                <input type="text" class="form-control" id="" placeholder="EnterYear Of Pass"
-                                    value="@if ($Academics){{ $Academics->diploma_year }}@endif" name="year_diploma">
+                                <label class="form-label" for="">Year Of Pass</label>
+                                <input type="number" class="form-control" id="" placeholder="EnterYear Of Pass"
+                                    value="@if ($Academics){{ $Academics->diploma_year }}@endif" name="year_diploma" max="9999">
                             </div>
                         </div>
 
                         <div id="ug_details" class="border p-2">
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
-                                    <label class="form-label" for="">UG:</label>
-                                    <a href="javascript:void(0);" class="btn btn-success float-right h3"
-                                        title="Add More" id="add_ug">+</a>
+                                    <label class="form-label" for="">UG:</label>                                    
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">Year Of Pass</label>
-                                    <input type="text" class="form-control" id="" placeholder="Enter Year Of Pass"
-                                        value="@if ($Academics){{ $Academics->year_of_pass_ug }}@endif" name="year_of_pass_ug">
+                                    <input type="number" class="form-control" id="" placeholder="Enter Year Of Pass"
+                                        value="@if ($Academics){{ $Academics->year_of_pass_ug }}@endif" name="year_of_pass_ug" max="9999">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label" for="">AVG PERCENTAGE(%)</label>
-                                    <input type="text" class="form-control" id="" placeholder="Enter Average Percentage"
+                                    <label class="form-label" for="">AVG Percentage(%)</label>
+                                    <input type="number" class="form-control" id="" placeholder="Enter Average Percentage"
                                         value="@if ($Academics){{ $Academics->avg_percentage_ug }}@endif" name="avg_percentage_ug">
                                 </div>
                             </div>
+                            @if($Education->education == 'UG')
+                            <div class="form-row">
+                                <div class="col-12 col-md-4 mb-3">
+                                    <label class="form-label" for="">Semester</label>
+                                    <select id="" name="semester_id_ug[]" class="form-control custom-select">
+                                        <option value="" selected>Select Semester </option>
+                                        @foreach ($graduation_sem as $list)
+                                            <option value="{{ $list->sem_id }}"  >{{ $list->sem_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-4 mb-3">
+                                    <label class="form-label" for=""> Score Type</label>
+                                    <select id="" name="scrore_type_ug[]" class="form-control custom-select">
+                                        <option value="">Select Score Type </option>
+                                        <option value="SGPA">SGPA</option>
+                                        <option value="CGPA">CGPA</option>
+                                        <option value="Percentage" >Percentage</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-2 mb-3">
+                                    <label class="form-label" for="">Score</label>
+                                        <input type="number" class="form-control" id="" placeholder="Scrore" value="" name="percentage_ug[]">
+                                    </div>
+                                    <div class="col-12 col-md-2 ">
+                                        <a href="javascript:void(0);" class="btn btn-success float-right h3 mt-4"
+                                        title="Add More" id="add_ug">+</a>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif
+
+                            @if($Education->education == 'PG')
+                            <div class="form-row">
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label class="form-label" for="">College Name</label>
+                                    <input type="text" class="form-control" id="" placeholder="Enter College Name"
+                                        value="@if ($Academics){{ $Academics->college_ug }}@endif" name="college_ug">
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label class="form-label" for="">Course</label>
+                                    <input type="text" class="form-control" id="" placeholder="Enter Course"
+                                        value="@if ($Academics){{ $Academics->cource_ug }}@endif" name="cource_ug">
+                                </div>
+                            </div>
+                            @else
                            
                             @if ($UG_Details->count() > 0)
                                     <div class="form-row">
                                         @foreach ($UG_Details as $item)
-                                            <div class="col-md-12  form-group p-1 h6">
-                                                <a href="{{url('Delete-UG_Details')}}/{{$item->id}}" class="btn btn-accent float-right" title="Delete" id="delete_ug"><i class="material-icons">delete</i></a>
-                                             </div>  
+                                            {{-- <div class="col-md-12  form-group p-1 h6">
+                                                <a href="{{url('Delete-UG_Details')}}/{{$item->id}}" class="btn btn-danger float-right" title="Delete" id="delete_ug"><i class="material-icons">delete</i></a>
+                                             </div>   --}}
                                              <?php
                                              $semester_name = DB::table('graduation_sem')->where('sem_id', $item->semester_id_ug)->pluck('sem_name')->first();
                                              ?>  
-                                            <div class="col-md-6  form-group p-1 h6">
+                                            <div class="col-md-4 col-12 form-group p-1 h6">
                                                 Semester Name :- {{$semester_name}}
                                             </div>
-                                            <div class="col-md-6  form-group p-1 h6">
-                                                Percentage :- {{$item->percentage_ug}}
+                                            <div class="col-md-4 col-12 form-group p-1 h6">
+                                                Score Type :- {{$item->scrore_type_ug}}
+                                            </div>
+                                            <div class="col-md-2 col-12 form-group p-1 h6">
+                                                Score :- {{$item->percentage_ug}}
+                                            </div>
+                                            <div class="col-md-2 col-12">
+                                                <a href="{{url('Delete-UG_Details')}}/{{$item->id}}" class="btn btn-danger float-right" title="Delete" id="delete_ug"><i class="material-icons">delete</i></a>
                                             </div>
                                              <hr style="w-50 m-auto text-dark"> 
                                         @endforeach
                                     </div>                                       
                                 @endif
+                            @endif
                         </div>
 
-
+                        @if($Education->education == 'PG')
                         <div id="pg_details" class="border p-2">
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
                                     <label class="form-label" for="">PG:</label>
-                                    <a href="javascript:void(0);" class="btn btn-success float-right h3"
-                                        title="Add More" id="add_pg">+</a>
+                                   
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">Year Of Pass</label>
-                                    <input type="text" class="form-control" id="" placeholder="Enter Year Of Pass"
-                                        value="@if ($Academics){{ $Academics->year_of_pass_pg }}@endif" name="year_of_pass_pg">
+                                    <input type="number" class="form-control" id="" placeholder="Enter Year Of Pass"
+                                        value="@if ($Academics){{ $Academics->year_of_pass_pg }}@endif" name="year_of_pass_pg" max="9999">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label" for="">AVG PERCENTAGE(%)</label>
-                                    <input type="text" class="form-control" id="" placeholder="Enter Average Percentage"
+                                    <label class="form-label" for="">AVG Percentage(%)</label>
+                                    <input type="number" class="form-control" id="" placeholder="Enter Average Percentage"
                                         value="@if ($Academics){{ $Academics->avg_percentage_pg }}@endif" name="avg_percentage_pg">
                                 </div>
                             </div>
+
+                            <div class="form-row">
+                                <div class="col-12 col-md-4 mb-3">
+                                    <label class="form-label" for=""> Semester</label>
+                                    <select id="" name="semester_id_pg[]" class="form-control custom-select">
+                                        <option value="">Select Semester </option>
+                                        <option value="1" >1st Semester </option>
+                                        <option value="2" >2nd Semester </option>
+                                        <option value="3" >3rd Semester </option>
+                                        <option value="4" >4th Semester </option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-4 mb-3">
+                                    <label class="form-label" for=""> Score Type</label>
+                                    <select id="" name="scrore_type_pg[]" class="form-control custom-select">
+                                        <option value="">Select Score Type </option>
+                                        <option value="SGPA">SGPA</option>
+                                        <option value="CGPA">CGPA</option>
+                                        <option value="Percentage" >Percentage</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-2 mb-3">
+                                    <label class="form-label" for="">Score</label>
+                                        <input type="number" class="form-control" id="" placeholder="Score" value="" name="percentage_pg[]" >
+                                    </div>
+                                    <div class="col-12 col-md-2 ">
+                                        <a href="javascript:void(0);" class="btn btn-success float-right h3 mt-4"
+                                        title="Add More" id="add_pg">+</a>
+                                        </a>
+                                    </div>
+                                </div>
+
                             @if ($PG_Details->count() > 0)
                                     <div class="form-row">
                                         @foreach ($PG_Details as $item)
-                                            <div class="col-md-12  form-group p-1 h6">
-                                                <a href="{{url('Delete-PG_Details')}}/{{$item->id}}" class="btn btn-accent float-right" title="Delete" id="delete_ug"><i class="material-icons">delete</i></a>
-                                             </div>  
+                                            {{-- <div class="col-md-12  form-group p-1 h6">
+                                                <a href="{{url('Delete-PG_Details')}}/{{$item->id}}" class="btn btn-danger float-right" title="Delete" id="delete_ug"><i class="material-icons">delete</i></a>
+                                             </div>   --}}
                                              <?php
                                                     if($item->semester_id_pg == 1){
                                                         $semester_name = '1st Semester';
@@ -250,17 +339,25 @@
                                                         $semester_name = '4th Semester';
                                                     } 
                                              ?>  
-                                            <div class="col-md-6  form-group p-1 h6">
+                                            <div class="col-md-4  form-group p-1 h6">
                                                 Semester Name :- {{$semester_name}}
                                             </div>
-                                            <div class="col-md-6  form-group p-1 h6">
-                                                Percentage :- {{$item->percentage_pg}}
+                                            <div class="col-md-4 col-12 form-group p-1 h6">
+                                                Score Type :- {{$item->scrore_type_pg}}
                                             </div>
+                                            <div class="col-md-2  form-group p-1 h6">
+                                                Score :- {{$item->percentage_pg}}
+                                            </div>
+                                            <div class="col-md-2  form-group p-1 h6">
+                                                <a href="{{url('Delete-PG_Details')}}/{{$item->id}}" class="btn btn-danger float-right" title="Delete" id="delete_ug"><i class="material-icons">delete</i></a>
+                                             </div>  
                                              <hr style="w-50 m-auto text-dark"> 
                                         @endforeach
                                     </div>                                       
                                 @endif
                         </div>
+
+                        @endif
 
                         {{-- <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
@@ -297,36 +394,37 @@
                                     value="@if ($Academics){{ $Academics->other_pg }}@endif" name="write_pg">
                             </div>
                         </div> --}}
-                        <div class="form-row">
+
+                        {{-- <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">TOTAL CGPA (AVG TOTAL)</label>
+                                <label class="form-label" for="">Total CGPA (AVG Total)</label>
                                 <input type="text" class="form-control" name="avg_cgpa" id=""
                                     value="@if ($Academics){{ $Academics->avg_cgpa }}@endif" placeholder="Enter Total CGPA ">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">YEAR OF GRADUATED <small>(FUTURE DATE
+                                <label class="form-label" for="">Year Of Graduated<small>(Future date
                                         (YYYY))</small></label>
                                 <input type="text" class="form-control" id="year_graduated1"
                                     placeholder="Enter Year Of Graduated (YYYY)" value="@if ($Academics){{ $Academics->year_graduation }}@endif"
                                     name="year_graduated">
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">CURRENT BACK LOGS</label>
+                                <label class="form-label" for="">Current Back Logs</label>
                                 <input type="number" class="form-control" name="current_backLog" min="0" id=""
                                     value="@if ($Academics){{ $Academics->curr_backlog }}@endif" placeholder="Enter Current Back Logs">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">NUMBER OF YEAR BACKS <small>(IF
-                                        ANY)</small></label>
+                                <label class="form-label" for="">Number of Year Backs <small>(If Applicable
+                                        )</small></label>
                                 <input type="text" class="form-control" id="" placeholder="Enter Number of Year Backs"
                                     value="@if ($Academics){{ $Academics->num_year_backlog }}@endif" name="no_yer_backs">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">ANY GAPS IN THE ACADEMICS</label>
+                                <label class="form-label" for="">Any gaps In The Academics</label>
                                 <div class="custom-control custom-radio col-md-9 col-8 p-2">
                                     <span class="mr-3">
                                         <input type="radio" id="" name="acd_gaps" value="1" class="gaps"
@@ -343,7 +441,7 @@
                             <div class="col-12 col-md-6 mb-3">
                                 <label class="form-label" for="">Explain </label>
                                 <textarea class="form-control gap_explain" name="explain_gaps"
-                                    placeholder="If Any Gaps In The Academics Then Explain" maxlength="300"
+                                    placeholder="If Applicable Gaps In The Academics Then Explain" maxlength="300"
                                     readonly="">@if ($Academics){{ $Academics->gap_explan }}@endif</textarea>
                             </div>
                         </div>
@@ -351,7 +449,7 @@
                             <div class="col-10 m-auto text-right pt-3">
                                 {{-- <button type="reset" name="reset" class="btn btn-secondary mr-2">Reset</button> --}}
                                 <a href="{{ url('resume-page-one') }}" class="btn btn-secondary mr-2">Back</a>
-                                <button name="submit" class="btn btn-primary">Save</button>
+                                <button name="submit" class="btn btn-success">Next</button>
                             </div>
                         </div>
                     </form>
@@ -398,7 +496,7 @@
         $(document).ready(function() {
             $('#add_ug').click(function() {
                 $("#ug_details").append(
-                    '<div class="form-row"><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">UG</label><select id="" name="semester_id_ug[]" class="form-control custom-select"><option value="" selected>Select Semester </option>@foreach ($graduation_sem as $list)<option value="{{ $list->sem_id }}"  >{{ $list->sem_name }}</option>@endforeach</select></div><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">Percentage</label><input type="text" class="form-control" id="" placeholder="Enter Percentage" value="" name="percentage_ug[]" required></div><div class="col-12 col-md-2  "><a href="javascript:void(0);" id="remCF" class="remCF btn btn-danger float-right">Remove</a></div></div>'
+                    '<div class="form-row"><div class="col-12 col-md-4 mb-3"><label class="form-label" for="">Semester</label><select id="" name="semester_id_ug[]" class="form-control custom-select"><option value="" selected>Select Semester </option>@foreach ($graduation_sem as $list)<option value="{{ $list->sem_id }}"  >{{ $list->sem_name }}</option>@endforeach</select></div><div class="col-12 col-md-4 mb-3"><label class="form-label" for=""> Score Type</label><select id="" name="scrore_type_ug[]" class="form-control custom-select"><option value="">Select Score Type </option><option value="SGPA">SGPA</option><option value="CGPA">CGPA</option><option value="Percentage" >Percentage</option></select></div><div class="col-12 col-md-2 mb-3"><label class="form-label" for=""> <span class="text-danger">*</span> Score</label><input type="number" class="form-control" id="" placeholder="Score" value="" name="percentage_ug[]" required></div><div class="col-12 col-md-2  "><a href="javascript:void(0);" id="remCF" class="remCF btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div></div>'
                     );
             });
             
@@ -411,7 +509,7 @@
 
             $('#add_pg').click(function() {
                 $("#pg_details").append(
-                    '<div class="form-row"><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">PG</label><select id="" name="semester_id_pg[]" class="form-control custom-select"><option value="">Select Semester </option><option value="1" >1st Semester </option><option value="2" >2nd Semester </option><option value="3" >3rd Semester </option><option value="4" >4th Semester </option></select></div><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">Percentage</label><input type="text" class="form-control" id="" placeholder="Enter Percentage"value="" name="percentage_pg[]" required></div><div class="col-12 col-md-2  "><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right">Remove</a></div></div>'
+                    '<div class="form-row"><div class="col-12 col-md-4 mb-3"><label class="form-label" for="">Semester</label><select id="" name="semester_id_pg[]" class="form-control custom-select"><option value="">Select Semester </option><option value="1" >1st Semester </option><option value="2" >2nd Semester </option><option value="3" >3rd Semester </option><option value="4" >4th Semester </option></select></div><div class="col-12 col-md-4 mb-3"><label class="form-label" for=""> Score Type</label><select id="" name="scrore_type_pg[]" class="form-control custom-select"><option value="">Select Score Type </option><option value="SGPA">SGPA</option><option value="CGPA">CGPA</option><option value="Percentage" >Percentage</option></select></div><div class="col-12 col-md-2 mb-3"><label class="form-label" for=""> <span class="text-danger">*</span> Score</label><input type="number" class="form-control" id="" placeholder="Score"value="" name="percentage_pg[]" required></div><div class="col-12 col-md-2  "><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div></div>'
                     );
             });
             

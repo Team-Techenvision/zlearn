@@ -21,7 +21,7 @@
 
                             <span class="avatar avatar-xl sidebar-brand-icon h-auto">
 
-                                <span class="avatar-title "><img class="rounded-circle profile_picture" src="@if($profile_pic){{asset($profile_pic)}}@else{{asset('Student/images/profile_pic/profile1.png')}}@endif"
+                                <span class="avatar-title " style="background-color: #3038400d;"><img class="rounded-circle profile_picture" src="@if($profile_pic){{asset($profile_pic)}}@else{{asset('Student/images/profile_pic/profile1.png')}}@endif"
                                          class="img-fluid p-2"
                                          alt="logo" /></span>
 
@@ -108,6 +108,12 @@
                                             <span class="sidebar-menu-text text-wite">Result</span>
                                         </a>
                                     </li>
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button"
+                                           href="{{url('charts')}}">
+                                            <span class="sidebar-menu-text text-wite">Analysis</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="sidebar-menu-item">
@@ -117,6 +123,22 @@
                                     <span class="sidebar-menu-text ">Learning Videos</span>
                                 </a>
                             </li>
+
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button"
+                                   href="{{url('download-resume/1')}}">
+                                   <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left text-wite">school</span>
+                                    <span class="sidebar-menu-text ">Resume Download</span>
+                                </a>
+                            </li>
+
+                            {{-- <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button"
+                                   href="{{url('charts')}}">
+                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left text-wite">view_compact</span>
+                                    <span class="sidebar-menu-text">Analysis</span>
+                                </a>
+                            </li> --}}
                         </ul>
                     
                         <!-- // END Sidebar Content -->

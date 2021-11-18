@@ -31,7 +31,7 @@ use App\testcase_result;
 use App\UG_Details;
 use App\PG_Details;
 use Session;
-
+use PDF;
 use DB;
 
 use Illuminate\Support\Facades\File; 
@@ -254,7 +254,6 @@ class StudentController extends Controller
             'roll_no'=>'required',
             'mother_name'=>'nullable',
             'father_name'=>'nullable',
-            'occupation'=>'required',
             'permanent_address'=>'required',
             'current_address'=>'required',
             'kyc_doc'=>'required',
@@ -355,7 +354,7 @@ class StudentController extends Controller
                 $data['user'] = User::where('id',$u_id)->first(); 
                 // $req->session()->flash('alert-success', 'Basic Information Submited Successfully!!');     
                 // return view('Students/Webviews/student_add_resume2',$data);
-                toastr()->success('Information Submited!!');  
+                toastr()->success('Information saved successfully!!');  
                 return redirect('resume-page-two');
         //    }
         //    else
@@ -373,6 +372,7 @@ class StudentController extends Controller
         $data['user'] = User::where('id',$u_id)->first(); 
         $data['UserDetails'] = UserDetails::where('user_id',$u_id)->first();        
         $data['Academics'] = Academics_detail::where('user_id',$u_id)->first();
+        $data['Education'] = Education_Detail::where('user_id',$u_id)->first();
         $data['UG_Details'] = UG_Details::where('user_id',$u_id)->get();
         $data['PG_Details'] = PG_Details::where('user_id',$u_id)->get();
         $data['Semister'] = Semister::where('status',1)->orderBy('semister_name','asc')->get();
@@ -410,12 +410,26 @@ class StudentController extends Controller
          $user_result = Academics_detail::where('user_id',$u_id)->first();
          if($user_result)
          {
-            $result = DB::table('academics_details')->where('user_id', $u_id)->update(['sslc_perce' => $req->sslc_per, 'sslc_year'=> $req->year_sslc,
-            'puc_perce' => $req->puc_per, 'puc_year' => $req->year_puc,'diploma_perce'=> $req->diploma_per,
-            'diploma_year' => $req->year_diploma, 'year_of_pass_ug' => $req->year_of_pass_ug,'avg_percentage_ug'=> $req->avg_percentage_ug,
-            'year_of_pass_pg' => $req->year_of_pass_pg, 'avg_percentage_pg' => $req->avg_percentage_pg,'avg_cgpa'=> $req->avg_cgpa,
-            'year_graduation' => $req->year_graduated, 'curr_backlog' => $req->current_backLog,'num_year_backlog'=> $req->no_yer_backs,
-            'gap' => $req->acd_gaps, 'gap_explan' => $req->explain_gaps]); 
+            $result = DB::table('academics_details')->where('user_id', $u_id)->update([
+                'sslc_perce' => $req->sslc_per, 
+                'sslc_year'=> $req->year_sslc,
+                'puc_perce' => $req->puc_per, 
+                'puc_year' => $req->year_puc,
+                'diploma_perce'=> $req->diploma_per,
+                'diploma_year' => $req->year_diploma,
+                'year_of_pass_ug' => $req->year_of_pass_ug,
+                'avg_percentage_ug'=> $req->avg_percentage_ug,
+                'college_ug' => $req->college_ug,
+                'cource_ug'=> $req->cource_ug,
+                'year_of_pass_pg' => $req->year_of_pass_pg, 
+                'avg_percentage_pg' => $req->avg_percentage_pg,
+                'avg_cgpa'=> $req->avg_cgpa,
+                'year_graduation' => $req->year_graduated, 
+                'curr_backlog' => $req->current_backLog,
+                'num_year_backlog'=> $req->no_yer_backs,
+                'gap' => $req->acd_gaps,
+                'gap_explan' => $req->explain_gaps
+            ]); 
          }
          else
          {
@@ -429,6 +443,8 @@ class StudentController extends Controller
             $data->diploma_year=$req->year_diploma;
             $data->year_of_pass_ug=$req->year_of_pass_ug;
             $data->avg_percentage_ug=$req->avg_percentage_ug;
+            $data->college_ug=$req->college_ug;
+            $data->cource_ug=$req->cource_ug;
             $data->year_of_pass_pg=$req->year_of_pass_pg;
             $data->avg_percentage_pg=$req->avg_percentage_pg;
             $data->avg_cgpa=$req->avg_cgpa;
@@ -451,6 +467,7 @@ class StudentController extends Controller
                     $data->user_id=$u_id;            
                     $data->semester_id_ug=$row;
                     $data->percentage_ug=$req->percentage_ug[$i]; 
+                    $data->scrore_type_ug=$req->scrore_type_ug[$i];
                     $data->status='1';
                     $result = $data->save();
                 }
@@ -469,6 +486,7 @@ class StudentController extends Controller
                     $data->user_id=$u_id;            
                     $data->semester_id_pg=$row;
                     $data->percentage_pg=$req->percentage_pg[$j]; 
+                    $data->scrore_type_pg=$req->scrore_type_pg[$j];
                     $data->status='1';
                     $result = $data->save();
                 }
@@ -481,7 +499,7 @@ class StudentController extends Controller
               $data['user'] = User::where('id',$u_id)->first(); 
               // $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!');     
               // return view('Students/Webviews/student_add_resume2',$data);
-              toastr()->success('Information Submited!!'); 
+              toastr()->success('Information saved successfully!!'); 
               return redirect('resume-training-Info');
               //return redirect('studentdashboard'); 
          }
@@ -489,8 +507,8 @@ class StudentController extends Controller
          {
                //$req->session()->flash('alert-danger', 'Academics Information Not Submited!!');
               // return back(); 
-             // $req->session()->flash('alert-success', 'Academics Information Submited Successfully!!'); 
-                toastr()->success('Information Submited!!'); 
+             // $req->session()->flash('alert-success', 'Academics Information saved successfully Successfully!!'); 
+                toastr()->success('Information saved successfully!!'); 
                 return redirect('resume-training-Info');
                //return redirect('studentdashboard'); 
          } 
@@ -501,7 +519,7 @@ class StudentController extends Controller
     // =================================================================
     public function submit_TrainingInfo(Request $req)
     {
-        //dd($req);
+        // dd($req);
        
         $this->validate($req,[
             'tech_skill'=>'required',
@@ -512,7 +530,7 @@ class StudentController extends Controller
          $user_result = Technical_skill::where('user_id',$u_id)->first();
          if($user_result)
          {
-            $result = DB::table('technical_skills')->where('user_id', $u_id)->update([ 'tech_skill' => $req->tech_skill, 'linkedin_link'=> $req->linkedin_link,'achievement' => $req->achievement,'known_language' => $req->known_language, 'extracurricular'=> $req->extracurricular,'skil_sets' => $req->skil_sets, 'hobbies' => $req->hobbies,'career_object'=> $req->career_object]);
+            $result = DB::table('technical_skills')->where('user_id', $u_id)->update([ 'tech_skill' => $req->tech_skill, 'linkedin_link'=> $req->linkedin_link,'achievement' => $req->achievement,'known_language' => $req->known_language, 'extracurricular'=> $req->extracurricular,'skil_sets' => $req->skil_sets, 'seminar_traning' => $req->seminar_traning, 'hobbies' => $req->hobbies,'career_object'=> $req->career_object]);
          }
          else
          {
@@ -525,6 +543,7 @@ class StudentController extends Controller
             $data->extracurricular=$req->extracurricular; 
             $data->skil_sets=$req->skil_sets; 
             $data->hobbies=$req->hobbies; 
+            $data->seminar_traning=$req->seminar_traning;
             $data->career_object=$req->career_object;
             $result = $data->save();
                         
@@ -616,12 +635,60 @@ class StudentController extends Controller
                 $j++;
                 
             }
+        }
+        // dd($req);
+        $j = 0;
+        if ($req->hasfile('intern_certificate')) 
+        {
+            foreach($req->file('intern_certificate') as $row)
+            {  
+                $filename = $req->file('intern_certificate')[$j];
+                $name = rand(11111, 99999).'.'.$row->extension();            
+                $destinationPath1 = 'images/intern_certificate';
+                $cust_newfile2 = $destinationPath1.'/'.$name;
+                    //dd($cust_newfile2);
+
+                    $data->user_id=$u_id;            
+                    $data->int_comp_name=$req->int_comp_name[$j];
+                    $data->intship_duration=$req->intship_duration[$j]; 
+                    $data->your_roles=$req->proj_roles[$j];
+                    $data->intern_certificate=$cust_newfile2;
+                    $result = $data->save();
+                if($result)
+                {
+                    $filename->move($destinationPath1,$name);
+                } 
+                $j++;               
+            }
+        }
+        else
+        {    
+                $j= 0;
+                //dd($req->certificate);
+            if($req->int_comp_name)
+            {
+                foreach($req->int_comp_name as $row)
+            {
+                if($row != null)
+                {
+                    $data = new Interships;
+                    $data->user_id=$u_id;            
+                    $data->int_comp_name=$row;
+                    $data->intship_duration=$req->intship_duration[$j]; 
+                    $data->your_roles=$req->proj_roles[$j];
+                    $result = $data->save();
+                }
+                $j++;
+                
+            }   
+            }
+             //dd("12"); 
         }    
            
         // if($result)
         // {
             // $req->session()->flash('alert-success', 'Training Information Submited Successfully!!');
-         toastr()->success('Information Submited!!');  
+         toastr()->success('Information saved successfully!!');  
             return redirect('studentdashboard'); 
         // }
         // else
@@ -1361,6 +1428,12 @@ class StudentController extends Controller
         return view('Students/Webviews/demo1_compiler',$data);
     }
 
+    public function charts()
+    {
+        $data['page_title'] = 'Student Analysis';
+        return view('Students/Webviews/chart',$data);
+    }
+
    public function save_student_program(Request $req){
         //    return $req->req; 
         // $programm = $req->programm;
@@ -1508,4 +1581,40 @@ class StudentController extends Controller
             toastr()->success('Image Uploded Successfully!');
             return back();
         }
+
+        public function downloadResume($resume_type){ 
+            $user_id = Auth::User()->id;
+            $data['student_info'] = User::join('user_details', 'user_details.user_id', '=', 'users.id')
+                                          ->join('education__details', 'education__details.user_id', '=', 'users.id')
+                                          ->join('academics_details', 'academics_details.user_id', '=', 'users.id')
+                                          ->join('pg_details', 'pg_details.user_id', '=', 'users.id')
+                                          ->join('ug_details', 'ug_details.user_id', '=', 'users.id')
+                                          ->join('technical_skills', 'technical_skills.user_id', '=', 'users.id')
+                                          ->leftjoin('certifications', 'certifications.user_id', '=', 'users.id')
+                                          ->leftjoin('academic_projects', 'academic_projects.user_id', '=', 'users.id')
+                                          ->where('users.id',Auth::User()->id)
+                                          ->first();
+        //    dd($data);
+           $pdf = PDF::loadView('Students/Webviews/resume1', $data);
+        //    return $pdf->download("$user_id.pdf");
+    
+            // for view without download use stream methode 
+           return $pdf->stream();
+        //    return view('Students/Webviews/resume1',$data);
+       }
+       public function downloadResumeview($resume_type){ 
+        //    dd($resume_type);
+       
+        $data['student_info'] = User::join('user_details', 'user_details.user_id', '=', 'users.id')
+                                      ->join('education__details', 'education__details.user_id', '=', 'users.id')
+                                      ->join('academics_details', 'academics_details.user_id', '=', 'users.id')
+                                      ->join('pg_details', 'pg_details.user_id', '=', 'users.id')
+                                      ->join('ug_details', 'ug_details.user_id', '=', 'users.id')
+                                      ->join('technical_skills', 'technical_skills.user_id', '=', 'users.id')
+                                      ->leftjoin('certifications', 'certifications.user_id', '=', 'users.id')
+                                      ->leftjoin('academic_projects', 'academic_projects.user_id', '=', 'users.id')
+                                      ->where('users.id',3)
+                                      ->first();
+       return view('Students/Webviews/resume1',$data);
+   }
 }

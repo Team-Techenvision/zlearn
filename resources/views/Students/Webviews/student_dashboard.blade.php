@@ -43,7 +43,7 @@
                         <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
 
                             <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                                <h2 class="mb-0">Dashboard</h2>
+                                {{-- <h2 class="mb-0">Dashboard</h2> --}}
  
 
                             </div>
@@ -68,13 +68,13 @@
                   $user = Auth::user();
                 @endphp
                 <div class="" role="alert">
-                  <h5 class="pb-0"> Welcome Back, <strong class="text-orange">@php echo $user->name; @endphp </strong>, how do you like to upskill today? </h5>  
+                  <h5 class="pb-0" style="text-transform: none"> Hi <strong class="text-orange">@php echo $user->name; @endphp </strong>, how do you like to upskill today? </h5>  
                 </div>
-                <div class="progress mb-3" style="height: 8px;">
-                  <div class="progress-bar" role="progressbar" style="width: 100%;background: #c2c4be;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                {{-- <div class="progress mb-3" style="height: 8px;">
+                  <div class="progress-bar" role="progressbar" style="width: 100%;background: #c2c4be;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> 
                     
                   </div>
-                </div>
+                </div>--}}
               </div>
               <div class="row col-12 text-center p-0 m-auto">
                 <div class="col-md-10 row m-auto">
@@ -172,21 +172,20 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-2 row m-auto"style="border-radius: 1.25rem!important;background:#f3f3f3!important;">
-                      <div class="col-12 m-auto">
-                        <div class="col-12 m-auto text-center p-0">
+                  <div class="col-md-2 row mt-o"style="border-radius: 1.25rem!important;background:#f3f3f3!important;">
+                      <div class="col-12 mt-o">
+                        <div class="col-12 mt-o text-center p-0">
                           <span class="col-12 text-center"><h3>ZSCORE</h3></span>
-                          
                         </div>
-                        <div class="col-12 m-auto text-center p-0">
+                        <div class="col-12 mt-o text-center p-0">
                           <canvas id="doughnutChart"></canvas>
-                          <!-- <div id="pie_chart"></div> -->
+                          {{-- <div id="myChart" style="width:100%; max-width:600px; height:500px;"> --}}
                       </div>
-                      <div class="col-12 m-auto text-center p-0 pb-2">
+                      <div class="col-12 mt-o text-center p-0 pb-2">
                         <span class="col-12 text-center p-0"><h3>29%</h3></span>
-                        <span class="col-12 d-flex text-center p-0"><span class="m-auto">Academic Scores - 10%/30% </span></span>
-                        <span class="col-12 d-flex text-center p-0"><span class="m-auto">Test – 10%/30%</span></span>
-                        <span class="col-12 d-flex text-center p-0"><span class="m-auto">Internship – 9%/40%</span></span>
+                        <span class="col-12 d-flex text-center p-0"><span class="mt-o">Academic Scores - 10%/30% </span></span>
+                        <span class="col-12 d-flex text-center p-0"><span class="mt-o">Test – 10%/30%</span></span>
+                        <span class="col-12 d-flex text-center p-0"><span class="mt-o">Internship – 9%/40%</span></span>
                       </div>
                     </div>
                   </div>
@@ -267,10 +266,11 @@
         <!-- // END Drawer Layout -->
 
         @include('Students.Common.student_footer')
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="{{asset('Student/js/chart_br.js')}}"></script> 
         <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> 
+       
        <style type="text/css">
          .apexcharts-menu-icon
          {
@@ -350,7 +350,7 @@
       
     });
       </script>
-      <script>
+      {{-- <script>
         $(document).ready(function()
           {
             var options = {
@@ -396,7 +396,7 @@
         chart.render();
       
           });
-      </script>
+      </script> --}}
     </body>
 
 </html>

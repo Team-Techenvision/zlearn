@@ -72,7 +72,7 @@
                             <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete text-white">
                              <span class="progression-bar__item-content">
                                  <i class="material-icons progression-bar__item-icon bg-primary bg-success">done</i>
-                                 <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">TRAINING INFO</span>
+                                 <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">SKILLS INFO</span>
                              </span>
                          </a>
                             <a href="JavaScript:Void(0);"
@@ -130,8 +130,8 @@
 
                             <div class="form-row">                                
                                 <div class="col-12 col-md-12 mb-3">
-                                    <label class="form-label text-uppercase" for="">TECHNICAL SKILLS:</label>                                     
-                                     <textarea class="form-control" name="tech_skill" placeholder="Enter Technical Skill"  required="">@if($Technical_skill){{$Technical_skill->tech_skill}}@endif</textarea>
+                                    <label class="form-label text-uppercase" for="">Technical Skills:</label>                                     
+                                     <textarea class="form-control" name="tech_skill" placeholder="Enter Tech Skills (MS Office, C, Java,  Autocad etc)"  >@if($Technical_skill){{$Technical_skill->tech_skill}}@endif</textarea>
                                 </div>
                             </div>
                             <!-- <div class="form-group row ">
@@ -142,20 +142,24 @@
                               
                                 <div class="form-row">
                                     <div class="col-12 col-md-12 mb-3">
-                                        <label class="form-label text-uppercase" for="">CERTIFICATIONS:</label> 
+                                        <label class="form-label text-uppercase" for="">Certifications:</label> 
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3" id="certificate" title="Add More">+</a>                                     
                                     </div>
                                 </div>
                                 @if(count($Certification) > 0)
                                     @foreach ($Certification as $item)
-                                    <div class="col-12  form-group p-1 h6">
-                                        CERTIFICATIONS :- {{$item->Certification_name}}
-                                        <a href="{{url('Delete_Certificate')}}/{{$item->id}}" class="btn btn-accent float-right" title="Delete"><i class="material-icons">delete</i></a>
-                                    </div>
-                                    <div class="col-12  form-group p-1 h6">
-                                        UPLOAD CERTIFICATIONS :- @if($item->upload_certificat)Yes @else No @endif
+                                    <div class="form-row">
+                                        <div class="col-12 col-md-5 form-group p-1 h6">
+                                            Certifications :- {{$item->Certification_name}}                                        
+                                        </div>
+                                        <div class="col-12 col-md-5  form-group p-1 h6">
+                                            Upload Certifications :- @if($item->upload_certificat)Yes @else No @endif
+                                        </div> 
+                                        <div class="col-12 col-md-2 form-group p-1 h6">
+                                            <a href="{{url('Delete_Certificate')}}/{{$item->id}}" class="btn btn-danger float-right" title="Delete"><i class="material-icons">delete</i></a>
+                                        </div>
+                                        <hr style="w-50 m-auto text-dark">
                                     </div> 
-                                    <hr style="w-50 m-auto text-dark">
                                     @endforeach                                    
                                 {{-- @else
                                     <div class="form-row">
@@ -173,7 +177,7 @@
                             <div id="project_details" class="border p-2">
                                 <div class="form-row">
                                     <div class="col-12 col-md-12 mb-3">
-                                        <label class="form-label" for="">ACADEMIC PROJECTS:</label>
+                                        <label class="form-label" for="">Academic Projects:</label>
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3" title="Add More" id="add_project" >+</a>
                                     </div>
                                 </div>
@@ -181,7 +185,7 @@
                                     <div class="form-row">
                                         @foreach ($Academic_project as $item)
                                             <div class="col-md-12  form-group p-1 h6">
-                                                <a href="{{url('Delete-Project')}}/{{$item->id}}" class="btn btn-accent float-right" title="Delete" id="delete_proj"><i class="material-icons">delete</i></a>
+                                                <a href="{{url('Delete-Project')}}/{{$item->id}}" class="btn btn-danger float-right" title="Delete" id="delete_proj"><i class="material-icons">delete</i></a>
                                              </div>   
                                             <div class="col-md-6  form-group p-1 h6">
                                                 Project Name :- {{$item->project_name}}
@@ -216,28 +220,33 @@
                                     </div> --}}
                                 @endif    
                             </div>
-                            <div id="internship_div" class="border p-2"> 
+                            <div id="internship_div" class="border p-2 mb-4"> 
                                 <div class="form-row">
                                     <div class="col-12 col-md-12 mb-3">
-                                        <label class="form-label text-uppercase" for="">INTERNSHIPS:</label> 
+                                        <label class="form-label text-uppercase" for="">Internships:</label> 
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3" id="enter_ship" title="Add More">+</a>                                     
                                     </div>
                                 </div>
                                 @if(count($Interships) > 0)
                                     <div class="form-row">
                                         @foreach ($Interships as $item)
-                                        <div class="col-md-12  form-group p-1 h6">
-                                                <a href="{{url('Delete-Intship')}}/{{$item->id}}" class="btn btn-accent float-right delete_intership" title="Delete" ><i class="material-icons">delete</i></a>
-                                             </div>
-                                            <div class="col-md-6  form-group p-1 h6">
-                                                OMPANY Name :- {{$item->int_comp_name}}                                                
+                                       
+                                           
+                                            <div class="col-md-5  form-group p-1 h6">
+                                                Company Name :- {{$item->int_comp_name}}                                                
                                             </div>
-                                            <div class="col-md-6  form-group p-1 h6">
-                                                DURATION <small>(No Of Month)</small> :- {{$item->intship_duration}}
+                                            <div class="col-md-5  form-group p-1 h6">
+                                                Duration <small>(In Months)</small> :- {{$item->intship_duration}}
+                                            </div>                                           
+                                            <div class="col-12 col-md-5  form-group p-1 h6">
+                                                Roles & Responsibilities :- {{$item->your_roles}}
                                             </div>
-                                            <div class="col-md-12  form-group p-1 h6">
-                                                ROLES & RESPONSIBILITIES :- {{$item->your_roles}}
-                                            </div> 
+                                            <div class="col-12 col-md-5  form-group p-1 h6">
+                                                Certification :- Preview
+                                            </div>
+                                            <div class="col-12 col-md-2  form-group p-1 h6">
+                                                <a href="{{url('Delete-Intship')}}/{{$item->id}}" class="btn btn-danger float-right delete_intership" title="Delete" ><i class="material-icons">delete</i></a>
+                                             </div> 
                                         @endforeach 
                                     </div>                                       
                                 {{-- @else
@@ -247,7 +256,7 @@
                                         <input type="text" class="form-control" name="int_comp_name[]" id="" placeholder="Enter Company Name" >
                                     </div>
                                     <div class="col-12 col-md-6 mb-3">
-                                        <label class="form-label" for="">DURATION <small>(No Of Month)</small>:</label>
+                                        <label class="form-label" for="">DURATION <small>(In Months)</small>:</label>
                                         <input type="number" class="form-control" min="1" id="" placeholder="Enter Year Of Graduated" value="1" name="intship_duration[]">
                                     </div>
                                 </div>
@@ -263,7 +272,7 @@
 
                             <div class="form-row">
                                  <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label" for="">LINKEDIN PROFILE:</label>
+                                    <label class="form-label" for="">LinkedIn Profile:</label>
                                     <input type="text" class="form-control" id="" placeholder="Enter Linkedin Profile Link" value="@if($Technical_skill){{$Technical_skill->linkedin_link}}@endif" name="linkedin_link">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
@@ -273,31 +282,40 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label text-uppercase" for="">ACHIEVEMENTS ( Academic / Technical ):</label>
-                                    <input type="text" class="form-control" id="" placeholder="Enter Achievements If Any" value="@if($Technical_skill){{$Technical_skill->achievement}}@endif" name="achievement">
+                                    <label class="form-label text-uppercase" for="">Achievements ( Academic / Technical ):</label>
+                                    {{-- <input type="text" class="form-control" id="" placeholder="Enter Achievements If Any" value="@if($Technical_skill){{$Technical_skill->achievement}}@endif" name="achievement"> --}}
+                                    <textarea id="" class="form-control" cols="80" rows="5" name="achievement" placeholder="Enter Achievements If Any">@if($Technical_skill){{$Technical_skill->achievement}}@endif</textarea>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label text-uppercase" for="">HOBBIES:</label>
-                                    <input type="text" class="form-control" id="" placeholder="Enter Your Hobbies" value="@if($Technical_skill){{$Technical_skill->hobbies}}@endif" name="hobbies">
+                                    <label class="form-label text-uppercase" for="">Hobbies:</label>
+                                    {{-- <input type="text" class="form-control" id="" placeholder="Enter Your Hobbies" value="@if($Technical_skill){{$Technical_skill->hobbies}}@endif" name="hobbies"> --}}
+                                    <textarea id="" class="form-control" cols="80" rows="5" name="hobbies" placeholder="Enter Your Hobbies">@if($Technical_skill){{$Technical_skill->hobbies}}@endif</textarea>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label text-uppercase" for="">Extracurricular Activities:</label>
-                                    <input type="text" class="form-control" id="" placeholder="Participated In Sport / Competition" value="@if($Technical_skill){{$Technical_skill->extracurricular}}@endif" name="extracurricular">
+                                    <label class="form-label text-uppercase" for="">Extra - Curricular Activities:</label>
+                                    {{-- <input type="text" class="form-control" id="" placeholder="Participated in Sports/ Competition/ Cultural Events etc" value="@if($Technical_skill){{$Technical_skill->extracurricular}}@endif" name="extracurricular"> --}}
+                                    <textarea id="" class="form-control" cols="80" rows="5" name="extracurricular" placeholder="Participated in Sports/ Competition/ Cultural Events etc">@if($Technical_skill){{$Technical_skill->extracurricular}}@endif</textarea>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label text-uppercase" for="">Skills Set :</label>
-                                    <input type="text" class="form-control" id="" placeholder="Leadership Skills, Communication Skills, Creativity " value="@if($Technical_skill){{$Technical_skill->skil_sets}}@endif" name="skil_sets">
+                                    <label class="form-label text-uppercase" for="">Skills Sets :</label>
+                                    {{-- <input type="text" class="form-control" id="" placeholder="Leadership Skills, Communication Skills, Creativity " value="@if($Technical_skill){{$Technical_skill->skil_sets}}@endif" name="skil_sets"> --}}
+                                    <textarea id="" class="form-control" cols="80" rows="5" name="skil_sets" placeholder="Leadership SKills/Communication Skills/ Creativity etc">@if($Technical_skill){{$Technical_skill->skil_sets}}@endif</textarea>
                                 </div>
                             </div>
 
-                            
+                            <div class="form-row">                                 
+                                <div class="col-12 col-md-12 mb-3">
+                                    <label class="form-label" for="">Workshops/Seminars/Training Attended:</label>
+                                    <textarea class="form-control" id="" placeholder="Attended seminar on Robotics , Placement Training conducted by ZESTECH etc" name="seminar_traning" >@if($Technical_skill){{$Technical_skill->seminar_traning}}@endif</textarea>
+                                </div>
+                            </div>
 
                             <div class="form-row">                                 
                                 <div class="col-12 col-md-12 mb-3">
-                                    <label class="form-label" for="">CAREER OBJECTIVE:</label>
+                                    <label class="form-label" for="">Career Objective:</label>
                                     <textarea class="form-control" id="" placeholder="Enter Career Objective" name="career_object" >@if($Technical_skill){{$Technical_skill->career_object}}@endif</textarea>
                                 </div>
                             </div>
@@ -305,7 +323,7 @@
                                 <div class="col-10 m-auto text-right pt-3">
                                     <!-- <button type="reset" name="reset" class="btn btn-secondary mr-2">Reset</button> -->
                                     <a href="{{url('resume-page-two')}}" class="btn btn-secondary mr-2" >Back</a>
-                                    <button name="submit" class="btn btn-primary">Save</button>
+                                    <button name="submit" class="btn btn-success">Save</button>
                                 </div>
                             </div>
                         </form>
@@ -345,7 +363,7 @@
 
                 $('#add_project').click(function()
                 {
-                     $("#project_details").append('<div class="form-row proj_section border pt-2 pb-2"><div class="col-12"><a href="javascript:void(0);" id="remCF" class="remCF btn btn-danger float-right">Remove</a></div><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">Project Name:</label><input type="text" class="form-control" id="" placeholder="Enter Project Name" name="project_name[]" required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">Team/single:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="Enter Project Team Size" name="team_size[]" required=""></div><div class="form-row col-12"><div class="col-12 col-md-12 mb-3"><label class="form-label text-uppercase" for="">Project details:</label><textarea class="form-control col-12" name="project_detail[]" placeholder="Enter Project Details" required=""></textarea></div> </div></div>');
+                     $("#project_details").append('<div class="form-row proj_section border pt-2 pb-2"><div class="col-12 col-md-5 mb-3"><label class="form-label text-uppercase" for="">Project Name:</label><input type="text" class="form-control" id="" placeholder="Enter Project Name" name="project_name[]" required=""></div><div class="col-12 col-md-5 mb-3"><label class="form-label text-uppercase" for="">Team/single:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="Enter Project Team Size" name="team_size[]" required=""></div><div class="col-12 col-md-2"><a href="javascript:void(0);" id="remCF" class="remCF btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div><div class="form-row col-12"><div class="col-12 col-md-12 mb-3"><label class="form-label" for="">Project details:</label><textarea class="form-control col-12" name="project_detail[]" placeholder="Enter Project Details" required=""></textarea></div> </div></div>');
                 });
  
                 $('#project_details').on('click','.remCF',function() 
@@ -356,7 +374,7 @@
 
                 $('#enter_ship').click(function()
                 {
-                    $("#internship_div").append('<div class="form-row enter_ship col-12 border pt-2 pb-2"><div class="col-12"><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right">Remove</a></div><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">COMPANY Name</label><input type="text" class="form-control" name="int_comp_name[]" id="" placeholder="Enter Company Name" required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">DURATION <small>(No Of Month)</small>:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="DURATION" name="intship_duration[]"></div> <div class="form-row col-12"><div class="col-12 col-md-6 mb-3"><label class="form-label text-uppercase" for="">ROLES & RESPONSIBILITIES:</label><input type="text" class="form-control col-12" name="proj_roles[]" id="" placeholder="Enter Your Roles" required=""></div></div></div> ');
+                    $("#internship_div").append('<div class="form-row enter_ship col-12 border pt-2 pb-2"><div class="col-12 col-md-5 mb-3"><label class="form-label text-uppercase" for="">Company Name</label><input type="text" class="form-control" name="int_comp_name[]" id="" placeholder="Enter Company Name" required=""></div><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">Duration <small>(In Months)</small>:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="Duration" name="intship_duration[]"></div><div class="col-12 col-md-2"><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div> <div class="form-row col-12"><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">Roles & Responsibilities:</label><input type="text" class="form-control col-12" name="proj_roles[]" id="" placeholder="Enter Your Roles" required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">Upload Certifications</label><input type="file" class="form-control" id="" placeholder="Enter Certificate" name="intern_certificate[]" ></div></div></div> ');
                 });
 
                 $('#internship_div').on('click','.remCF1',function() 
@@ -368,7 +386,7 @@
 
                 $('#certificate').click(function()
                 {
-                    $("#certificate_section").append('<div class="form-row border col-12 pt-2 pb-2"><div class="col-12"><a href="javascript:void(0);" id="remCF1" class="remCF2 btn btn-danger float-right">Remove</a></div><div class="col-12 col-md-6 mb-3"> <label class="form-label" for="">CERTIFICATIONS</label><input type="text" class="form-control" name="certificate[]" id="" placeholder="MS-OFFICE, C, C++, JAVA etc " required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">UPLOAD CERTIFICATIONS</label><input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" ></div></div>');
+                    $("#certificate_section").append('<div class="form-row border pt-2 pb-2"><div class="col-12 col-md-5 mb-3"> <label class="form-label" for="">Certifications</label><input type="text" class="form-control" name="certificate[]" id="" placeholder="MS-OFFICE, C, C++, JAVA etc " required=""></div><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">Upload Certifications</label><input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" ></div><div class="col-12 col-md-2 mt-4"><a href="javascript:void(0);" id="remCF1" class="remCF2 btn btn-danger float-right"><i class="material-icons">delete</i></a></div>');
                 });
 
                 $('#certificate_section').on('click','.remCF2',function() 

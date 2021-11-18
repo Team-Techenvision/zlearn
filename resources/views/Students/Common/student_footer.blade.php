@@ -66,4 +66,3 @@
 });
   </script>
 
-profile_picture

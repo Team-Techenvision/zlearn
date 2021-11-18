@@ -27,6 +27,8 @@ Route::get('/', 'QovexController@logout');
 // Route::get('/Student-login', 'Student\StudentController@index');
 Route::get('/Student-register', 'Student\StudentController@register');
 
+Route::get('view-resume/{resume_type}','Student\StudentController@downloadResumeview');
+
 Route::middleware(['auth','User'])->group(function() {
     // Route::get('/', 'Student\StudentController@index');
     Route::get('studentdashboard', 'Student\StudentController@index')->name('student');
@@ -82,6 +84,11 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('Delete-UG_Details/{id}','Student\StudentController@Delete_UG_Details');
 
     Route::get('Delete-PG_Details/{id}','Student\StudentController@Delete_PG_Details');
+
+    Route::get('charts','Student\StudentController@charts');
+
+    Route::get('download-resume/{resume_type}','Student\StudentController@downloadResume');
+   
 
 
 });

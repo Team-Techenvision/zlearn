@@ -3,6 +3,11 @@
     dir="ltr">
     <head>
         @include('Students.Common.student_head')
+        <style>
+            .text-danger{
+                margin-left: -15px;
+            }
+        </style>
     </head>
     <body class="layout-app ">
         <div class="preloader">
@@ -72,7 +77,7 @@
                             <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete">
                              <span class="progression-bar__item-content">
                                  <i class="material-icons progression-bar__item-icon bg-timesheet-color-primary"> </i>
-                                 <span class="progression-bar__item-text h5 mb-0 text-uppercase">TRAINING INFO</span>
+                                 <span class="progression-bar__item-text h5 mb-0 text-uppercase">SKILLS INFO</span>
                              </span>
                          </a>
                             <a href="JavaScript:Void(0);"
@@ -125,20 +130,20 @@
                         @endif
                       </div>  
                     <!-- =================================== -->
-                         <form class="form-group col-md-10 m-auto" action="{{url('Basic-Info')}}" method="POST" enctype="multipart/form-data">
+                    <form class="form-group col-md-12 m-auto" action="{{url('Basic-Info')}}" method="POST" enctype="multipart/form-data">
                         @csrf                              
                              <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label" for="">First NAME</label>
-                                    <input type="text" class="form-control" name="first_name" id="" placeholder="Enter Your First Name" value="{{$user->name}}" readonly="">                                    
+                                    <label class="form-label" for=""><span class="text-danger">*</span> First Name  : </label>
+                                    <input type="text" class="form-control" name="first_name" id="" placeholder="Enter Your First Name" value="{{$user->name}}" readonly="" required>                                    
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label" for="">Last NAME</label>
+                                    <label class="form-label" for=""><span class="text-danger">*</span> Last Name  : </label>
                                     <input type="text" class="form-control" id="" placeholder="Enter Your Last Name" name="last_name" value="{{$user->l_name}}" @if($user->l_name == "Null")required="" @else readonly="" @endif>
                                 </div>
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-4 col-md-3 p-2">GENDER:</label>
+                                <label class="form-label col-4 col-md-3 p-2">Gender:</label>
                                 <div class="custom-control custom-radio col-md-9 col-8 p-2">
                                     <span class="mr-3">                                         
                                          <input type="radio" id="" name="gender" value="1" class="" @if($user->gender == "1")checked @endif @if($user->gender == "Null") checked @endif>
@@ -151,21 +156,68 @@
                                 </div>                                
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">DATE OF BIRTH:</label>
+                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Date of Birth :</label>
                                 <input id="" type="date" class="form-control col-md-9" name="bod_date" value="@if($UserDetails){{$UserDetails->dob}}@endif" required="">
                             </div>
+
+                            <div class="form-group row">
+                                <label class="form-label col-md-3 p-2">Blood Group:</label>
+                                {{-- <input id="" type="text" class="form-control col-md-9" placeholder="Enter Blood Group" name="blood_group" value="@if($UserDetails){{$UserDetails->blood_group}}@endif" required=""> --}}
+                                <select id="" name="blood_group" class="form-control custom-select col-md-9" >
+                                <option value="" selected>Select Blood Group</option>
+                                @foreach($blood_group as $list)
+                                    <option value="{{$list->blood_group_name}}" @if($UserDetails) @if($UserDetails->blood_group == $list->blood_group_name)selected @endif @endif>{{$list->blood_group_name}}</option>
+                                    @endforeach 
+                                </select> 
+                            </div>
+
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">YOUR EMAIL:</label>
+                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Email :</label>
                               <input type="email" class="form-control col-md-9" id="" name="email" value="{{$user->email}}" placeholder="Enter Your Email Address .." readonly="">
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">CONTACT DETAILS:</label>
-                                <input type="text" class="form-control col-md-9" id="" name="phone_no" value="{{$user->phone}}" placeholder="Enter Your MOBILE Number .." required="">
+                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Contact Number :</label>
+                                <input type="text" class="form-control col-md-9" id="" name="phone_no" value="{{$user->phone}}" placeholder="Enter Contact Number .." required="">
                             </div>
-                           <!--  <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">CAMPUS:</label>
-                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter Campus Name" name="campus" value="@if($Education){{$Education->compus}}@endif" >
-                            </div> -->
+
+                            <div class="form-group row ">
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> Emergency Contact Number  :</label>
+                                <input id="" type="text" class="form-control col-md-8" name="emergency_contact" placeholder="Enter Emergency Contact Number Mother Or Father Mobile No." value="@if($UserDetails){{$UserDetails->emergency_contact}}@endif" required="">
+                            </div>
+                        
+                            <div class="form-group row ">
+                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Permanent Address:</label>
+                                <textarea class="form-control col-md-9" name="permanent_address" placeholder="Enter Permanent Address" required="">@if($UserDetails){{$UserDetails->address}}@endif</textarea>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Current Address  :</label>
+                                <textarea class="form-control col-md-9" name="current_address" placeholder="Enter Current Address" required="">@if($Education){{$Education->current_address}}@endif</textarea>
+                            </div>
+
+                            <div class="form-group row ">
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> KYC - Aadhar or PAN card  :</label>
+                                 <input id="" type="text" class="form-control col-md-8"  placeholder="Enter AADHAR / PAN" name="kyc_doc" value="@if($UserDetails){{$UserDetails->kyc_name}}@endif" required="">
+                            </div>
+                            <div class="form-group row ">
+                                <label class="form-label col-md-4 p-2">Upload KYC - Aadhar or PAN card:</label>
+                                <div class="custom-file col-md-8">
+                                    <input type="file" id="file" class="form-control" name="upload_kyc_doc" >
+                                    
+                                </div>                                
+                            </div>
+
+                            @if(isset($UserDetails->upload_kyc))
+                            @if($UserDetails->upload_kyc)
+                            <div class="form-group row ">
+                                <label class="form-label col-md-3 p-2">Preview</label>
+                                <div class=" col-md-9">                                  
+                                   <img class="document_img" src="{{asset($UserDetails->upload_kyc)}}" alt="" width="80" height="80">
+                                </div>                                
+                            </div>
+                            @endif
+                            @endif
+
+
 
                             @if($Education)
 
@@ -190,7 +242,7 @@
                             </div>
                             @endif
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 col-4 p-2">EDUCATION:</label>
+                                <label class="form-label col-md-3 col-4 p-2">Education:</label>
                                 <div class="custom-control custom-radio co-md-9 col-8 p-2">
                                     <span class="mr-3">                                         
                                          <input type="radio" id="" name="education" value="UG" class="" @if($Education) @if($Education->education == "UG")checked @endif @endif>
@@ -209,13 +261,13 @@
                                 @endphp
                                 
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">Course:</label>
+                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Course  :</label>
                                 <input type="text" class="form-control col-md-9" id="" name="selected_course" value="{{$course_name}}" readonly>
                                 <input type="hidden" name="degree" value="{{$Education->degree}}">
                             </div>
                             @else
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2 text-uppercase">Course:</label>
+                                <label class="form-label col-md-3 p-2 text-uppercase"><span class="text-danger">*</span> Course  : </label>
                                 <select id="" name="degree" class="form-control custom-select col-md-9" required="">
                                     <option value="" selected>Select Course</option>
                                     @foreach($course as $list)
@@ -226,18 +278,26 @@
                         @endif
 
                         @if($Education)
-                            
                                 @php
                                 $branch_name= DB::table('branches')->where('id', $Education->branch_id)->pluck('branch_name')->first();
                             @endphp
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">Branch:</label>
+                                {{-- if readonly field enable this  --}}
+                                {{-- <label class="form-label col-md-3 p-2">Branch:</label>
                                 <input type="text" class="form-control col-md-9" id="" name="selected_branch" value="{{$branch_name}}" readonly>
-                                <input type="hidden" name="branch" value="{{$Education->branch_id}}">
+                                <input type="hidden" name="branch" value="{{$Education->branch_id}}"> --}}
+
+                                <label class="form-label col-md-3 p-2 text-uppercase"><span class="text-danger">*</span> Branch :</label>
+                                <select id="" name="branch" class="form-control custom-select col-md-9" required="">
+                                    <option value="" selected>Select Branch</option>
+                                    @foreach($branch as $list)
+                                    <option value="{{$list->id}}" @if($Education) @if($Education->branch_id == $list->id)selected @endif @endif>{{$list->branch_name}}</option>
+                                    @endforeach                                      
+                                </select>   
                             </div>
                             @else
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2 text-uppercase">Branch:</label>
+                                <label class="form-label col-md-3 p-2 text-uppercase"><span class="text-danger">*</span> Branch :</label>
                                 <select id="" name="branch" class="form-control custom-select col-md-9" required="">
                                     <option value="" selected>Select Branch</option>
                                     @foreach($branch as $list)
@@ -247,7 +307,7 @@
                             </div>
                             @endif
                             <div class="form-group row">
-                                <label class="form-label col-md-3 p-2">SEMESTER:</label>
+                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Semester  :</label>
                                 <select id="" name="semester" class="form-control custom-select col-md-9" required="">
                                     <option value="" selected>Select Semester </option>
                                     @foreach($Semister as $list)
@@ -256,80 +316,32 @@
                                 </select>                               
                             </div>
                             <div class="form-group row">
-                                <label class="form-label col-md-3 p-2">USN/ROLL NUMBER:</label>
+                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> USN/Roll Number  :</label>
                                 <input id="" type="text" class="form-control col-md-9" placeholder="Enter USN / Roll Number" name="roll_no" value="@if($Education){{$Education->roll_no}}@endif" required="">
                             </div>                             
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">MOTHER’S NAME:</label>
-                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter MOTHER’S NAME" value="@if($UserDetails){{$UserDetails->mother_name}}@endif" name="mother_name" required="">
+                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Mother's Name  :</label>
+                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter Mother's Name" value="@if($UserDetails){{$UserDetails->mother_name}}@endif" name="mother_name" required="">
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">MOTHER’S OCCUPATION:</label>
-                                <input id="" type="text" class="form-control col-md-9" name="mother_occupation" placeholder="Enter Occupation" value="@if($UserDetails){{$UserDetails->mother_occupation}}@endif" required="">
+                                <label class="form-label col-md-3 p-2">Mother's Occupation:</label>
+                                <input id="" type="text" class="form-control col-md-9" name="mother_occupation" placeholder="Enter mother's Occupation" value="@if($UserDetails){{$UserDetails->mother_occupation}}@endif">
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">FATHER’S NAME:</label>
-                                <input id="" type="text" class="form-control col-md-9" name="father_name" placeholder="Enter FATHER’S NAME" value="@if($UserDetails){{$UserDetails->father_name}}@endif" required="">
+                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Father's Name  :</label>
+                                <input id="" type="text" class="form-control col-md-9" name="father_name" placeholder="Enter Father's Name" value="@if($UserDetails){{$UserDetails->father_name}}@endif" required="">
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">FATHER’S OCCUPATION:</label>
-                                <input id="" type="text" class="form-control col-md-9" name="occupation" placeholder="Enter Occupation" value="@if($UserDetails){{$UserDetails->occupation}}@endif" required="">
+                                <label class="form-label col-md-3 p-2">Father's Occupation:</label>
+                                <input id="" type="text" class="form-control col-md-9" name="occupation" placeholder="Enter Father's Occupation" value="@if($UserDetails){{$UserDetails->occupation}}@endif">
                             </div>
-                            <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">PERMANENT ADDRESS:</label>
-                                <textarea class="form-control col-md-9" name="permanent_address" placeholder="Enter Permanent Address" required="">@if($UserDetails){{$UserDetails->address}}@endif</textarea>
-                            </div>
-                            <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">CURRENT ADDRESS:</label>
-                                <textarea class="form-control col-md-9" name="current_address" placeholder="Enter Current Address" required="">@if($Education){{$Education->current_address}}@endif</textarea>
-                            </div>
-                            <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">KYC-AADHAR AND PAN:</label>
-                                 <input id="" type="text" class="form-control col-md-9"  placeholder="Enter AADHAR / PAN" name="kyc_doc" value="@if($UserDetails){{$UserDetails->kyc_name}}@endif" required="">
-                            </div>
-                            <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">UPLOAD KYC-AADHAR OR PAN:</label>
-                                <div class="custom-file col-md-9">
-                                    <input type="file" id="file" class="form-control" name="upload_kyc_doc" >
-                                    
-                                </div>                                
-                            </div>
-
-                            @if(isset($UserDetails->upload_kyc))
-                            @if($UserDetails->upload_kyc)
-                            <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">Preview</label>
-                                <div class=" col-md-9">                                  
-                                   <img class="document_img" src="{{asset($UserDetails->upload_kyc)}}" alt="" width="80" height="80">
-                                </div>                                
-                            </div>
-                            @endif
-                            @endif
-                            @php
-                                
-                                // print_r($blood_group);  
-                            @endphp
-                            <div class="form-group row">
-                                <label class="form-label col-md-3 p-2">BLOOD GROUP:</label>
-                                {{-- <input id="" type="text" class="form-control col-md-9" placeholder="Enter Blood Group" name="blood_group" value="@if($UserDetails){{$UserDetails->blood_group}}@endif" required=""> --}}
-                                <select id="" name="blood_group" class="form-control custom-select col-md-9" >
-                                <option value="" selected>Select Blood Group</option>
-                                @foreach($blood_group as $list)
-                                    <option value="{{$list->blood_group_name}}" @if($UserDetails) @if($UserDetails->blood_group == $list->blood_group_name)selected @endif @endif>{{$list->blood_group_name}}</option>
-                                    @endforeach 
-                                </select> 
-                            </div>
-                            
-                            <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">EMERGENCY CONTACT NO. :</label>
-                                <input id="" type="text" class="form-control col-md-9" name="emergency_contact" placeholder="Enter Emergency Contact No. Mother Or Father Mobile No." value="@if($UserDetails){{$UserDetails->emergency_contact}}@endif" required="">
-                            </div>
-
+                          
+                           
                             <div class="form-group row">
                                 <div class="col-10 m-auto text-right pt-3">
                                     {{-- <button type="reset" name="reset" class="btn btn-secondary mr-2">Reset</button> --}}
-                                    <a href="{{url('studentdashboard')}}" class="btn btn-secondary mr-2" >Back</a>
-                                    <button name="submit" class="btn btn-primary">Save</button>
+                                    {{-- <a href="{{url('studentdashboard')}}" class="btn btn-secondary mr-2" >Back</a> --}}
+                                    <button name="submit" class="btn btn-success">Next</button>
                                 </div>
                             </div>   
                         </form>

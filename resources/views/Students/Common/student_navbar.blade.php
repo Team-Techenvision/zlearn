@@ -1,6 +1,6 @@
 <div class="navbar navbar-expand pr-0 navbar-light border-bottom-2"
                      id="default-navbar"
-                     data-primary>
+                     data-primary style="border-bottom: 2px solid #e0dfdf!important;" >
         
                     <!-- Navbar Toggler -->
         

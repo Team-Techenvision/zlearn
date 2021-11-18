@@ -44,8 +44,18 @@
 
                                     <div class="form-group">
                                         <label for="name">{{ __('Name') }}</label>
-                                        <input type="text" name="name" value="{{ old('name') }}" required autocomplete="name" class="form-control @error('name') is-invalid @enderror" autofocus id="name" placeholder="Enter name">
+                                        <input type="text" name="name" value="{{ old('name') }}" required autocomplete="name" class="form-control @error('name') is-invalid @enderror" autofocus id="name" placeholder="Enter First Name">
                                         @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">{{ __('Name') }}</label>
+                                        <input type="text" name="l_name" value="{{ old('l_name') }}" required autocomplete="l_name" class="form-control @error('l_name') is-invalid @enderror" autofocus id="l_name" placeholder="Enter Last Name">
+                                        @error('l_name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
