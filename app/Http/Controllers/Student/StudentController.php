@@ -421,6 +421,7 @@ class StudentController extends Controller
                 'avg_percentage_ug'=> $req->avg_percentage_ug,
                 'college_ug' => $req->college_ug,
                 'cource_ug'=> $req->cource_ug,
+                'branch_ug'=> $req->branch_ug,
                 'year_of_pass_pg' => $req->year_of_pass_pg, 
                 'avg_percentage_pg' => $req->avg_percentage_pg,
                 'avg_cgpa'=> $req->avg_cgpa,
@@ -445,6 +446,7 @@ class StudentController extends Controller
             $data->avg_percentage_ug=$req->avg_percentage_ug;
             $data->college_ug=$req->college_ug;
             $data->cource_ug=$req->cource_ug;
+            $data->branch_ug=$req->branch_ug;
             $data->year_of_pass_pg=$req->year_of_pass_pg;
             $data->avg_percentage_pg=$req->avg_percentage_pg;
             $data->avg_cgpa=$req->avg_cgpa;
@@ -1595,7 +1597,20 @@ class StudentController extends Controller
                                           ->where('users.id',Auth::User()->id)
                                           ->first();
         //    dd($data);
-           $pdf = PDF::loadView('Students/Webviews/resume1', $data);
+        switch ($resume_type) {
+            case "1":
+                $pdf = PDF::loadView('Students/Webviews/basic_resume', $data);
+              break;
+            case "2":
+                $pdf = PDF::loadView('Students/Webviews/engg_resume', $data);
+              break;
+              case "3":
+                $pdf = PDF::loadView('Students/Webviews/premium_resume', $data);
+              break;
+            default:
+            $pdf = PDF::loadView('Students/Webviews/resume1', $data);
+          }
+           
         //    return $pdf->download("$user_id.pdf");
     
             // for view without download use stream methode 

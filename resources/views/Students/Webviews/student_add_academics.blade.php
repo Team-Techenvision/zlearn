@@ -228,15 +228,20 @@
 
                             @if($Education->education == 'PG')
                             <div class="form-row">
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="col-12 col-md-4 mb-3">
                                     <label class="form-label" for="">College Name</label>
                                     <input type="text" class="form-control" id="" placeholder="Enter College Name"
                                         value="@if ($Academics){{ $Academics->college_ug }}@endif" name="college_ug">
                                 </div>
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="col-12 col-md-4 mb-3">
                                     <label class="form-label" for="">Course</label>
                                     <input type="text" class="form-control" id="" placeholder="Enter Course"
                                         value="@if ($Academics){{ $Academics->cource_ug }}@endif" name="cource_ug">
+                                </div>
+                                <div class="col-12 col-md-4 mb-3">
+                                    <label class="form-label" for="">Branch</label>
+                                    <input type="text" class="form-control" id="" placeholder="Enter Branch"
+                                        value="@if ($Academics){{ $Academics->branch_ug }}@endif" name="branch_ug">
                                 </div>
                             </div>
                             @else
