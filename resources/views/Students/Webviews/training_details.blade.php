@@ -146,15 +146,21 @@
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3" id="certificate" title="Add More">+</a>                                     
                                     </div>
                                 </div>
+                                @php
+                                    $i=0;
+                                @endphp
                                 @if(count($Certification) > 0)
                                     @foreach ($Certification as $item)
                                     <div class="form-row">
-                                        <div class="col-12 col-md-5 form-group p-1 h6">
+                                        <div class="col-12 col-md-3 form-group p-1 h6">
                                             Certifications :- {{$item->Certification_name}}                                        
                                         </div>
-                                        <div class="col-12 col-md-5  form-group p-1 h6">
+                                        <div class="col-12 col-md-3  form-group p-1 h6">
                                             Upload Certifications :- @if($item->upload_certificat)Yes @else No @endif
                                         </div> 
+                                        <div class="col-12 col-md-3" id="pop_<?php echo ++$i; ?>">                                  
+                                            <img class="document_img" id="imageresource_<?php echo ++$i; ?>" src="{{asset($item->upload_certificat)}}" alt="" width="20" height="20">
+                                         </div>    
                                         <div class="col-12 col-md-2 form-group p-1 h6">
                                             <a href="{{url('Delete_Certificate')}}/{{$item->id}}" class="btn btn-danger float-right" title="Delete"><i class="material-icons">delete</i></a>
                                         </div>
@@ -227,6 +233,9 @@
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3" id="enter_ship" title="Add More">+</a>                                     
                                     </div>
                                 </div>
+                                @php
+                                    $j = 1;
+                                @endphp
                                 @if(count($Interships) > 0)
                                     <div class="form-row">
                                         @foreach ($Interships as $item)
@@ -241,9 +250,12 @@
                                             <div class="col-12 col-md-5  form-group p-1 h6">
                                                 Roles & Responsibilities :- {{$item->your_roles}}
                                             </div>
-                                            <div class="col-12 col-md-5  form-group p-1 h6">
+                                            {{-- <div class="col-12 col-md-5  form-group p-1 h6">
                                                 Certification :- Preview
-                                            </div>
+                                            </div> --}}
+                                            <div class="col-12 col-md-5" id="pop_<?php echo ++$j; ?>">                                  
+                                                <img class="document_img" id="imageresource_<?php echo ++$j; ?>" src="{{asset($item->intern_certificate)}}" alt="" width="20" height="20">
+                                             </div>    
                                             <div class="col-12 col-md-2  form-group p-1 h6">
                                                 <a href="{{url('Delete-Intship')}}/{{$item->id}}" class="btn btn-danger float-right delete_intership" title="Delete" ><i class="material-icons">delete</i></a>
                                              </div> 
@@ -344,6 +356,25 @@
             @include('Students.Common.student_sidebar')
             <!-- // END Drawer sidebar ends -->
         </div>
+
+             <!--Certificate  Modal -->
+                <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="" id="imagepreview" style="width: 100%; height: auto;">
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
+
         <!-- // END Drawer Layout -->
         @include('Students.Common.student_footer')
         
@@ -425,5 +456,13 @@
                 // });
             });
         </script>
+
+<script>
+    $("img").on("click", function() {
+        // alert($('#'+this.id).attr('src'));
+        $('#imagepreview').attr('src', $('#'+this.id).attr('src')); // here asign the image to the modal when the user click the enlarge link
+        $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+    });
+</script>
     </body>
 </html>

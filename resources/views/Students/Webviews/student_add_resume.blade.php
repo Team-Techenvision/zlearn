@@ -143,8 +143,8 @@
                                 </div>
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-4 col-md-3 p-2">Gender:</label>
-                                <div class="custom-control custom-radio col-md-9 col-8 p-2">
+                                <label class="form-label col-4 col-md-4 p-2"> <span class="text-danger">*</span> Gender:</label>
+                                <div class="custom-control custom-radio col-md-8 col-8 p-2">
                                     <span class="mr-3">                                         
                                          <input type="radio" id="" name="gender" value="1" class="" @if($user->gender == "1")checked @endif @if($user->gender == "Null") checked @endif>
                                          <label for="Male" class="pl-1">Male</label>          
@@ -156,14 +156,14 @@
                                 </div>                                
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Date of Birth :</label>
-                                <input id="" type="date" class="form-control col-md-9" name="bod_date" value="@if($UserDetails){{$UserDetails->dob}}@endif" required="">
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> Date of Birth :</label>
+                                <input id="" type="date" class="form-control col-md-8" name="bod_date" value="@if($UserDetails){{$UserDetails->dob}}@endif" required="">
                             </div>
 
                             <div class="form-group row">
-                                <label class="form-label col-md-3 p-2">Blood Group:</label>
-                                {{-- <input id="" type="text" class="form-control col-md-9" placeholder="Enter Blood Group" name="blood_group" value="@if($UserDetails){{$UserDetails->blood_group}}@endif" required=""> --}}
-                                <select id="" name="blood_group" class="form-control custom-select col-md-9" >
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span>Blood Group:</label>
+                                {{-- <input id="" type="text" class="form-control col-md-8" placeholder="Enter Blood Group" name="blood_group" value="@if($UserDetails){{$UserDetails->blood_group}}@endif" required=""> --}}
+                                <select id="" name="blood_group" class="form-control custom-select col-md-8" >
                                 <option value="" selected>Select Blood Group</option>
                                 @foreach($blood_group as $list)
                                     <option value="{{$list->blood_group_name}}" @if($UserDetails) @if($UserDetails->blood_group == $list->blood_group_name)selected @endif @endif>{{$list->blood_group_name}}</option>
@@ -172,26 +172,26 @@
                             </div>
 
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Email :</label>
-                              <input type="email" class="form-control col-md-9" id="" name="email" value="{{$user->email}}" placeholder="Enter Your Email Address .." readonly="">
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> Email :</label>
+                              <input type="email" class="form-control col-md-8" id="" name="email" value="{{$user->email}}" placeholder="Enter Your Email Address .." readonly="">
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Contact Number :</label>
-                                <input type="text" class="form-control col-md-9" id="" name="phone_no" value="{{$user->phone}}" placeholder="Enter Contact Number .." required="">
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> Contact Number :</label>
+                                <input type="number" class="form-control col-md-8" id="" name="phone_no" value="{{$user->phone}}" placeholder="Enter Contact Number .." required="">
                             </div>
 
                             <div class="form-group row ">
                                 <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> Emergency Contact Number  :</label>
-                                <input id="" type="text" class="form-control col-md-8" name="emergency_contact" placeholder="Enter Emergency Contact Number Mother Or Father Mobile No." value="@if($UserDetails){{$UserDetails->emergency_contact}}@endif" required="">
+                                <input id="" type="number" class="form-control col-md-8" name="emergency_contact" placeholder="Enter Emergency Contact Number Mother Or Father Mobile No." value="@if($UserDetails){{$UserDetails->emergency_contact}}@endif" required="">
                             </div>
                         
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Permanent Address:</label>
-                                <textarea class="form-control col-md-9" name="permanent_address" placeholder="Enter Permanent Address" required="">@if($UserDetails){{$UserDetails->address}}@endif</textarea>
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> Permanent Address:</label>
+                                <textarea class="form-control col-md-8" name="permanent_address" placeholder="Enter Permanent Address" required="">@if($UserDetails){{$UserDetails->address}}@endif</textarea>
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Current Address  :</label>
-                                <textarea class="form-control col-md-9" name="current_address" placeholder="Enter Current Address" required="">@if($Education){{$Education->current_address}}@endif</textarea>
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> Current Address  :</label>
+                                <textarea class="form-control col-md-8" name="current_address" placeholder="Enter Current Address" required="">@if($Education){{$Education->current_address}}@endif</textarea>
                             </div>
 
                             <div class="form-group row ">
@@ -200,7 +200,7 @@
                             </div>
                             <div class="form-group row ">
                                 <label class="form-label col-md-4 p-2">Upload KYC - Aadhar or PAN card:</label>
-                                <div class="custom-file col-md-8">
+                                <div class="custom-file col-md-8" style="padding-left: 0px; padding-right:0px;">
                                     <input type="file" id="file" class="form-control" name="upload_kyc_doc" >
                                     
                                 </div>                                
@@ -209,15 +209,13 @@
                             @if(isset($UserDetails->upload_kyc))
                             @if($UserDetails->upload_kyc)
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">Preview</label>
-                                <div class=" col-md-9">                                  
-                                   <img class="document_img" src="{{asset($UserDetails->upload_kyc)}}" alt="" width="80" height="80">
-                                </div>                                
+                                <label class="form-label col-md-4 p-2">Preview</label>
+                                <div class=" col-md-8" id="pop">                                  
+                                    <img class="document_img" id="imageresource" src="{{asset($UserDetails->upload_kyc)}}" alt="" width="80" height="80">
+                                 </div>                                  
                             </div>
                             @endif
                             @endif
-
-
 
                             @if($Education)
 
@@ -226,14 +224,14 @@
                                 @endphp
                                 
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">College:</label>
-                                <input type="text" class="form-control col-md-9" id="" name="selected_collage" value="{{$college_name}}" readonly>
+                                <label class="form-label col-md-4 p-2">College:</label>
+                                <input type="text" class="form-control col-md-8" id="" name="selected_collage" value="{{$college_name}}" readonly>
                                 <input type="hidden" name="collage" value="{{$Education->collage_id}}" >
                             </div>
                             @else
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2 text-uppercase">College:</label>
-                                <select id="" name="collage" class="form-control custom-select col-md-9" >
+                                <label class="form-label col-md-4 p-2 text-uppercase">College:</label>
+                                <select id="" name="collage" class="form-control custom-select col-md-8" >
                                     <option value="" selected>Select College</option>
                                     @foreach($College as $list)
                                     <option value="{{$list->id}}" @if($Education) @if($Education->collage_id == $list->id)selected @endif @endif>{{$list->college_name}}</option>
@@ -242,7 +240,7 @@
                             </div>
                             @endif
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 col-4 p-2">Education:</label>
+                                <label class="form-label col-md-4 col-4 p-2"> <span class="text-danger">*</span> Education:</label>
                                 <div class="custom-control custom-radio co-md-9 col-8 p-2">
                                     <span class="mr-3">                                         
                                          <input type="radio" id="" name="education" value="UG" class="" @if($Education) @if($Education->education == "UG")checked @endif @endif>
@@ -261,14 +259,14 @@
                                 @endphp
                                 
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Course  :</label>
-                                <input type="text" class="form-control col-md-9" id="" name="selected_course" value="{{$course_name}}" readonly>
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> Course  :</label>
+                                <input type="text" class="form-control col-md-8" id="" name="selected_course" value="{{$course_name}}" readonly>
                                 <input type="hidden" name="degree" value="{{$Education->degree}}">
                             </div>
                             @else
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2 text-uppercase"><span class="text-danger">*</span> Course  : </label>
-                                <select id="" name="degree" class="form-control custom-select col-md-9" required="">
+                                <label class="form-label col-md-4 p-2 text-uppercase"><span class="text-danger">*</span> Course  : </label>
+                                <select id="" name="degree" class="form-control custom-select col-md-8" required="">
                                     <option value="" selected>Select Course</option>
                                     @foreach($course as $list)
                                     <option value="{{$list->id}}" @if($Education) @if($Education->degree == $list->id)selected @endif @endif>{{$list->course_name}}</option>
@@ -278,17 +276,18 @@
                         @endif
 
                         @if($Education)
+                            
                                 @php
                                 $branch_name= DB::table('branches')->where('id', $Education->branch_id)->pluck('branch_name')->first();
                             @endphp
                             <div class="form-group row ">
                                 {{-- if readonly field enable this  --}}
-                                {{-- <label class="form-label col-md-3 p-2">Branch:</label>
-                                <input type="text" class="form-control col-md-9" id="" name="selected_branch" value="{{$branch_name}}" readonly>
+                                {{-- <label class="form-label col-md-4 p-2">Branch:</label>
+                                <input type="text" class="form-control col-md-8" id="" name="selected_branch" value="{{$branch_name}}" readonly>
                                 <input type="hidden" name="branch" value="{{$Education->branch_id}}"> --}}
 
-                                <label class="form-label col-md-3 p-2 text-uppercase"><span class="text-danger">*</span> Branch :</label>
-                                <select id="" name="branch" class="form-control custom-select col-md-9" required="">
+                                <label class="form-label col-md-4 p-2 text-uppercase"><span class="text-danger">*</span> Branch :</label>
+                                <select id="" name="branch" class="form-control custom-select col-md-8" required="">
                                     <option value="" selected>Select Branch</option>
                                     @foreach($branch as $list)
                                     <option value="{{$list->id}}" @if($Education) @if($Education->branch_id == $list->id)selected @endif @endif>{{$list->branch_name}}</option>
@@ -297,8 +296,8 @@
                             </div>
                             @else
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2 text-uppercase"><span class="text-danger">*</span> Branch :</label>
-                                <select id="" name="branch" class="form-control custom-select col-md-9" required="">
+                                <label class="form-label col-md-4 p-2 text-uppercase"><span class="text-danger">*</span> Branch :</label>
+                                <select id="" name="branch" class="form-control custom-select col-md-8" required="">
                                     <option value="" selected>Select Branch</option>
                                     @foreach($branch as $list)
                                     <option value="{{$list->id}}" @if($Education) @if($Education->branch_id == $list->id)selected @endif @endif>{{$list->branch_name}}</option>
@@ -307,8 +306,8 @@
                             </div>
                             @endif
                             <div class="form-group row">
-                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Semester  :</label>
-                                <select id="" name="semester" class="form-control custom-select col-md-9" required="">
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> Semester  :</label>
+                                <select id="" name="semester" class="form-control custom-select col-md-8" required="">
                                     <option value="" selected>Select Semester </option>
                                     @foreach($Semister as $list)
                                     <option value="{{$list->id}}" @if($UserDetails) @if($UserDetails->semister == $list->id)selected @endif @endif>{{$list->semister_name}}</option>
@@ -316,24 +315,24 @@
                                 </select>                               
                             </div>
                             <div class="form-group row">
-                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> USN/Roll Number  :</label>
-                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter USN / Roll Number" name="roll_no" value="@if($Education){{$Education->roll_no}}@endif" required="">
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> USN/Roll Number  :</label>
+                                <input id="" type="text" class="form-control col-md-8" placeholder="Enter USN / Roll Number" name="roll_no" value="@if($Education){{$Education->roll_no}}@endif" required="">
                             </div>                             
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Mother's Name  :</label>
-                                <input id="" type="text" class="form-control col-md-9" placeholder="Enter Mother's Name" value="@if($UserDetails){{$UserDetails->mother_name}}@endif" name="mother_name" required="">
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> Mother's Name  :</label>
+                                <input id="" type="text" class="form-control col-md-8" placeholder="Enter Mother's Name" value="@if($UserDetails){{$UserDetails->mother_name}}@endif" name="mother_name" required="">
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">Mother's Occupation:</label>
-                                <input id="" type="text" class="form-control col-md-9" name="mother_occupation" placeholder="Enter mother's Occupation" value="@if($UserDetails){{$UserDetails->mother_occupation}}@endif">
+                                <label class="form-label col-md-4 p-2">Mother's Occupation:</label>
+                                <input id="" type="text" class="form-control col-md-8" name="mother_occupation" placeholder="Enter mother's Occupation" value="@if($UserDetails){{$UserDetails->mother_occupation}}@endif">
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2"><span class="text-danger">*</span> Father's Name  :</label>
-                                <input id="" type="text" class="form-control col-md-9" name="father_name" placeholder="Enter Father's Name" value="@if($UserDetails){{$UserDetails->father_name}}@endif" required="">
+                                <label class="form-label col-md-4 p-2"><span class="text-danger">*</span> Father's Name  :</label>
+                                <input id="" type="text" class="form-control col-md-8" name="father_name" placeholder="Enter Father's Name" value="@if($UserDetails){{$UserDetails->father_name}}@endif" required="">
                             </div>
                             <div class="form-group row ">
-                                <label class="form-label col-md-3 p-2">Father's Occupation:</label>
-                                <input id="" type="text" class="form-control col-md-9" name="occupation" placeholder="Enter Father's Occupation" value="@if($UserDetails){{$UserDetails->occupation}}@endif">
+                                <label class="form-label col-md-4 p-2">Father's Occupation:</label>
+                                <input id="" type="text" class="form-control col-md-8" name="occupation" placeholder="Enter Father's Occupation" value="@if($UserDetails){{$UserDetails->occupation}}@endif">
                             </div>
                           
                            
@@ -357,6 +356,24 @@
             @include('Students.Common.student_sidebar')
             <!-- // END Drawer sidebar ends -->
         </div>
+
+          <!-- Modal -->
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <img src="" id="imagepreview" style="width: 100%; height: auto;">
+        </div>
+        
+      </div>
+    </div>
+  </div>
         <!-- // END Drawer Layout -->
         @include('Students.Common.student_footer')
         <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
@@ -376,6 +393,13 @@
                 });
             });
         </script>
+
+<script>
+    $("#pop").on("click", function() {
+        $('#imagepreview').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+        $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+    });
+</script>
         
     </body>
 </html>

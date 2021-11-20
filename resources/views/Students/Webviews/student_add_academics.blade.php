@@ -7,6 +7,9 @@
         .text-danger{
             margin-left: -15px;
         }
+        .complete-resume::after{
+  width: 0%!important;
+}
     </style>
 </head>
 
@@ -81,7 +84,7 @@
                             </span>
                         </a>
                         <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete ">
-                            <span class="progression-bar__item-content">
+                            <span class="progression-bar__item-content complete-resume">
                                 <i class="material-icons progression-bar__item-icon bg-timesheet-color-primary"></i>
                                 <span class="progression-bar__item-text h5 mb-0 text-uppercase">RESUME</span>
                             </span>
@@ -144,7 +147,7 @@
                                     required="" >
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for=""> <span class="text-danger">*</span> Year Of Pass</label>
+                                <label class="form-label" for=""> <span class="text-danger">*</span> Enter Year Of Pass (YYYY)</label>
                                 <input type="number" class="form-control" id="" placeholder="Enter Year Of Pass (YYYY)"
                                     value="@if ($Academics){{ $Academics->sslc_year }}@endif" name="year_sslc" required="" max="9999">
                             </div>
@@ -152,12 +155,12 @@
                         <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
                                 <label class="form-label" for=""> <span class="text-danger">*</span> PUC / 12 <sup>th</sup> Percentage(%) If Applicable</label>
-                                <input type="text" class="form-control" name="puc_per" id=""
+                                <input type="number" class="form-control" name="puc_per" id=""
                                     value="@if ($Academics){{ $Academics->puc_perce }}@endif" placeholder="Enter PUC / 12th Percentage"
                                     required="">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for=""> <span class="text-danger">*</span> Year Of Pass</label>
+                                <label class="form-label" for=""> <span class="text-danger">*</span> Enter Year Of Pass (YYYY)</label>
                                 <input type="number" class="form-control" id="" placeholder="Enter Year Of Pass (YYYY)"
                                     value="@if ($Academics){{ $Academics->puc_year }}@endif" name="year_puc" required="" max="9999">
                             </div>
@@ -165,12 +168,12 @@
                         <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
                                 <label class="form-label" for="">Diploma Percentage(%) If Applicable </label>
-                                <input type="text" class="form-control" name="diploma_per" id=""
+                                <input type="number" class="form-control" name="diploma_per" id=""
                                     value="@if ($Academics){{ $Academics->diploma_perce }}@endif" placeholder="Enter Diploma Percentage">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for="">Year Of Pass</label>
-                                <input type="number" class="form-control" id="" placeholder="EnterYear Of Pass"
+                                <label class="form-label" for="">Enter Year Of Pass (YYYY)</label>
+                                <input type="number" class="form-control" id="" placeholder="Enter Year Of Pass (YYYY)"
                                     value="@if ($Academics){{ $Academics->diploma_year }}@endif" name="year_diploma" max="9999">
                             </div>
                         </div>
@@ -183,8 +186,8 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label" for="">Year Of Pass</label>
-                                    <input type="number" class="form-control" id="" placeholder="Enter Year Of Pass"
+                                    <label class="form-label" for="">Enter Year Of Pass (YYYY)</label>
+                                    <input type="number" class="form-control" id="" placeholder="Enter Year of Pass (YYYY)"
                                         value="@if ($Academics){{ $Academics->year_of_pass_ug }}@endif" name="year_of_pass_ug" max="9999">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
@@ -284,8 +287,8 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label" for="">Year Of Pass</label>
-                                    <input type="number" class="form-control" id="" placeholder="Enter Year Of Pass"
+                                    <label class="form-label" for="">Enter Year Of Pass (YYYY)</label>
+                                    <input type="number" class="form-control" id="" placeholder="Enter Year of Pass (YYYY)"
                                         value="@if ($Academics){{ $Academics->year_of_pass_pg }}@endif" name="year_of_pass_pg" max="9999">
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
