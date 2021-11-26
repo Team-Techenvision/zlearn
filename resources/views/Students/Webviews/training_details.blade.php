@@ -59,27 +59,27 @@
                                class="progression-bar__item progression-bar__item--complete text-white">
                                 <span class="progression-bar__item-content">
                                     <i class="material-icons progression-bar__item-icon bg-success">done</i>
-                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">BASIC INFO</span>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1 ml-30">BASIC INFO</span>
                                 </span>
                             </a>
                             <a href="JavaScript:Void(0);"
                                class="progression-bar__item progression-bar__item--complete text-white">
                                 <span class="progression-bar__item-content">
                                     <i class="material-icons progression-bar__item-icon  bg-success"> done</i>
-                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">ACADEMICS INFO</span>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1 ml-60">ACADEMICS INFO</span>
                                 </span>
                             </a>
                             <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete text-white">
                              <span class="progression-bar__item-content">
                                  <i class="material-icons progression-bar__item-icon bg-primary bg-success">done</i>
-                                 <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">SKILLS INFO</span>
+                                 <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1 ml-30">SKILLS INFO</span>
                              </span>
                          </a>
                             <a href="JavaScript:Void(0);"
-                               class="progression-bar__item progression-bar__item--complete ">
+                               class="progression-bar__item progression-bar__item--complete last-item">
                                 <span class="progression-bar__item-content">
                                     <i class="material-icons progression-bar__item-icon bg-timesheet-color-primary"></i>
-                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">RESUME</span>
+                                    <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1 ml-20">RESUME</span>
                                 </span>
                             </a>
                             
@@ -130,8 +130,8 @@
 
                             <div class="form-row">                                
                                 <div class="col-12 col-md-12 mb-3">
-                                    <label class="form-label text-uppercase" for="">Technical Skills:</label>                                     
-                                     <textarea class="form-control" name="tech_skill" placeholder="Enter Tech Skills (MS Office, C, Java,  Autocad etc)"  >@if($Technical_skill){{$Technical_skill->tech_skill}}@endif</textarea>
+                                    <label class="form-label text-uppercase" for="">Technical Skill:</label>                                     
+                                     <textarea class="form-control" name="tech_skill" placeholder="Enter Tech Skill (MS Office, C, Java,  Autocad etc)"  >@if($Technical_skill){{$Technical_skill->tech_skill}}@endif</textarea>
                                 </div>
                             </div>
                             <!-- <div class="form-group row ">
@@ -152,14 +152,15 @@
                                 @if(count($Certification) > 0)
                                     @foreach ($Certification as $item)
                                     <div class="form-row">
-                                        <div class="col-12 col-md-3 form-group p-1 h6">
-                                            Certifications :- {{$item->Certification_name}}                                        
+                                        <div class="col-12 col-md-5 form-group p-1 h6">
+                                            Certifications : {{$item->Certification_name}}                                        
                                         </div>
-                                        <div class="col-12 col-md-3  form-group p-1 h6">
-                                            Upload Certifications :- @if($item->upload_certificat)Yes @else No @endif
-                                        </div> 
-                                        <div class="col-12 col-md-3" id="pop_<?php echo ++$i; ?>">                                  
-                                            <img class="document_img" id="imageresource_<?php echo ++$i; ?>" src="{{asset($item->upload_certificat)}}" alt="" width="20" height="20">
+                                        {{-- <div class="col-12 col-md-3  form-group p-1 h6">
+                                            Upload Certifications : @if($item->upload_certificat)Yes @else No @endif
+                                        </div>  --}}
+                                        <div class="col-12 col-md-5" id="pop_<?php echo ++$i; ?>">      
+                                            <i class="fa fa-check text-success mr-2" aria-hidden="true"></i> <span class="ml-1 mr-2"> Image Uploded </span> <a href="javascript:;" data-href="{{asset($item->upload_certificat)}}" class="openmodal btn btn-primary btn-sm">Preview</a>                  
+                                            {{-- <img class="document_img" id="imageresource_<?php echo ++$i; ?>" src="{{asset($item->upload_certificat)}}" alt="" width="20" height="20"> --}}
                                          </div>    
                                         <div class="col-12 col-md-2 form-group p-1 h6">
                                             <a href="{{url('Delete_Certificate')}}/{{$item->id}}" class="btn btn-danger float-right" title="Delete"><i class="material-icons">delete</i></a>
@@ -194,14 +195,14 @@
                                                 <a href="{{url('Delete-Project')}}/{{$item->id}}" class="btn btn-danger float-right" title="Delete" id="delete_proj"><i class="material-icons">delete</i></a>
                                              </div>   
                                             <div class="col-md-6  form-group p-1 h6">
-                                                Project Name :- {{$item->project_name}}
+                                                Project Name : {{$item->project_name}}
                                                 
                                             </div>
                                             <div class="col-md-6  form-group p-1 h6">
-                                                Team/single :- {{$item->team_size}}
+                                                Team/single : {{$item->team_size}}
                                             </div>
                                             <div class="col-12  form-group p-1 h6">
-                                                Project details :- {{$item->project_detail}}
+                                                Project details : {{$item->project_detail}}
                                             </div>
                                              <hr style="w-50 m-auto text-dark"> 
                                         @endforeach
@@ -242,20 +243,18 @@
                                        
                                            
                                             <div class="col-md-5  form-group p-1 h6">
-                                                Company Name :- {{$item->int_comp_name}}                                                
+                                                Company Name : {{$item->int_comp_name}}                                                
                                             </div>
                                             <div class="col-md-5  form-group p-1 h6">
-                                                Duration <small>(In Months)</small> :- {{$item->intship_duration}}
+                                                Duration <small>(In Months)</small> : {{$item->intship_duration}}
                                             </div>                                           
                                             <div class="col-12 col-md-5  form-group p-1 h6">
-                                                Roles & Responsibilities :- {{$item->your_roles}}
+                                                Roles & Responsibilities : {{$item->your_roles}}
                                             </div>
-                                            {{-- <div class="col-12 col-md-5  form-group p-1 h6">
-                                                Certification :- Preview
-                                            </div> --}}
-                                            <div class="col-12 col-md-5" id="pop_<?php echo ++$j; ?>">                                  
-                                                <img class="document_img" id="imageresource_<?php echo ++$j; ?>" src="{{asset($item->intern_certificate)}}" alt="" width="20" height="20">
-                                             </div>    
+                                            <div class="col-12 col-md-5" id="pop_<?php echo ++$j; ?>" >  
+                                                <i class="fa fa-check text-success mr-2" aria-hidden="true"></i> <span class="ml-1 mr-2"> Image Uploded </span> <a href="javascript:;" data-href="{{asset($item->intern_certificate)}}" class="openmodal btn btn-primary btn-sm">Preview</a>                                 
+                                                {{-- <img class="document_img" id="imageresource_<?php echo ++$j; ?>" src="{{asset($item->intern_certificate)}}" alt="" width="20" height="20"> --}}
+                                             </div>  
                                             <div class="col-12 col-md-2  form-group p-1 h6">
                                                 <a href="{{url('Delete-Intship')}}/{{$item->id}}" class="btn btn-danger float-right delete_intership" title="Delete" ><i class="material-icons">delete</i></a>
                                              </div> 
@@ -289,7 +288,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label text-uppercase" for="">Languages Known :</label>
-                                    <input type="text" class="form-control" id="" placeholder="Java, Python, C, C++ " value="@if($Technical_skill){{$Technical_skill->known_language}}@endif" name="known_language">
+                                    <input type="text" class="form-control" id="" placeholder="Kannada, English, Hindi" value="@if($Technical_skill){{$Technical_skill->known_language}}@endif" name="known_language">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -312,9 +311,9 @@
                                     <textarea id="" class="form-control" cols="80" rows="5" name="extracurricular" placeholder="Participated in Sports/ Competition/ Cultural Events etc">@if($Technical_skill){{$Technical_skill->extracurricular}}@endif</textarea>
                                 </div>
                                 <div class="col-12 col-md-6 mb-3">
-                                    <label class="form-label text-uppercase" for="">Skills Sets :</label>
-                                    {{-- <input type="text" class="form-control" id="" placeholder="Leadership Skills, Communication Skills, Creativity " value="@if($Technical_skill){{$Technical_skill->skil_sets}}@endif" name="skil_sets"> --}}
-                                    <textarea id="" class="form-control" cols="80" rows="5" name="skil_sets" placeholder="Leadership SKills/Communication Skills/ Creativity etc">@if($Technical_skill){{$Technical_skill->skil_sets}}@endif</textarea>
+                                    <label class="form-label text-uppercase" for="">Skill Set :</label>
+                                    {{-- <input type="text" class="form-control" id="" placeholder="Leadership Skill, Communication Skill, Creativity " value="@if($Technical_skill){{$Technical_skill->skil_sets}}@endif" name="skil_sets"> --}}
+                                    <textarea id="" class="form-control" cols="80" rows="5" name="skil_sets" placeholder="Leadership Skill/Communication Skill/ Creativity etc">@if($Technical_skill){{$Technical_skill->skil_sets}}@endif</textarea>
                                 </div>
                             </div>
 
@@ -326,16 +325,21 @@
                             </div>
 
                             <div class="form-row">                                 
-                                <div class="col-12 col-md-12 mb-3">
-                                    <label class="form-label" for="">Career Objective:</label>
-                                    <textarea class="form-control" id="" placeholder="Enter Career Objective" name="career_object" >@if($Technical_skill){{$Technical_skill->career_object}}@endif</textarea>
+                                <div class="col-12 col-md-12 mb-3 w-100">
+                                    <label class="form-label" for="">Career Objective:</label> 
+                                    <span class="text-right "><!-- Large modal -->
+                                        <button type="button" class="btn btn-primary  float-right mb-2" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                           Check List
+                                          </button>
+                                    </span>
+                                    <textarea class="form-control" id="career_object" cols="100" rows="5" placeholder="Enter Career Objective" name="career_object" >@if($Technical_skill){{$Technical_skill->career_object}}@endif</textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-10 m-auto text-right pt-3">
                                     <!-- <button type="reset" name="reset" class="btn btn-secondary mr-2">Reset</button> -->
                                     <a href="{{url('resume-page-two')}}" class="btn btn-secondary mr-2" >Back</a>
-                                    <button name="submit" class="btn btn-success">Save</button>
+                                    <button name="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </form>
@@ -357,24 +361,53 @@
             <!-- // END Drawer sidebar ends -->
         </div>
 
-             <!--Certificate  Modal -->
-                <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            <img src="" id="imagepreview" style="width: 100%; height: auto;">
-                        </div>
-                        
-                    </div>
-                    </div>
+        <!--Certificate  Modal -->
+        <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 </div>
+                <div class="modal-body">
+                    <img src=""  style="width: 100%; height: auto;">
+                </div>
+                
+            </div>
+            </div>
+        </div>
 
+
+        @php
+             $career = DB::table('carrer_objectives')->where('status',1)->orderBy('id','asc')->get();
+            //  dd($career);
+        @endphp
+
+         <!--Certificate  Modal -->
+       <!-- Career Objective Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Career Objectives</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            @foreach ($career as $item)
+                 <input type="checkbox" name="checked_objectives" value="{{$item->objectives}}"> <span class="model-checkbox"> {{$item->objectives }}</span> <br>
+            @endforeach            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Save</button>
+          {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+        </div>
+      </div>
+    </div>
+  </div>
         <!-- // END Drawer Layout -->
         @include('Students.Common.student_footer')
         
@@ -405,7 +438,7 @@
 
                 $('#enter_ship').click(function()
                 {
-                    $("#internship_div").append('<div class="form-row enter_ship col-12 border pt-2 pb-2"><div class="col-12 col-md-5 mb-3"><label class="form-label text-uppercase" for="">Company Name</label><input type="text" class="form-control" name="int_comp_name[]" id="" placeholder="Enter Company Name" required=""></div><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">Duration <small>(In Months)</small>:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="Duration" name="intship_duration[]"></div><div class="col-12 col-md-2"><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div> <div class="form-row col-12"><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">Roles & Responsibilities:</label><input type="text" class="form-control col-12" name="proj_roles[]" id="" placeholder="Enter Your Roles" required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">Upload Certifications</label><input type="file" class="form-control" id="" placeholder="Enter Certificate" name="intern_certificate[]" ></div></div></div> ');
+                    $("#internship_div").append('<div class="form-row enter_ship col-12 border pt-2 pb-2"><div class="col-12 col-md-5 mb-3"><label class="form-label text-uppercase" for="">Company Name</label><input type="text" class="form-control" name="int_comp_name[]" id="" placeholder="Enter Company Name" required=""></div><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">Duration <small>(In Months)</small>:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="Duration" name="intship_duration[]"></div><div class="col-12 col-md-2"><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div> <div class="form-row col-12"><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">Roles & Responsibilities:</label><input type="text" class="form-control col-12" name="proj_roles[]" id="" placeholder="Enter Your Roles" required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">Upload Certificate</label><input type="file" class="form-control" id="" placeholder="Enter Certificate" name="intern_certificate[]" ></div></div></div> ');
                 });
 
                 $('#internship_div').on('click','.remCF1',function() 
@@ -417,7 +450,7 @@
 
                 $('#certificate').click(function()
                 {
-                    $("#certificate_section").append('<div class="form-row border pt-2 pb-2"><div class="col-12 col-md-5 mb-3"> <label class="form-label" for="">Certifications</label><input type="text" class="form-control" name="certificate[]" id="" placeholder="MS-OFFICE, C, C++, JAVA etc " required=""></div><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">Upload Certifications</label><input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" ></div><div class="col-12 col-md-2 mt-4"><a href="javascript:void(0);" id="remCF1" class="remCF2 btn btn-danger float-right"><i class="material-icons">delete</i></a></div>');
+                    $("#certificate_section").append('<div class="form-row border pt-2 pb-2"><div class="col-12 col-md-5 mb-3"> <label class="form-label" for="">Certifications</label><input type="text" class="form-control" name="certificate[]" id="" placeholder="MS-OFFICE, C, C++, JAVA etc " required=""></div><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">Upload Certificate</label><input type="file" class="form-control" id="" placeholder="Enter Year Of Passing" name="upload_certificat[]" ></div><div class="col-12 col-md-2 mt-4"><a href="javascript:void(0);" id="remCF1" class="remCF2 btn btn-danger float-right"><i class="material-icons">delete</i></a></div>');
                 });
 
                 $('#certificate_section').on('click','.remCF2',function() 
@@ -456,13 +489,37 @@
                 // });
             });
         </script>
+        <script>
+            $(".openmodal").click(function(){
+                var href = $(this).data("href");
+                $("#imagemodal img").attr("src",href );
+                $("#imagemodal").modal("show");
+            })
+        </script>
 
-<script>
-    $("img").on("click", function() {
-        // alert($('#'+this.id).attr('src'));
-        $('#imagepreview').attr('src', $('#'+this.id).attr('src')); // here asign the image to the modal when the user click the enlarge link
-        $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
-    });
-</script>
+        <script>
+            $("input[name=checked_objectives]").change(function() {
+                    updateAllChecked();
+                    });
+
+                    $("input[name=addall]").change(function() {
+                    if (this.checked) {
+                        $("input[name=checked_objectives]").prop('checked', true).change();
+                    } else {
+                        $("input[name=checked_objectives]").prop('checked', false).change();
+                    }
+                    });
+
+                    function updateAllChecked() {
+                    $('#career_object').text('');
+                    // console.log( $('#career_object').text(''));
+                    $("input[name=checked_objectives]").each(function() {
+                        if (this.checked) {
+                        let old_text = $('#career_object').text() ? $('#career_object').text() + '\n' : '';
+                        $('#career_object').text(old_text + $(this).val());
+                        }
+                    })
+                    }
+        </script>
     </body>
 </html>

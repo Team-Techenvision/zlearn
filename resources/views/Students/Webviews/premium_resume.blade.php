@@ -43,13 +43,13 @@
                 line-height: 1.5!important;
             }
             .bg-grey{
-               
-                background-color: #d3d3d3;
-                color: #000;
+                background-color: #366092;
+                color: #fff;
             }
             .sub-heading{
                 margin-top: 15px;
                 font-size: 1.1rem;
+                line-height: 1.7;
             }
             .border-table{
                 width: 100%;
@@ -62,54 +62,40 @@
                 text-align: center;
             }
             .border-table th{
-                background-color: #d3d3d3;
+                background-color: #366092;
+                color: #fff;
                 padding-top: 10px;
                 padding-bottom:10px;
+                
             }
-
-            .no_table{
-                width: 100%;
-                border: none;
-                padding:15px 0px;
-                border-collapse: collapse;
-            }
-            .no_table td, .no_table th{
-                border: none;
-                text-align: left;
-                padding: 0px;
-                margin: 0px;
-                vertical-align: top;
-                line-height: 1.5rem;
-            }
-            .no_table th{
-                padding-top: 0px;
-                padding-bottom:0px;
-                border: none;
-            }
-            .skill_ul li{
-                list-style-type: square;
-            }
-           
 	</style>
 </head>
 <body>
-    <div class="content">
-        <table style="width: 100%; border: none !important; padding:15px 25px;">
+    <div class="content page-break">
+        <table style="width: 100%; border: none !important; ">
             <tr>
                 <td>
-                    <h3 style="margin-top: 0px; margin-bottom:0px; font-weight:bold;">{{$student_info->name}}  {{$student_info->l_name}}</h3>
-                </td>
+                    <table style="width: 100%; text-align:center;">
+                        <tr>
+                            <td width="25%" style="vertical-align: top;"><p style="font-size:1.2rem; font-weight:bold; color:#00008B;">{{$student_info->name}}  {{$student_info->l_name}}</p>
+                                <p> <b>Address</b> </p>
+                                <p> {{$student_info->address}} </p>
+                            </td>
+                            <td width="50%" >  <img src="@if($student_info->image){{public_path($student_info->image)}}@endif" alt=""  width="200" height="200" style="border-radius: 50%;"></td>
+                            <td width="25%" style="vertical-align: top;"> 
+                                <p></p> 
+                                <p> {{$student_info->email}}</p> 
+                                <p> {{$student_info->phone}}</p>
+                            </td>
+                        </tr>
+                    </table>
+            </td>
             </tr>
-            <tr>
-                <td  style="border-bottom: 3px solid #000; padding-bottom:10px;">
-                    <p style="text-align: left; margin-right:25px;"> <span style="border-right: 1px solid #070707; padding-right:10px; margin-right:10px;">{{$student_info->email}} </span> <span>{{$student_info->phone}} </span>  </p>
-                </td>
-            </tr>
-           
+                       
             <tr style="width: 100%;">
                 <td style="width : 100%; ">
-                   <h4 class="sub-heading"> <span class="bg-grey">Career Objectives</span></h4>          
-                </td>                            
+                   <h4 class="sub-heading"> <span class="bg-grey "> Career Objectives </span> </h4>      
+                </td>                           
             </tr>
             <tr>
                 <td>
@@ -204,7 +190,11 @@
             </td>
             </tr>
 
-           
+            <tr>
+                <td>
+                    <span class="h4 "><b class="bg-grey">Personal Attributes</b>   </span> <span class="p">{{$student_info->skil_sets}}</span>
+                </td>
+            </tr>
 
             {{-- <tr>
                 <td>
@@ -276,35 +266,27 @@
             @if($intership->count() > 0)
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Internships </span></h4>
+                    <h4>Interships</h4>
                 </td>
             </tr>
               
             <tr>
                 <td>
 
-                    
+                    <table class="border-table">
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Experience in Months</th>
+                            <th>Role</th>                               
+                        </tr>
                         @foreach ($intership as $item)
-                        <table class="no_table">
                         <tr>
-                            <th style="width:30%;"> <p>Company Name</p> </th>
-                            <td  style="width:70%;"> <p>{{$item->int_comp_name}}</p> </td>
+                            <td>{{$item->int_comp_name}}</td>
+                            <td>{{$item->intship_duration}}</td>
+                            <td>{{$item->your_roles}}</td>                              
                         </tr>
-                        <tr>
-                            <th style="width:30%;"><p>Role</p></th>   
-                            <td style="width:70%;"><p>{{$item->your_roles}}</p></td>                            
-                        </tr> 
-                        <tr>
-                            <th style="width:30%;"  style="vertical-align: top;"><p>Description</p></th>   
-                            <td style="width:70%;"><p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. nostrum deserunt voluptate?</p></td> 
-                        </tr>
-                        <tr>
-                            <th style="width:30%;"> <p> Experience in Months</p></th>
-                            <td style="width:70%;"><p>{{$item->intship_duration}}</p></td>
-                        </tr>
-                    </table>                         
                         @endforeach
-                             
+                    </table>                   
                 </td>
             </tr>
             @endif
@@ -315,44 +297,15 @@
 
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Technical Skills </span></h4>
+                    <h4>Technical Skills</h4>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                   @php
-                       $new_array =  explode(",",$student_info->tech_skill)
-                   @endphp
-                   <ul class="skill_ul">
-                       @foreach ($new_array as $item)
-                            <li>
-                                {{$item}} 
-                            </li>
-                       @endforeach
-                   </ul>
+                  <p> {{$student_info->tech_skill}}</p>
                 </td>
             </tr>
-
-            {{-- <tr>
-                <td>
-                 
-                      <ul>
-                          <li>
-                            <p style="margin-left: 10px;"> 
-                                @php
-                                    $output = str_replace(',', '<br />', $student_info->tech_skill);
-                                   
-                                @endphp
-                              @php
-                                   echo   $output;
-                              @endphp
-                                </p>
-                          </li>
-                      </ul>
-                  
-                </td>
-            </tr> --}}
 
             {{-- /*****************************
                     Certification
@@ -367,40 +320,33 @@
             @if($Certification->count() > 0)
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Certifications</span></h4>
+                    <h4>Certifications</h4>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <ul class="skill_ul">
-                        @foreach ($Certification as $item)
-                        <li>
-                            Certification In {{$item->Certification_name}}
-                        </li>
-                        @endforeach
-                    </ul>
-                    {{-- <table class="no_table">
+                    <table class="border-table">
                         <tr>
                             <th colspan="2">Certifications</th>
                         </tr>
-                       
+                        @foreach ($Certification as $item)
                         <tr>
-                            <td style="width:20%;"> <p><b>Certification In</b>  </p>  </td>
-                            <td style="width:80%;">{{}}</td>
+                            <td style="width:20%;"> <b>Certification In</b>  </td>
+                            <td style="width:80%;">{{$item->Certification_name}}</td>
                         </tr>
                         @endforeach
-                    </table> --}}
+                    </table>
                 </td>
             </tr>
             @endif
 
-        </table>
+           
             {{-- /*****************************
                     projects
             ************************************/ --}}
         
-            <table style="width: 100%; border: none !important; padding:15px 25px;">
+            
             @php
                 $projects =  DB::table('academic_projects')->where('user_id', Auth::user()->id)->get();
             //    dd($projects->count());
@@ -409,52 +355,25 @@
             @if($projects->count() > 0)
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Projects</span></h4>
+                    <h4 >Projects</h4>
                 </td>
             </tr>
-            <tr>
-                <td>
-                   
-                        @foreach ($projects as $item)
-                        <table class="no_table" >
-                        <tr >
-                            <td  colspan="2">
-                                <h4> Project {{$i++}} </h4>
-                            </td>                          
-                        </tr>
-                        <tr >
-                            <td width="20%">
-                                <b>Project Name </b>                             
-                            </td>
-                            <td width="85%">
-                             {{$item->project_name}} 
-                                </td>                   
-                        </tr>  
-                        <tr>
-                            <td width="20%">
-                                <p><b>Team Size</b></p>
-                            </td> 
-                            <td width="80%">
-                                <p>{{$item->team_size}}</p>
-                            </td>
-                        </tr>   
-                        <tr>
-                            <td  width="20%" style="vertical-align: top;">
-                                <p><b>Project Details </b></p>
-                            </td>
-                            <td width="80%" style="vertical-align: top;">
-                                <p>{{$item->project_detail}}</p>
-                            </td>
-                        </tr>   
-                        </table>       
-                         @endforeach  
-                   
-                </td>
-            </tr>
+            
+            @foreach ($projects as $item)
+                <tr>
+                    <td>
+                        <h4> Project {{$i++}} : </h4>
+                    </td>
+                </tr>
+                <tr >
+                    <td >
+                        <p><b>Project Name </b> :  <span><b> {{$item->project_name}} </b> </span><span style="margin-left:25px;"> <b>Team Size</b> : <b >{{$item->team_size}} </b></span> </p>
+                        <p style="margin-bottom: 15px"><b >Project Details </b> :  {{$item->project_detail}}</p>
+                    </td>                   
+                </tr>                
+            @endforeach
             @endif
            
-            </table>
-            <table style="width: 100%; border: none !important; padding:15px 25px;">
             
               {{-- /*****************************
                    Workshops / Seminars / Trainings
@@ -462,59 +381,20 @@
            
            <tr>
                <td>
-                <h4 class="sub-heading"> <span class="bg-grey">Workshops / Seminars / Trainings Attended</span></h4>
+                   <h4>Workshops / Seminars / Trainings Attended</h4>
                </td>
            </tr>
 
            <tr>
-            <td>
-               @php
-                   $new_array =  explode(",",$student_info->seminar_traning)
-               @endphp
-               <ul class="skill_ul">
-                   @foreach ($new_array as $item)
-                        <li>
-                            {{$item}} 
-                        </li>
-                   @endforeach
-               </ul>
-            </td>
-        </tr>
-
-           {{-- <tr>
                <td>
-                   <p style="margin-left: 10px;">{{$student_info->seminar_traning}}</p>
+                   <p>{{$student_info->seminar_traning}}</p>
                </td>
-           </tr> --}}
+           </tr>
 
              {{-- /*****************************
                    Skills Sets
             ************************************/ --}}
 
-            <tr>
-                <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Personal Attributes</span></h4>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                   @php
-                       $new_array =  explode(",",$student_info->skil_sets)
-                   @endphp
-                   <ul class="skill_ul">
-                       @foreach ($new_array as $item)
-                            <li>
-                                {{$item}} 
-                            </li>
-                       @endforeach
-                   </ul>
-                </td>
-            </tr>
-            {{-- <tr>
-                <td>
-                    <p style="margin-left: 10px;">{{$student_info->skil_sets}}</p>
-                </td>
-            </tr> --}}
            
 
           {{-- /*****************************
@@ -523,28 +403,14 @@
 
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Extra-curricular Activities</span></h4>
+                    <h4>Extra-curricular Activities</h4>
                 </td>
             </tr>
             <tr>
                 <td>
-                   @php
-                       $new_array =  explode(",",$student_info->extracurricular)
-                   @endphp
-                   <ul class="skill_ul">
-                       @foreach ($new_array as $item)
-                            <li>
-                                {{$item}} 
-                            </li>
-                       @endforeach
-                   </ul>
+                    <p>{{$student_info->extracurricular}}</p>
                 </td>
             </tr>
-            {{-- <tr>
-                <td>
-                    <p style="margin-left: 10px;">{{$student_info->extracurricular}}</p>
-                </td>
-            </tr> --}}
 
 
              {{-- /*****************************
@@ -553,32 +419,12 @@
 
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Hobbies</span></h4>
+                    <h4>Hobbies</h4>
                 </td>
             </tr>
-            {{-- <tr>
-                <td>
-                    <p style="margin-left: 10px;">
-                        @php
-                            $output = str_replace(',', '<br />', $student_info->hobbies);
-                            echo $output;
-                        @endphp
-                    </p>
-                  </td>
-            </tr> --}}
-
             <tr>
                 <td>
-                   @php
-                       $new_array =  explode(",",$student_info->hobbies)
-                   @endphp
-                   <ul class="skill_ul">
-                       @foreach ($new_array as $item)
-                            <li>
-                                {{$item}} 
-                            </li>
-                       @endforeach
-                   </ul>
+                    <p>{{$student_info->hobbies}}</p>
                 </td>
             </tr>
 
@@ -587,15 +433,11 @@
               {{-- /*****************************
                     Personal Information
             ************************************/ --}}
-
-            
             <tr>
                 <td>
-                    <table>
+                    <table class="border-table">
                         <tr>
-                            <td colspan="2" >
-                                <h4 class="sub-heading" style="margin-bottom: 20px;"> <span class="bg-grey" >Personal Details</span></h4>
-                            </td>
+                            <th colspan="2">Personal Information</th>
                         </tr>
                         <tr>
                            <td> <b>Full Name</b> </td>
@@ -649,9 +491,8 @@
              {{-- /*****************************
                     Declaration 
             ************************************/ --}}
-           
             <tr>
-                <td>  <h4 class="sub-heading"> <span class="bg-grey">Declaration</span></h4> </td>
+                <td> <h4>Declaration</h4> </td>
             </tr>
             <tr>
                 <td>

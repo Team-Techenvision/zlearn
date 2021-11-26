@@ -332,7 +332,7 @@ class StudentController extends Controller
         $result = DB::table('education__details')->where('user_id', $u_id)->first();
         if($result)
         {
-            $result = DB::table('education__details')->where('user_id', $u_id)->update(['degree'=> $req->degree,'roll_no' => $req->roll_no, 'education' => $req->education,'current_address'=> $req->current_address,'collage_id'=>$req->collage,'branch_id'=>$req->branch]); 
+            $result = DB::table('education__details')->where('user_id', $u_id)->update(['degree'=> $req->degree,'roll_no' => $req->roll_no, 'education' => $req->education,'current_address'=> $req->current_address,'collage_id'=>$req->collage,'university'=>$req->university,'branch_id'=>$req->branch]); 
         }
         else
         {  
@@ -343,6 +343,7 @@ class StudentController extends Controller
             $data->education=$req->education; 
             $data->current_address=$req->current_address;
             $data->collage_id=$req->collage;
+            $data->university=$req->university;
             $data->branch_id=$req->branch;
             $result = $data->save();
         }
@@ -413,13 +414,20 @@ class StudentController extends Controller
             $result = DB::table('academics_details')->where('user_id', $u_id)->update([
                 'sslc_perce' => $req->sslc_per, 
                 'sslc_year'=> $req->year_sslc,
+                'sslc_board' => $req->sslc_board, 
+                'sslc_school'=> $req->sslc_school,
                 'puc_perce' => $req->puc_per, 
                 'puc_year' => $req->year_puc,
+                'puc_board' => $req->puc_board, 
+                'puc_college' => $req->puc_college,
                 'diploma_perce'=> $req->diploma_per,
                 'diploma_year' => $req->year_diploma,
+                'diploma_university'=> $req->diploma_university,
+                'diplma_college' => $req->diplma_college,
                 'year_of_pass_ug' => $req->year_of_pass_ug,
                 'avg_percentage_ug'=> $req->avg_percentage_ug,
                 'college_ug' => $req->college_ug,
+                'university_ug' => $req->university_ug,
                 'cource_ug'=> $req->cource_ug,
                 'branch_ug'=> $req->branch_ug,
                 'year_of_pass_pg' => $req->year_of_pass_pg, 
@@ -438,13 +446,20 @@ class StudentController extends Controller
             $data->user_id=$u_id;            
             $data->sslc_perce=$req->sslc_per;
             $data->sslc_year=$req->year_sslc; 
+            $data->sslc_board=$req->sslc_board;
+            $data->sslc_school=$req->sslc_school; 
             $data->puc_perce=$req->puc_per; 
             $data->puc_year=$req->year_puc; 
+            $data->puc_board=$req->puc_board; 
+            $data->puc_college=$req->puc_college; 
             $data->diploma_perce=$req->diploma_per;
             $data->diploma_year=$req->year_diploma;
+            $data->diploma_university=$req->diploma_university;
+            $data->diplma_college=$req->diplma_college;
             $data->year_of_pass_ug=$req->year_of_pass_ug;
             $data->avg_percentage_ug=$req->avg_percentage_ug;
             $data->college_ug=$req->college_ug;
+            $data->university_ug=$req->university_ug;
             $data->cource_ug=$req->cource_ug;
             $data->branch_ug=$req->branch_ug;
             $data->year_of_pass_pg=$req->year_of_pass_pg;
@@ -1596,7 +1611,9 @@ class StudentController extends Controller
                                           ->leftjoin('academic_projects', 'academic_projects.user_id', '=', 'users.id')
                                           ->where('users.id',Auth::User()->id)
                                           ->first();
-        //    dd($data);
+            
+        //    dd($data['student_info']);
+        if($data['student_info'] != null){
         switch ($resume_type) {
             case "1":
                 $pdf = PDF::loadView('Students/Webviews/basic_resume', $data);
@@ -1605,17 +1622,24 @@ class StudentController extends Controller
                 $pdf = PDF::loadView('Students/Webviews/engg_resume', $data);
               break;
               case "3":
+                // dd($data);
                 $pdf = PDF::loadView('Students/Webviews/premium_resume', $data);
               break;
             default:
             $pdf = PDF::loadView('Students/Webviews/resume1', $data);
           }
+        
            
         //    return $pdf->download("$user_id.pdf");
     
             // for view without download use stream methode 
            return $pdf->stream();
         //    return view('Students/Webviews/resume1',$data);
+
+        }else{
+            toastr()->error('Please fill all data to download resume');
+            return back();
+        }
        }
        public function downloadResumeview($resume_type){ 
         //    dd($resume_type);
@@ -1630,6 +1654,6 @@ class StudentController extends Controller
                                       ->leftjoin('academic_projects', 'academic_projects.user_id', '=', 'users.id')
                                       ->where('users.id',3)
                                       ->first();
-       return view('Students/Webviews/resume1',$data);
+       return view('Students/Webviews/engg_resume',$data);
    }
 }

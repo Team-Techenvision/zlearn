@@ -13,6 +13,10 @@
         .page-break {
                 page-break-after: always;
             }
+
+            .page-break:last-child {
+                page-break-after: avoid;
+            }
         .header{
             background-color: #5b9bd5;
             color: #fff;
@@ -21,10 +25,24 @@
             p{
                 margin-bottom: 0px;
                 margin-top: 5px;
+                text-align: left;
+                line-height: 1.5!important;
             }
             h4{
-                margin-top: 10px;
-                margin-bottom: 10px;
+                margin-top: 5px;
+                margin-bottom: 0px;
+               
+            }
+            .h4{
+                font-size: 1rem;
+                margin-top: 5px;
+                margin-bottom: 0px;
+            }
+            .p{
+                margin-bottom: 0px;
+                margin-top: 5px;
+                text-align: left;
+                line-height: 1.5!important;
             }
             .border-table{
                 width: 100%;
@@ -41,6 +59,28 @@
                 color: #fff;
                 padding-top: 10px;
                 padding-bottom:10px;
+            }
+            .no_table{
+                width: 100%;
+                border: none;
+                padding:15px 0px;
+                border-collapse: collapse;
+            }
+            .no_table td, .no_table th{
+                border: none;
+                text-align: left;
+                padding: 0px;
+                margin: 0px;
+                vertical-align: top;
+                line-height: 1.5rem;
+            }
+            .no_table th{
+                padding-top: 0px;
+                padding-bottom:0px;
+                border: none;
+            }
+            .skill_ul li{
+                list-style-type: square;
             }
 	</style>
 </head>
@@ -70,19 +110,10 @@
             </tr>
             <tr>
                 <td>
-                    <p >{{$student_info->career_object}}</p>
+                    <p style="white-space:pre-wrap;">{!!$student_info->career_object!!}</p>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <h4>Personal Attributes : Skills Sets</h4>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>{{$student_info->skil_sets}}</p>
-                </td>
-            </tr>
+            
 
             <tr>
                 <td>
@@ -95,20 +126,15 @@
                 <table class="border-table">
                     <tr>
                         <th>Qualification</th>
-                        <th>Branch</th>                       
+                        <th>University / Board</th>
+                        <th>Institution</th>
                         <th>Year of Passing</th>
-                        <th>College</th>
+                        <th>Percentage/ CGPA</th>
                     </tr>
 
                    
                     @if($student_info->education == 'PG')
                     
-                    <tr>
-                        <td>{{$student_info->cource_ug}}</td>
-                        <td>{{$student_info->branch_ug}}</td>
-                        <td>{{$student_info->year_of_pass_ug}}</td>
-                        <td>{{$student_info->college_ug}}</td>                      
-                    </tr>
                     @php
                         $college_name = DB::table('colleges')->where('id', $student_info->collage_id)->pluck('college_name')->first();
                         $degree =   DB::table('courses')->where('id', $student_info->degree)->pluck('course_name')->first();
@@ -117,10 +143,20 @@
                     {{-- <p> <span>{{$degree}}</span>   <span> <b>{{$branch_name}}</b> </span> <span>{{$student_info->year_of_pass_ug}}</span> <span> <b>{{$college_name}} </b></span>  </p> --}}
                     <tr>
                         <td>{{$degree}}</td>
-                        <td>{{$branch_name}}</td>
-                        <td>{{$student_info->year_of_pass_ug}}</td>
-                        <td>{{$college_name}}</td>                      
+                        <td>{{$student_info->university}}</td>
+                        <td>{{$college_name}}</td>   
+                        <td>{{$student_info->year_of_pass_pg}}</td> 
+                        <td>{{$student_info->avg_percentage_pg}}</td>               
                     </tr>
+
+                    <tr>
+                        <td>{{$student_info->cource_ug}}</td>
+                        <td>{{$student_info->university_ug}}</td>
+                        <td>{{$student_info->college_ug}}</td>
+                        <td>{{$student_info->year_of_pass_ug}}</td>
+                        <td>{{$student_info->avg_percentage_ug}}</td>                      
+                    </tr>
+                    
                     @else
                     @php
                         $college_name = DB::table('colleges')->where('id', $student_info->collage_id)->pluck('college_name')->first();
@@ -135,14 +171,43 @@
                         <td>{{$college_name}}</td>                      
                     </tr>
                     @endif
+                    <tr>
+                        <td>SSLC / 10 <sup>th</sup></td>
+                        <td>{{$student_info->sslc_board}}</td>
+                        <td>{{$student_info->sslc_school}}</td>
+                        <td>{{$student_info->sslc_year}}</td>
+                        <td>{{$student_info->sslc_perce}}</td>                      
+                    </tr>
+                    @if($student_info->puc_year)
+                    <tr>
+                        <td> PUC / 12 <sup>th</sup></td>
+                        <td>{{$student_info->puc_board}}</td>
+                        <td>{{$student_info->puc_college}}</td>
+                        <td>{{$student_info->puc_year}}</td>
+                        <td>{{$student_info->puc_perce}}</td>                             
+                    </tr>
+                    @elseif($student_info->diploma_year){
+                        <tr>
+                            <td>Diploma</td>
+                            <td>{{$student_info->diploma_university}}</td>
+                            <td>{{$student_info->diplma_college}}</td>
+                            <td>{{$student_info->diploma_year}}</td>
+                            <td>{{$student_info->diploma_perce}}</td>                             
+                        </tr>
+                    }
+                    @else{
+
+                    }
+                    @endif
+
                 </table>
                     
                     
-                </td>
-            </tr>
+            </td>
+        </tr>
           
           
-            {{-- /*****************************
+             {{-- /*****************************
                     Intership 
             ************************************/ --}}
 
@@ -152,67 +217,101 @@
             //    dd($$student_info->user_id);
             @endphp
             @if($intership->count() > 0)
-                <tr>
-                    <td>
-                        <h4>Interships</h4>
-                    </td>
-                </tr>
-              
-               
-                <tr>
-                    <td>
-
-                        <table class="border-table">
-                            <tr>
-                                <th>Company Name</th>
-                                <th>Experience in Months</th>
-                                <th>Role</th>                               
-                            </tr>
-                            @foreach ($intership as $item)
-                            <tr>
-                                <td>{{$item->int_comp_name}}</td>
-                                <td>{{$item->intship_duration}}</td>
-                                <td>{{$item->your_roles}}</td>                              
-                            </tr>
-                            @endforeach
-                        </table>
-                        {{-- <p> <span>{{$item->int_comp_name}}</span><span><b  style="margin-left:25px; padding-left:15px;">{{$item->intship_duration}} Months </b></span> <span style="margin-left:25px;"> <b>{{$item->your_roles}} </b></span> </p> --}}
-                    </td>
-                </tr>
-           
-            @endif
-
-
-            {{-- /*****************************
-                    projects
-            ************************************/ --}}
-
-
-            @php
-                $projects =  DB::table('academic_projects')->where('user_id', Auth::user()->id)->get();
-            //    dd($projects->count());
-            $i=1;
-            @endphp
-            @if($projects->count() > 0)
             <tr>
                 <td>
-                    <h4>Projects</h4>
+                    <h4 class="sub-heading"> <span class="bg-grey">Internships </span></h4>
                 </td>
-            </tr>           
-            @foreach ($projects as $item)
-                <tr>
-                    <td>
-                        <h4> Project {{$i++}} : </h4>
-                    </td>
-                </tr>
-                <tr >
-                    <td >
-                        <p><b>Project Name </b> :  <span><b> {{$item->project_name}} </b> </span><span style="margin-left:25px;"> <b>Team Size</b> : <b >{{$item->team_size}} </b></span> </p>
-                        <p style="margin-bottom: 15px"><b >Project Details </b> :  {{$item->project_detail}}</p>
-                    </td>
-                </tr>
-            @endforeach
+            </tr>
+              
+            <tr>
+                <td>
+
+                    
+                        @foreach ($intership as $item)
+                        <table class="no_table">
+                        <tr>
+                            <th style="width:30%;"> <p>Company Name</p> </th>
+                            <td  style="width:70%;"> <p>{{$item->int_comp_name}}</p> </td>
+                        </tr>
+                        <tr>
+                            <th style="width:30%;"><p>Role</p></th>   
+                            <td style="width:70%;"><p>{{$item->your_roles}}</p></td>                            
+                        </tr> 
+                        <tr>
+                            <th style="width:30%;"  style="vertical-align: top;"><p>Description</p></th>   
+                            <td style="width:70%;"><p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. nostrum deserunt voluptate?</p></td> 
+                        </tr>
+                        <tr>
+                            <th style="width:30%;"> <p> Experience in Months</p></th>
+                            <td style="width:70%;"><p>{{$item->intship_duration}}</p></td>
+                        </tr>
+                    </table>                         
+                        @endforeach
+                             
+                </td>
+            </tr>
             @endif
+        </table>
+        {{-- /*****************************
+                projects
+        ************************************/ --}}
+    
+        <table style="width: 100%; border: none !important; padding:15px 25px;">
+        @php
+            $projects =  DB::table('academic_projects')->where('user_id', Auth::user()->id)->get();
+        //    dd($projects->count());
+        $i=1;
+        @endphp
+        @if($projects->count() > 0)
+        <tr>
+            <td>
+                <h4 class="sub-heading"> <span class="bg-grey">Projects</span></h4>
+            </td>
+        </tr>
+        <tr>
+            <td>
+               
+                    @foreach ($projects as $item)
+                    <table class="no_table" >
+                    <tr >
+                        <td  colspan="2">
+                            <h4> Project {{$i++}} </h4>
+                        </td>                          
+                    </tr>
+                    <tr >
+                        <td width="20%">
+                            Project Name                             
+                        </td>
+                        <td width="85%">
+                         {{$item->project_name}} 
+                            </td>                   
+                    </tr>  
+                    <tr>
+                        <td width="20%">
+                            <p><b>Team Size</b></p>
+                        </td> 
+                        <td width="80%">
+                            <p>{{$item->team_size}}</p>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td  width="20%" style="vertical-align: top;">
+                            <p><b>Project Details </b></p>
+                        </td>
+                        <td width="80%" style="vertical-align: top;">
+                            <p>{{$item->project_detail}}</p>
+                        </td>
+                    </tr>   
+                    </table>       
+                     @endforeach  
+               
+            </td>
+        </tr>
+        @endif
+       
+        </table>
+
+                <table style="width: 100%; border: none !important; padding:15px 25px;">
            
            
             {{-- /*****************************
@@ -234,17 +333,13 @@
 
             <tr>
                 <td>
-                    <table class="border-table">
-                        <tr>
-                            <th colspan="2">Certifications</th>
-                        </tr>
+                    <ul>
                         @foreach ($Certification as $item)
-                        <tr>
-                            <td style="width:20%;"> <b>Certification In</b>  </td>
-                            <td style="width:80%;">{{$item->Certification_name}}</td>
-                        </tr>
+                        <li>
+                            Certification In {{$item->Certification_name}}
+                        </li>
                         @endforeach
-                    </table>
+                    </ul>
                 </td>
             </tr>
 
@@ -262,25 +357,98 @@
              {{-- /*****************************
                     Personal Information
             ************************************/ --}}
+
+            
             <tr>
                 <td>
-                    <table class="border-table">
+                    <table>
                         <tr>
-                            <th colspan="4">Personal Information</th>
+                            <td colspan="2" >
+                                <h4 class="sub-heading" style="margin-bottom: 20px;"> <span class="bg-grey" >Personal Details</span></h4>
+                            </td>
                         </tr>
                         <tr>
                            <td> <b>Full Name</b> </td>
-                           <td>{{$student_info->name}} {{$student_info->l_name}}</td>
-                           <td> <b>Mobile</b> </td>
-                           <td>{{$student_info->phone}}</td>
+                           <td style="text-align: left; padding-left:20px;">{{$student_info->name}} {{$student_info->l_name}}</td>
+                           
+                        </tr>
+                        <tr>
+                            <td> <b>Mobile</b> </td>
+                           <td style="text-align: left; padding-left:20px;">{{$student_info->phone}}</td>
+                        </tr>
+                       
+                        <tr>
+                            <td>
+                                <b>Date of Birth</b>
+                            </td>
+                            <td style="text-align: left; padding-left:20px;">
+                                {{-- $mytime = Carbon\Carbon::now()->format('d F Y');  --}}
+                                {{ Carbon\Carbon::parse($student_info->dob)->format('d F Y')}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <b>Father’s Name</b></td>
+                            <td style="text-align: left; padding-left:20px;">  {{$student_info->father_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Gender</b>
+                            </td>
+                            <td style="text-align: left; padding-left:20px;">
+                                @if($student_info->gender == '1')
+                                Male 
+                                @else
+                                Female
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                              <b>Language Known</b>  
+                            </td>
+                            <td style="text-align: left; padding-left:20px;">{{$student_info->known_language}}</td>
                         </tr>
                         <tr>
                             <td> <b>Address</b> </td>
-                            <td colspan="3">{{$student_info->address}}</td>
+                            <td  style="text-align: left; padding-left:20px;">{{$student_info->address}}</td>
                         </tr>
                     </table>  
                 </td>
-            </tr>         
+            </tr> 
+
+             {{-- /*****************************
+                    Declaration 
+            ************************************/ --}}
+           
+            <tr>
+                <td>  <h4 class="sub-heading" style="margin-top: 40px;"> <span class="bg-grey">Declaration</span></h4> </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>I hereby declare that the above furnished information is true to the best of my knowledge.</p>
+                </td>
+            </tr>
+            @php
+                $mytime = Carbon\Carbon::now()->format('d F Y'); 
+            @endphp   
+            <tr>
+                <td>
+                    <p> @php echo $mytime;  @endphp </p>
+                </td>
+            </tr>
+             
+            <tr>
+                <td>
+                    <p>Place: </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    <p style="text-align: right">(  Name )</p>
+                </td>
+            </tr>
+               
         </table>
     </div>
      

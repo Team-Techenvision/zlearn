@@ -7,9 +7,6 @@
         .text-danger{
             margin-left: -15px;
         }
-        .complete-resume::after{
-  width: 0%!important;
-}
     </style>
 </head>
 
@@ -65,7 +62,7 @@
                             class="progression-bar__item progression-bar__item--complete text-white">
                             <span class="progression-bar__item-content">
                                 <i class="material-icons progression-bar__item-icon bg-success">done</i>
-                                <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">BASIC
+                                <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1 ml-30">BASIC
                                     INFO</span>
                             </span>
                         </a>
@@ -73,20 +70,20 @@
                             class="progression-bar__item progression-bar__item--complete text-white">
                             <span class="progression-bar__item-content">
                                 <i class="material-icons progression-bar__item-icon bg-success">done</i>
-                                <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1">ACADEMICS
+                                <span class="progression-bar__item-text h5 mb-0 text-uppercase text-blue1 ml-60">ACADEMICS
                                     INFO</span>
                             </span>
                         </a>
                         <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete">
                             <span class="progression-bar__item-content">
                                 <i class="material-icons progression-bar__item-icon bg-timesheet-color-primary"> </i>
-                                <span class="progression-bar__item-text h5 mb-0 text-uppercase">SKILLS INFO</span>
+                                <span class="progression-bar__item-text h5 mb-0 text-uppercase ml-30">SKILLS INFO</span>
                             </span>
                         </a>
-                        <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete ">
-                            <span class="progression-bar__item-content complete-resume">
+                        <a href="JavaScript:Void(0);" class="progression-bar__item progression-bar__item--complete last-item">
+                            <span class="progression-bar__item-content">
                                 <i class="material-icons progression-bar__item-icon bg-timesheet-color-primary"></i>
-                                <span class="progression-bar__item-text h5 mb-0 text-uppercase">RESUME</span>
+                                <span class="progression-bar__item-text h5 mb-0 text-uppercase ml-20">RESUME</span>
                             </span>
                         </a>
 
@@ -154,6 +151,19 @@
                         </div>
                         <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
+                                <label class="form-label" for=""> <span class="text-danger">*</span> University / Board</label>
+                                <input type="text" class="form-control" name="sslc_board" id=""
+                                    value="@if ($Academics){{ $Academics->sslc_board }}@endif" placeholder="Enter University / Board"
+                                    required="" >
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <label class="form-label" for=""> <span class="text-danger">*</span> School Name</label>
+                                <input type="text" class="form-control" id="" placeholder="Enter School Name"
+                                    value="@if ($Academics){{ $Academics->sslc_school }}@endif" name="sslc_school" required="" >
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12 col-md-6 mb-3">
                                 <label class="form-label" for=""> <span class="text-danger">*</span> PUC / 12 <sup>th</sup> Percentage(%) If Applicable</label>
                                 <input type="number" class="form-control" name="puc_per" id=""
                                     value="@if ($Academics){{ $Academics->puc_perce }}@endif" placeholder="Enter PUC / 12th Percentage"
@@ -163,6 +173,19 @@
                                 <label class="form-label" for=""> <span class="text-danger">*</span> Enter Year Of Pass (YYYY)</label>
                                 <input type="number" class="form-control" id="" placeholder="Enter Year Of Pass (YYYY)"
                                     value="@if ($Academics){{ $Academics->puc_year }}@endif" name="year_puc" required="" max="9999">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label class="form-label" for="">University / Board</label>
+                                <input type="text" class="form-control" name="puc_board" id=""
+                                    value="@if ($Academics){{ $Academics->puc_board }}@endif" placeholder="Enter University / Board"
+                                    >
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <label class="form-label" for="">College Name</label>
+                                <input type="text" class="form-control" id="" placeholder="Enter College Name"
+                                    value="@if ($Academics){{ $Academics->puc_college }}@endif" name="puc_college"  >
                             </div>
                         </div>
                         <div class="form-row">
@@ -178,10 +201,24 @@
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label class="form-label" for=""> University / Board</label>
+                                <input type="text" class="form-control" name="diploma_university" id=""
+                                    value="@if ($Academics){{ $Academics->diploma_university }}@endif" placeholder="Enter University / Board"
+                                   >
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <label class="form-label" for=""> College Name</label>
+                                <input type="text" class="form-control" id="" placeholder="Enter College Name"
+                                    value="@if ($Academics){{ $Academics->diplma_college }}@endif" name="diplma_college">
+                            </div>
+                        </div>
+
                         <div id="ug_details" class="border p-2">
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
-                                    <label class="form-label" for="">UG:</label>                                    
+                                    <label class="form-label" for="">UG</label>                                    
                                 </div>
                             </div>
                             <div class="form-row">
@@ -231,17 +268,23 @@
 
                             @if($Education->education == 'PG')
                             <div class="form-row">
-                                <div class="col-12 col-md-4 mb-3">
+                                <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">College Name</label>
                                     <input type="text" class="form-control" id="" placeholder="Enter College Name"
                                         value="@if ($Academics){{ $Academics->college_ug }}@endif" name="college_ug">
                                 </div>
-                                <div class="col-12 col-md-4 mb-3">
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label class="form-label" for=""> University / Board</label>
+                                    <input type="text" class="form-control" name="university_ug" id=""
+                                        value="@if ($Academics){{ $Academics->university_ug }}@endif" placeholder="Enter University / Board"
+                                       >
+                                </div>
+                                <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">Course</label>
                                     <input type="text" class="form-control" id="" placeholder="Enter Course"
                                         value="@if ($Academics){{ $Academics->cource_ug }}@endif" name="cource_ug">
                                 </div>
-                                <div class="col-12 col-md-4 mb-3">
+                                <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">Branch</label>
                                     <input type="text" class="form-control" id="" placeholder="Enter Branch"
                                         value="@if ($Academics){{ $Academics->branch_ug }}@endif" name="branch_ug">
@@ -259,13 +302,13 @@
                                              $semester_name = DB::table('graduation_sem')->where('sem_id', $item->semester_id_ug)->pluck('sem_name')->first();
                                              ?>  
                                             <div class="col-md-4 col-12 form-group p-1 h6">
-                                                Semester Name :- {{$semester_name}}
+                                                Semester Name : {{$semester_name}}
                                             </div>
                                             <div class="col-md-4 col-12 form-group p-1 h6">
-                                                Score Type :- {{$item->scrore_type_ug}}
+                                                Score Type : {{$item->scrore_type_ug}}
                                             </div>
                                             <div class="col-md-2 col-12 form-group p-1 h6">
-                                                Score :- {{$item->percentage_ug}}
+                                                Score : {{$item->percentage_ug}}
                                             </div>
                                             <div class="col-md-2 col-12">
                                                 <a href="{{url('Delete-UG_Details')}}/{{$item->id}}" class="btn btn-danger float-right" title="Delete" id="delete_ug"><i class="material-icons">delete</i></a>
@@ -281,7 +324,7 @@
                         <div id="pg_details" class="border p-2">
                             <div class="form-row">
                                 <div class="col-12 col-md-12 mb-3">
-                                    <label class="form-label" for="">PG:</label>
+                                    <label class="form-label" for="">PG</label>
                                    
                                 </div>
                             </div>
@@ -348,13 +391,13 @@
                                                     } 
                                              ?>  
                                             <div class="col-md-4  form-group p-1 h6">
-                                                Semester Name :- {{$semester_name}}
+                                                Semester Name : {{$semester_name}}
                                             </div>
                                             <div class="col-md-4 col-12 form-group p-1 h6">
-                                                Score Type :- {{$item->scrore_type_pg}}
+                                                Score Type : {{$item->scrore_type_pg}}
                                             </div>
                                             <div class="col-md-2  form-group p-1 h6">
-                                                Score :- {{$item->percentage_pg}}
+                                                Score : {{$item->percentage_pg}}
                                             </div>
                                             <div class="col-md-2  form-group p-1 h6">
                                                 <a href="{{url('Delete-PG_Details')}}/{{$item->id}}" class="btn btn-danger float-right" title="Delete" id="delete_ug"><i class="material-icons">delete</i></a>
@@ -417,7 +460,7 @@
                                     name="year_graduated">
                             </div>
                         </div> --}}
-                        <div class="form-row">
+                        <div class="form-row mt-3">
                             <div class="col-12 col-md-6 mb-3">
                                 <label class="form-label" for="">Current Back Logs</label>
                                 <input type="number" class="form-control" name="current_backLog" min="0" id=""
@@ -457,7 +500,7 @@
                             <div class="col-10 m-auto text-right pt-3">
                                 {{-- <button type="reset" name="reset" class="btn btn-secondary mr-2">Reset</button> --}}
                                 <a href="{{ url('resume-page-one') }}" class="btn btn-secondary mr-2">Back</a>
-                                <button name="submit" class="btn btn-success">Next</button>
+                                <button name="submit" class="btn btn-primary btn-submit">Next</button>
                             </div>
                         </div>
                     </form>
@@ -526,6 +569,30 @@
                 $(this).parent().parent().remove();
             });
         });
+    </script>
+    <script>
+        $(':input[required]:visible').on("input", function () {    	
+      canChangeColor();
+    });
+    
+    
+    function canChangeColor(){  
+          
+      var can = true;  
+    
+      $(':input[required]:visible').each(function(){
+         if($(this).val()==''){
+            can = false;
+         }
+      });
+    //   alert(can);
+      if(can){
+        $('.btn-submit').removeClass('btn-secondary').addClass("btn-primary");
+      }else{
+        $('.btn-submit').removeClass("btn-primary").addClass("btn-secondary");
+      }
+    
+    }
     </script>
 </body>
 
