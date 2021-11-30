@@ -108,7 +108,7 @@
            
             <tr style="width: 100%;">
                 <td style="width : 100%; ">
-                   <h4 class="sub-heading"> <span class="bg-grey">Career Objectives</span></h4>          
+                   <h4 class="sub-heading"> <span class="bg-grey">Career Objective</span></h4>          
                 </td>                            
             </tr>
             <tr>
@@ -173,7 +173,7 @@
                         </tr>
                         @endif
                         <tr>
-                            <td>SSLC / 10 <sup>th</sup></td>
+                            <td>10 <sup>th</sup></td>
                             <td>{{$student_info->sslc_board}}</td>
                             <td>{{$student_info->sslc_school}}</td>
                             <td>{{$student_info->sslc_year}}</td>
@@ -181,7 +181,7 @@
                         </tr>
                         @if($student_info->puc_year)
                         <tr>
-                            <td> PUC / 12 <sup>th</sup></td>
+                            <td> 12 <sup>th</sup></td>
                             <td>{{$student_info->puc_board}}</td>
                             <td>{{$student_info->puc_college}}</td>
                             <td>{{$student_info->puc_year}}</td>
@@ -287,20 +287,20 @@
                         @foreach ($intership as $item)
                         <table class="no_table">
                         <tr>
-                            <th style="width:30%;"> <p>Company Name</p> </th>
-                            <td  style="width:70%;"> <p>{{$item->int_comp_name}}</p> </td>
+                            <th style="width:25%;"> <p>Company Name  </p> </th>
+                            <td  style="width:75%;"> <p> : {{$item->int_comp_name}}</p> </td>
                         </tr>
                         <tr>
-                            <th style="width:30%;"><p>Role</p></th>   
-                            <td style="width:70%;"><p>{{$item->your_roles}}</p></td>                            
+                            <th style="width:25%;"><p>Role : </p></th>   
+                            <td style="width:75%;"><p> : {{$item->your_roles}}</p></td>                            
                         </tr> 
                         <tr>
-                            <th style="width:30%;"  style="vertical-align: top;"><p>Description</p></th>   
-                            <td style="width:70%;"><p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. nostrum deserunt voluptate?</p></td> 
+                            <th style="width:25%;"  style="vertical-align: top;"><p>Description : </p></th>   
+                            <td style="width:75%;"><p> : Lorem ipsum dolor, sit amet consectetur adipisicing elit. nostrum deserunt voluptate?</p></td> 
                         </tr>
                         <tr>
-                            <th style="width:30%;"> <p> Experience in Months</p></th>
-                            <td style="width:70%;"><p>{{$item->intship_duration}}</p></td>
+                            <th style="width:25%;"> <p> Duration : </p></th>
+                            <td style="width:75%;"><p> : {{$item->intship_duration}} Months</p></td>
                         </tr>
                     </table>                         
                         @endforeach
@@ -312,7 +312,7 @@
              {{-- /*****************************
                     Technical Skills
             ************************************/ --}}
-
+            @if($student_info->tech_skill)
             <tr>
                 <td>
                     <h4 class="sub-heading"> <span class="bg-grey">Technical Skills </span></h4>
@@ -333,6 +333,7 @@
                    </ul>
                 </td>
             </tr>
+            @endif
 
             {{-- <tr>
                 <td>
@@ -367,13 +368,17 @@
             @if($Certification->count() > 0)
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Certifications</span></h4>
+                    <h4 class="sub-heading"> <span class="bg-grey">Achievements and Certifications</span></h4>
                 </td>
             </tr>
 
+           
             <tr>
                 <td>
                     <ul class="skill_ul">
+                        <li>
+                            {{$student_info->achievement}}
+                        </li>
                         @foreach ($Certification as $item)
                         <li>
                             Certification In {{$item->Certification_name}}
@@ -417,17 +422,17 @@
                    
                         @foreach ($projects as $item)
                         <table class="no_table" >
-                        <tr >
+                        {{-- <tr >
                             <td  colspan="2">
                                 <h4> Project {{$i++}} </h4>
                             </td>                          
-                        </tr>
+                        </tr> --}}
                         <tr >
                             <td width="20%">
                                 <b>Project Name </b>                             
                             </td>
                             <td width="85%">
-                             {{$item->project_name}} 
+                           :  {{$item->project_name}} 
                                 </td>                   
                         </tr>  
                         <tr>
@@ -435,7 +440,7 @@
                                 <p><b>Team Size</b></p>
                             </td> 
                             <td width="80%">
-                                <p>{{$item->team_size}}</p>
+                                <p> : {{$item->team_size}}</p>
                             </td>
                         </tr>   
                         <tr>
@@ -443,7 +448,7 @@
                                 <p><b>Project Details </b></p>
                             </td>
                             <td width="80%" style="vertical-align: top;">
-                                <p>{{$item->project_detail}}</p>
+                                <p> : {{$item->project_detail}}</p>
                             </td>
                         </tr>   
                         </table>       
@@ -597,7 +602,7 @@
                                 <h4 class="sub-heading" style="margin-bottom: 20px;"> <span class="bg-grey" >Personal Details</span></h4>
                             </td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                            <td> <b>Full Name</b> </td>
                            <td style="text-align: left; padding-left:20px;">{{$student_info->name}} {{$student_info->l_name}}</td>
                            
@@ -605,26 +610,26 @@
                         <tr>
                             <td> <b>Mobile</b> </td>
                            <td style="text-align: left; padding-left:20px;">{{$student_info->phone}}</td>
-                        </tr>
+                        </tr> --}}
                        
                         <tr>
                             <td>
-                                <b>Date of Birth</b>
+                                <b>Date of Birth  </b>
                             </td>
                             <td style="text-align: left; padding-left:20px;">
                                 {{-- $mytime = Carbon\Carbon::now()->format('d F Y');  --}}
-                                {{ Carbon\Carbon::parse($student_info->dob)->format('d F Y')}}
+                               : {{ Carbon\Carbon::parse($student_info->dob)->format('d F Y')}}
                             </td>
                         </tr>
                         <tr>
-                            <td> <b>Father’s Name</b></td>
-                            <td style="text-align: left; padding-left:20px;">  {{$student_info->father_name}}</td>
+                            <td> <b>Father’s Name </b></td>
+                            <td style="text-align: left; padding-left:20px;"> : {{$student_info->father_name}}</td>
                         </tr>
                         <tr>
                             <td>
                                 <b>Gender</b>
                             </td>
-                            <td style="text-align: left; padding-left:20px;">
+                            <td style="text-align: left; padding-left:20px;"> : 
                                 @if($student_info->gender == '1')
                                 Male 
                                 @else
@@ -636,11 +641,11 @@
                             <td>
                               <b>Language Known</b>  
                             </td>
-                            <td style="text-align: left; padding-left:20px;">{{$student_info->known_language}}</td>
+                            <td style="text-align: left; padding-left:20px;"> : {{$student_info->known_language}}</td>
                         </tr>
                         <tr>
                             <td> <b>Address</b> </td>
-                            <td  style="text-align: left; padding-left:20px;">{{$student_info->address}}</td>
+                            <td  style="text-align: left; padding-left:20px;"> : {{$student_info->address}}</td>
                         </tr>
                     </table>  
                 </td>

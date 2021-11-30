@@ -208,10 +208,22 @@
                                 <label class="form-label col-md-4 p-2">Upload KYC - Aadhar or PAN card</label>
                                 <div class="custom-file col-md-4" style="padding-left: 0px; padding-right:0px;">
                                     <input type="file" id="file" class="form-control" name="upload_kyc_doc" >
-                                </div>   
-                                <div class="col-md-4 text-center mt-1">
-                                    <i class="fa fa-check text-success mr-2" aria-hidden="true"></i> <span class="ml-1 mr-2"> Image Uploded </span> <a href="javascript:;" data-href="{{asset($UserDetails->upload_kyc)}}" class="openmodal btn btn-primary btn-sm">Preview</a>
-                                    </div>                             
+                                </div> 
+
+                                
+                               
+                                @if($UserDetails)  
+                                <div style="display: none">{{ $file_type =  pathinfo($UserDetails->upload_kyc, PATHINFO_EXTENSION)}}</div>
+                                    @if($file_type == 'pdf')
+                                    <div class="col-md-4 text-center mt-1">
+                                            <i class="fa fa-check text-success mr-2" aria-hidden="true"></i> <span class="ml-1 mr-2"> Image Uploded </span> 
+                                        </div>  
+                                    @else
+                                    <div class="col-md-4 text-center mt-1">
+                                         <i class="fa fa-check text-success mr-2" aria-hidden="true"></i> <span class="ml-1 mr-2"> Image Uploded </span> <a href="javascript:;" data-href="{{asset($UserDetails->upload_kyc)}}" class="openmodal btn btn-primary btn-sm">Preview</a>
+                                    </div>  
+                                    @endif  
+                                @endif                         
                             </div>
 
                             {{-- @if(isset($UserDetails->upload_kyc))

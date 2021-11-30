@@ -141,7 +141,7 @@
                                 <label class="form-label" for=""> <span class="text-danger">*</span> SSLC / 10 <sup>th</sup> Percentage(%)</label>
                                 <input type="number" class="form-control" name="sslc_per" id=""
                                     value="@if ($Academics){{ $Academics->sslc_perce }}@endif" placeholder="Enter Your SSLC Percentage"
-                                    required="" >
+                                    required="" step="0.01">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
                                 <label class="form-label" for=""> <span class="text-danger">*</span> Enter Year Of Pass (YYYY)</label>
@@ -164,15 +164,15 @@
                         </div>
                         <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for=""> <span class="text-danger">*</span> PUC / 12 <sup>th</sup> Percentage(%) If Applicable</label>
+                                <label class="form-label" for="">  PUC / 12 <sup>th</sup> Percentage(%) If Applicable</label>
                                 <input type="number" class="form-control" name="puc_per" id=""
                                     value="@if ($Academics){{ $Academics->puc_perce }}@endif" placeholder="Enter PUC / 12th Percentage"
-                                    required="">
+                                    step="0.01">
                             </div>
                             <div class="col-12 col-md-6 mb-3">
-                                <label class="form-label" for=""> <span class="text-danger">*</span> Enter Year Of Pass (YYYY)</label>
+                                <label class="form-label" for="">  Enter Year Of Pass (YYYY)</label>
                                 <input type="number" class="form-control" id="" placeholder="Enter Year Of Pass (YYYY)"
-                                    value="@if ($Academics){{ $Academics->puc_year }}@endif" name="year_puc" required="" max="9999">
+                                    value="@if ($Academics){{ $Academics->puc_year }}@endif" name="year_puc"  max="9999">
                             </div>
                         </div>
                         <div class="form-row">
@@ -230,7 +230,7 @@
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">AVG Percentage(%)</label>
                                     <input type="number" class="form-control" id="" placeholder="Enter Average Percentage"
-                                        value="@if ($Academics){{ $Academics->avg_percentage_ug }}@endif" name="avg_percentage_ug">
+                                        value="@if ($Academics){{ $Academics->avg_percentage_ug }}@endif" name="avg_percentage_ug" step="0.01">
                                 </div>
                             </div>
                             @if($Education->education == 'UG')
@@ -256,7 +256,7 @@
                                 </div>
                                 <div class="col-12 col-md-2 mb-3">
                                     <label class="form-label" for="">Score</label>
-                                        <input type="number" class="form-control" id="" placeholder="Scrore" value="" name="percentage_ug[]">
+                                        <input type="number" class="form-control" id="" placeholder="Scrore" value="" name="percentage_ug[]" step="0.01">
                                     </div>
                                     <div class="col-12 col-md-2 ">
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3 mt-4"
@@ -337,7 +337,7 @@
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="">AVG Percentage(%)</label>
                                     <input type="number" class="form-control" id="" placeholder="Enter Average Percentage"
-                                        value="@if ($Academics){{ $Academics->avg_percentage_pg }}@endif" name="avg_percentage_pg">
+                                        value="@if ($Academics){{ $Academics->avg_percentage_pg }}@endif" name="avg_percentage_pg" step="0.01">
                                 </div>
                             </div>
 
@@ -364,7 +364,7 @@
 
                                 <div class="col-12 col-md-2 mb-3">
                                     <label class="form-label" for="">Score</label>
-                                        <input type="number" class="form-control" id="" placeholder="Score" value="" name="percentage_pg[]" >
+                                        <input type="number" class="form-control" id="" placeholder="Score" value="" name="percentage_pg[]" step="0.01">
                                     </div>
                                     <div class="col-12 col-md-2 ">
                                         <a href="javascript:void(0);" class="btn btn-success float-right h3 mt-4"
@@ -547,7 +547,7 @@
         $(document).ready(function() {
             $('#add_ug').click(function() {
                 $("#ug_details").append(
-                    '<div class="form-row"><div class="col-12 col-md-4 mb-3"><label class="form-label" for="">Semester</label><select id="" name="semester_id_ug[]" class="form-control custom-select"><option value="" selected>Select Semester </option>@foreach ($graduation_sem as $list)<option value="{{ $list->sem_id }}"  >{{ $list->sem_name }}</option>@endforeach</select></div><div class="col-12 col-md-4 mb-3"><label class="form-label" for=""> Score Type</label><select id="" name="scrore_type_ug[]" class="form-control custom-select"><option value="">Select Score Type </option><option value="SGPA">SGPA</option><option value="CGPA">CGPA</option><option value="Percentage" >Percentage</option></select></div><div class="col-12 col-md-2 mb-3"><label class="form-label" for=""> <span class="text-danger">*</span> Score</label><input type="number" class="form-control" id="" placeholder="Score" value="" name="percentage_ug[]" required></div><div class="col-12 col-md-2  "><a href="javascript:void(0);" id="remCF" class="remCF btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div></div>'
+                    '<div class="form-row"><div class="col-12 col-md-4 mb-3"><label class="form-label" for="">Semester</label><select id="" name="semester_id_ug[]" class="form-control custom-select"><option value="" selected>Select Semester </option>@foreach ($graduation_sem as $list)<option value="{{ $list->sem_id }}"  >{{ $list->sem_name }}</option>@endforeach</select></div><div class="col-12 col-md-4 mb-3"><label class="form-label" for=""> Score Type</label><select id="" name="scrore_type_ug[]" class="form-control custom-select"><option value="">Select Score Type </option><option value="SGPA">SGPA</option><option value="CGPA">CGPA</option><option value="Percentage" >Percentage</option></select></div><div class="col-12 col-md-2 mb-3"><label class="form-label" for=""> <span class="text-danger">*</span> Score</label><input type="number" class="form-control" id="" placeholder="Score" value="" name="percentage_ug[]" required step="0.01"></div><div class="col-12 col-md-2  "><a href="javascript:void(0);" id="remCF" class="remCF btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div></div>'
                     );
             });
             
@@ -560,7 +560,7 @@
 
             $('#add_pg').click(function() {
                 $("#pg_details").append(
-                    '<div class="form-row"><div class="col-12 col-md-4 mb-3"><label class="form-label" for="">Semester</label><select id="" name="semester_id_pg[]" class="form-control custom-select"><option value="">Select Semester </option><option value="1" >1st Semester </option><option value="2" >2nd Semester </option><option value="3" >3rd Semester </option><option value="4" >4th Semester </option></select></div><div class="col-12 col-md-4 mb-3"><label class="form-label" for=""> Score Type</label><select id="" name="scrore_type_pg[]" class="form-control custom-select"><option value="">Select Score Type </option><option value="SGPA">SGPA</option><option value="CGPA">CGPA</option><option value="Percentage" >Percentage</option></select></div><div class="col-12 col-md-2 mb-3"><label class="form-label" for=""> <span class="text-danger">*</span> Score</label><input type="number" class="form-control" id="" placeholder="Score"value="" name="percentage_pg[]" required></div><div class="col-12 col-md-2  "><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div></div>'
+                    '<div class="form-row"><div class="col-12 col-md-4 mb-3"><label class="form-label" for="">Semester</label><select id="" name="semester_id_pg[]" class="form-control custom-select"><option value="">Select Semester </option><option value="1" >1st Semester </option><option value="2" >2nd Semester </option><option value="3" >3rd Semester </option><option value="4" >4th Semester </option></select></div><div class="col-12 col-md-4 mb-3"><label class="form-label" for=""> Score Type</label><select id="" name="scrore_type_pg[]" class="form-control custom-select"><option value="">Select Score Type </option><option value="SGPA">SGPA</option><option value="CGPA">CGPA</option><option value="Percentage" >Percentage</option></select></div><div class="col-12 col-md-2 mb-3"><label class="form-label" for=""> <span class="text-danger">*</span> Score</label><input type="number" class="form-control" id="" placeholder="Score"value="" name="percentage_pg[]" required step="0.01"></div><div class="col-12 col-md-2  "><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div></div>'
                     );
             });
             

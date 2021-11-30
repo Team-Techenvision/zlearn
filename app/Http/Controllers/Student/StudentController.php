@@ -258,7 +258,7 @@ class StudentController extends Controller
             'current_address'=>'required',
             'kyc_doc'=>'required',
             'blood_group'=>'required',
-            'upload_kyc_doc' => 'nullable|image|mimes:jpeg,png,jpg,gif'
+            'upload_kyc_doc' => 'nullable|mimes:jpeg,png,jpg,gif,pdf'
                        
          ]);
 
@@ -402,9 +402,7 @@ class StudentController extends Controller
 
         $this->validate($req,[
             'sslc_per'=>'required',
-            'year_sslc'=>'required',
-            'puc_per'=>'required',        
-            'year_puc'=>'required'          
+            'year_sslc'=>'required',       
          ]);
         //  dd($req);
          $u_id = Auth::User()->id;
@@ -538,10 +536,10 @@ class StudentController extends Controller
     {
         // dd($req);
        
-        $this->validate($req,[
-            'tech_skill'=>'required',
-            'career_object'=>'required'
-         ]);
+        // $this->validate($req,[
+        //     'tech_skill'=>'required',
+        //     'career_object'=>'required'
+        //  ]);
 
          $u_id = Auth::User()->id;
          $user_result = Technical_skill::where('user_id',$u_id)->first();

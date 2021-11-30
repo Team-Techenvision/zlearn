@@ -9,10 +9,15 @@
             margin: 0px;
             padding: 0px;
         }
+       
         @page { margin:0px; padding: 0px; }
         .page-break {
                 page-break-after: always;
             }
+
+        .no-page-break{
+            page-break-inside: avoid;
+        }
 
             .page-break:last-child {
                 page-break-after: avoid;
@@ -68,7 +73,7 @@
             }
             .no_table td, .no_table th{
                 border: none;
-                text-align: left;
+                /* text-align: left; */
                 padding: 0px;
                 margin: 0px;
                 vertical-align: top;
@@ -105,7 +110,7 @@
         <table style="width: 100%; border: none !important; padding:15px 25px;">
             <tr style="width: 100%;">
                 <td style="width : 100%;">
-                   <h4>Carrer Objectives</h4>          
+                   <h4>Carrer Objective</h4>          
                 </td>                            
             </tr>
             <tr>
@@ -203,8 +208,8 @@
                 </table>
                     
                     
-            </td>
-        </tr>
+                </td>
+            </tr>
           
           
              {{-- /*****************************
@@ -214,7 +219,7 @@
 
             @php
                 $intership=  DB::table('interships')->where('user_id', Auth::user()->id)->get();
-            //    dd($$student_info->user_id);
+            //    dd($student_info->user_id);
             @endphp
             @if($intership->count() > 0)
             <tr>
@@ -225,8 +230,6 @@
               
             <tr>
                 <td>
-
-                    
                         @foreach ($intership as $item)
                         <table class="no_table">
                         <tr>
@@ -251,67 +254,66 @@
                 </td>
             </tr>
             @endif
-        </table>
-        {{-- /*****************************
-                projects
-        ************************************/ --}}
-    
-        <table style="width: 100%; border: none !important; padding:15px 25px;">
-        @php
-            $projects =  DB::table('academic_projects')->where('user_id', Auth::user()->id)->get();
-        //    dd($projects->count());
-        $i=1;
-        @endphp
-        @if($projects->count() > 0)
-        <tr>
-            <td>
-                <h4 class="sub-heading"> <span class="bg-grey">Projects</span></h4>
-            </td>
-        </tr>
-        <tr>
-            <td>
-               
-                    @foreach ($projects as $item)
-                    <table class="no_table" >
-                    <tr >
-                        <td  colspan="2">
-                            <h4> Project {{$i++}} </h4>
-                        </td>                          
-                    </tr>
-                    <tr >
-                        <td width="20%">
-                            Project Name                             
-                        </td>
-                        <td width="85%">
-                         {{$item->project_name}} 
-                            </td>                   
-                    </tr>  
-                    <tr>
-                        <td width="20%">
-                            <p><b>Team Size</b></p>
-                        </td> 
-                        <td width="80%">
-                            <p>{{$item->team_size}}</p>
-                        </td>
-                    </tr>   
-                    <tr>
-                        <td  width="20%" style="vertical-align: top;">
-                            <p><b>Project Details </b></p>
-                        </td>
-                        <td width="80%" style="vertical-align: top;">
-                            <p>{{$item->project_detail}}</p>
-                        </td>
-                    </tr>   
-                    </table>       
-                     @endforeach  
-               
-            </td>
-        </tr>
-        @endif
-       
-        </table>
 
-                <table style="width: 100%; border: none !important; padding:15px 25px;">
+        </table>
+      
+        <table style="width: 100%; border: none !important; padding:15px 25px; page-break-before: always;">
+            @php
+                $projects =  DB::table('academic_projects')->where('user_id', Auth::user()->id)->get();
+            //    dd($projects->count());
+            $i=1;
+            @endphp
+            @if($projects->count() > 0)
+            <tr>
+                <td>
+                    <h4 class="sub-heading"> <span class="bg-grey">Projects</span></h4>
+                </td>
+            </tr>
+            <tr>
+                <td>                  
+                        @foreach ($projects as $item)
+                        <table class="no_table"  >
+                        <tr>
+                            <td colspan="2" style="width:100%;">
+                                <p> <b> Project {{$i++}} </b> </p>
+                            </td>                  
+                        </tr>
+                        <tr>
+                            <td style="width:30%;">
+                               <p><b>Project Name </b>   </p>                           
+                            </td>
+                            <td style="width:70%;">
+                            <p>{{$item->project_name}} </p> 
+                                </td>                   
+                        </tr>  
+                        <tr>
+                            <td style="width:30%;">
+                                <p><b>Team Size</b></p>
+                            </td> 
+                            <td style="width:70%;">
+                                <p>{{$item->team_size}}</p>
+                            </td>
+                        </tr>   
+                        <tr>
+                            <td style="width:30%;"  style="vertical-align: top; ">
+                                <p><b>Project Details </b></p>
+                            </td>
+                            <td style="width:70%;">
+                                <p >{{$item->project_detail}}</p>
+                            </td>
+                        </tr>   
+                        </table>       
+                         @endforeach  
+                   
+                </td>
+            </tr>
+            @endif
+           
+            </table>
+
+
+
+    <table style="width: 100%; border: none !important; padding:15px 25px;">
            
            
             {{-- /*****************************
@@ -433,7 +435,7 @@
             @endphp   
             <tr>
                 <td>
-                    <p> @php echo $mytime;  @endphp </p>
+                    <p>Date: </p>
                 </td>
             </tr>
              
@@ -445,7 +447,7 @@
             <tr>
                 <td>
                     <br>
-                    <p style="text-align: right">(  Name )</p>
+                    <p style="text-align: right; padding-right:30px;">(  Name )</p>
                 </td>
             </tr>
                
