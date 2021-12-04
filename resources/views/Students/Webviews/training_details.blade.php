@@ -251,6 +251,9 @@
                                             <div class="col-12 col-md-5  form-group p-1 h6">
                                                 Roles & Responsibilities : {{$item->your_roles}}
                                             </div>
+
+                                          
+
                                             <div class="col-12 col-md-5" id="pop_<?php echo ++$j; ?>" >  
                                                 <i class="fa fa-check text-success mr-2" aria-hidden="true"></i> <span class="ml-1 mr-2"> Image Uploded </span> <a href="javascript:;" data-href="{{asset($item->intern_certificate)}}" class="openmodal btn btn-primary btn-sm">Preview</a>                                 
                                                 {{-- <img class="document_img" id="imageresource_<?php echo ++$j; ?>" src="{{asset($item->intern_certificate)}}" alt="" width="20" height="20"> --}}
@@ -258,6 +261,10 @@
                                             <div class="col-12 col-md-2  form-group p-1 h6">
                                                 <a href="{{url('Delete-Intship')}}/{{$item->id}}" class="btn btn-danger float-right delete_intership" title="Delete" ><i class="material-icons">delete</i></a>
                                              </div> 
+
+                                             <div class="col-12 col-md-12  form-group p-1 h6">
+                                                Description : {{$item->intern_description}}
+                                            </div>
                                         @endforeach 
                                     </div>                                       
                                 {{-- @else
@@ -438,7 +445,7 @@
 
                 $('#enter_ship').click(function()
                 {
-                    $("#internship_div").append('<div class="form-row enter_ship col-12 border pt-2 pb-2"><div class="col-12 col-md-5 mb-3"><label class="form-label text-uppercase" for="">Company Name</label><input type="text" class="form-control" name="int_comp_name[]" id="" placeholder="Enter Company Name" required=""></div><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">Duration <small>(In Months)</small>:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="Duration" name="intship_duration[]"></div><div class="col-12 col-md-2"><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div> <div class="form-row col-12"><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">Roles & Responsibilities:</label><input type="text" class="form-control col-12" name="proj_roles[]" id="" placeholder="Enter Your Roles" required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">Upload Certificate</label><input type="file" class="form-control" id="" placeholder="Enter Certificate" name="intern_certificate[]" ></div></div></div> ');
+                    $("#internship_div").append('<div class="form-row enter_ship col-12 border pt-2 pb-2"><div class="col-12 col-md-5 mb-3"><label class="form-label text-uppercase" for="">Company Name</label><input type="text" class="form-control" name="int_comp_name[]" id="" placeholder="Enter Company Name" required=""></div><div class="col-12 col-md-5 mb-3"><label class="form-label" for="">Duration <small>(In Months)</small>:</label><input type="number" class="form-control" min="1" id="" value="1" placeholder="Duration" name="intship_duration[]"></div><div class="col-12 col-md-2"><a href="javascript:void(0);" id="remCF1" class="remCF1 btn btn-danger float-right mt-4"><i class="material-icons">delete</i></a></div> <div class="form-row col-12"><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">Roles & Responsibilities:</label><input type="text" class="form-control col-12" name="proj_roles[]" id="" placeholder="Enter Your Roles" required=""></div><div class="col-12 col-md-6 mb-3"><label class="form-label" for="">Upload Certificate</label><input type="file" class="form-control" id="" placeholder="Enter Certificate" name="intern_certificate[]" ></div><div class="form-row col-12"><div class="col-12 col-md-12 mb-3"><label class="form-label" for="">Description:</label><textarea class="form-control col-12" name="intern_description[]" placeholder="Description" required=""></textarea></div></div></div> ');
                 });
 
                 $('#internship_div').on('click','.remCF1',function() 

@@ -66,3 +66,67 @@
 });
   </script>
 
+<script>
+
+  $(document).ready(function() {
+
+        $("#send_form").click(function(e){
+
+            e.preventDefault();
+
+            var place = $("input[name='place']").val();
+
+            var date = $("input[name='date']").val();
+
+            // alert(place);
+            // alert(date);
+            $.ajax({
+
+              url:"{{ url('save-date-place') }}",
+
+                type:'POST',
+
+                data: { "_token": "{{ csrf_token() }}", place:place, date:date},
+
+                success: function(data) {
+
+                  $('#exampleModal').modal('hide');
+
+                    if($.isEmptyObject(data.error)){
+
+                      toastr.success(data.success);
+
+                    }else{
+
+                      toastr.error(data.error);
+
+                    }
+
+                }
+
+            });
+
+       
+
+        }); 
+
+       
+
+        function printErrorMsg (msg) {
+
+            $(".print-error-msg").find("ul").html('');
+
+            $(".print-error-msg").css('display','block');
+
+            $.each( msg, function( key, value ) {
+
+                $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+
+            });
+
+        }
+
+    });
+
+</script>
+

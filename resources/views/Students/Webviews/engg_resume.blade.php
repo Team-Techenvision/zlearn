@@ -288,19 +288,19 @@
                         <table class="no_table">
                         <tr>
                             <th style="width:25%;"> <p>Company Name  </p> </th>
-                            <td  style="width:75%;"> <p> : {{$item->int_comp_name}}</p> </td>
+                            <td  style="width:75%;"> <p> <span style="margin-left: -10px;">:</span> {{$item->int_comp_name}}</p> </td>
                         </tr>
                         <tr>
-                            <th style="width:25%;"><p>Role : </p></th>   
-                            <td style="width:75%;"><p> : {{$item->your_roles}}</p></td>                            
+                            <th style="width:25%;"><p>Role  </p></th>   
+                            <td style="width:75%;"><p> <span style="margin-left: -10px;">:</span> {{$item->your_roles}}</p></td>                            
                         </tr> 
                         <tr>
-                            <th style="width:25%;"  style="vertical-align: top;"><p>Description : </p></th>   
-                            <td style="width:75%;"><p> : Lorem ipsum dolor, sit amet consectetur adipisicing elit. nostrum deserunt voluptate?</p></td> 
+                            <th style="width:25%;"  style="vertical-align: top;"><p>Description  </p></th>   
+                            <td style="width:75%;"><p> <span style="margin-left: -10px;">:</span> {{$item->intern_description}}</p></td> 
                         </tr>
                         <tr>
-                            <th style="width:25%;"> <p> Duration : </p></th>
-                            <td style="width:75%;"><p> : {{$item->intship_duration}} Months</p></td>
+                            <th style="width:25%;"> <p> Duration </p></th>
+                            <td style="width:75%;"><p> <span style="margin-left: -10px;">:</span> {{$item->intship_duration}} Months</p></td>
                         </tr>
                     </table>                         
                         @endforeach
@@ -405,7 +405,7 @@
                     projects
             ************************************/ --}}
         
-            <table style="width: 100%; border: none !important; padding:15px 25px;">
+            <table style="width: 100%; border: none !important; padding:0px 25px;">
             @php
                 $projects =  DB::table('academic_projects')->where('user_id', Auth::user()->id)->get();
             //    dd($projects->count());
@@ -432,7 +432,7 @@
                                 <b>Project Name </b>                             
                             </td>
                             <td width="85%">
-                           :  {{$item->project_name}} 
+                          <span style="margin-left: -10px;">:</span>  {{$item->project_name}} 
                                 </td>                   
                         </tr>  
                         <tr>
@@ -440,15 +440,15 @@
                                 <p><b>Team Size</b></p>
                             </td> 
                             <td width="80%">
-                                <p> : {{$item->team_size}}</p>
+                               <p> <span style="margin-left: -10px;">:</span> {{$item->team_size}}</p>
                             </td>
                         </tr>   
                         <tr>
                             <td  width="20%" style="vertical-align: top;">
-                                <p><b>Project Details </b></p>
+                                <p><b>Project Description </b></p>
                             </td>
                             <td width="80%" style="vertical-align: top;">
-                                <p> : {{$item->project_detail}}</p>
+                                <p> <span style="margin-left: -10px;">:</span> {{$item->project_detail}}</p>
                             </td>
                         </tr>   
                         </table>       
@@ -668,19 +668,19 @@
             @endphp   
             <tr>
                 <td>
-                    <p> @php echo $mytime;  @endphp </p>
+                    <p> @php echo date('j F Y', strtotime($student_info->resume_date));  @endphp </p>
                 </td>
             </tr>
              
             <tr>
                 <td>
-                    <p>Place: </p>
+                    <p>Place: {{$student_info->resume_place}}</p>
                 </td>
             </tr>
             <tr>
                 <td>
                     <br>
-                    <p style="text-align: right">(  Name )</p>
+                    <p style="text-align: right">(  {{$student_info->name}} {{$student_info->l_name}}  )</p>
                 </td>
             </tr>
         </table>

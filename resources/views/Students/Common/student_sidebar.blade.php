@@ -114,6 +114,13 @@
                                             <span class="sidebar-menu-text text-wite">Analysis</span>
                                         </a>
                                     </li>
+
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button"
+                                           href="{{url('resume-template')}}">
+                                            <span class="sidebar-menu-text text-wite">Resume</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="sidebar-menu-item">

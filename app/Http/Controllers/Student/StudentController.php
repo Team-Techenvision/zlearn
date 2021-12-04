@@ -667,6 +667,7 @@ class StudentController extends Controller
                     $data->int_comp_name=$req->int_comp_name[$j];
                     $data->intship_duration=$req->intship_duration[$j]; 
                     $data->your_roles=$req->proj_roles[$j];
+                    $data->intern_description=$req->intern_description[$j];
                     $data->intern_certificate=$cust_newfile2;
                     $result = $data->save();
                 if($result)
@@ -690,6 +691,7 @@ class StudentController extends Controller
                     $data->user_id=$u_id;            
                     $data->int_comp_name=$row;
                     $data->intship_duration=$req->intship_duration[$j]; 
+                    $data->intern_description=$req->intern_description[$j];
                     $data->your_roles=$req->proj_roles[$j];
                     $result = $data->save();
                 }
@@ -1393,10 +1395,10 @@ class StudentController extends Controller
     }
 // ============================================================
 
-    // public function View_Compiler()
-    // {
-    //     return view('Students/Webviews/demo1_compiler');
-    // }
+    public function View_Compiler_sample()
+    {
+        return view('Students/Webviews/compiler_test');
+    }
 // ==============================================================
     public function All_Result()
     {
@@ -1653,5 +1655,27 @@ class StudentController extends Controller
                                       ->where('users.id',3)
                                       ->first();
        return view('Students/Webviews/engg_resume',$data);
+   }
+
+   public function viewResumeTemplate(){
+    $u_id = Auth::User()->id;
+    $data['date_place'] = DB::table('technical_skills')->where('user_id', $u_id)->first();  
+    return view('Students/Webviews/viewResumeTemplate',$data);
+
+   }
+
+   public function save_resume_date_place(Request $req){
+    $u_id = Auth::User()->id;
+    $result = DB::table('technical_skills')->where('user_id', $u_id)->update([
+        'resume_date' => $req->date, 
+        'resume_place'=> $req->place,
+    ]); 
+
+    if($result){
+        return response()->json(['success'=>'Date And Place Saved Successfully']);
+    }else{
+        return response()->json(['error'=>'Date And Place Not Save']);
+    }
+
    }
 }

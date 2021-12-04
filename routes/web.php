@@ -55,6 +55,9 @@ Route::middleware(['auth','User'])->group(function() {
     // Route::get('demo12', 'Student\StudentController@demo12');
     // ============================================================
     Route::get('Compiler','Student\StudentController@View_Compiler');
+    Route::get('test_compiler','Student\StudentController@View_Compiler_sample');
+
+    
 
     Route::get('Test-Result', 'Student\StudentController@Test_Result');
     Route::get('Start-Test-Demo/{test_id}', 'Student\StudentController@Start_Test');
@@ -88,6 +91,10 @@ Route::middleware(['auth','User'])->group(function() {
     Route::get('charts','Student\StudentController@charts');
 
     Route::get('download-resume/{resume_type}','Student\StudentController@downloadResume');
+    Route::get('resume-template','Student\StudentController@viewResumeTemplate');
+
+    Route::post('save-date-place', 'Student\StudentController@save_resume_date_place');
+    
    
 
 
