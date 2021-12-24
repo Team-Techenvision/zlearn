@@ -28,10 +28,13 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-
+                            @if($errors->any())
+                            {!! implode('', $errors->all('<div>:message</div>')) !!}
+                        @endif
                             <div class="p-2">
                             <form method="POST" action="{{ route('password.update') }}">
-                                @csrf
+                                {{-- @csrf --}}
+                                <input type="hidden" name="token" value="{{ $token }}">
                                     <div class="form-group">
                                         <label for="useremail">{{ __('E-Mail Address') }}</label>
                                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus placeholder="Enter email">
@@ -62,7 +65,7 @@
                                     </div>
 
                                     <div class="mt-4 text-center">
-                                        <p class="mb-0">By registering you agree to the Skote <a href="#" class="text-primary">Terms of Use</a></p>
+                                        <p class="mb-0">By registering you agree to the Skote reset page <a href="#" class="text-primary">Terms of Use</a></p>
                                     </div>
                                 </form>
                             </div>

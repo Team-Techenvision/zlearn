@@ -96,8 +96,6 @@
                     <!-- Button trigger modal -->
                
             <div class="row"> 
-
-
                 <div class="col-12 text-right mb-3"> 
                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         <span style="text-transform: capitalize!important;"> Add Date And Place </span>
@@ -106,7 +104,7 @@
                     <div class="col-md-4 text-center mb-2">                        
                        <a href="{{url('download-resume')}}/1"  target="_blank"> 
                            <div class="card">
-                              <img class="card-img-top" src="{{asset('Student/images/template/template1.png')}}" alt="video">
+                              <img class="card-img-top" src="{{asset('Student/images/template/template1.jpg')}}" alt="video">
                               <div class="card-body" style="height: 50px;">
                                 <h5 class="card-title ">Template 1</h5>
                                 {{-- <p class="card-text" style="height: 50px;overflow-y: scroll;">{{$list->description}}</p> --}}
@@ -118,7 +116,7 @@
                     <div class="col-md-4 text-center mb-2">                        
                         <a href="{{url('download-resume')}}/2"  target="_blank"> 
                             <div class="card">
-                               <img class="card-img-top" src="{{asset('Student/images/template/template2.png')}}" alt="video">
+                               <img class="card-img-top" src="{{asset('Student/images/template/template2.jpg')}}" alt="video">
                                <div class="card-body" style="height: 50px;">
                                  <h5 class="card-title ">Template 2</h5>
                                  {{-- <p class="card-text" style="height: 50px;overflow-y: scroll;">{{$list->description}}</p> --}}
@@ -128,9 +126,9 @@
                      </div> 
 
                      <div class="col-md-4 text-center mb-2">                        
-                        <a href="#"> 
+                        <a href="{{url('download-resume')}}/3"> 
                             <div class="card">
-                               <img class="card-img-top" src="{{asset('Student/images/template/template3.png')}}" alt="video">
+                               <img class="card-img-top" src="{{asset('Student/images/template/template3.jpg')}}" alt="video">
                                <div class="card-body" style="height: 50px;">
                                  <h5 class="card-title ">Template 3</h5>
                                  {{-- <p class="card-text" style="height: 50px;overflow-y: scroll;">{{$list->description}}</p> --}}
@@ -139,19 +137,9 @@
                          </a>             
                      </div> 
             </div>
-
-
-
             <!-- Modal -->
-  
-
-        
-
         </div>
     </div>
-
-    
-
     <!-- // END Page Content -->
 
 

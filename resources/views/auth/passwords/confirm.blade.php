@@ -28,7 +28,11 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-
+                            @if (session('error'))
+                            <div class="alert alert-success">
+                                {{ session('error') }}
+                            </div>
+                            @endif
                             <div class="p-2">
                                 <form method="POST" action="{{ route('password.confirm') }}">
                                     @csrf
@@ -61,7 +65,7 @@
                         </div>
                     </div>
                     <div class="mt-5 text-center">
-                        <p>Already have an account ? <a href="/login" class="font-weight-medium text-primary"> Login</a> </p>
+                        <p>Already have an account ? confirm page <a href="/login" class="font-weight-medium text-primary"> Login</a> </p>
                         <p>© <script>
                                 document.write(new Date().getFullYear())
                             </script> Qovex. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>

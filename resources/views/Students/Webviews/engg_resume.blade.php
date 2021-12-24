@@ -33,28 +33,31 @@
             }
             .h4{
                 font-size: 1rem;
-                margin-top: 5px;
+                /* margin-top: 5px; */
                 margin-bottom: 0px;
             }
             .p{
                 margin-bottom: 0px;
-                margin-top: 5px;
+                margin-top: 0px!important;
                 text-align: left;
                 line-height: 1.5!important;
             }
             .bg-grey{
-               
                 background-color: #d3d3d3;
                 color: #000;
+                margin-bottom: 0px!important;
+                padding-bottom:  0px!important;
             }
             .sub-heading{
-                margin-top: 15px;
-                font-size: 1.1rem;
+                margin-top: 0px!important;
+                font-size: 1.1rem!important;
+                padding-bottom: 0px!important;
+                margin-bottom: 0px!important;
             }
             .border-table{
                 width: 100%;
                 border: 1px solid #000;
-                padding:15px 0px;
+                padding:12px 0px;
                 border-collapse: collapse;
             }
             .border-table td, th{
@@ -63,14 +66,14 @@
             }
             .border-table th{
                 background-color: #d3d3d3;
-                padding-top: 10px;
+                padding:15px 0px;
                 padding-bottom:10px;
             }
 
             .no_table{
                 width: 100%;
                 border: none;
-                padding:15px 0px;
+                padding:0px;
                 border-collapse: collapse;
             }
             .no_table td, .no_table th{
@@ -84,9 +87,18 @@
             .no_table th{
                 padding-top: 0px;
                 padding-bottom:0px;
+                margin: 0px!important;
                 border: none;
             }
+            .skill_ul{
+                margin-top: 0px!important;
+                padding-top:0px!important;
+                margin :0px!important;
+            }
             .skill_ul li{
+                padding-top: 5px;
+                padding-bottom: 0px;
+                margin-bottom: 0px!important;
                 list-style-type: square;
             }
            
@@ -107,8 +119,8 @@
             </tr>
            
             <tr style="width: 100%;">
-                <td style="width : 100%; ">
-                   <h4 class="sub-heading"> <span class="bg-grey">Career Objective</span></h4>          
+                <td>
+                   <h4 class="sub-heading" style="padding-top: 8px;"> <span class="bg-grey">Career Objective</span></h4>          
                 </td>                            
             </tr>
             <tr>
@@ -119,7 +131,7 @@
 
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Academic Qualifications </span></h4>
+                    <h4 class="sub-heading" style="padding-top: 8px;"> <span class="bg-grey">Academic Qualifications </span></h4>
                 </td>
             </tr>
 
@@ -315,7 +327,7 @@
             @if($student_info->tech_skill)
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Technical Skills </span></h4>
+                    <h4 class="sub-heading" style="padding-top: 8px;"> <span class="bg-grey" >Technical Skills </span></h4>
                 </td>
             </tr>
 
@@ -368,7 +380,7 @@
             @if($Certification->count() > 0)
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Achievements and Certifications</span></h4>
+                    <h4 class="sub-heading" style="padding-top: 8px;"> <span class="bg-grey">Achievements and Certifications</span></h4>
                 </td>
             </tr>
 
@@ -405,7 +417,7 @@
                     projects
             ************************************/ --}}
         
-            <table style="width: 100%; border: none !important; padding:0px 25px;">
+            <table style="width: 100%; border: none !important; padding:0px 25px;margin-top:-8px;"  >
             @php
                 $projects =  DB::table('academic_projects')->where('user_id', Auth::user()->id)->get();
             //    dd($projects->count());
@@ -459,7 +471,7 @@
             @endif
            
             </table>
-            <table style="width: 100%; border: none !important; padding:15px 25px;">
+            <table style="width: 100%; border: none !important; padding:0px 25px;">
             
               {{-- /*****************************
                    Workshops / Seminars / Trainings
@@ -467,7 +479,7 @@
            
            <tr>
                <td>
-                <h4 class="sub-heading"> <span class="bg-grey">Workshops / Seminars / Trainings Attended</span></h4>
+                <h4 class="sub-heading" style="padding-top: 8px;"> <span class="bg-grey">Workshops / Seminars / Trainings Attended</span></h4>
                </td>
            </tr>
 
@@ -498,7 +510,7 @@
 
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Personal Attributes</span></h4>
+                    <h4 class="sub-heading"  style="padding-top: 8px;"> <span class="bg-grey">Personal Attributes</span></h4>
                 </td>
             </tr>
             <tr>
@@ -528,7 +540,7 @@
 
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Extra-curricular Activities</span></h4>
+                    <h4 class="sub-heading"  style="padding-top: 8px;"> <span class="bg-grey">Extra-curricular Activities</span></h4>
                 </td>
             </tr>
             <tr>
@@ -558,7 +570,7 @@
 
             <tr>
                 <td>
-                    <h4 class="sub-heading"> <span class="bg-grey">Hobbies</span></h4>
+                    <h4 class="sub-heading"  style="padding-top: 8px;"> <span class="bg-grey">Hobbies</span></h4>
                 </td>
             </tr>
             {{-- <tr>
@@ -598,7 +610,7 @@
                 <td>
                     <table>
                         <tr>
-                            <td colspan="2" >
+                            <td colspan="2" style="padding-top:8px; padding-bottom:5px;">
                                 <h4 class="sub-heading" style="margin-bottom: 20px;"> <span class="bg-grey" >Personal Details</span></h4>
                             </td>
                         </tr>
@@ -614,7 +626,7 @@
                        
                         <tr>
                             <td>
-                                <b>Date of Birth  </b>
+                                <b >Date of Birth  </b>
                             </td>
                             <td style="text-align: left; padding-left:20px;">
                                 {{-- $mytime = Carbon\Carbon::now()->format('d F Y');  --}}
@@ -656,11 +668,11 @@
             ************************************/ --}}
            
             <tr>
-                <td>  <h4 class="sub-heading"> <span class="bg-grey">Declaration</span></h4> </td>
+                <td>  <h4 class="sub-heading" style="padding-top: 8px;"> <span class="bg-grey">Declaration</span></h4> </td>
             </tr>
             <tr>
                 <td>
-                    <p>I hereby declare that the above furnished information is true to the best of my knowledge.</p>
+                    <p style="margin-top:-1px;">I hereby declare that the above furnished information is true to the best of my knowledge.</p>
                 </td>
             </tr>
             @php
@@ -668,19 +680,19 @@
             @endphp   
             <tr>
                 <td>
-                    <p> @php echo date('j F Y', strtotime($student_info->resume_date));  @endphp </p>
+                    <p style="padding-bottom: 0px; margin-top :15px;"> @php echo date('j F Y', strtotime($student_info->resume_date));  @endphp</p>
                 </td>
             </tr>
              
             <tr>
                 <td>
-                    <p>Place: {{$student_info->resume_place}}</p>
+                    <p style="margin-top: -5px;">Place: {{$student_info->resume_place}}</p>
                 </td>
             </tr>
             <tr>
                 <td>
                     <br>
-                    <p style="text-align: right">(  {{$student_info->name}} {{$student_info->l_name}}  )</p>
+                    <p style="text-align: right">(  {{$student_info->name}} {{$student_info->l_name}} )</p>
                 </td>
             </tr>
         </table>

@@ -29,7 +29,7 @@
             }
             p{
                 margin-bottom: 0px;
-                margin-top: 5px;
+                margin-top: 3px;
                 text-align: left;
                 line-height: 1.5!important;
             }
@@ -89,9 +89,9 @@
             }
             .skill_ul{
                 padding-left: 15px;
-                margin-left: 0px;
+                margin :0px;
                 padding-top: 0px;
-                margin-top: 0px;
+                padding-bottom: 5px;
             }
 	</style>
 </head>
@@ -115,8 +115,8 @@
     <div class="content">
         <table style="width: 800px;  padding:0px 45px; page-break-after: auto;">
             <tr style="width: 100%;  ">
-                <td style="width : 100%; border-bottom:2px solid #e0dfdf; padding-bottom: 8px; padding-top:15px;">
-                   <h4>Carrer Objective</h4>          
+                <td style="width : 100%; border-bottom:2px solid #e0dfdf; padding-bottom: 4px; padding-top:8px;">
+                   <h4>Career Objective</h4>          
                 </td>                            
             </tr>
             <tr>
@@ -127,7 +127,7 @@
             
 
             <tr style="width: 100%;  ">
-                <td style="width : 100%; border-bottom:2px solid #e0dfdf; padding-bottom: 8px; padding-top:15px;">
+                <td style="width : 100%;">
                    <h4>Personal Attributes</h4>          
                 </td>                            
             </tr>
@@ -148,7 +148,7 @@
 
 
             <tr style="width: 100%;  ">
-                <td style="width : 100%; border-bottom:2px solid #e0dfdf; padding-bottom: 8px; padding-top:15px;">
+                <td style="width : 100%;">
                    <h4>Education</h4>          
                 </td>                            
             </tr>
@@ -183,14 +183,15 @@
              @if($intership->count() > 0)
 
             <tr style="width: 100%;">
-                <td style="width : 100%; border-bottom:2px solid #e0dfdf; padding-bottom: 8px; padding-top:15px;">
+                <td style="width : 100%; border-bottom:2px solid #e0dfdf;">
                    <h4>Internships</h4>          
                 </td>                            
             </tr>
             @foreach ($intership as $item)
             <tr>
-                <td style="width : 100%; border-bottom:1px solid #e0dfdf; padding-bottom: 8px;">
-                       <p><b>{{$item->int_comp_name}}</b> <b style="margin-left: 30px;">{{$item->intship_duration}} Months</b> <span style="margin-left: 30px;">{{$item->your_roles}}</span></p> 
+                <td style="width : 100%;">
+                       <h4>{{$item->int_comp_name}} </h4>
+                       <p><b style="margin-left: 30px;">{{$item->intship_duration}} Months</b> <span style="margin-left: 30px;">{{$item->your_roles}}</span></p> 
                 </td>
             </tr>           
             <tr>
@@ -208,11 +209,11 @@
         @endphp
          @if($projects->count() > 0)
         
-        <tr style="width: 100%;">
-            <td style="width: 100%;">
-                <table style="width:100%; border: none !important; padding:0px 0px;">
-                    <tr >
-                        <td colspan="2" style="width:800px; border-bottom:2px solid #e0dfdf; padding-bottom: 8px; padding-top:15px;">
+        <tr style="width: 100%; padding:0px; margin:0px;">
+            <td style="width: 100%; padding:0px; margin:0px;">
+                <table style="width:100%; border: none !important; padding:0px;">
+                    <tr>
+                        <td colspan="2" style="width:800px; border-bottom:2px solid #e0dfdf; padding-bottom: 4px; padding-top:8px; padding-left:-1px;">
                         <h4 >Projects</h4>          
                         </td>    
                     </tr> 
@@ -262,14 +263,14 @@
             @endphp
             @if($Certification->count() > 0)
             <tr style="width: 100%;  ">
-                <td style="width : 100%; border-bottom:2px solid #e0dfdf; padding-bottom: 8px; padding-top:15px;">
+                <td style="width : 100%; border-bottom:2px solid #e0dfdf; padding-bottom: 4px; padding-top:8px;">
                    <h4>Certifications</h4>          
                 </td>                            
             </tr>
             @foreach ($Certification as $item)
             <tr>
                 <td>
-                    <p>Certification In <b>{{$item->Certification_name}} </b></p>
+                    <p style="">Certification In <b>{{$item->Certification_name}} </b></p>
                 </td>
             </tr>
             @endforeach
@@ -282,7 +283,7 @@
 
             
             <tr>
-                <td style="width : 100%; border-bottom:2px solid #e0dfdf; padding-bottom: 8px; padding-top:15px;">
+                <td style="width : 100%; border-bottom:2px solid #e0dfdf; padding-bottom: 4px; padding-top:8px;">
                    <h4 style="width: 100%;">Personal Details</h4>          
                 </td>                            
             </tr>
@@ -291,10 +292,10 @@
                 <td>
                     <table style="width: 800px;">
                         <tr>
-                            <td>
+                            <td style="padding-top: 8px;">
                                 Date of Birth
                             </td>
-                            <td style="text-align: left; padding-left:20px;">
+                            <td style="text-align: left; padding-left:20px; padding-top: 8px;">
                                 {{-- $mytime = Carbon\Carbon::now()->format('d F Y');  --}}
                                 {{ Carbon\Carbon::parse($student_info->dob)->format('d F Y')}}
                             </td>

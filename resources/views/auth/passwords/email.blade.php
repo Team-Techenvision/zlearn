@@ -28,7 +28,11 @@
                             </div>
                         </div>
                         <div class="card-body pt-5">
-
+                            @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                            @endif
                             <div class="p-2">
                             <form method="POST" action="{{ route('password.email') }}">
                                 @csrf

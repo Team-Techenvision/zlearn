@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use mail;
+use Illuminate\Http\Request;
+
+use App\User;
 
 class ResetPasswordController extends Controller
 {
@@ -27,4 +31,17 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    // protected function resetPassword($user, $password)
+    // {
+    //     $user->password = Hash::make($password);
+    
+    //     $user->setRememberToken(Str::random(60));
+    
+    //     $user->save();
+    
+    //     event(new PasswordReset($user));
+    
+    //     return redirect('/');
+    // }
 }
